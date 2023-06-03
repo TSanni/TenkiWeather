@@ -13,7 +13,7 @@ struct WindBarGraph: View {
     let mockTestData: [TestGraphStruct] = [TestGraphStruct(xAxis: "7 AM", yAxis: 2),
                                            TestGraphStruct(xAxis: "8 AM", yAxis: 1),
                                            TestGraphStruct(xAxis: "9 AM", yAxis: 1),
-                                           TestGraphStruct(xAxis: "10 AM", yAxis: 1),
+                                           TestGraphStruct(xAxis: "10 AM", yAxis: 7),
                                            TestGraphStruct(xAxis: "11 AM", yAxis: 1),
                                            TestGraphStruct(xAxis: "12 PM", yAxis: 2),
                                            TestGraphStruct(xAxis: "1 PM", yAxis: 4),
@@ -35,6 +35,7 @@ struct WindBarGraph: View {
                         .foregroundStyle(Color.clear)
                         .annotation(position: .top) {
                             Image(systemName: "location.fill").rotationEffect(.degrees(getDirectionRotation(direction: "east") ?? 0))
+                                .foregroundColor(.secondary)
                                 .offset(y: -20)
                         }
                 }
@@ -67,6 +68,7 @@ struct WindBarGraph: View {
                     AxisMarks(position: .bottom) { q in
                         AxisValueLabel {
                             Text("\(mockTestData[q.index].xAxis)")
+                                .foregroundColor(.secondary)
                         }
                     }
                 }

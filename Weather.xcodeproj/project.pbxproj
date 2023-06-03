@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83641E8E2A2B7A1800F3A21C /* ShapesPractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83641E8D2A2B7A1800F3A21C /* ShapesPractice.swift */; };
+		83641E902A2B8D7E00F3A21C /* SunsetSunriseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */; };
 		83E04FA42A22DF1B009720AB /* WeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FA32A22DF1B009720AB /* WeatherApp.swift */; };
 		83E04FA62A22DF1B009720AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FA52A22DF1B009720AB /* ContentView.swift */; };
 		83E04FA82A22DF1E009720AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E04FA72A22DF1E009720AB /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		83641E8D2A2B7A1800F3A21C /* ShapesPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapesPractice.swift; sourceTree = "<group>"; };
+		83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunsetSunriseView.swift; sourceTree = "<group>"; };
 		83E04FA02A22DF1B009720AB /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E04FA32A22DF1B009720AB /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		83E04FA52A22DF1B009720AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 				83E04FA52A22DF1B009720AB /* ContentView.swift */,
 				83E04FB72A248E61009720AB /* SwiftUIView.swift */,
 				83E04FCD2A29DF21009720AB /* SwiftUIView3.swift */,
+				83641E8D2A2B7A1800F3A21C /* ShapesPractice.swift */,
 			);
 			path = "Bad files";
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 				83E04FD12A2A6D5F009720AB /* PrecipitationView.swift */,
 				83E04FD32A2B2892009720AB /* WindView.swift */,
 				83E04FD52A2B29DE009720AB /* WindBarGraph.swift */,
+				83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */,
 			);
 			path = TodayScreenViews;
 			sourceTree = "<group>";
@@ -217,11 +223,13 @@
 				83E04FCE2A29DF22009720AB /* SwiftUIView3.swift in Sources */,
 				83E04FD22A2A6D60009720AB /* PrecipitationView.swift in Sources */,
 				83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */,
+				83641E902A2B8D7E00F3A21C /* SunsetSunriseView.swift in Sources */,
 				83E04FA62A22DF1B009720AB /* ContentView.swift in Sources */,
 				83E04FC42A25655F009720AB /* SearchBar.swift in Sources */,
 				83E04FC02A2555DE009720AB /* WeatherTabsView.swift in Sources */,
 				83E04FA42A22DF1B009720AB /* WeatherApp.swift in Sources */,
 				83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */,
+				83641E8E2A2B7A1800F3A21C /* ShapesPractice.swift in Sources */,
 				83E04FD02A2A62A9009720AB /* CurrentDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,30 +15,40 @@ struct WindView: View {
             Text("Wind")
                 .bold()
             
-            HStack {
-                Text("7")
-                    .bold()
-                    .font(.system(size: 70))
-                    .foregroundColor(.blue)
-                
-                VStack {
-                    Image(systemName: "location.fill")
-                    Text("mph")
+            HStack(spacing: 30.0) {
+                HStack {
+                    Text("7")
+                        .bold()
+                        .font(.system(size: 70))
+                        .foregroundColor(.blue)
+                    
+                    VStack {
+                        Image(systemName: "location.fill")
+                        Text("mph")
+                    }
+                    .foregroundColor(.secondary)
                 }
+                
+                
                 
                 VStack(alignment: .leading) {
                     Text("Light")
-                        .font(.system(size: 45, weight: .light))
-                    Text("Now · From south")
+                        .font(.largeTitle)
+                        .fontWeight(.light)
+                    Text("Now · From south").foregroundColor(.secondary)
                 }
             }
             
-            WindBarGraph()
+            ScrollView(.horizontal, showsIndicators: false) {
+                WindBarGraph()
+                    .frame(width: UIScreen.main.bounds.width * 2)
+                    .frame(height: 150)
+            }
             
         }
         .padding()
         .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
-
+        
     }
 }
 

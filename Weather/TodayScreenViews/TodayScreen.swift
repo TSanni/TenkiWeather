@@ -19,28 +19,36 @@ struct TodayScreen: View {
                     Color(red: 0.558, green: 0.376, blue: 0.999)
                     VStack(alignment: .leading, spacing: 0.0) {
 
-                        immediateTempDetails
-                            .frame(height: geo.size.height * (0.6))
+                        VStack {
+                            immediateTempDetails
+                            
+                            //                            .frame(height: geo.size.height * (0.6))
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                WeatherGraphView(graphColor: Color.white.opacity(0.3))
+                                    .frame(width: geo.size.width * 1.5)
+                                    .padding()
+                                    .offset(x: -30)
+                            }
+                            //                        .frame(height: geo.size.height * (0.32))
+                            
+                            precipitationPrediction.offset(x: 10)
+                                .padding(.bottom)
 
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            WeatherGraphView(graphColor: Color.white.opacity(0.3))
-                                .frame(width: geo.size.width * 1.5)
-                                .padding()
-                                .offset(x: -30)
                         }
-                        .frame(height: geo.size.height * (0.35))
-                        
-                        precipitationPrediction
-                        
-                        CurrentDetailsView()
-                        
-                        CustomDivider()
-                        
+                        .frame(height: geo.size.height * 0.99)
+
                         CurrentDetailsView()
                         
                         CustomDivider()
                         
                         WindView()
+                        
+                        CustomDivider()
+                        
+                        SunsetSunriseView()
+                        
+                        
                         
                     }
                 }
