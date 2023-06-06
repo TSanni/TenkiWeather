@@ -42,7 +42,7 @@ struct WeatherGraphView: View {
             
             //MARK: - Area Graph
             AreaMark(x: .value("A", item.xAxis), yStart: .value("b", min), yEnd: .value("c", item.yAxis))
-                .foregroundStyle(gradient)
+                .foregroundStyle(LinearGradient(colors: [.white.opacity(0.2), graphColor], startPoint: .top, endPoint: .bottom))
             
             //MARK: - Bar graph
             BarMark(x: .value("A", item.xAxis), yStart: .value("b", min), yEnd: .value("c", item.yAxis))

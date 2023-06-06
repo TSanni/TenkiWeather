@@ -33,7 +33,7 @@ struct WeatherTabsView: View {
                     if weatherTab == .today {
                         RoundedRectangle(cornerRadius: 10)
                             .matchedGeometryEffect(id: "selected", in: underline)
-                            .frame(height: 2)
+                            .frame(height: 3)
                             .frame(width: 70)
                     }
                 }
@@ -52,7 +52,7 @@ struct WeatherTabsView: View {
                     if weatherTab == .tomorrow {
                         RoundedRectangle(cornerRadius: 10)
                             .matchedGeometryEffect(id: "selected", in: underline)
-                            .frame(height: 2)
+                            .frame(height: 3)
                             .frame(width: 70)
                     }
                 }
@@ -71,7 +71,7 @@ struct WeatherTabsView: View {
                     if weatherTab == .multiDay {
                         RoundedRectangle(cornerRadius: 10)
                             .matchedGeometryEffect(id: "selected", in: underline)
-                            .frame(height: 2)
+                            .frame(height: 3)
                             .frame(width: 70)
                     }
                 }

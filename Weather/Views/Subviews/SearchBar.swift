@@ -20,24 +20,25 @@ struct SearchBar: View {
                 Spacer()
                 Circle().fill(Color.gray)
                     .frame(width: 30)
-                
             }
-            .foregroundColor(colorScheme == .light ? .white : .black)
             .padding()
             .background {
                 ZStack {
                     RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 1).fill(Color.white).frame(height: 50)
-                    RoundedRectangle(cornerRadius: 5).fill(colorScheme == .light ? Color(red: 0.15, green: 0.15, blue: 0.15) : .white )
+                    RoundedRectangle(cornerRadius: 5).fill(colorScheme == .light ? .white : Color(red: 0.15, green: 0.15, blue: 0.15) )
                         .frame(height: 50)
                 }
             }
             .padding()
-        
     }
 }
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar()
+        ZStack {
+            Color.indigo
+            SearchBar()
+        }
+        
     }
 }
