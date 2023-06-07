@@ -15,7 +15,9 @@ struct SearchBar: View {
             
             HStack {
                 Image(systemName: "magnifyingglass")
+                    .foregroundColor(.secondary)
                 Text("Rosenberg, Tx 77471")
+                    .foregroundColor(.primary)
                 
                 Spacer()
                 Circle().fill(Color.gray)

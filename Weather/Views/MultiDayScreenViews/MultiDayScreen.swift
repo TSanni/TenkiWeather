@@ -17,6 +17,7 @@ struct MultiDayScreen: View {
                     DailyWeatherCell()
                 }
             }
+//            .frame(height: UIScreen.main.bounds.height * 0.9)
         }
         .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
 
