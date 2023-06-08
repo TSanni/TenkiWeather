@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodayScreen: View {
-    
+    @EnvironmentObject var vm: WeatherKitManager
     var body: some View {
         GeometryReader { geo in
             ScrollView(showsIndicators: false) {
@@ -59,19 +59,23 @@ struct TodayScreen: View {
         VStack(alignment: .leading, spacing: 15.0) {
             Text("May 29, 10:50 PM")
                 .foregroundColor(.black)
-                .shadow(color: .white.opacity(0.7), radius: 1, y: 1.7)
+                .shadow(color: .white.opacity(0.3), radius: 1, y: 1.7)
             Text("Day 86°↑ · Night 68°↓")
+                .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
             HStack(spacing: 0) {
                 Text("77")
                     .font(.system(size: 100))
+                    .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
                 Text("°F")
                     .font(.system(size: 75))
+                    .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
                 Spacer()
                 Image(systemName: "cloud")
                     .font(.system(size: 100))
+                    .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
             }
             HStack {
@@ -79,13 +83,13 @@ struct TodayScreen: View {
                 Spacer()
                 Text("Partly cloudy")
             }
+            .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
             Spacer()
             
             
         }
         .foregroundColor(.white)
-        .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
 
     }

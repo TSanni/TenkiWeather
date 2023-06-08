@@ -20,8 +20,8 @@ struct SearchBar: View {
                     .foregroundColor(.primary)
                 
                 Spacer()
-                Circle().fill(Color.gray)
-                    .frame(width: 30)
+//                Circle().fill(Color.gray)
+//                    .frame(width: 30)
             }
             .padding()
             .background {
@@ -31,7 +31,6 @@ struct SearchBar: View {
                         .frame(height: 50)
                 }
             }
-            .padding()
     }
 }
 

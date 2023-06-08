@@ -12,8 +12,8 @@ struct SavedLocationsView: View {
         List {
             ForEach(0..<10) { item in
                 SavedLocationCell()
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+//                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .listRowBackground(Color.clear)
 
             }

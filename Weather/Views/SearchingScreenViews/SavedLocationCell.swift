@@ -39,7 +39,7 @@ struct SavedLocationCell: View {
                 }
             }
             
-            CustomDivider()
+//            CustomDivider()
         }
     }
 }

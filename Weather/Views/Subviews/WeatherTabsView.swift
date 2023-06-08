@@ -78,7 +78,7 @@ struct WeatherTabsView: View {
             }
         }
         .foregroundColor(.white)
-        .padding([.horizontal])
+//        .padding([.horizontal, .top])
     }
 }
 
