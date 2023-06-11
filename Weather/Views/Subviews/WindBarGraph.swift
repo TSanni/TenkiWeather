@@ -7,9 +7,10 @@
 
 import SwiftUI
 import Charts
+import WeatherKit
 
 struct WindBarGraph: View {
-    
+    let hourlyWind: [WindData]
     let mockTestData: [TestGraphStruct] = [TestGraphStruct(xAxis: "7 AM", yAxis: 2),
                                            TestGraphStruct(xAxis: "8 AM", yAxis: 1),
                                            TestGraphStruct(xAxis: "9 AM", yAxis: 1),
@@ -24,17 +25,26 @@ struct WindBarGraph: View {
             
 //            Text("\(getLargestValue())")
 //            
-//            Image(systemName: "location.fill").rotationEffect(.degrees(getDirectionRotation(direction: "east") ?? 0))
-//            
-            
+//
             ZStack {
                 
                 //MARK: - Background Bar Graph to place location images equally in height
-                Chart(mockTestData) { item in
-                    BarMark(x: .value("time", item.xAxis), y: .value("windSpeed", getLargestValue()))
-                        .foregroundStyle(Color.clear)
+                Chart(hourlyWind) { item in
+                    
+//                    BarMark(x: .value("time", item.time ?? "-"), yStart: 0, yEnd: 1)
+//                        .foregroundStyle(Color.red)
+//                        .annotation(position: .top) {
+//                            Image(systemName: "location.fill")
+//                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
+//                                .foregroundColor(.secondary)
+////                                .offset(y: -20)
+//                        }
+                    
+                    BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", getLargestValue()))
+                        .foregroundStyle(Color.red)
                         .annotation(position: .top) {
-                            Image(systemName: "location.fill").rotationEffect(.degrees(getDirectionRotation(direction: "east") ?? 0))
+                            Image(systemName: "location.fill")
+                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
                                 .foregroundColor(.secondary)
                                 .offset(y: -20)
                         }
@@ -42,7 +52,7 @@ struct WindBarGraph: View {
                 .chartXAxis {
                     AxisMarks(position: .bottom) { q in
                         AxisValueLabel {
-                            Text("\(mockTestData[q.index].xAxis)")
+                            Text("\(hourlyWind[q.index].time ?? "-")")
 
                         }
                     }
@@ -58,16 +68,16 @@ struct WindBarGraph: View {
                 }
                 //MARK: - Bar Graph with wind data
                 
-                Chart(mockTestData) { item in
-                    BarMark(x: .value("time", item.xAxis), y: .value("windSpeed", item.yAxis))
+                Chart(hourlyWind) { item in
+                    BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", Double(item.windSpeed) ?? 0))
                         .annotation(position: .top) {
-                            Text("\(item.yAxis.formatted())")
+                            Text("\(item.windSpeed)")
                         }
                 }
                 .chartXAxis {
                     AxisMarks(position: .bottom) { q in
                         AxisValueLabel {
-                            Text("\(mockTestData[q.index].xAxis)")
+                            Text("\(hourlyWind[q.index].time ?? "-")")
                                 .foregroundColor(.secondary)
                         }
                     }
@@ -79,62 +89,90 @@ struct WindBarGraph: View {
         //                AxisGridLine()
         //                    .foregroundStyle(.secondary)
                     }
-                    
                 }
-
             }
-            
-
         }
     }
     
+    
+//    func getLargestValue() -> Double {
+//
+//        var highest: Double = 0
+//
+//        for i in 0..<mockTestData.count {
+//            if mockTestData[i].yAxis > highest {
+//                highest = mockTestData[i].yAxis
+//            }
+//        }
+//
+//        return highest
+//    }
     
     func getLargestValue() -> Double {
         
         var highest: Double = 0
         
-        for i in 0..<mockTestData.count {
-            if mockTestData[i].yAxis > highest {
-                highest = mockTestData[i].yAxis
+        for i in 0..<hourlyWind.count {
+            if let windSpeed = Double(hourlyWind[i].windSpeed) {
+                if windSpeed > highest {
+                    highest = windSpeed
+                }
             }
         }
         
         return highest
+        
+        // Optionally can also use max() method to get largest number
     }
     
     
-    func getDirectionRotation(direction: String) -> Double? {
-        switch direction {
-            case "north":
-                return -45
-            case "north west":
-                return -90
-            case "north east":
-                return 0
-            case "west":
-                return -135
-            case "south":
-                return -225
-            case "south west":
-                return -180
-            case "south east":
-                return -270
-            case "east":
-                return 45
+    
+    func getRotation(direction: Wind.CompassDirection) -> Double {
+        // starting pointing east. Subtract 90 to point north
+        // Think of this as 0 on a pie chart
+        let zero: Double = 45
 
-                
-            default:
-                return nil
+        switch direction {
+            case .north:
+                return zero - 90
+            case .northNortheast:
+                return zero - 67.5
+            case .northeast:
+                return zero - 45
+            case .eastNortheast:
+                return zero - 22.5
+            case .east:
+                return zero
+            case .eastSoutheast:
+                return zero + 22.5
+            case .southeast:
+                return zero + 45
+            case .southSoutheast:
+                return zero + 67.5
+            case .south:
+                return zero + 90
+            case .southSouthwest:
+                return zero + 112.5
+            case .southwest:
+                return zero + 135
+            case .westSouthwest:
+                return zero + 157.5
+            case .west:
+                return zero - 180
+            case .westNorthwest:
+                return zero - 157.5
+            case .northwest:
+                return zero - 135
+            case .northNorthwest:
+                return zero - 112.5
         }
-        
-        
     }
     
 }
 
 struct WindBarGraph_Previews: PreviewProvider {
     static var previews: some View {
-        WindBarGraph()
+        WindBarGraph(hourlyWind: [WindData.windDataHolder])
             .frame(height: 300)
     }
 }

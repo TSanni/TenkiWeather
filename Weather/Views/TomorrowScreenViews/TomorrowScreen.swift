@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct TomorrowScreen: View {
-    
+    @EnvironmentObject var vm: WeatherKitManager
+
     var body: some View {
         GeometryReader { geo in
             ScrollView(showsIndicators: false) {
@@ -21,10 +22,10 @@ struct TomorrowScreen: View {
                             immediateTomorrowDetails
                             
                             ScrollView(.horizontal, showsIndicators: false) {
-                                WeatherGraphView(graphColor: Color(red: 0.587, green: 0.375, blue: 0.555))
-                                    .frame(width: geo.size.width * 1.5)
-                                    .padding()
-                                    .offset(x: -30)
+//                                WeatherGraphView(graphColor: Color(red: 0.587, green: 0.375, blue: 0.555))
+//                                    .frame(width: geo.size.width * 1.5)
+//                                    .padding()
+//                                    .offset(x: -30)
                             }
                             
                             precipitationPrediction
@@ -34,11 +35,11 @@ struct TomorrowScreen: View {
                         }
                         .frame(height: geo.size.height)
                         
-                        CurrentDetailsView()
+                        CurrentDetailsView(title: "Details", details: vm.tomorrowWeather.tomorrowDetails)
                         
                         CustomDivider()
                         
-                        WindView()
+                        WindView(windData: vm.tomorrowWeather.tomorrowWind, hourlyWindData: vm.tomorrowWeather.tomorrowHourlyWind)
                         
                         CustomDivider()
                     }
@@ -52,12 +53,12 @@ struct TomorrowScreen: View {
     
     var immediateTomorrowDetails: some View {
         VStack(alignment: .leading) {
-            Text("Monday, June 5")
+            Text("Monday, July 7")
                 .foregroundColor(.black)
                 .shadow(color: .white.opacity(0.7), radius: 1, y: 1.7)
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Day 86°↑ · Night 68°↓")
+                    Text("Day 77°↑ · Night 17°↓")
                         .font(.headline)
                     Text("Partly cloudy")
                         .font(.largeTitle)
@@ -97,5 +98,6 @@ struct TomorrowScreen: View {
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen()
+            .environmentObject(WeatherKitManager())
     }
 }

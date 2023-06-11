@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MultiDayScreen: View {
+    @EnvironmentObject var vm: WeatherKitManager
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {

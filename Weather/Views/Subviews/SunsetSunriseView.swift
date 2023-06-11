@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SunsetSunriseView: View {
     @Environment(\.colorScheme) var colorScheme
+    let sunData: SunData
+    let dayLight: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
@@ -19,50 +21,75 @@ struct SunsetSunriseView: View {
             HStack {
                 VStack(spacing: 5.0) {
                     Text("Sunrise").foregroundColor(.secondary)
-                    Text("7:77 AM").font(.title)
+                    Text(sunData.sunrise).font(.title)
                 }
                 Spacer()
                 VStack(spacing: 5.0) {
                     Text("Sunset").foregroundColor(.secondary)
-                    Text("7:77 PM").font(.title)
+                    Text(sunData.sunset).font(.title)
                 }
             }
             
-            Image(systemName: "sun.max")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 100)
-                .frame(maxWidth: .infinity, alignment: .center)
+            HStack {
+                Spacer()
+                Image(systemName: "sunrise.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(colorScheme == .dark ? Color.white : K.properBlack, .yellow)
+                    .frame(height: 100)
+                Spacer()
+                Spacer()
+                Image(systemName: "sunset.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(colorScheme == .dark ? Color.white : K.properBlack, .orange)
+                    .frame(height: 100)
+                Spacer()
+            }
             
             HStack {
                 VStack(spacing: 5.0) {
                     Text("Dawn").foregroundColor(.secondary)
-                    Text("7:77 AM")
+                    Text(sunData.dawn)
                 }
                 Spacer()
                 VStack(spacing: 5.0) {
                     Text("Solar noon").foregroundColor(.secondary)
-                    Text("7:77 AM")
+                    Text(sunData.solarNoon)
                 }
                 Spacer()
                 VStack(spacing: 5.0) {
                     Text("Dusk").foregroundColor(.secondary)
-                    Text("7:77 AM")
+                    Text(sunData.dusk)
                 }
                 
             }
             
             VStack(alignment: .leading, spacing: 10.0) {
                 HStack {
-                    Text("Length of day").foregroundColor(.secondary)
-                    Text("17h 77m")
+                    if dayLight {
+                        Text("There is currently daylight")
+                            .font(.subheadline)
+                            .bold()
+                    } else {
+                        Text("There is currently no daylight")
+                            .font(.subheadline)
+                            .bold()
+                    }
+                    
+                    // Possibly add length of day if Apple updates WeatherKit
+//                    Text("Length of day").foregroundColor(.secondary)
+//                    Text("17h 77m")
                 }
+                .padding()
                 
-                HStack {
-                    Text("Remaining daylight").foregroundColor(.secondary)
-                    Text("17h 77m")
-                }
+                // Possibly add remaining daylight if Apple updates WeatherKit
+//                HStack {
+//                    Text("Remaining daylight").foregroundColor(.secondary)
+//                    Text("17h 77m")
+//                }
             }
+            .frame(maxWidth: .infinity)
         }
         .padding()
         .padding(.bottom)
@@ -73,6 +100,6 @@ struct SunsetSunriseView: View {
 
 struct SunsetSunriseView_Previews: PreviewProvider {
     static var previews: some View {
-        SunsetSunriseView()
+        SunsetSunriseView(sunData: SunData.sunDataHolder, dayLight: true)
     }
 }

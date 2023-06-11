@@ -9,6 +9,9 @@ import SwiftUI
 
 struct WindView: View {
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var vm: WeatherKitManager
+    let windData: WindData
+    let hourlyWindData: [WindData]
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,13 +20,14 @@ struct WindView: View {
             
             HStack(spacing: 30.0) {
                 HStack {
-                    Text("7")
+                    Text(windData.windSpeed)
                         .bold()
                         .font(.system(size: 70))
                         .foregroundColor(.blue)
                     
                     VStack {
                         Image(systemName: "location.fill")
+                            .rotationEffect(.degrees(vm.getRotation(direction: windData.windDirection) + 180))
                         Text("mph")
                     }
                     .foregroundColor(.secondary)
@@ -32,17 +36,18 @@ struct WindView: View {
                 
                 
                 VStack(alignment: .leading) {
-                    Text("Light")
+//                    Text("Light")
+                    Text(windData.windDescriptionForMPH)
                         .font(.largeTitle)
                         .fontWeight(.light)
-                    Text("Now · From south").foregroundColor(.secondary)
+                    Text("Now · From \(windData.readableWindDirection)").foregroundColor(.secondary)
                 }
             }
             
             ScrollView(.horizontal, showsIndicators: false) {
-                WindBarGraph()
+                WindBarGraph(hourlyWind: hourlyWindData)
                     .frame(width: UIScreen.main.bounds.width * 2)
-                    .frame(height: 150)
+                    .frame(height: 200)
             }
             
         }
@@ -54,6 +59,8 @@ struct WindView: View {
 
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
-        WindView()
+        WindView(windData: WindData.windDataHolder, hourlyWindData: [WindData.windDataHolder])
+            .environmentObject(WeatherKitManager())
+        
     }
 }
