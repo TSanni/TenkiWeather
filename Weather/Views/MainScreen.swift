@@ -9,6 +9,9 @@ import SwiftUI
 import WeatherKit
 import CoreLocation
 
+
+// Main screens get environment objects. Lesser views get passed in data
+
 struct MainScreen: View {
     @StateObject private var vm = WeatherKitManager()
     @State private var selectedTab: WeatherTabs = .today
@@ -40,8 +43,10 @@ struct MainScreen: View {
                         ZStack(alignment: .trailing) {
                             NavigationLink {
                                 SearchingScreen()
+                                    .environmentObject(vm)
                             } label: {
                                 SearchBar()
+                                    .environmentObject(vm)
                             }
                             
                             Circle().fill(Color.red)
@@ -67,21 +72,25 @@ struct MainScreen: View {
                             .ignoresSafeArea(edges: .bottom)
                             .contentShape(Rectangle()).gesture(DragGesture())
                             .tag(WeatherTabs.tomorrow)
+                            .environmentObject(vm)
+
                         
                         MultiDayScreen()
                             .contentShape(Rectangle()).gesture(DragGesture())
                             .tag(WeatherTabs.multiDay)
+                            .environmentObject(vm)
+
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                 }
                 .ignoresSafeArea(edges: .bottom)
             }
         }
-//        .task {
-//            await vm.getWeather()
+        .task {
+            await vm.getWeather()
 //            print("Sapporo Temp: \(vm.currentWeather.currentTemperature)")
 //            print("Sapporo Date? \(vm.currentWeather.date)")
-//        }
+        }
         
 
     }
@@ -90,6 +99,8 @@ struct MainScreen: View {
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
+            .previewDevice("iPhone 12 Pro Max")
+        
         MainScreen()
             .previewDevice("iPad Pro (12.9-inch) (6th generation)")
         MainScreen()

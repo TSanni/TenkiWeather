@@ -25,7 +25,8 @@ struct TodayWeatherModel: Identifiable {
     let sunData: SunData
     let isDaylight: Bool
     let hourlyTemperatures: [HourlyTemperatures]
-    
+    let temperatureUnit: String
+
     
     /// Holder data for Today's weather
     static let holderData = TodayWeatherModel(
@@ -42,7 +43,8 @@ struct TodayWeatherModel: Identifiable {
         todayHourlyWind: [WindData.windDataHolder],
         sunData: SunData.sunDataHolder,
         isDaylight: false,
-        hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData]
+        hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], temperatureUnit: "F"
+
     )
     
 }
@@ -54,8 +56,10 @@ struct HourlyTemperatures: Identifiable {
     let temperature: String
     let date: String
     let icon: String
+    let chanceOfPrecipitation: String
+
     
-    static let hourlyTempHolderData = HourlyTemperatures(temperature: "-", date: "-", icon: "-")
+    static let hourlyTempHolderData = HourlyTemperatures(temperature: "-", date: "-", icon: "-", chanceOfPrecipitation: "-")
 }
 
 //MARK: - Details Model : Will be part of main model

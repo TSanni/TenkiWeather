@@ -11,103 +11,53 @@ import WeatherKit
 
 struct WindBarGraph: View {
     let hourlyWind: [WindData]
-    let mockTestData: [TestGraphStruct] = [TestGraphStruct(xAxis: "7 AM", yAxis: 2),
-                                           TestGraphStruct(xAxis: "8 AM", yAxis: 1),
-                                           TestGraphStruct(xAxis: "9 AM", yAxis: 1),
-                                           TestGraphStruct(xAxis: "10 AM", yAxis: 7),
-                                           TestGraphStruct(xAxis: "11 AM", yAxis: 1),
-                                           TestGraphStruct(xAxis: "12 PM", yAxis: 2),
-                                           TestGraphStruct(xAxis: "1 PM", yAxis: 4),
-                                           TestGraphStruct(xAxis: "2 PM", yAxis: 5)]
     
     var body: some View {
-        VStack {
+        ZStack {
             
-//            Text("\(getLargestValue())")
-//            
-//
-            ZStack {
-                
-                //MARK: - Background Bar Graph to place location images equally in height
-                Chart(hourlyWind) { item in
-                    
-//                    BarMark(x: .value("time", item.time ?? "-"), yStart: 0, yEnd: 1)
-//                        .foregroundStyle(Color.red)
-//                        .annotation(position: .top) {
-//                            Image(systemName: "location.fill")
-//                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
-//                                .foregroundColor(.secondary)
-////                                .offset(y: -20)
-//                        }
-                    
-                    BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", getLargestValue()))
-                        .foregroundStyle(Color.red)
-                        .annotation(position: .top) {
-                            Image(systemName: "location.fill")
-                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
-                                .foregroundColor(.secondary)
-                                .offset(y: -20)
-                        }
-                }
-                .chartXAxis {
-                    AxisMarks(position: .bottom) { q in
-                        AxisValueLabel {
-                            Text("\(hourlyWind[q.index].time ?? "-")")
-
-                        }
+            //MARK: - Background Bar Graph to place location images equally in height
+            Chart(hourlyWind) { item in
+                BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", getLargestValue() + 10))
+                    .foregroundStyle(Color.clear)
+                    .annotation(position: .top) {
+                        Image(systemName: "location.fill")
+                            .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
+                            .foregroundColor(.secondary)
+                    }
+            }
+            .chartYScale(domain: 0...(getLargestValue() + 20))
+            .chartYAxis(.hidden)
+            .chartXAxis {
+                AxisMarks(position: .bottom) { q in
+                    AxisValueLabel {
+                        Text("\(hourlyWind[q.index].time ?? "-")")
                     }
                 }
-                .chartYAxis {
-                    AxisMarks(position: .leading) {
-        //                AxisValueLabel()
-        //                    .foregroundStyle(.black)
-        //                AxisGridLine()
-        //                    .foregroundStyle(.secondary)
+            }
+            
+            //MARK: - Bar Graph with wind data
+            Chart(hourlyWind) { item in
+                BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", Double(item.windSpeed) ?? 0))
+                    .annotation(position: .top) {
+                        Text("\(item.windSpeed)")
                     }
-                    
-                }
-                //MARK: - Bar Graph with wind data
-                
-                Chart(hourlyWind) { item in
-                    BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", Double(item.windSpeed) ?? 0))
-                        .annotation(position: .top) {
-                            Text("\(item.windSpeed)")
-                        }
-                }
-                .chartXAxis {
-                    AxisMarks(position: .bottom) { q in
-                        AxisValueLabel {
-                            Text("\(hourlyWind[q.index].time ?? "-")")
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                }
-                .chartYAxis {
-                    AxisMarks(position: .leading) {
-        //                AxisValueLabel()
-        //                    .foregroundStyle(.black)
-        //                AxisGridLine()
-        //                    .foregroundStyle(.secondary)
+            }
+            .chartYScale(domain: 0...(getLargestValue() + 20))
+            .chartYAxis(.hidden)
+            .chartXAxis {
+                AxisMarks(position: .bottom) { q in
+                    AxisValueLabel {
+                        Text("\(hourlyWind[q.index].time ?? "-")")
+                            .foregroundColor(.secondary)
                     }
                 }
             }
         }
+        
     }
     
     
-//    func getLargestValue() -> Double {
-//
-//        var highest: Double = 0
-//
-//        for i in 0..<mockTestData.count {
-//            if mockTestData[i].yAxis > highest {
-//                highest = mockTestData[i].yAxis
-//            }
-//        }
-//
-//        return highest
-//    }
-    
+    /// This function accesses the hourlyWind array and returns the largest wind speed value
     func getLargestValue() -> Double {
         
         var highest: Double = 0
@@ -131,7 +81,7 @@ struct WindBarGraph: View {
         // starting pointing east. Subtract 90 to point north
         // Think of this as 0 on a pie chart
         let zero: Double = 45
-
+        
         switch direction {
             case .north:
                 return zero - 90

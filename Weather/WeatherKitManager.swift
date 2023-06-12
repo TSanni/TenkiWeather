@@ -23,9 +23,9 @@ class WeatherKitManager: ObservableObject {
         do {
             // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
 //             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
-//            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
-            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
-
+            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
+//            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
+            
             
             if let unwrappedCurrentWeather = await getTodayWeather() {
                 await MainActor.run(body: {
@@ -81,6 +81,7 @@ class WeatherKitManager: ObservableObject {
         )
         
         
+        /// 12 hour forecast data for the Wind and temperatures
         for i in 0..<K.twelveHours {
             hourlyWind.append(
                 WindData(
@@ -94,7 +95,8 @@ class WeatherKitManager: ObservableObject {
                 HourlyTemperatures(
                     temperature: String(format: "%.0f", hourlyWeatherStartingFromNow[i].temperature.converted(to: .fahrenheit).value),
                     date: getReadableHour(date: hourlyWeatherStartingFromNow[i].date),
-                    icon: hourlyWeatherStartingFromNow[i].symbolName
+                    icon: hourlyWeatherStartingFromNow[i].symbolName,
+                    chanceOfPrecipitation: hourlyWeatherStartingFromNow[i].precipitationChance.formatted(.percent)
                 )
             )
         }
@@ -116,7 +118,8 @@ class WeatherKitManager: ObservableObject {
             todayHourlyWind: hourlyWind,
             sunData: sunData,
             isDaylight: current.isDaylight,
-            hourlyTemperatures: hourlyTemperatures
+            hourlyTemperatures: hourlyTemperatures,
+            temperatureUnit: current.temperature.converted(to: .fahrenheit).unit.symbol
         )
         
 

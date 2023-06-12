@@ -69,9 +69,14 @@ struct TodayScreen: View {
             
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 7.0) {
-                    Text("\(vm.currentWeather.currentTemperature)°F")
-                        .font(.system(size: 100))
-//                        .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+                    HStack(alignment: .top, spacing: 0.0) {
+                        Text(vm.currentWeather.currentTemperature)
+                            .font(.system(size: 100))
+                        
+                        Text(vm.currentWeather.temperatureUnit)
+                            .font(.system(size: 75))
+
+                    }
                     
                     Text("Feels like \(vm.currentWeather.feelsLikeTemperature)°")
                 }
