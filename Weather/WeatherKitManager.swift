@@ -23,10 +23,10 @@ class WeatherKitManager: ObservableObject {
     func getWeather() async {
         
         do {
-            guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=40febaf4c7f14979ca5ecbec6a17cd1a") else { return }
+            guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=40febaf4c7f14979ca5ecbec6a17cd1a") else { return }
             // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
-             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
-//            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
+//             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
+            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: -75.257721, longitude: 97.818153)) // Antarctica
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
             
@@ -60,6 +60,18 @@ class WeatherKitManager: ObservableObject {
             return hourlyWeatherItem.date.timeIntervalSinceNow >= -3600
         }) else { return nil }
         
+        //25000
+//        print("\n\n\n\n NEXT DAY DATE: \(getReadableMainDate(date: dailyWeather[0].date.advanced(by: 25200)))\n\n\n\n\n")
+        
+        var nextDayWeather = weather?.hourlyForecast.filter({ hourWeather in
+            
+            
+            return hourWeather.date >= dailyWeather[1].date.advanced(by: 25200)
+        })
+        
+        print("\n\n\n\n NEXT DAY WEATHER: \(getReadableMainDate(date: nextDayWeather![0].date))\n\n\n\n\n")
+
+        
         var hourlyWind: [WindData] = []
         var hourlyTemperatures: [HourlyTemperatures] = []
         
@@ -85,9 +97,9 @@ class WeatherKitManager: ObservableObject {
         let sunData = SunData(
             sunrise: getReadableHourAndMinute(date: dailyWeather[0].sun.sunrise!),
             sunset: getReadableHourAndMinute(date: dailyWeather[0].sun.sunset!),
-            dawn: getReadableHourAndMinute(date: dailyWeather[0].sun.nauticalDawn!),
+            dawn: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDawn!),
             solarNoon: getReadableHourAndMinute(date: dailyWeather[0].sun.solarNoon!),
-            dusk: getReadableHourAndMinute(date: dailyWeather[0].sun.nauticalDusk!)
+            dusk: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDusk!)
         )
         
         

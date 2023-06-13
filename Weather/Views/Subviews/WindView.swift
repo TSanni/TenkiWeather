@@ -23,7 +23,7 @@ struct WindView: View {
                     Text(windData.windSpeed)
                         .bold()
                         .font(.system(size: 70))
-                        .foregroundColor(.blue)
+                        .foregroundColor(windData.windColor)
                     
                     VStack {
                         Image(systemName: "location.fill")

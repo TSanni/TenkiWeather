@@ -34,18 +34,3 @@ struct TomorrowWeatherModel: Identifiable {
         tomorrowHourlyWind: [WindData.windDataHolder]
     )
 }
-
-
-
-//MARK: - Tomorrow Details Model : Will be part of main model
-//struct TomorrowDetails {
-//    let uvIndex: String
-//    let sunData: SunData
-//    // let humidity: String // Not available in WeatherKit
-//    // let dewPoint: String // Not available in WeatherKit
-//    // let pressure: String // Not availble in WeatherKit
-//    // let visibility: String // Not available in WeatherKit
-//
-//    /// Holder data for tomorrow's details
-//    static let tomorrowDetailsHolder = TomorrowDetails(uvIndex: "-", sunData: SunData.sunDataHolder)
-//}

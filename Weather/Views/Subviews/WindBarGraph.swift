@@ -38,6 +38,7 @@ struct WindBarGraph: View {
             //MARK: - Bar Graph with wind data
             Chart(hourlyWind) { item in
                 BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", Double(item.windSpeed) ?? 0))
+                    .foregroundStyle(item.windColor)
                     .annotation(position: .top) {
                         Text("\(item.windSpeed)")
                     }
