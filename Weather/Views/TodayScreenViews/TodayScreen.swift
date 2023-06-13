@@ -82,7 +82,8 @@ struct TodayScreen: View {
                 }
                 Spacer()
                 VStack(spacing: 7.0) {
-                    var symbolColors = vm.getSFColorForIcon(sfIcon: vm.currentWeather.symbol)
+                    let symbolColors = vm.getSFColorForIcon(sfIcon: vm.currentWeather.symbol)
+                    
                     Image(systemName: "\(vm.currentWeather.symbol).fill")
                         .font(.system(size: 100))
                         .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])

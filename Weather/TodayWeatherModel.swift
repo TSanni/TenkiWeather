@@ -35,7 +35,7 @@ struct TodayWeatherModel: Identifiable {
         todayLow: "-",
         currentTemperature: "-",
         feelsLikeTemperature: "-",
-        symbol: "-",
+        symbol: "sun.min",
         weatherDescription: "-",
         chanceOfPrecipitation: "-",
         currentDetails: DetailsModel.detailsDataHolder,
@@ -55,11 +55,11 @@ struct HourlyTemperatures: Identifiable {
     let id = UUID()
     let temperature: String
     let date: String
-    let icon: String
+    let symbol: String
     let chanceOfPrecipitation: String
 
     
-    static let hourlyTempHolderData = HourlyTemperatures(temperature: "-", date: "-", icon: "-", chanceOfPrecipitation: "-")
+    static let hourlyTempHolderData = HourlyTemperatures(temperature: "-", date: "-", symbol: "sun.min", chanceOfPrecipitation: "-")
 }
 
 //MARK: - Details Model : Will be part of main model

@@ -8,6 +8,58 @@
 import Foundation
 import SwiftUI
 
+
+enum WeatherIconSymbols: String {
+    case sunMax = "sun.max"
+    case moonStars = "moon.stars"
+    case cloudSun = "cloud.sun"
+    case cloudMoon = "cloud.moon"
+    case cloud = "cloud"
+    case cloudRain = "cloud.rain"
+    case cloudSunRain = "cloud.sun.rain"
+    case cloudMoonRain = "cloud.moon.rain"
+    case cloudBolt = "cloud.bolt"
+    case snowflake = "snowflake"
+    case cloudFog = "cloud.fog"
+    case sunMin = "sun.min"
+    case cloudBoltRain = "cloud.bolt.rain"
+    
+    
+    var iconColor: [Color] {
+        switch self {
+            case .sunMax:
+                return [.yellow, .yellow, .yellow]
+            case .moonStars:
+                return [K.Colors.moonColor, K.Colors.offWhite, .clear]
+            case .cloudSun:
+                return [K.Colors.offWhite, .yellow, .clear]
+            case .cloudMoon:
+                return [K.Colors.offWhite, K.Colors.moonColor, .clear]
+            case .cloud:
+                return [K.Colors.offWhite, K.Colors.offWhite, K.Colors.offWhite]
+            case .cloudRain:
+                return [K.Colors.offWhite, .cyan, .clear]
+            case .cloudSunRain:
+                return [K.Colors.offWhite, .yellow, .cyan]
+            case .cloudMoonRain:
+                return [K.Colors.offWhite, K.Colors.moonColor, .cyan]
+            case .cloudBolt:
+                return [K.Colors.offWhite, .yellow, .clear]
+            case .snowflake:
+                return [K.Colors.offWhite, .clear, .clear]
+            case .cloudFog:
+                return [K.Colors.offWhite, .gray, .clear]
+            case .sunMin:
+                return [.yellow, .yellow, .yellow]
+            case .cloudBoltRain:
+                return [K.Colors.offWhite, .cyan, .white]
+        }
+    }
+    
+    
+    
+}
+
 struct K {
     static let properBlack = Color(red: 0.15, green: 0.15, blue: 0.15)
     static let twelveHours = 12
@@ -29,11 +81,8 @@ struct K {
         static let cloudFog = "cloud.fog"
         static let sunMin = "sun.min"
         static let cloudBoltRain = "cloud.bolt.rain"
-
-
         static let cloudDrizzle = "cloud.drizzle"
         static let cloudSnow = "cloud.snow"
-        
         static let sunrise = "sunrise"
         static let sunset = "sunset"
     }

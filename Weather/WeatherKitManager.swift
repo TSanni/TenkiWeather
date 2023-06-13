@@ -16,15 +16,25 @@ class WeatherKitManager: ObservableObject {
     @Published var tomorrowWeather: TomorrowWeatherModel = TomorrowWeatherModel.tomorrowDataHolder
     @Published var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.dailyDataHolder]
     
+    var timezoneOffset: Int = 0
     //MARK: - Get Weather from WeatherKit
     
     /// Will get all the weather data with the coordinates that are passed in.
     func getWeather() async {
+        
         do {
+            guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=40febaf4c7f14979ca5ecbec6a17cd1a") else { return }
             // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
-//             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
-            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
+             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
+//            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
+//            weather = try await WeatherService.shared.weather(for: .init(latitude: -75.257721, longitude: 97.818153)) // Antarctica
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
+            
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decdodedData = try JSONDecoder().decode(TimeZoneModel.self, from: data)
+            timezoneOffset = decdodedData.timezone_offset
+            
+            print("\n\n\n\n\(decdodedData.timezone_offset)\n\n\n\n\n")
             
             
             if let unwrappedCurrentWeather = await getTodayWeather() {
@@ -73,11 +83,11 @@ class WeatherKitManager: ObservableObject {
         
         /// Weather data for sun events
         let sunData = SunData(
-            sunrise: dailyWeather[0].sun.sunrise?.formatted(date: .omitted, time: .shortened) ?? "-",
-            sunset: dailyWeather[0].sun.sunset?.formatted(date: .omitted, time: .shortened) ?? "-",
-            dawn: dailyWeather[0].sun.nauticalDawn?.formatted(date: .omitted, time: .shortened) ?? "-",
-            solarNoon: dailyWeather[0].sun.solarNoon?.formatted(date: .omitted, time: .shortened) ?? "-",
-            dusk: dailyWeather[0].sun.nauticalDusk?.formatted(date: .omitted, time: .shortened) ?? "-"
+            sunrise: getReadableHourAndMinute(date: dailyWeather[0].sun.sunrise!),
+            sunset: getReadableHourAndMinute(date: dailyWeather[0].sun.sunset!),
+            dawn: getReadableHourAndMinute(date: dailyWeather[0].sun.nauticalDawn!),
+            solarNoon: getReadableHourAndMinute(date: dailyWeather[0].sun.solarNoon!),
+            dusk: getReadableHourAndMinute(date: dailyWeather[0].sun.nauticalDusk!)
         )
         
         
@@ -87,15 +97,15 @@ class WeatherKitManager: ObservableObject {
                 WindData(
                     windSpeed: String(format: "%.0f", hourlyWeatherStartingFromNow[i].wind.speed.value),
                     windDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
-                    time: getReadableHour(date: hourlyWeatherStartingFromNow[i].date)
+                    time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date)
                 )
             )
             
             hourlyTemperatures.append(
                 HourlyTemperatures(
                     temperature: String(format: "%.0f", hourlyWeatherStartingFromNow[i].temperature.converted(to: .fahrenheit).value),
-                    date: getReadableHour(date: hourlyWeatherStartingFromNow[i].date),
-                    icon: hourlyWeatherStartingFromNow[i].symbolName,
+                    date: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date),
+                    symbol: hourlyWeatherStartingFromNow[i].symbolName,
                     chanceOfPrecipitation: hourlyWeatherStartingFromNow[i].precipitationChance.formatted(.percent)
                 )
             )
@@ -105,7 +115,7 @@ class WeatherKitManager: ObservableObject {
         
         /// Weather data for the day (includes current details, wind data, and sun data)
         let todaysWeather = TodayWeatherModel(
-            date: current.date.formatted(date: .abbreviated, time: .shortened),
+            date: getReadableMainDate(date: current.date),
             todayHigh: String(format: "%.0f", dailyWeather[0].highTemperature.converted(to: .fahrenheit).value),
             todayLow: String(format: "%.0f", dailyWeather[0].lowTemperature.converted(to: .fahrenheit).value),
             currentTemperature: String(format: "%.0f", current.temperature.converted(to: .fahrenheit).value),
@@ -152,19 +162,50 @@ class WeatherKitManager: ObservableObject {
     
     /// This function takes a date and returns a string with readable date data.
     /// Ex: 7 AM
-    private func getReadableHour(date: Date) -> String {
+    private func getReadableHourOnly(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h a"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
         
         let readableHour = dateFormatter.string(from: date)
         return readableHour
     }
     
+    /// This function accepts a date and returns a string of that date in a readable format
+    ///  Ex: 12:07 PM
+    private func getReadableHourAndMinute(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
+        
+        let readableHourAndMinute = dateFormatter.string(from: date)
+        return readableHourAndMinute
+    }
+    
+    
+    /// This function accepts a date and returns a string of that date in a readable format
+    ///  Ex: July 7, 10:08 PM
+    private func getReadableMainDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, h:mm a"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
+        
+        let readableDate = dateFormatter.string(from: date)
+        return readableDate
+    }
     
 
-    
+    /// This functions accepts a date and returns a string of that date in a readable format
+    /// Ex: Tuesday, July 7
+    private func getDayOfWeekAndDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
+        
+        let readableDate = dateFormatter.string(from: date)
+        return readableDate
+    }
 
-    
     
     //MARK: - Public functions
     
@@ -212,9 +253,10 @@ class WeatherKitManager: ObservableObject {
     }
     
 
+  
     
-    
-    
+    /// Takes the name of an SF Symbol icon and returns an array of colors.
+    /// Main purpose is to be used with the foregroundStyle modifier
     func getSFColorForIcon(sfIcon: String) -> [Color] {
 
         switch sfIcon {

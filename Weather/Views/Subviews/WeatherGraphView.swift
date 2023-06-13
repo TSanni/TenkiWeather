@@ -59,7 +59,7 @@ struct WeatherGraphView: View {
             AxisMarks(position: .bottom) { q in
                 AxisValueLabel {
                     VStack {
-                        let symbolColors = vm.getSFColorForIcon(sfIcon: hourlyTemperatures[q.index].icon)
+                        let symbolColors = vm.getSFColorForIcon(sfIcon: hourlyTemperatures[q.index].symbol)
 
                         Text("\(hourlyTemperatures[q.index].date)")
                             .font(.footnote)
@@ -70,15 +70,15 @@ struct WeatherGraphView: View {
                             .fontWeight(.light)
                             .foregroundColor(hourlyTemperatures[q.index].chanceOfPrecipitation == "0%" ? .clear : K.Colors.precipitationBlue)
                         
-                        if hourlyTemperatures[q.index].icon == "cloud" {
-                            Image(systemName: "\(hourlyTemperatures[q.index].icon).fill")
+                        if hourlyTemperatures[q.index].symbol == "cloud" {
+                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
                                 .foregroundColor(.white)
-                        } else if hourlyTemperatures[q.index].icon == "sun.max" {
-                            Image(systemName: "\(hourlyTemperatures[q.index].icon).fill")
+                        } else if hourlyTemperatures[q.index].symbol == "sun.max" {
+                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
                                 .foregroundColor(.yellow)
                         }
                         else {
-                            Image(systemName: "\(hourlyTemperatures[q.index].icon).fill")
+                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
                                 .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])
                         }
                         
