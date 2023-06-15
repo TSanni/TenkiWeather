@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct TodayScreen: View {
-    @EnvironmentObject var vm: WeatherKitManager
+//    @EnvironmentObject var vm: WeatherKitManager
+    let currentWeather: TodayWeatherModel
     
     var body: some View {
         GeometryReader { geo in
             ScrollView(showsIndicators: false) {
                 ZStack {
-                    Color(red: 0.558, green: 0.376, blue: 0.999)
+                    currentWeather.backgroundColor
                     VStack(alignment: .leading, spacing: 0.0) {
 
                         VStack {
@@ -22,28 +23,28 @@ struct TodayScreen: View {
                             
                             
                             ScrollView(.horizontal, showsIndicators: false) {
-                                WeatherGraphView(hourlyTemperatures: vm.currentWeather.hourlyTemperatures, graphColor: Color(red: 0.558, green: 0.376, blue: 0.999))
+                                WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
                                     .frame(width: geo.size.width * 1.5)
-                                    .padding()
+                                    .frame(height: geo.size.height * 0.3)
+                                    .padding(.leading)
                                     .offset(x: -20)
                             }
                             
                             precipitationPrediction
                                 .offset(x: 10)
                                 .padding(.bottom)
-
                         }
                         .frame(height: geo.size.height * 0.99)
 
-                        CurrentDetailsView(title: "Current Details", details: vm.currentWeather.currentDetails)
+                        CurrentDetailsView(title: "Current Details", details: currentWeather.currentDetails)
                         
                         CustomDivider()
                         
-                        WindView(windData: vm.currentWeather.todayWind, hourlyWindData: vm.currentWeather.todayHourlyWind)
+                        WindView(windData: currentWeather.todayWind, hourlyWindData: currentWeather.todayHourlyWind)
                         
                         CustomDivider()
                         
-                        SunsetSunriseView(sunData: vm.currentWeather.sunData, dayLight: vm.currentWeather.isDaylight)
+                        SunsetSunriseView(sunData: currentWeather.sunData, dayLight: currentWeather.isDaylight)
                         
                         CustomDivider()
                         
@@ -58,10 +59,10 @@ struct TodayScreen: View {
     
     var immediateTempDetails: some View {
         VStack(alignment: .leading, spacing: 15.0) {
-            Text(vm.currentWeather.date)
+            Text(currentWeather.date)
                 .foregroundColor(.black)
                 .shadow(color: .white.opacity(0.3), radius: 1, y: 1.7)
-            Text("Day \(vm.currentWeather.todayHigh)°↑ · Night \(vm.currentWeather.todayLow)°↓")
+            Text("Day \(currentWeather.todayHigh)°↑ · Night \(currentWeather.todayLow)°↓")
                 .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
             
@@ -70,25 +71,27 @@ struct TodayScreen: View {
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 7.0) {
                     HStack(alignment: .top, spacing: 0.0) {
-                        Text(vm.currentWeather.currentTemperature)
+                        Text(currentWeather.currentTemperature)
                             .font(.system(size: 100))
                         
-                        Text(vm.currentWeather.temperatureUnit)
+                        Text(currentWeather.temperatureUnit)
                             .font(.system(size: 75))
 
                     }
                     
-                    Text("Feels like \(vm.currentWeather.feelsLikeTemperature)°")
+                    Text("Feels like \(currentWeather.feelsLikeTemperature)°")
                 }
                 Spacer()
                 VStack(spacing: 7.0) {
-                    let symbolColors = vm.getSFColorForIcon(sfIcon: vm.currentWeather.symbol)
+//                    let symbolColors = vm.getSFColorForIcon(sfIcon: vm.currentWeather.symbol)
                     
-                    Image(systemName: "\(vm.currentWeather.symbol).fill")
+                    Image(systemName: "\(currentWeather.symbol).fill")
+                        .renderingMode(.original)
                         .font(.system(size: 100))
-                        .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])
                     
-                    Text(vm.currentWeather.weatherDescription)
+//                        .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])
+                    
+                    Text(currentWeather.weatherDescription.description)
                 }
             }
             .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
@@ -103,7 +106,7 @@ struct TodayScreen: View {
     var precipitationPrediction: some View  {
         HStack {
             Image(systemName: "umbrella.fill")
-            Text("\(vm.currentWeather.chanceOfPrecipitation) chance of precipitation")
+            Text("\(currentWeather.chanceOfPrecipitation) chance of precipitation")
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .foregroundColor(.white)
@@ -115,7 +118,7 @@ struct TodayScreen: View {
 
 struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TodayScreen()
+        TodayScreen(currentWeather: TodayWeatherModel.holderData)
             .previewDevice("iPhone 12 Pro Max")
             .environmentObject(WeatherKitManager())
     }

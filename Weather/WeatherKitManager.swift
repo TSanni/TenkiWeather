@@ -17,8 +17,10 @@ class WeatherKitManager: ObservableObject {
     @Published var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.dailyDataHolder]
     
     var timezoneOffset: Int = 0
-    //MARK: - Get Weather from WeatherKit
     
+    
+    
+    //MARK: - Get Weather from WeatherKit
     /// Will get all the weather data with the coordinates that are passed in.
     func getWeather() async {
         
@@ -27,6 +29,7 @@ class WeatherKitManager: ObservableObject {
             // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
 //             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
             weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
+//            weather = try await WeatherService.shared.weather(for: .init(latitude: 40.712776, longitude: -74.005974)) // New York City
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: -75.257721, longitude: 97.818153)) // Antarctica
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
             
@@ -34,10 +37,19 @@ class WeatherKitManager: ObservableObject {
             let decdodedData = try JSONDecoder().decode(TimeZoneModel.self, from: data)
             timezoneOffset = decdodedData.timezone_offset
             
-            print("\n\n\n\n\(decdodedData.timezone_offset)\n\n\n\n\n")
+            guard let currentWeather = weather?.currentWeather else {
+                print("\n\n\n\n UNABLE TO GET CURRENT WEATHER DATA \n\n\n\n")
+                return
+            }
+            
+            guard let dailyWeather = weather?.dailyForecast else {
+                print("\n\n\n\n UNABLE TO GET DAILY WEATHER DATA \n\n\n\n")
+                return
+            }
             
             
-            if let unwrappedCurrentWeather = await getTodayWeather() {
+            
+            if let unwrappedCurrentWeather = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather) {
                 await MainActor.run(body: {
                     self.currentWeather = unwrappedCurrentWeather
                 })
@@ -50,27 +62,34 @@ class WeatherKitManager: ObservableObject {
     }
     
     
+    //MARK: - Get Tomorrow's Weather
+    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>) async {
+        let nextDayWeather = weather?.hourlyForecast.filter({ hourWeather in
+            /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
+            return hourWeather.date >= tomorrowWeather[1].date.advanced(by: 25200)
+        })
+
+    }
+    
+    
     //MARK: - Get the Current Weather
     // add a parameter here that takes UnitTemperature type
-    func getTodayWeather() async -> TodayWeatherModel? {
-        guard let current = weather?.currentWeather else { return nil }
-        guard let dailyWeather = weather?.dailyForecast else { return nil }
+    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>) async -> TodayWeatherModel? {
         
+        /// Filters the hourly forecasts and returns only the items that start at the current hour and beyond
         guard let hourlyWeatherStartingFromNow = weather?.hourlyForecast.filter({ hourlyWeatherItem in
             return hourlyWeatherItem.date.timeIntervalSinceNow >= -3600
         }) else { return nil }
         
-        //25000
-//        print("\n\n\n\n NEXT DAY DATE: \(getReadableMainDate(date: dailyWeather[0].date.advanced(by: 25200)))\n\n\n\n\n")
+        var jddj: [HourWeather] = []
         
-        var nextDayWeather = weather?.hourlyForecast.filter({ hourWeather in
-            
-            
-            return hourWeather.date >= dailyWeather[1].date.advanced(by: 25200)
-        })
+        for i in 0..<K.Time.twelveHours {
+            jddj.append(hourlyWeatherStartingFromNow[i])
+            print("\n")
+            print(jddj[i].symbolName)
+        }
         
-        print("\n\n\n\n NEXT DAY WEATHER: \(getReadableMainDate(date: nextDayWeather![0].date))\n\n\n\n\n")
-
+//        print(jddj)
         
         var hourlyWind: [WindData] = []
         var hourlyTemperatures: [HourlyTemperatures] = []
@@ -104,7 +123,7 @@ class WeatherKitManager: ObservableObject {
         
         
         /// 12 hour forecast data for the Wind and temperatures
-        for i in 0..<K.twelveHours {
+        for i in 0..<K.Time.twelveHours {
             hourlyWind.append(
                 WindData(
                     windSpeed: String(format: "%.0f", hourlyWeatherStartingFromNow[i].wind.speed.value),
@@ -133,7 +152,7 @@ class WeatherKitManager: ObservableObject {
             currentTemperature: String(format: "%.0f", current.temperature.converted(to: .fahrenheit).value),
             feelsLikeTemperature: String(format: "%.0f", current.apparentTemperature.converted(to: .fahrenheit).value),
             symbol: current.symbolName,
-            weatherDescription: current.condition.description ,
+            weatherDescription: current.condition,
             chanceOfPrecipitation: dailyWeather[0].precipitationChance.formatted(.percent),
             currentDetails: currentDetailsCardInfo,
             todayWind: windDetailsInfo,
@@ -145,8 +164,6 @@ class WeatherKitManager: ObservableObject {
         )
         
 
-//        print("Hourly Wind Data: \(hourlyWind)")
-        print(todaysWeather)
         return todaysWeather
         
                 
@@ -269,37 +286,37 @@ class WeatherKitManager: ObservableObject {
     
     /// Takes the name of an SF Symbol icon and returns an array of colors.
     /// Main purpose is to be used with the foregroundStyle modifier
-    func getSFColorForIcon(sfIcon: String) -> [Color] {
-
-        switch sfIcon {
-        case K.WeatherCondition.sunMax:
-            return [.yellow, .yellow, .yellow]
-        case K.WeatherCondition.moonStars:
-            return [K.Colors.moonColor, K.Colors.offWhite, .clear]
-        case K.WeatherCondition.cloudSun:
-            return [K.Colors.offWhite, .yellow, .clear]
-        case K.WeatherCondition.cloudMoon:
-            return [K.Colors.offWhite, K.Colors.moonColor, .clear]
-        case K.WeatherCondition.cloud:
-            return [K.Colors.offWhite, K.Colors.offWhite, K.Colors.offWhite]
-        case K.WeatherCondition.cloudRain:
-            return [K.Colors.offWhite, .cyan, .clear]
-        case K.WeatherCondition.cloudSunRain:
-            return [K.Colors.offWhite, .yellow, .cyan]
-        case K.WeatherCondition.cloudMoonRain:
-            return [K.Colors.offWhite, K.Colors.moonColor, .cyan]
-        case K.WeatherCondition.cloudBolt:
-            return [K.Colors.offWhite, .yellow, .clear]
-        case K.WeatherCondition.snowflake:
-            return [K.Colors.offWhite, .clear, .clear]
-        case K.WeatherCondition.cloudFog:
-            return [K.Colors.offWhite, .gray, .clear]
-            case K.WeatherCondition.cloudBoltRain:
-                return [K.Colors.offWhite, .cyan, .white]
-            
-        default:
-            print("Error getting color")
-                return [.white, .white, .white]
-        }
-    }
+//    func getSFColorForIcon(sfIcon: String) -> [Color] {
+//
+//        switch sfIcon {
+//        case K.WeatherCondition.sunMax:
+//            return [.yellow, .yellow, .yellow]
+//        case K.WeatherCondition.moonStars:
+//            return [K.Colors.moonColor, K.Colors.offWhite, .clear]
+//        case K.WeatherCondition.cloudSun:
+//            return [K.Colors.offWhite, .yellow, .clear]
+//        case K.WeatherCondition.cloudMoon:
+//            return [K.Colors.offWhite, K.Colors.moonColor, .clear]
+//        case K.WeatherCondition.cloud:
+//            return [K.Colors.offWhite, K.Colors.offWhite, K.Colors.offWhite]
+//        case K.WeatherCondition.cloudRain:
+//            return [K.Colors.offWhite, .cyan, .clear]
+//        case K.WeatherCondition.cloudSunRain:
+//            return [K.Colors.offWhite, .yellow, .cyan]
+//        case K.WeatherCondition.cloudMoonRain:
+//            return [K.Colors.offWhite, K.Colors.moonColor, .cyan]
+//        case K.WeatherCondition.cloudBolt:
+//            return [K.Colors.offWhite, .yellow, .clear]
+//        case K.WeatherCondition.snowflake:
+//            return [K.Colors.offWhite, .clear, .clear]
+//        case K.WeatherCondition.cloudFog:
+//            return [K.Colors.offWhite, .gray, .clear]
+//            case K.WeatherCondition.cloudBoltRain:
+//                return [K.Colors.offWhite, .cyan, .white]
+//            
+//        default:
+//            print("Error getting color")
+//                return [.white, .white, .white]
+//        }
+//    }
 }

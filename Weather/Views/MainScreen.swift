@@ -19,7 +19,7 @@ struct MainScreen: View {
     func getBarColor() -> Color {
         switch selectedTab {
             case .today:
-                return Color.indigo
+                return vm.currentWeather.backgroundColor
             case .tomorrow:
                 return Color.orange
             case .multiDay:
@@ -32,7 +32,7 @@ struct MainScreen: View {
         NavigationView {
             ZStack {
                 VStack(spacing: 0) {
-                    getBarColor()
+                    getBarColor().brightness(-0.1)
                     Color(red: 0.15, green: 0.15, blue: 0.15)
                 }
                 .ignoresSafeArea()
@@ -58,11 +58,12 @@ struct MainScreen: View {
                         }
                         
                         WeatherTabsView(weatherTab: $selectedTab)
+                            .padding(.top, 10)
                     }
                     .padding(.horizontal)
                     
                     TabView(selection: $selectedTab) {
-                        TodayScreen()
+                        TodayScreen(currentWeather: vm.currentWeather)
                             .ignoresSafeArea(edges: .bottom)
                             .contentShape(Rectangle()).gesture(DragGesture())
                             .tag(WeatherTabs.today)
@@ -88,8 +89,6 @@ struct MainScreen: View {
         }
         .task {
             await vm.getWeather()
-//            print("Sapporo Temp: \(vm.currentWeather.currentTemperature)")
-//            print("Sapporo Date? \(vm.currentWeather.date)")
         }
         
 

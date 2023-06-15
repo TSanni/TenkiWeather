@@ -9,66 +9,25 @@ import Foundation
 import SwiftUI
 
 
-enum WeatherIconSymbols: String {
-    case sunMax = "sun.max"
-    case moonStars = "moon.stars"
-    case cloudSun = "cloud.sun"
-    case cloudMoon = "cloud.moon"
-    case cloud = "cloud"
-    case cloudRain = "cloud.rain"
-    case cloudSunRain = "cloud.sun.rain"
-    case cloudMoonRain = "cloud.moon.rain"
-    case cloudBolt = "cloud.bolt"
-    case snowflake = "snowflake"
-    case cloudFog = "cloud.fog"
-    case sunMin = "sun.min"
-    case cloudBoltRain = "cloud.bolt.rain"
+
+
+struct K {
+    static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
+
     
-    
-    var iconColor: [Color] {
-        switch self {
-            case .sunMax:
-                return [.yellow, .yellow, .yellow]
-            case .moonStars:
-                return [K.Colors.moonColor, K.Colors.offWhite, .clear]
-            case .cloudSun:
-                return [K.Colors.offWhite, .yellow, .clear]
-            case .cloudMoon:
-                return [K.Colors.offWhite, K.Colors.moonColor, .clear]
-            case .cloud:
-                return [K.Colors.offWhite, K.Colors.offWhite, K.Colors.offWhite]
-            case .cloudRain:
-                return [K.Colors.offWhite, .cyan, .clear]
-            case .cloudSunRain:
-                return [K.Colors.offWhite, .yellow, .cyan]
-            case .cloudMoonRain:
-                return [K.Colors.offWhite, K.Colors.moonColor, .cyan]
-            case .cloudBolt:
-                return [K.Colors.offWhite, .yellow, .clear]
-            case .snowflake:
-                return [K.Colors.offWhite, .clear, .clear]
-            case .cloudFog:
-                return [K.Colors.offWhite, .gray, .clear]
-            case .sunMin:
-                return [.yellow, .yellow, .yellow]
-            case .cloudBoltRain:
-                return [K.Colors.offWhite, .cyan, .white]
-        }
+    struct Time {
+        static let oneHourInSeconds = 3600
+        static let twentyFourHoursInSeconds = 86400
+        
+        static let twelveHours = 12
+        static let twentyFourHours = 24
     }
     
     
-    
-}
-
-struct K {
-    static let properBlack = Color(red: 0.15, green: 0.15, blue: 0.15)
-    static let twelveHours = 12
-    
-    
-    
-    struct WeatherCondition {
+    struct Symbol {
         
         static let sunMax = "sun.max"
+        static let moon = "moon"
         static let moonStars = "moon.stars"
         static let cloudSun = "cloud.sun"
         static let cloudMoon = "cloud.moon"
@@ -83,23 +42,89 @@ struct K {
         static let cloudBoltRain = "cloud.bolt.rain"
         static let cloudDrizzle = "cloud.drizzle"
         static let cloudSnow = "cloud.snow"
-        static let sunrise = "sunrise"
-        static let sunset = "sunset"
+
+        
     }
     struct Colors {
-        
+        static let properBlack = #colorLiteral(red: 0.1930268705, green: 0.1930268705, blue: 0.1930268705, alpha: 0.8470588235)
+
+        static let clearDay = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
+        static let dayTimeCloudy = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
+        static let haze = #colorLiteral(red: 0.6361310482, green: 0.6071113944, blue: 0.5944020152, alpha: 1)
+        static let thunderstorm = #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1)
+        static let cloudy = #colorLiteral(red: 0.4886933565, green: 0.624339819, blue: 0.7615836859, alpha: 1)
+        static let dayTimeRain = #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1)
+        static let nighttimeCloudy = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
+        static let scatteredThunderstorm = #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1)
         static let nighttimePurple = #colorLiteral(red: 0.5575598478, green: 0.3759173751, blue: 0.9990670085, alpha: 1)
         static let maroon = #colorLiteral(red: 0.5871755481, green: 0.3745910525, blue: 0.5551333427, alpha: 1)
         
+        static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
+        static let offWhite = #colorLiteral(red: 0.8980392814, green: 0.8980391622, blue: 0.8980392218, alpha: 1)
         
-        static let offWhite = Color(hue: 0.104, saturation: 0.0, brightness: 0.897)
-        static let moonColor = Color(hue: 0.556, saturation: 0.128, brightness: 0.864)
-        static let goodBlack = Color(red: 0.15, green: 0.15, blue: 0.15)
-        static let darkBlue = Color(hue: 0.674, saturation: 0.986, brightness: 0.368)
-        static let cloudyBlue = Color(red: 0.519, green: 0.644, blue: 0.785)
-
-        static let thunderstormPurple = Color(red: 0.87, green: 0.24, blue: 0.595)
         
-        static let precipitationBlue = Color(hue: 0.521, saturation: 0.946, brightness: 0.871)
+        static let moonColor = #colorLiteral(red: 0.7508266568, green: 0.8291798234, blue: 0.8629794717, alpha: 1)
+        static let darkBlue = #colorLiteral(red: 0.02143974602, green: 0.003193902783, blue: 0.3691283166, alpha: 1)
+        static let cloudyBlue = #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1)
+        static let thunderstormPurple = #colorLiteral(red: 0.869899869, green: 0.2400925457, blue: 0.5949490666, alpha: 1)
+        
     }
 }
+
+
+
+
+
+
+
+
+//enum WeatherIconSymbols: String {
+//    case sunMax = "sun.max"
+//    case moonStars = "moon.stars"
+//    case cloudSun = "cloud.sun"
+//    case cloudMoon = "cloud.moon"
+//    case cloud = "cloud"
+//    case cloudRain = "cloud.rain"
+//    case cloudSunRain = "cloud.sun.rain"
+//    case cloudMoonRain = "cloud.moon.rain"
+//    case cloudBolt = "cloud.bolt"
+//    case snowflake = "snowflake"
+//    case cloudFog = "cloud.fog"
+//    case sunMin = "sun.min"
+//    case cloudBoltRain = "cloud.bolt.rain"
+//    
+//    
+//    var iconColor: [Color] {
+//        switch self {
+//            case .sunMax:
+//                return [.yellow, .yellow, .yellow]
+//            case .moonStars:
+//                return [K.Colors.moonColor, K.Colors.offWhite, .clear]
+//            case .cloudSun:
+//                return [K.Colors.offWhite, .yellow, .clear]
+//            case .cloudMoon:
+//                return [K.Colors.offWhite, K.Colors.moonColor, .clear]
+//            case .cloud:
+//                return [K.Colors.offWhite, K.Colors.offWhite, K.Colors.offWhite]
+//            case .cloudRain:
+//                return [K.Colors.offWhite, .cyan, .clear]
+//            case .cloudSunRain:
+//                return [K.Colors.offWhite, .yellow, .cyan]
+//            case .cloudMoonRain:
+//                return [K.Colors.offWhite, K.Colors.moonColor, .cyan]
+//            case .cloudBolt:
+//                return [K.Colors.offWhite, .yellow, .clear]
+//            case .snowflake:
+//                return [K.Colors.offWhite, .clear, .clear]
+//            case .cloudFog:
+//                return [K.Colors.offWhite, .gray, .clear]
+//            case .sunMin:
+//                return [.yellow, .yellow, .yellow]
+//            case .cloudBoltRain:
+//                return [K.Colors.offWhite, .cyan, .white]
+//        }
+//    }
+//    
+//    
+//    
+//}

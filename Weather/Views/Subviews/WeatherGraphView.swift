@@ -8,45 +8,24 @@
 import SwiftUI
 import Charts
 
-
-
-
-struct TestGraphStruct: Identifiable {
-    var id = UUID()
-    let xAxis: String
-    let yAxis: Double
-    
-    
-    
-}
-
 struct WeatherGraphView: View {
     @EnvironmentObject var vm: WeatherKitManager
     let hourlyTemperatures: [HourlyTemperatures]
-    let min: Double = 65
     let graphColor: Color
-    let gradient = LinearGradient(colors: [.white.opacity(0.2), Color(red: 0.558, green: 0.376, blue: 0.999)], startPoint: .top, endPoint: .bottom)
     
-    let mockTestData: [TestGraphStruct] = [TestGraphStruct(xAxis: "7 AM", yAxis: 69),
-                                           TestGraphStruct(xAxis: "8 AM", yAxis: 77),
-                                           TestGraphStruct(xAxis: "9 AM", yAxis: 75),
-                                           TestGraphStruct(xAxis: "10 AM", yAxis: 73),
-                                           TestGraphStruct(xAxis: "11 AM", yAxis: 72),
-                                           TestGraphStruct(xAxis: "12 PM", yAxis: 71),
-                                           TestGraphStruct(xAxis: "1 PM", yAxis: 70),
-                                           TestGraphStruct(xAxis: "2 PM", yAxis: 69)
-                                           
-    ]
+
     var body: some View {
         
         Chart(hourlyTemperatures) { item in
             
             //MARK: - Area Graph
-            AreaMark(x: .value("A", item.date), yStart: .value("b", getGraphStartingPoint()), yEnd: .value("c", Double(item.temperature) ?? 0))
+//            AreaMark(x: .value("Time", item.date), y: .value("temp", Double(item.temperature) ?? 0))
+            AreaMark(x: .value("Time", item.date), yStart: .value("start", getGraphStartingPoint()), yEnd: .value("temp", Double(item.temperature) ?? 0))
                 .foregroundStyle(LinearGradient(colors: [.white.opacity(0.2), graphColor], startPoint: .top, endPoint: .bottom))
             
             //MARK: - Bar graph
-            BarMark(x: .value("A", item.date), yStart: .value("b", getGraphStartingPoint()), yEnd: .value("c", Double(item.temperature) ?? 0))
+            BarMark(x: .value("Time", item.date), yStart: .value("start", getGraphStartingPoint()), yEnd: .value("temp", Double(item.temperature) ?? 0))
+//            BarMark(x: .value("Time", item.date), y: .value("temp", Double(item.temperature) ?? 0))
                 .foregroundStyle(Color.clear)
                 .annotation(position: .top) {
                     Text("\(item.temperature)°")
@@ -54,12 +33,13 @@ struct WeatherGraphView: View {
                         .foregroundColor(.white)
                 }
         }
+        .chartYAxis(.hidden)
         .chartYScale(domain: getGraphStartingPoint()...getGraphEndingPoint())
         .chartXAxis {
             AxisMarks(position: .bottom) { q in
                 AxisValueLabel {
                     VStack {
-                        let symbolColors = vm.getSFColorForIcon(sfIcon: hourlyTemperatures[q.index].symbol)
+//                        let symbolColors = vm.getSFColorForIcon(sfIcon: hourlyTemperatures[q.index].symbol)
 
                         Text("\(hourlyTemperatures[q.index].date)")
                             .font(.footnote)
@@ -68,39 +48,32 @@ struct WeatherGraphView: View {
                         Text(hourlyTemperatures[q.index].chanceOfPrecipitation)
                             .font(.footnote)
                             .fontWeight(.light)
-                            .foregroundColor(hourlyTemperatures[q.index].chanceOfPrecipitation == "0%" ? .clear : K.Colors.precipitationBlue)
+                            .foregroundColor(hourlyTemperatures[q.index].chanceOfPrecipitation == "0%" ? .clear : Color(uiColor: K.Colors.precipitationBlue))
                         
-                        if hourlyTemperatures[q.index].symbol == "cloud" {
-                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
-                                .foregroundColor(.white)
-                        } else if hourlyTemperatures[q.index].symbol == "sun.max" {
-                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
-                                .foregroundColor(.yellow)
-                        }
-                        else {
-                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
-                                .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])
-                        }
+//                        if hourlyTemperatures[q.index].symbol == "cloud" {
+//                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
+//                                .foregroundColor(.white)
+//                        } else if hourlyTemperatures[q.index].symbol == "sun.max" {
+//                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
+//                                .foregroundColor(.yellow)
+//                        }
+//                        else {
+                        Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
+                            .renderingMode(.original)
                         
-
+//                                .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])
+//                        }
                     }
                     .foregroundColor(.black)
                     .font(.subheadline)
                 }
             }
         }
-        .chartYAxis {
-            AxisMarks(position: .leading) {
-//                AxisValueLabel()
-//                    .foregroundStyle(.black)
-//                AxisGridLine()
-//                    .foregroundStyle(.secondary)
-            }
-            
-        }
     }
     
     
+    /// Gets the lowest temperature in the hourlyTemperatures struct array,
+    /// then subtracts 10 to get a nice starting point for a graph
     func getGraphStartingPoint() -> Double {
         
         var allTemperatures: [Double] = []
@@ -112,6 +85,8 @@ struct WeatherGraphView: View {
         return (allTemperatures.min() ?? 0) - 10
     }
     
+    /// Returns the highest temperature in the hourlyTemperatures struct array,
+    /// then adds 10 to get a nice ending point for a graph
     func getGraphEndingPoint() -> Double {
         
         var allTemperatures: [Double] = []
@@ -120,19 +95,20 @@ struct WeatherGraphView: View {
             allTemperatures.append(Double(hourlyTemperatures[i].temperature) ?? 0)
         }
         
-        return (allTemperatures.max() ?? 0) + 10
+        return (allTemperatures.max() ?? 0) + 5
     }
 }
 
 struct WeatherGraphView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: Color.pink)
+            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData, HourlyTemperatures.hourlyTempHolderData], graphColor: Color.pink)
+                .environmentObject(WeatherKitManager())
                 .frame(height: 200)
-            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: Color.green)
-            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: .cyan)
-            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: .brown)
-            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: .orange)
+//            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: Color.green)
+//            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: .cyan)
+//            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: .brown)
+//            WeatherGraphView(hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], graphColor: .orange)
             //            TodayScreen()
         }
     }
