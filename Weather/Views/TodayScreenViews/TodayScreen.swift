@@ -40,7 +40,7 @@ struct TodayScreen: View {
                         
                         CustomDivider()
                         
-                        WindView(windData: currentWeather.todayWind, hourlyWindData: currentWeather.todayHourlyWind)
+                        WindView(windData: currentWeather.todayWind, hourlyWindData: currentWeather.todayHourlyWind, setTodayWeather: true)
                         
                         CustomDivider()
                         

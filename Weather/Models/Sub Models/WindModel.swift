@@ -51,7 +51,7 @@ struct WindData: Identifiable {
                     return "Calm"
             }
         } else {
-            return "No wind data"
+            return "Unable to get wind data"
         }
     }
     

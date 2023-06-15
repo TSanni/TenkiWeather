@@ -17,7 +17,7 @@ struct CurrentDetailsView: View {
         VStack(alignment: .leading) {
             Text(title)
                 .bold()
-                .padding(.vertical)
+                .padding(.bottom)
             
             HStack {
                 VStack(alignment: .leading, spacing: 5.0) {
@@ -66,6 +66,7 @@ struct CurrentDetailsView: View {
             }
         }
         .padding()
+        .padding(.vertical)
         .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
     }
     

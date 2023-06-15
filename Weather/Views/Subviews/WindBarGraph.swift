@@ -20,9 +20,11 @@ struct WindBarGraph: View {
                 BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", getLargestValue() + 10))
                     .foregroundStyle(Color.clear)
                     .annotation(position: .top) {
-                        Image(systemName: "location.fill")
-                            .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
-                            .foregroundColor(.secondary)
+                        if item.windSpeed != "0" {
+                            Image(systemName: "location.fill")
+                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
+                                .foregroundColor(.secondary)
+                        }
                     }
             }
             .chartYScale(domain: 0...(getLargestValue() + 20))

@@ -16,19 +16,24 @@ class WeatherKitManager: ObservableObject {
     @Published var tomorrowWeather: TomorrowWeatherModel = TomorrowWeatherModel.tomorrowDataHolder
     @Published var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.dailyDataHolder]
     
-    var timezoneOffset: Int = 0
-    
+    private var timezoneOffset: Int = 0
+    private let apiKey = K.apiKey
+    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid="
     
     
     //MARK: - Get Weather from WeatherKit
     /// Will get all the weather data with the coordinates that are passed in.
     func getWeather() async {
         
+        guard let apiKey = apiKey else {
+            print("UNABLE TO FIND APIKEY")
+            return
+        }
         do {
-            guard let url = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=40febaf4c7f14979ca5ecbec6a17cd1a") else { return }
+            guard let url = URL(string: "\(url)\(apiKey)") else { return } // Using Sapporo
             // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
-//             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
-            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
+             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
+//            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 40.712776, longitude: -74.005974)) // New York City
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: -75.257721, longitude: 97.818153)) // Antarctica
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
@@ -47,13 +52,31 @@ class WeatherKitManager: ObservableObject {
                 return
             }
             
-            
-            
-            if let unwrappedCurrentWeather = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather) {
-                await MainActor.run(body: {
-                    self.currentWeather = unwrappedCurrentWeather
-                })
+            guard let hourlyWeather = weather?.hourlyForecast else {
+                print("\n\n\n\n UNABLE TO GET HOURLY WEATHER DATA \n\n\n\n")
+                return 
             }
+            
+            let currentWeatherData = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather, hourlyWeather: hourlyWeather)
+            let tomorrowWeatherData = await getTomorrowWeather(tomorrowWeather: dailyWeather, hours: hourlyWeather)
+
+            await MainActor.run(body: {
+                self.currentWeather = currentWeatherData
+                self.tomorrowWeather = tomorrowWeatherData
+            })
+            
+            
+            for i in dailyWeather {
+                print(i.condition)
+                print(i.symbolName)
+                print(" ")
+            }
+            
+//            if let unwrappedCurrentWeather = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather) {
+//                await MainActor.run(body: {
+//                    self.currentWeather = unwrappedCurrentWeather
+//                })
+//            }
         } catch {
             fatalError("\(error)")
         }
@@ -62,34 +85,15 @@ class WeatherKitManager: ObservableObject {
     }
     
     
-    //MARK: - Get Tomorrow's Weather
-    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>) async {
-        let nextDayWeather = weather?.hourlyForecast.filter({ hourWeather in
-            /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
-            return hourWeather.date >= tomorrowWeather[1].date.advanced(by: 25200)
-        })
-
-    }
-    
-    
     //MARK: - Get the Current Weather
     // add a parameter here that takes UnitTemperature type
-    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>) async -> TodayWeatherModel? {
+    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) async -> TodayWeatherModel {
         
         /// Filters the hourly forecasts and returns only the items that start at the current hour and beyond
-        guard let hourlyWeatherStartingFromNow = weather?.hourlyForecast.filter({ hourlyWeatherItem in
+         let hourlyWeatherStartingFromNow = hourlyWeather.filter({ hourlyWeatherItem in
             return hourlyWeatherItem.date.timeIntervalSinceNow >= -3600
-        }) else { return nil }
+        })
         
-        var jddj: [HourWeather] = []
-        
-        for i in 0..<K.Time.twelveHours {
-            jddj.append(hourlyWeatherStartingFromNow[i])
-            print("\n")
-            print(jddj[i].symbolName)
-        }
-        
-//        print(jddj)
         
         var hourlyWind: [WindData] = []
         var hourlyTemperatures: [HourlyTemperatures] = []
@@ -168,6 +172,93 @@ class WeatherKitManager: ObservableObject {
         
                 
     }
+    
+    
+    
+    //MARK: - Get Tomorrow's Weather
+    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>) async -> TomorrowWeatherModel {
+        let tomorrowWeather = tomorrowWeather[1]
+        
+        /// Gets all hourly forecasts starting with 7AM tomorrow
+        let nextDayWeatherHours = hours.filter({ hourWeather in
+            /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
+            return hourWeather.date >= tomorrowWeather.date.advanced(by: 25200)
+        })
+        
+        /// Will hold tomorrow's hourly forecasts for the next 12 hours starting with 7AM
+        var tomorrow12HourForecast: [HourWeather] = []
+        
+        /// Will hold tomorrow's hourly wind data for the next 12 hours starting with 7AM
+        var tomorrowHourlyWind: [WindData] = []
+        
+        /// Will hold tomorrow's hourly temperatures
+        var tomorrowHourlyTemperatures: [HourlyTemperatures] = []
+
+        
+        for hour in 0..<K.Time.twelveHours {
+            tomorrow12HourForecast.append(nextDayWeatherHours[hour])
+            
+        }
+        
+        for hour in 0..<K.Time.twelveHours {
+            tomorrowHourlyWind.append(WindData(
+                windSpeed: String(format: "%.0f", tomorrow12HourForecast[hour].wind.speed.value),
+                windDirection: tomorrow12HourForecast[hour].wind.compassDirection,
+                time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date)))
+            
+            
+            tomorrowHourlyTemperatures.append(HourlyTemperatures(
+                temperature: String(format: "%.0f", tomorrow12HourForecast[hour].temperature.converted(to: .fahrenheit).value),
+                date: getReadableHourOnly(date: tomorrow12HourForecast[hour].date),
+                symbol: tomorrow12HourForecast[hour].symbolName,
+                chanceOfPrecipitation: tomorrow12HourForecast[hour].precipitationChance.formatted(.percent))
+            )
+            
+        }
+        
+
+        
+        let sunDetails = SunData(
+            sunrise: getReadableHourAndMinute(date: tomorrowWeather.sun.sunrise!),
+            sunset: getReadableHourAndMinute(date: tomorrowWeather.sun.sunset!),
+            dawn: "",
+            solarNoon: "",
+            dusk: ""
+        )
+        
+        let tomorrowDetails = DetailsModel(
+            humidity: nil,
+            dewPoint: nil,
+            pressure: nil,
+            uvIndex: tomorrowWeather.uvIndex.category.description + ", " + tomorrowWeather.uvIndex.value.description,
+            visibility: nil,
+            sunData: sunDetails
+        )
+        
+        let tomorrowWind = WindData(
+            windSpeed: String(format: "%.0f", tomorrowWeather.wind.speed.value),
+            windDirection: tomorrowWeather.wind.compassDirection,
+            time: nil
+        )
+        
+        
+        let tomorrowsWeather = TomorrowWeatherModel(
+            date: getDayOfWeekAndDate(date: tomorrowWeather.date),
+            tomorrowLow: String(format: "%.0f", tomorrowWeather.lowTemperature.converted(to: .fahrenheit).value),
+            tomorrowHigh: String(format: "%.0f", tomorrowWeather.highTemperature.converted(to: .fahrenheit).value),
+            tomorrowSymbol: tomorrowWeather.symbolName,
+            tomorrowWeatherDescription: tomorrowWeather.condition,
+            tomorrowChanceOfPrecipitation: tomorrowWeather.precipitationChance.formatted(.percent),
+            tomorrowDetails: tomorrowDetails,
+            tomorrowWind: tomorrowWind,
+            tomorrowHourlyWind: tomorrowHourlyWind,
+            hourlyTemperatures: tomorrowHourlyTemperatures
+        )
+        
+        return tomorrowsWeather
+
+    }
+
     
     
     

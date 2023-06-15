@@ -13,6 +13,7 @@ import SwiftUI
 
 struct K {
     static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
+    static let apiKey = Bundle.main.object(forInfoDictionaryKey: "apiKey")
 
     
     struct Time {

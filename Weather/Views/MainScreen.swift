@@ -21,7 +21,7 @@ struct MainScreen: View {
             case .today:
                 return vm.currentWeather.backgroundColor
             case .tomorrow:
-                return Color.orange
+                return vm.tomorrowWeather.backgroundColor
             case .multiDay:
                 return Color.blue
         }
@@ -69,7 +69,7 @@ struct MainScreen: View {
                             .tag(WeatherTabs.today)
                             .environmentObject(vm)
                         
-                        TomorrowScreen()
+                        TomorrowScreen(tomorrowWeather: vm.tomorrowWeather)
                             .ignoresSafeArea(edges: .bottom)
                             .contentShape(Rectangle()).gesture(DragGesture())
                             .tag(WeatherTabs.tomorrow)
