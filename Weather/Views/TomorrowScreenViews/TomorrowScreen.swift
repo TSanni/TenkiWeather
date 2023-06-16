@@ -65,6 +65,8 @@ struct TomorrowScreen: View {
                         .font(.headline)
                     Text(tomorrowWeather.tomorrowWeatherDescription.description)
                         .font(.largeTitle)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.3)
                 }
                 
                 Spacer()

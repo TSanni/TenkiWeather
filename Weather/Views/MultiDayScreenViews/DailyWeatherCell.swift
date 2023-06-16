@@ -67,7 +67,10 @@ struct DailyWeatherCell: View {
                             Text("Wind")
 //                            Text("Humidity")
                             Text("UV index")
-                            Text("Chance of rain")
+                            
+                            if daily.dailyChanceOfPrecipitation != "0%" {
+                                Text("Chance of rain")
+                            }
                             Text("Sunrise/sunset")
                         }
                         .foregroundColor(.secondary)
@@ -75,10 +78,14 @@ struct DailyWeatherCell: View {
                         Spacer()
                         
                         VStack(alignment: .leading, spacing: 5.0) {
-                            Text("\(daily.dailyWeatherDescription.description), \(daily.dailyWind.windSpeed) mph \(daily.dailyWind.readableWindDirection)")
+                            Text("\(daily.dailyWind.windDescriptionForMPH), \(daily.dailyWind.windSpeed) mph \(daily.dailyWind.windDirection.abbreviation)")
 //                            Text("77%")
                             Text(daily.dailyUVIndex)
-                            Text(daily.dailyChanceOfPrecipitation)
+                            
+                            if daily.dailyChanceOfPrecipitation != "0%" {
+                                Text(daily.dailyChanceOfPrecipitation)
+                            }
+                            
                             Text("\(daily.sunEvents.sunrise), \(daily.sunEvents.sunset)")
                         }
                         .foregroundColor(.primary)

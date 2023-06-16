@@ -64,7 +64,13 @@ struct WindView: View {
                 Text(windData.windDescriptionForMPH)
                     .font(.largeTitle)
                     .fontWeight(.light)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.3)
                 Text("Now · From \(windData.readableWindDirection)").foregroundColor(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.3)
+
+
             }
         }
     }
@@ -84,6 +90,7 @@ struct WindView: View {
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
         WindView(windData: WindData.windDataHolder, hourlyWindData: [WindData.windDataHolder], setTodayWeather: false)
+            .previewDevice("iPhone 12 Pro Max")
             .environmentObject(WeatherKitManager())
         
     }
