@@ -12,7 +12,7 @@ import SwiftUI
 
 
 struct K {
-    static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
+//    static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
     static let apiKey = Bundle.main.object(forInfoDictionaryKey: "apiKey")
 
     
@@ -47,7 +47,7 @@ struct K {
         
     }
     struct Colors {
-        static let properBlack = #colorLiteral(red: 0.1930268705, green: 0.1930268705, blue: 0.1930268705, alpha: 0.8470588235)
+        static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
 
         static let clearDay = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
         static let dayTimeCloudy = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
@@ -61,13 +61,15 @@ struct K {
         static let maroon = #colorLiteral(red: 0.5871755481, green: 0.3745910525, blue: 0.5551333427, alpha: 1)
         
         static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
-        static let offWhite = #colorLiteral(red: 0.8980392814, green: 0.8980391622, blue: 0.8980392218, alpha: 1)
+        static let offWhite = #colorLiteral(red: 0.9740188718, green: 0.9712695479, blue: 0.9717465043, alpha: 1)
         
         
         static let moonColor = #colorLiteral(red: 0.7508266568, green: 0.8291798234, blue: 0.8629794717, alpha: 1)
         static let darkBlue = #colorLiteral(red: 0.02143974602, green: 0.003193902783, blue: 0.3691283166, alpha: 1)
         static let cloudyBlue = #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1)
         static let thunderstormPurple = #colorLiteral(red: 0.869899869, green: 0.2400925457, blue: 0.5949490666, alpha: 1)
+        static let tenDayBarColor = #colorLiteral(red: 0.0978968963, green: 0.3324657381, blue: 0.4080292583, alpha: 1)
+        
         
     }
 }

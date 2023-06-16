@@ -35,8 +35,10 @@ struct DailyWeatherCell: View {
                                     Text(daily.dailyChanceOfPrecipitation)
                                         .foregroundColor(.teal)
                                 }
-                                Image(systemName: daily.dailySymbol)
+                                Image(systemName: "\(daily.dailySymbol).fill")
+                                    .renderingMode(.original)
                                     .resizable()
+                                    .brightness(-0.07)
                                     .scaledToFit()
                                     .frame(width: 40, height: 40)
                             }
@@ -63,7 +65,7 @@ struct DailyWeatherCell: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 5.0) {
                             Text("Wind")
-                            Text("Humidity")
+//                            Text("Humidity")
                             Text("UV index")
                             Text("Chance of rain")
                             Text("Sunrise/sunset")
@@ -73,11 +75,11 @@ struct DailyWeatherCell: View {
                         Spacer()
                         
                         VStack(alignment: .leading, spacing: 5.0) {
-                            Text("Light, 7 mph E")
-                            Text("77%")
-                            Text("Very high, 77")
-                            Text("77%")
-                            Text("7:77 AM, 7:77 PM")
+                            Text("\(daily.dailyWeatherDescription.description), \(daily.dailyWind.windSpeed) mph \(daily.dailyWind.readableWindDirection)")
+//                            Text("77%")
+                            Text(daily.dailyUVIndex)
+                            Text(daily.dailyChanceOfPrecipitation)
+                            Text("\(daily.sunEvents.sunrise), \(daily.sunEvents.sunset)")
                         }
                         .foregroundColor(.primary)
                         
@@ -114,5 +116,6 @@ struct DailyWeatherCell: View {
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
         DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder)
+            .previewDevice("iPhone 12 Pro Max")
     }
 }

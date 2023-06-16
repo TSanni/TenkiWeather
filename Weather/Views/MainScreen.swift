@@ -23,7 +23,7 @@ struct MainScreen: View {
             case .tomorrow:
                 return vm.tomorrowWeather.backgroundColor
             case .multiDay:
-                return Color.green
+                return Color(uiColor: K.Colors.tenDayBarColor)
         }
     }
     
@@ -87,6 +87,7 @@ struct MainScreen: View {
                 .ignoresSafeArea(edges: .bottom)
             }
         }
+        .navigationViewStyle(.stack)
         .task {
             await vm.getWeather()
         }

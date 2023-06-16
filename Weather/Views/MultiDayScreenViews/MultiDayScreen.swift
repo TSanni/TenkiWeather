@@ -19,9 +19,9 @@ struct MultiDayScreen: View {
                     DailyWeatherCell(daily: item)
                 }
             }
+            .background(colorScheme == .light ? .white : Color(uiColor: K.Colors.properBlack))
         }
-        .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
-
+        
     }
 }
 

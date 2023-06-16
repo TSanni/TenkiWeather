@@ -18,8 +18,9 @@ class WeatherKitManager: ObservableObject {
     
     private var timezoneOffset: Int = 0
     private let apiKey = K.apiKey
-    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid="
-    
+    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=" // Houston
+//    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=" //Sapporo
+
     
     //MARK: - Get Weather from WeatherKit
     /// Will get all the weather data with the coordinates that are passed in.
@@ -57,12 +58,17 @@ class WeatherKitManager: ObservableObject {
                 return 
             }
             
+            for i in 0..<dailyWeather.count {
+                print(dailyWeather[i].condition)
+            }
+            
             let currentWeatherData = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather, hourlyWeather: hourlyWeather)
             let tomorrowWeatherData = await getTomorrowWeather(tomorrowWeather: dailyWeather, hours: hourlyWeather)
-
+            let dailyWeatherData = await getDailyWeather(dailyWeather: dailyWeather, hourlyWeather: hourlyWeather)
             await MainActor.run(body: {
                 self.currentWeather = currentWeatherData
                 self.tomorrowWeather = tomorrowWeatherData
+                self.dailyWeather = dailyWeatherData
             })
             
             
@@ -256,51 +262,47 @@ class WeatherKitManager: ObservableObject {
 
     
     //MARK: - Get the Daily Weather
-//    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) async -> [DailyWeatherModel] {
-//
-//        var dailyWindData: WindData = WindData(windSpeed: dailyWeather[], windDirection: <#T##Wind.CompassDirection#>, time: <#T##String?#>)
-//        var dailySunData: [SunData] = []
-//
-//        var daily: [DailyWeatherModel] = []
-//
-//
-//
-//        for day in 0..<dailyWeather.count {
-//            dailyWindData.append(
-//                WindData(
-//                    windSpeed: String(format: "%.0f", dailyWeather[day].wind.speed.value),
-//                    windDirection: dailyWeather[day].wind.compassDirection,
-//                    time: nil
-//                )
-//            )
-//
-//            dailySunData.append(
-//                SunData(
-//                    sunrise: getReadableHourAndMinute(date: dailyWeather[day].sun.sunrise!),
-//                    sunset: getReadableHourAndMinute(date: dailyWeather[day].sun.sunset!),
-//                    dawn: "",
-//                    solarNoon: "",
-//                    dusk: ""
-//                )
-//            )
-//
-//            daily.append(
-//                DailyWeatherModel(
-//                    date: getDayOfWeekAndDate(date: dailyWeather[day].date),
-//                    dailyWeatherDescription: dailyWeather[day].condition,
-//                    dailyChanceOfPrecipitation: dailyWeather[day].precipitationChance.formatted(.percent),
-//                    dailySymbol: dailyWeather[day].symbolName,
-//                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.value),
-//                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.value),
-//                    dailyWind: dailyWindData,
-//                    dailyUVIndex: dailyWeather[day].uvIndex.category.description + ", " + dailyWeather[day].uvIndex.value.description,
-//                    sunEvents: dailySunData
-//                )
-//            )
-//        }
-//
-//        return daily
-//    }
+    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) async -> [DailyWeatherModel] {
+
+
+        var daily: [DailyWeatherModel] = []
+
+
+
+        for day in 0..<dailyWeather.count {
+            
+            let windDetails = WindData(
+                windSpeed: String(format: "%.0f", dailyWeather[day].wind.speed.value),
+                windDirection: dailyWeather[day].wind.compassDirection,
+                time: nil
+            )
+            
+            let sunData = SunData(
+                sunrise: getReadableHourAndMinute(date: dailyWeather[day].sun.sunrise!),
+                sunset: getReadableHourAndMinute(date: dailyWeather[day].sun.sunset!),
+                dawn: "",
+                solarNoon: "",
+                dusk: ""
+            )
+
+
+            daily.append(
+                DailyWeatherModel(
+                    date: getDayOfWeekAndDate(date: dailyWeather[day].date),
+                    dailyWeatherDescription: dailyWeather[day].condition,
+                    dailyChanceOfPrecipitation: dailyWeather[day].precipitationChance.formatted(.percent),
+                    dailySymbol: dailyWeather[day].symbolName,
+                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.value),
+                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.value),
+                    dailyWind: windDetails,
+                    dailyUVIndex: dailyWeather[day].uvIndex.category.description + ", " + dailyWeather[day].uvIndex.value.description,
+                    sunEvents: sunData
+                )
+            )
+        }
+
+        return daily
+    }
     
     //MARK: - Private functions
     
