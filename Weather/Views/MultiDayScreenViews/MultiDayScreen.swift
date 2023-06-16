@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct MultiDayScreen: View {
-    @EnvironmentObject var vm: WeatherKitManager
+//    @EnvironmentObject var vm: WeatherKitManager
     @Environment(\.colorScheme) var colorScheme
+    let daily: [DailyWeatherModel]
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                ForEach(0..<10) { item in
-                    DailyWeatherCell()
+                ForEach(daily) { item in
+                    DailyWeatherCell(daily: item)
                 }
             }
-//            .frame(height: UIScreen.main.bounds.height * 0.9)
         }
         .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
 
@@ -27,6 +27,6 @@ struct MultiDayScreen: View {
 
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
-        MultiDayScreen()
+        MultiDayScreen(daily: [DailyWeatherModel.dailyDataHolder])
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DailyWeatherCell: View {
     @State private var showRest: Bool = false
+    let daily: DailyWeatherModel
     
     var body: some View {
         VStack {
@@ -17,11 +18,11 @@ struct DailyWeatherCell: View {
                     Color.teal.opacity(0.000001)
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Today")
+                            Text(daily.date)
                                 .foregroundColor(.primary)
                                 .font(.headline)
                             
-                            Text("Scattered thunderstorms")
+                            Text(daily.dailyWeatherDescription.description)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -30,20 +31,21 @@ struct DailyWeatherCell: View {
                         
                         HStack {
                             HStack {
-                                Text("40%")
-                                    .foregroundColor(.teal)
-                                
-                                Image(systemName: "cloud.rain.fill")
+                                if daily.dailyChanceOfPrecipitation != "0%" {
+                                    Text(daily.dailyChanceOfPrecipitation)
+                                        .foregroundColor(.teal)
+                                }
+                                Image(systemName: daily.dailySymbol)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 40, height: 40)
                             }
                             
                             VStack {
-                                Text("77°")
+                                Text("\(daily.dailyHighTemp)°")
                                     .foregroundColor(.primary)
                                 
-                                Text("77°")
+                                Text("\(daily.dailyLowTemp)°")
                                     .foregroundColor(.secondary)
                             }
                         }
@@ -111,6 +113,6 @@ struct DailyWeatherCell: View {
 
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
-        DailyWeatherCell()
+        DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder)
     }
 }
