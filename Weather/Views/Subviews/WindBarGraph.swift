@@ -28,7 +28,7 @@ struct WindBarGraph: View {
                     }
             }
             .chartYScale(domain: 0...(getLargestValue() + 20))
-            .chartYAxis(.hidden)
+//            .chartYAxis(.hidden)
             .chartXAxis {
                 AxisMarks(position: .bottom) { q in
                     AxisValueLabel {
@@ -46,7 +46,7 @@ struct WindBarGraph: View {
                     }
             }
             .chartYScale(domain: 0...(getLargestValue() + 20))
-            .chartYAxis(.hidden)
+//            .chartYAxis(.hidden)
             .chartXAxis {
                 AxisMarks(position: .bottom) { q in
                     AxisValueLabel {
@@ -125,7 +125,8 @@ struct WindBarGraph: View {
 
 struct WindBarGraph_Previews: PreviewProvider {
     static var previews: some View {
-        WindBarGraph(hourlyWind: [WindData.windDataHolder])
+        WindBarGraph(hourlyWind: [WindData.windDataHolder, WindData.windDataHolder, WindData.windDataHolder])
+            .previewDevice("iPhone 12 Pro Max")
             .frame(height: 300)
     }
 }

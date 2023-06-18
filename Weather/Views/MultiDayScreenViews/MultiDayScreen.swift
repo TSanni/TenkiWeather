@@ -15,8 +15,10 @@ struct MultiDayScreen: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                ForEach(daily) { item in
-                    DailyWeatherCell(daily: item)
+                DailyWeatherCell(daily: daily[0], title: "Today")
+                
+                ForEach(1..<daily.count, id: \.self) { item in
+                    DailyWeatherCell(daily: daily[item], title: nil)
                 }
             }
             .background(colorScheme == .light ? .white : Color(uiColor: K.Colors.properBlack))
@@ -28,5 +30,6 @@ struct MultiDayScreen: View {
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
         MultiDayScreen(daily: [DailyWeatherModel.dailyDataHolder])
+            .previewDevice("iPhone 12 Pro Max")
     }
 }

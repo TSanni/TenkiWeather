@@ -50,19 +50,10 @@ struct WeatherGraphView: View {
                             .fontWeight(.light)
                             .foregroundColor(hourlyTemperatures[q.index].chanceOfPrecipitation == "0%" ? .clear : Color(uiColor: K.Colors.precipitationBlue))
                         
-//                        if hourlyTemperatures[q.index].symbol == "cloud" {
-//                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
-//                                .foregroundColor(.white)
-//                        } else if hourlyTemperatures[q.index].symbol == "sun.max" {
-//                            Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
-//                                .foregroundColor(.yellow)
-//                        }
-//                        else {
+
                         Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
                             .renderingMode(.original)
                         
-//                                .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])
-//                        }
                     }
                     .foregroundColor(.black)
                     .font(.subheadline)
@@ -86,7 +77,7 @@ struct WeatherGraphView: View {
     }
     
     /// Returns the highest temperature in the hourlyTemperatures struct array,
-    /// then adds 10 to get a nice ending point for a graph
+    /// then adds 5 to get a nice ending point for a graph
     func getGraphEndingPoint() -> Double {
         
         var allTemperatures: [Double] = []

@@ -10,6 +10,7 @@ import SwiftUI
 struct DailyWeatherCell: View {
     @State private var showRest: Bool = false
     let daily: DailyWeatherModel
+    let title: String?
     
     var body: some View {
         VStack {
@@ -18,9 +19,18 @@ struct DailyWeatherCell: View {
                     Color.teal.opacity(0.000001)
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(daily.date)
-                                .foregroundColor(.primary)
-                                .font(.headline)
+                            
+                            if let title = title {
+                                Text(title)
+                                    .foregroundColor(.primary)
+                                    .font(.headline)
+                            } else {
+                                Text(daily.date)
+                                    .foregroundColor(.primary)
+                                    .font(.headline)
+                            }
+                            
+
                             
                             Text(daily.dailyWeatherDescription.description)
                                 .font(.subheadline)
@@ -32,8 +42,10 @@ struct DailyWeatherCell: View {
                         HStack {
                             HStack {
                                 if daily.dailyChanceOfPrecipitation != "0%" {
-                                    Text(daily.dailyChanceOfPrecipitation)
+                                    Text("\(daily.dailyChanceOfPrecipitation)")
                                         .foregroundColor(.teal)
+                                        .lineLimit(1)
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
                                 Image(systemName: "\(daily.dailySymbol).fill")
                                     .renderingMode(.original)
@@ -99,11 +111,20 @@ struct DailyWeatherCell: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
-                            ForEach(0..<20) { item in
+                            ForEach(daily.hourlyTemperatures) { hour in
                                 VStack {
-                                    Text("77°")
-                                    Image(systemName: "moon.fill")
-                                    Text("7 PM")
+                                    Text("\(hour.temperature)°")
+                                    Image(systemName: "\(hour.symbol).fill")
+                                        .resizable()
+                                        .renderingMode(.original)
+                                        .scaledToFit()
+                                        .frame(width: 40, height: 40)
+                                        .brightness(-0.07)
+
+                                    Text("\(hour.date)")
+                                        .font(.callout)
+                                        .foregroundColor(.secondary)
+                                    
                                 }
                             }
                         }
@@ -122,7 +143,7 @@ struct DailyWeatherCell: View {
 
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
-        DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder)
+        DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder, title: nil)
             .previewDevice("iPhone 12 Pro Max")
     }
 }

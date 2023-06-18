@@ -23,6 +23,8 @@ struct DailyWeatherModel: Identifiable {
     let dailyWind: WindData
     let dailyUVIndex: String
     let sunEvents: SunData
+    let hourlyTemperatures: [HourlyTemperatures]
+
     
     
     /// Holder data for daily weather
@@ -35,7 +37,7 @@ struct DailyWeatherModel: Identifiable {
         dailyHighTemp: "-",
         dailyWind: WindData.windDataHolder,
         dailyUVIndex: "-",
-        sunEvents: SunData.sunDataHolder
+        sunEvents: SunData.sunDataHolder, hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData]
     )
     
 

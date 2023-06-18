@@ -25,7 +25,6 @@ struct WindView: View {
             } else {
                 tomorrowData
             }
-
             
             ScrollView(.horizontal, showsIndicators: false) {
                 WindBarGraph(hourlyWind: hourlyWindData)
@@ -35,7 +34,7 @@ struct WindView: View {
         }
         .padding()
         .padding(.top)
-        .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
+        .background(colorScheme == .light ? Color.white : Color(uiColor: K.Colors.properBlack))
         
     }
     
@@ -60,15 +59,14 @@ struct WindView: View {
             
             
             VStack(alignment: .leading) {
-//                    Text("Light")
                 Text(windData.windDescriptionForMPH)
                     .font(.largeTitle)
                     .fontWeight(.light)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.3)
+                    .minimumScaleFactor(0.7)
                 Text("Now · From \(windData.readableWindDirection)").foregroundColor(.secondary)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.3)
+                    .minimumScaleFactor(0.8)
 
 
             }

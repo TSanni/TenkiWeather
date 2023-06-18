@@ -20,7 +20,13 @@ class WeatherKitManager: ObservableObject {
     private let apiKey = K.apiKey
     private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=" // Houston
 //    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=" //Sapporo
+ 
+}
 
+
+//MARK: - Getting Weather
+extension WeatherKitManager {
+    
     
     //MARK: - Get Weather from WeatherKit
     /// Will get all the weather data with the coordinates that are passed in.
@@ -55,12 +61,9 @@ class WeatherKitManager: ObservableObject {
             
             guard let hourlyWeather = weather?.hourlyForecast else {
                 print("\n\n\n\n UNABLE TO GET HOURLY WEATHER DATA \n\n\n\n")
-                return 
+                return
             }
             
-            for i in 0..<dailyWeather.count {
-                print(dailyWeather[i].condition)
-            }
             
             let currentWeatherData = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather, hourlyWeather: hourlyWeather)
             let tomorrowWeatherData = await getTomorrowWeather(tomorrowWeather: dailyWeather, hours: hourlyWeather)
@@ -264,7 +267,9 @@ class WeatherKitManager: ObservableObject {
     //MARK: - Get the Daily Weather
     func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) async -> [DailyWeatherModel] {
 
+        
 
+        
         var daily: [DailyWeatherModel] = []
 
 
@@ -284,7 +289,9 @@ class WeatherKitManager: ObservableObject {
                 solarNoon: "",
                 dusk: ""
             )
-
+            
+            let hourlyTempsForDay = getHourlyWeatherForDay(day: dailyWeather[day], hours: hourlyWeather)
+            
 
             daily.append(
                 DailyWeatherModel(
@@ -292,20 +299,56 @@ class WeatherKitManager: ObservableObject {
                     dailyWeatherDescription: dailyWeather[day].condition,
                     dailyChanceOfPrecipitation: dailyWeather[day].precipitationChance.formatted(.percent),
                     dailySymbol: dailyWeather[day].symbolName,
-                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.value),
-                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.value),
+                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.converted(to: .fahrenheit).value),
+                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.converted(to: .fahrenheit).value),
                     dailyWind: windDetails,
                     dailyUVIndex: dailyWeather[day].uvIndex.category.description + ", " + dailyWeather[day].uvIndex.value.description,
-                    sunEvents: sunData
+                    sunEvents: sunData,
+                    hourlyTemperatures: hourlyTempsForDay
                 )
             )
         }
 
         return daily
     }
+}
+
+
+
+
+//MARK: - Private functions
+extension WeatherKitManager {
     
-    //MARK: - Private functions
-    
+    /// This functions returns an array of hourly weather data for the next fifteen hours.
+    private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>) -> [HourlyTemperatures] {
+        var fifteenHours: [HourlyTemperatures] = []
+        
+        
+        /// Gets all hourly forecasts starting with 7AM that day
+        let nextDayWeatherHours = hours.filter({ hourWeather in
+            /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
+            return hourWeather.date >= day.date.advanced(by: 25200)
+        })
+        
+        print("DAY: \(getDayOfWeekAndDate(date: day.date))")
+        print("\n")
+        
+        for i in 0..<15 {
+            fifteenHours.append(
+                HourlyTemperatures(
+                    temperature: String(format: "%.0f", nextDayWeatherHours[i].temperature.converted(to: .fahrenheit).value),
+                    date: getReadableHourOnly(date: nextDayWeatherHours[i].date),
+                    symbol: nextDayWeatherHours[i].symbolName,
+                    chanceOfPrecipitation: nextDayWeatherHours[i].precipitationChance.formatted(.percent)
+                )
+            )
+        }
+        
+        return fifteenHours
+        
+        
+    }
+
     /// Takes a UnitLength measurement and converts it to a readable format by removing floating point numbers.
     /// Returns a String of that format
     private func getReadableMeasurementLengths(measurement: Measurement<UnitLength>) -> String {
@@ -367,10 +410,13 @@ class WeatherKitManager: ObservableObject {
         let readableDate = dateFormatter.string(from: date)
         return readableDate
     }
+}
 
-    
-    //MARK: - Public functions
-    
+
+
+//MARK: - Public functions
+extension WeatherKitManager {
+
     /// Takes a CompassDirection and returns a Double which indicates the angle the current compass direction.
     /// One use can be to properly set rotation effects on views
     func getRotation(direction: Wind.CompassDirection) -> Double {
@@ -413,43 +459,4 @@ class WeatherKitManager: ObservableObject {
                 return zero - 112.5
         }
     }
-    
-
-  
-    
-    /// Takes the name of an SF Symbol icon and returns an array of colors.
-    /// Main purpose is to be used with the foregroundStyle modifier
-//    func getSFColorForIcon(sfIcon: String) -> [Color] {
-//
-//        switch sfIcon {
-//        case K.WeatherCondition.sunMax:
-//            return [.yellow, .yellow, .yellow]
-//        case K.WeatherCondition.moonStars:
-//            return [K.Colors.moonColor, K.Colors.offWhite, .clear]
-//        case K.WeatherCondition.cloudSun:
-//            return [K.Colors.offWhite, .yellow, .clear]
-//        case K.WeatherCondition.cloudMoon:
-//            return [K.Colors.offWhite, K.Colors.moonColor, .clear]
-//        case K.WeatherCondition.cloud:
-//            return [K.Colors.offWhite, K.Colors.offWhite, K.Colors.offWhite]
-//        case K.WeatherCondition.cloudRain:
-//            return [K.Colors.offWhite, .cyan, .clear]
-//        case K.WeatherCondition.cloudSunRain:
-//            return [K.Colors.offWhite, .yellow, .cyan]
-//        case K.WeatherCondition.cloudMoonRain:
-//            return [K.Colors.offWhite, K.Colors.moonColor, .cyan]
-//        case K.WeatherCondition.cloudBolt:
-//            return [K.Colors.offWhite, .yellow, .clear]
-//        case K.WeatherCondition.snowflake:
-//            return [K.Colors.offWhite, .clear, .clear]
-//        case K.WeatherCondition.cloudFog:
-//            return [K.Colors.offWhite, .gray, .clear]
-//            case K.WeatherCondition.cloudBoltRain:
-//                return [K.Colors.offWhite, .cyan, .white]
-//            
-//        default:
-//            print("Error getting color")
-//                return [.white, .white, .white]
-//        }
-//    }
 }

@@ -73,9 +73,13 @@ struct TodayScreen: View {
                     HStack(alignment: .top, spacing: 0.0) {
                         Text(currentWeather.currentTemperature)
                             .font(.system(size: 100))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.3)
                         
                         Text(currentWeather.temperatureUnit)
                             .font(.system(size: 75))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.3)
 
                     }
                     
