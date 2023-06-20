@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SavedLocationCell: View {
+    let location: TodayWeatherModel
     var body: some View {
         VStack {
             VStack {
@@ -46,6 +47,6 @@ struct SavedLocationCell: View {
 
 struct SavedLocationCell_Previews: PreviewProvider {
     static var previews: some View {
-        SavedLocationCell()
+        SavedLocationCell(location: TodayWeatherModel.holderData)
     }
 }

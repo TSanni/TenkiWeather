@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TomorrowScreen: View {
-    @EnvironmentObject var vm: WeatherKitManager
+    @EnvironmentObject var vm: WeatherViewModel
     let tomorrowWeather: TomorrowWeatherModel
     
     
@@ -38,11 +38,11 @@ struct TomorrowScreen: View {
                         }
                         .frame(height: geo.size.height)
                         
-                        CurrentDetailsView(title: "Details", details: vm.tomorrowWeather.tomorrowDetails)
+                        CurrentDetailsView(title: "Details", details: tomorrowWeather.tomorrowDetails)
                         
                         CustomDivider()
                         
-                        WindView(windData: vm.tomorrowWeather.tomorrowWind, hourlyWindData: vm.tomorrowWeather.tomorrowHourlyWind, setTodayWeather: false)
+                        WindView(windData: tomorrowWeather.tomorrowWind, hourlyWindData: tomorrowWeather.tomorrowHourlyWind, setTodayWeather: false)
                         
                         CustomDivider()
                     }
@@ -58,15 +58,19 @@ struct TomorrowScreen: View {
         VStack(alignment: .leading) {
             Text(tomorrowWeather.date)
                 .foregroundColor(.black)
-                .shadow(color: .white.opacity(0.7), radius: 1, y: 1.7)
+                .shadow(color: .white.opacity(0.5), radius: 1, y: 1.7)
             HStack {
                 VStack(alignment: .leading) {
                     Text("Day \(tomorrowWeather.tomorrowHigh)°↑ · Night \(tomorrowWeather.tomorrowLow)°↓")
                         .font(.headline)
+                        .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+
                     Text(tomorrowWeather.tomorrowWeatherDescription.description)
                         .font(.largeTitle)
                         .lineLimit(1)
                         .minimumScaleFactor(0.3)
+                        .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+
                 }
                 
                 Spacer()
@@ -76,13 +80,15 @@ struct TomorrowScreen: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 75)
+                    .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+
                 
             }
             
             Spacer()
         }
         .foregroundColor(.white)
-        .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+//        .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
     }
     
@@ -104,6 +110,6 @@ struct TomorrowScreen: View {
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.tomorrowDataHolder)
-            .environmentObject(WeatherKitManager())
+            .environmentObject(WeatherViewModel())
     }
 }

@@ -10,16 +10,28 @@ import SwiftUI
 
 //MARK: - Add this view modifier to any view that requires a custom back button
 struct CustomNavBackButton: ViewModifier {
+    @Binding var showSearchScreen: Bool
+
+//    init(test: Binding<Bool>) {
+//
+//    }
+    
+    
     @Environment(\.dismiss) var dismiss
     func body(content: Content) -> some View {
         content
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        dismiss()
+                        withAnimation {
+                            showSearchScreen = false
+                        }
+                        
+//                        dismiss()
                     } label: {
                         Image(systemName: "arrow.left")
                             .foregroundColor(.secondary)
+                            .contentShape(Rectangle())
                     }
 
                 }
@@ -30,8 +42,8 @@ struct CustomNavBackButton: ViewModifier {
 
 extension View {
     
-    func customNavBackButton() -> some View {
-        return self.modifier(CustomNavBackButton())
+    func customNavBackButton(showSearchScreen: Binding<Bool>) -> some View {
+        return self.modifier(CustomNavBackButton(showSearchScreen: showSearchScreen))
     }
 }
 

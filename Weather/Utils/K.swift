@@ -70,7 +70,7 @@ struct K {
         static let thunderstormPurple = #colorLiteral(red: 0.869899869, green: 0.2400925457, blue: 0.5949490666, alpha: 1)
         static let tenDayBarColor = #colorLiteral(red: 0.0978968963, green: 0.3324657381, blue: 0.4080292583, alpha: 1)
         
-        
+        static let textFieldBlinkingBarColor = #colorLiteral(red: 0.6047868133, green: 0.6487623453, blue: 1, alpha: 1)
     }
 }
 

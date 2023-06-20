@@ -124,7 +124,7 @@ struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
         TodayScreen(currentWeather: TodayWeatherModel.holderData)
             .previewDevice("iPhone 12 Pro Max")
-            .environmentObject(WeatherKitManager())
+//            .environmentObject(WeatherKitManager())
     }
 }
 

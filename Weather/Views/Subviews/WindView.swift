@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WindView: View {
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var vm: WeatherKitManager
+//    @EnvironmentObject var vm: WeatherKitManager
     let windData: WindData
     let hourlyWindData: [WindData]
     let setTodayWeather: Bool
@@ -50,7 +50,8 @@ struct WindView: View {
                 
                 VStack {
                     Image(systemName: "location.fill")
-                        .rotationEffect(.degrees(vm.getRotation(direction: windData.windDirection) + 180))
+//                        .rotationEffect(.degrees(vm.getRotation(direction: windData.windDirection) + 180))
+                        .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.windDirection) + 180) )
                     Text("mph")
                 }
                 .foregroundColor(.secondary)
@@ -89,7 +90,7 @@ struct WindView_Previews: PreviewProvider {
     static var previews: some View {
         WindView(windData: WindData.windDataHolder, hourlyWindData: [WindData.windDataHolder], setTodayWeather: false)
             .previewDevice("iPhone 12 Pro Max")
-            .environmentObject(WeatherKitManager())
+//            .environmentObject(WeatherKitManager())
         
     }
 }

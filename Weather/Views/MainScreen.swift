@@ -13,11 +13,14 @@ import CoreLocation
 // Main screens get environment objects. Lesser views get passed in data
 
 struct MainScreen: View {
-    @StateObject private var vm = WeatherKitManager()
-    @State private var selectedTab: WeatherTabs = .today
+    @StateObject private var vm = WeatherViewModel()
+    @StateObject private var persistenceLocations = SavedLocationsPersistence()
+    @State private var weatherTab: WeatherTabs = .today
+    @State private var showSearchScreen: Bool = false
+    
     
     func getBarColor() -> Color {
-        switch selectedTab {
+        switch weatherTab {
             case .today:
                 return vm.currentWeather.backgroundColor
             case .tomorrow:
@@ -29,77 +32,108 @@ struct MainScreen: View {
     
     var body: some View {
         
-        NavigationView {
-            ZStack {
-                VStack(spacing: 0) {
-                    getBarColor().brightness(-0.1)
-                    Color(red: 0.15, green: 0.15, blue: 0.15)
-                }
-                .ignoresSafeArea()
-                
-                VStack(spacing: 0) {
+        VStack {
+            if showSearchScreen {
+                SearchingScreen(showSearchScreen: $showSearchScreen, todayCollection: persistenceLocations.allWeather)
+                    .transition(.move(edge: .bottom))
+                    .environmentObject(persistenceLocations)
+            } else {
+                ZStack {
+                    VStack(spacing: 0) {
+                        getBarColor().brightness(-0.1)
+                        Color(uiColor: K.Colors.properBlack)
+                    }
+                    .ignoresSafeArea()
                     
-                    VStack {
-                        ZStack(alignment: .trailing) {
-                            NavigationLink {
-                                SearchingScreen()
-                                    .environmentObject(vm)
-                            } label: {
+                    VStack(spacing: 0) {
+                        
+                        VStack {
+                            ZStack(alignment: .trailing) {
+                                
                                 SearchBar()
+                                    .onTapGesture {
+                                        showSearchScreen.toggle()
+                                    }
                                     .environmentObject(vm)
+                                
+                                
+                                Circle().fill(Color.red)
+                                    .frame(width: 30)
+                                    .padding(.trailing)
+                                    .onTapGesture {
+                                        print("Circle tapped")
+                                        persistenceLocations.addFruit(text: "Naruto")
+                                    }
                             }
                             
-                            Circle().fill(Color.red)
-                                .frame(width: 30)
-                                .padding(.trailing)
-                                .onTapGesture {
-                                    print("Circle tapped")
-                                }
+                            
+                            WeatherTabSelectionsView(weatherTab: $weatherTab)
+                                .padding(.top, 10)
                         }
+                        .padding(.horizontal)
                         
-                        WeatherTabsView(weatherTab: $selectedTab)
-                            .padding(.top, 10)
-                    }
-                    .padding(.horizontal)
-                    
-                    TabView(selection: $selectedTab) {
-                        TodayScreen(currentWeather: vm.currentWeather)
-                            .ignoresSafeArea(edges: .bottom)
-                            .contentShape(Rectangle()).gesture(DragGesture())
-                            .tag(WeatherTabs.today)
-                            .environmentObject(vm)
-                        
-                        TomorrowScreen(tomorrowWeather: vm.tomorrowWeather)
-                            .ignoresSafeArea(edges: .bottom)
-                            .contentShape(Rectangle()).gesture(DragGesture())
-                            .tag(WeatherTabs.tomorrow)
-                            .environmentObject(vm)
+                        TabView(selection: $weatherTab) {
+                            Text("Hi there") // <-- Need this here for TabView to function properly
+                            
+                            TodayScreen(currentWeather: vm.currentWeather)
+                                .tabItem {
+                                    Label("Today", systemImage: "house")
+                                }
+                                .tag(WeatherTabs.today)
+                                .ignoresSafeArea(edges: .bottom)
+                                .contentShape(Rectangle()).gesture(DragGesture())
+                                .environmentObject(vm)
+                            
+                            TomorrowScreen(tomorrowWeather: vm.tomorrowWeather)
+                                .tabItem {
+                                    Label("Tomorrow", systemImage: "house")
+                                }
+                                .tag(WeatherTabs.tomorrow)
+                                .ignoresSafeArea(edges: .bottom)
+                                .contentShape(Rectangle()).gesture(DragGesture())
+                                .environmentObject(vm)
 
-                        
-                        MultiDayScreen(daily: vm.dailyWeather)
-                            .contentShape(Rectangle()).gesture(DragGesture())
-                            .tag(WeatherTabs.multiDay)
-                            .environmentObject(vm)
-
+                            
+                            MultiDayScreen(daily: vm.dailyWeather)
+                                .tabItem {
+                                    Label("10 Days", systemImage: "house")
+                                }
+                                .tag(WeatherTabs.multiDay)
+                                .contentShape(Rectangle()).gesture(DragGesture())
+                                .environmentObject(vm)
+                            
+                        }
+                        .tabViewStyle(.page(indexDisplayMode: .never))
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .ignoresSafeArea(edges: .bottom)
                 }
-                .ignoresSafeArea(edges: .bottom)
+
             }
         }
+        .animation(nil, value: showSearchScreen)
+
         .navigationViewStyle(.stack)
         .task {
+            //TODO: Need to remove this whole task and only get weather with CoreLocation or places
+
             await vm.getWeather()
         }
         
 
+        
+
+        
+        
     }
 }
 
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
-        MainScreen()
-            .previewDevice("iPhone 12 Pro Max")
+        NavigationView {
+            MainScreen()
+                .previewDevice("iPhone 12 Pro Max")
+                .environmentObject(WeatherViewModel())
+        }
         
         MainScreen()
             .previewDevice("iPad Pro (12.9-inch) (6th generation)")

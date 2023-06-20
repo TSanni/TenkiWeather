@@ -1,46 +1,39 @@
 //
-//  WeatherKitManager.swift
+//  WeatherManager.swift
 //  Weather
 //
-//  Created by Tomas Sanni on 6/7/23.
+//  Created by Tomas Sanni on 6/20/23.
 //
 
 import Foundation
 import WeatherKit
-import SwiftUI
 
-class WeatherKitManager: ObservableObject {
-    private var weather: Weather?
+class WeatherManager {
+    static let shared = WeatherManager()
     
-    @Published var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
-    @Published var tomorrowWeather: TomorrowWeatherModel = TomorrowWeatherModel.tomorrowDataHolder
-    @Published var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.dailyDataHolder]
+    
     
     private var timezoneOffset: Int = 0
     private let apiKey = K.apiKey
-    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=" // Houston
-//    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=" //Sapporo
+//    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=" // Houston
+    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=" //Sapporo
  
-}
-
-
-//MARK: - Getting Weather
-extension WeatherKitManager {
     
     
-    //MARK: - Get Weather from WeatherKit
-    /// Will get all the weather data with the coordinates that are passed in.
-    func getWeather() async {
+    func getWeather(latitude: Double, longitude: Double) async throws -> Weather? {
         
         guard let apiKey = apiKey else {
             print("UNABLE TO FIND APIKEY")
-            return
+            return nil
         }
+        
+        
         do {
-            guard let url = URL(string: "\(url)\(apiKey)") else { return } // Using Sapporo
+            //TODO: Add a lat and lon string interpolation for dynamic data
+            guard let url = URL(string: "\(url)\(apiKey)") else { return nil } // Using Sapporo
+            let weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
             // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
-//             weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
-            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
+//            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 40.712776, longitude: -74.005974)) // New York City
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: -75.257721, longitude: 97.818153)) // Antarctica
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
@@ -48,39 +41,8 @@ extension WeatherKitManager {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decdodedData = try JSONDecoder().decode(TimeZoneModel.self, from: data)
             timezoneOffset = decdodedData.timezone_offset
-            
-            guard let currentWeather = weather?.currentWeather else {
-                print("\n\n\n\n UNABLE TO GET CURRENT WEATHER DATA \n\n\n\n")
-                return
-            }
-            
-            guard let dailyWeather = weather?.dailyForecast else {
-                print("\n\n\n\n UNABLE TO GET DAILY WEATHER DATA \n\n\n\n")
-                return
-            }
-            
-            guard let hourlyWeather = weather?.hourlyForecast else {
-                print("\n\n\n\n UNABLE TO GET HOURLY WEATHER DATA \n\n\n\n")
-                return
-            }
-            
-            
-            let currentWeatherData = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather, hourlyWeather: hourlyWeather)
-            let tomorrowWeatherData = await getTomorrowWeather(tomorrowWeather: dailyWeather, hours: hourlyWeather)
-            let dailyWeatherData = await getDailyWeather(dailyWeather: dailyWeather, hourlyWeather: hourlyWeather)
-            await MainActor.run(body: {
-                self.currentWeather = currentWeatherData
-                self.tomorrowWeather = tomorrowWeatherData
-                self.dailyWeather = dailyWeatherData
-            })
-            
-            
-            
-//            if let unwrappedCurrentWeather = await getTodayWeather(current: currentWeather, dailyWeather: dailyWeather) {
-//                await MainActor.run(body: {
-//                    self.currentWeather = unwrappedCurrentWeather
-//                })
-//            }
+            return weather
+ 
         } catch {
             fatalError("\(error)")
         }
@@ -89,9 +51,10 @@ extension WeatherKitManager {
     }
     
     
+    
     //MARK: - Get the Current Weather
     // add a parameter here that takes UnitTemperature type
-    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) async -> TodayWeatherModel {
+    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) -> TodayWeatherModel {
         
         /// Filters the hourly forecasts and returns only the items that start at the current hour and beyond
          let hourlyWeatherStartingFromNow = hourlyWeather.filter({ hourlyWeatherItem in
@@ -180,7 +143,7 @@ extension WeatherKitManager {
     
     
     //MARK: - Get Tomorrow's Weather
-    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>) async -> TomorrowWeatherModel {
+    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>) -> TomorrowWeatherModel {
         let tomorrowWeather = tomorrowWeather[1]
         
         /// Gets all hourly forecasts starting with 7AM tomorrow
@@ -265,11 +228,8 @@ extension WeatherKitManager {
 
     
     //MARK: - Get the Daily Weather
-    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) async -> [DailyWeatherModel] {
+    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>) -> [DailyWeatherModel] {
 
-        
-
-        
         var daily: [DailyWeatherModel] = []
 
 
@@ -311,13 +271,13 @@ extension WeatherKitManager {
 
         return daily
     }
+
+    
 }
 
 
-
-
 //MARK: - Private functions
-extension WeatherKitManager {
+extension WeatherManager {
     
     /// This functions returns an array of hourly weather data for the next fifteen hours.
     private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>) -> [HourlyTemperatures] {
@@ -330,8 +290,7 @@ extension WeatherKitManager {
             return hourWeather.date >= day.date.advanced(by: 25200)
         })
         
-        print("DAY: \(getDayOfWeekAndDate(date: day.date))")
-        print("\n")
+
         
         for i in 0..<15 {
             fifteenHours.append(
@@ -415,7 +374,7 @@ extension WeatherKitManager {
 
 
 //MARK: - Public functions
-extension WeatherKitManager {
+extension WeatherManager {
 
     /// Takes a CompassDirection and returns a Double which indicates the angle the current compass direction.
     /// One use can be to properly set rotation effects on views
