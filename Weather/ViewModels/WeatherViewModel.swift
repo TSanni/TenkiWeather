@@ -16,17 +16,24 @@ class WeatherViewModel: ObservableObject {
     @Published var savedLocationsCurrentWeather: [TodayWeatherModel] = [TodayWeatherModel.holderData]
     
 
-    func getWeather() async {
-        guard let weather = try? await WeatherManager.shared.getWeather(latitude: 0, longitude: 0) else {
+    func getWeather(latitude: Double, longitude: Double) async {
+        guard let weatherAndTimeZone = try? await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude) else {
             fatalError("Unable to get wather data. Check WeatherViewModel")
         }
-        await MainActor.run(body: {
-            self.currentWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast)
-            self.tomorrowWeather = WeatherManager.shared.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast)
-            self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast)
-        })
+        
+        if let weather = weatherAndTimeZone.0 {
+            await MainActor.run(body: {
+                self.currentWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: weatherAndTimeZone.1)
+                self.tomorrowWeather = WeatherManager.shared.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: weatherAndTimeZone.1)
+                self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: weatherAndTimeZone.1)
+            })
+        }
+        
+        
+
 
     }
+    
     
 
 }

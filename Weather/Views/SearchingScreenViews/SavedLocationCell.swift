@@ -20,7 +20,7 @@ struct SavedLocationCell: View {
                                 .foregroundColor(.primary)
                                 .font(.headline)
                             
-                            Text("July 7, 7:77 PM")
+                            Text(location.date)
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -29,12 +29,13 @@ struct SavedLocationCell: View {
                         
                         HStack {
                             HStack(alignment: .top, spacing: 0.0) {
-                                Text("77").font(.title)
+                                Text(location.currentTemperature)
+                                    .font(.title)
                                 Text("°F")
                             }
                             .foregroundColor(.secondary)
                             
-                            Image(systemName: "cloud.rain.fill")
+                            Image(systemName: WeatherManager.shared.getImage(imageName: location.symbol))
                         }
                     }
                 }

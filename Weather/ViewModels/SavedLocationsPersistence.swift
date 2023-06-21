@@ -44,9 +44,14 @@ class SavedLocationsPersistence: ObservableObject {
         }
     }
     
-    func addFruit(text: String) {
+    
+    //TODO: Add a name paramter to this function which will be pass in from Google places
+    func addFruit(lat: Double, lon: Double) {
         let newFruit = LocationEntity(context: container.viewContext)
-        newFruit.name = text
+        newFruit.name = "a"
+        newFruit.latitude = lat
+        newFruit.longitude = lon
+        newFruit.timeAdded = Date.now
         saveData()
     }
     
@@ -68,6 +73,7 @@ class SavedLocationsPersistence: ObservableObject {
         do {
             try container.viewContext.save()
             fetchLocations()
+            //TODO: This Task produces bug where only saved locations update and not main view. Perhaps remove this and find a way to update entirety of app
             Task {
                 try await fetchWeatherPlacesWithTaskGroup()
             }
@@ -112,13 +118,17 @@ class SavedLocationsPersistence: ObservableObject {
     }
     
     private func fetchCurrentWeather(latitude: Double, longitude: Double) async throws -> TodayWeatherModel {
+        let currentAndTimezone = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude)
+//        let current = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
         
-        let current = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
-        
-        let todaysWeather = WeatherManager.shared.getTodayWeather(current: current.currentWeather, dailyWeather: current.dailyForecast, hourlyWeather: current.hourlyForecast)
-//        let todaysWeather = await test.getTodayWeather(current: current.currentWeather, dailyWeather: current.dailyForecast, hourlyWeather: current.hourlyForecast)
-
-        return todaysWeather
+        if let current = currentAndTimezone.0 {
+            let todaysWeather = WeatherManager.shared.getTodayWeather(current: current.currentWeather, dailyWeather: current.dailyForecast, hourlyWeather: current.hourlyForecast, timezoneOffset: currentAndTimezone.1)
+            //        let todaysWeather = await test.getTodayWeather(current: current.currentWeather, dailyWeather: current.dailyForecast, hourlyWeather: current.hourlyForecast)
+            print("THE DATE: \(todaysWeather.date)")
+            return todaysWeather
+        } else {
+            throw URLError(.badURL)
+        }
     }
 
     

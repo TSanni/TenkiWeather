@@ -50,7 +50,7 @@ struct WeatherGraphView: View {
                             .fontWeight(.light)
                             .foregroundColor(hourlyTemperatures[q.index].chanceOfPrecipitation == "0%" ? .clear : Color(uiColor: K.Colors.precipitationBlue))
                         
-                        Image(systemName: getImage(imageName: hourlyTemperatures[q.index].symbol))
+                        Image(systemName: WeatherManager.shared.getImage(imageName: hourlyTemperatures[q.index].symbol))
 //                        Image(systemName: "\(hourlyTemperatures[q.index].symbol).fill")
                             .renderingMode(.original)
                         
@@ -63,25 +63,25 @@ struct WeatherGraphView: View {
     }
     
     
-    /// Manually checks for SF Symbols that do not have the fill option and returns that image without .fill added.
-    /// Otherwise, .fill is added to the end of the symbol name
-    //TODO: Add more sf symbols
-    private func getImage(imageName: String) -> String {
-        
-        switch imageName {
-            case "wind":
-                return imageName
-            case "snowflake":
-                return imageName
-            case "tornado":
-                return imageName
-                
-            default:
-                return imageName + ".fill"
-        }
-        
-        
-    }
+//    /// Manually checks for SF Symbols that do not have the fill option and returns that image without .fill added.
+//    /// Otherwise, .fill is added to the end of the symbol name
+//    //TODO: Add more sf symbols
+//    private func getImage(imageName: String) -> String {
+//
+//        switch imageName {
+//            case "wind":
+//                return imageName
+//            case "snowflake":
+//                return imageName
+//            case "tornado":
+//                return imageName
+//
+//            default:
+//                return imageName + ".fill"
+//        }
+//
+//
+//    }
     
     /// Gets the lowest temperature in the hourlyTemperatures struct array,
     /// then subtracts 10 to get a nice starting point for a graph

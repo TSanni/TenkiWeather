@@ -47,7 +47,7 @@ struct DailyWeatherCell: View {
                                         .lineLimit(1)
                                         .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
-                                Image(systemName: "\(daily.dailySymbol).fill")
+                                Image(systemName: WeatherManager.shared.getImage(imageName: daily.dailySymbol))
                                     .renderingMode(.original)
                                     .resizable()
                                     .brightness(-0.07)
@@ -114,7 +114,7 @@ struct DailyWeatherCell: View {
                             ForEach(daily.hourlyTemperatures) { hour in
                                 VStack {
                                     Text("\(hour.temperature)°")
-                                    Image(systemName: "\(hour.symbol).fill")
+                                    Image(systemName: WeatherManager.shared.getImage(imageName: hour.symbol))
                                         .resizable()
                                         .renderingMode(.original)
                                         .scaledToFit()

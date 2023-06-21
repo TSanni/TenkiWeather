@@ -75,7 +75,7 @@ struct TomorrowScreen: View {
                 
                 Spacer()
                 
-                Image(systemName: "\(tomorrowWeather.tomorrowSymbol).fill")
+                Image(systemName: WeatherManager.shared.getImage(imageName: tomorrowWeather.tomorrowSymbol))
                     .renderingMode(.original)
                     .resizable()
                     .scaledToFit()
@@ -102,8 +102,6 @@ struct TomorrowScreen: View {
         .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
     }
-    
-    
     
 }
 

@@ -89,7 +89,7 @@ struct TodayScreen: View {
                 VStack(spacing: 7.0) {
 //                    let symbolColors = vm.getSFColorForIcon(sfIcon: vm.currentWeather.symbol)
                     
-                    Image(systemName: "\(currentWeather.symbol).fill")
+                    Image(systemName: WeatherManager.shared.getImage(imageName: currentWeather.symbol))
                         .renderingMode(.original)
                         .font(.system(size: 100))
                     
@@ -117,6 +117,27 @@ struct TodayScreen: View {
         .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
     }
+    
+    
+    
+    
+    
+//    /// Manually checks for SF Symbols that do not have the fill option and returns that image without .fill added.
+//    /// Otherwise, .fill is added to the end of the symbol name
+//    //TODO: Add more sf symbols
+//    private func getImage(imageName: String) -> String {
+//        switch imageName {
+//            case "wind":
+//                return imageName
+//            case "snowflake":
+//                return imageName
+//            case "tornado":
+//                return imageName
+//
+//            default:
+//                return imageName + ".fill"
+//        }
+//    }
     
 }
 
