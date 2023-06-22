@@ -52,7 +52,7 @@ class WeatherManager {
             return (weather, timezoneOffset)
  
         } catch {
-            fatalError("\(error)")
+            fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
         }
         
         

@@ -28,10 +28,12 @@ class WeatherViewModel: ObservableObject {
                 self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: weatherAndTimeZone.1)
             })
         }
+    }
+    
+    
+    
+    func getWeatherForSavedLocation() {
         
-        
-
-
     }
     
     

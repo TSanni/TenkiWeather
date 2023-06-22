@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SavedLocationCell: View {
-    let location: TodayWeatherModel
+    let location: LocationEntity
     var body: some View {
         VStack {
             VStack {
@@ -20,7 +20,7 @@ struct SavedLocationCell: View {
                                 .foregroundColor(.primary)
                                 .font(.headline)
                             
-                            Text(location.date)
+                            Text(location.currentDate ?? "")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
@@ -29,13 +29,13 @@ struct SavedLocationCell: View {
                         
                         HStack {
                             HStack(alignment: .top, spacing: 0.0) {
-                                Text(location.currentTemperature)
+                                Text(location.temperature ?? "")
                                     .font(.title)
                                 Text("°F")
                             }
                             .foregroundColor(.secondary)
                             
-                            Image(systemName: WeatherManager.shared.getImage(imageName: location.symbol))
+                            Image(systemName: WeatherManager.shared.getImage(imageName: location.sfSymbol ?? ""))
                         }
                     }
                 }
@@ -45,9 +45,9 @@ struct SavedLocationCell: View {
         }
     }
 }
-
-struct SavedLocationCell_Previews: PreviewProvider {
-    static var previews: some View {
-        SavedLocationCell(location: TodayWeatherModel.holderData)
-    }
-}
+//
+//struct SavedLocationCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SavedLocationCell(location: TodayWeatherModel.holderData)
+//    }
+//}

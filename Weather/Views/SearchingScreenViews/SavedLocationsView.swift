@@ -8,20 +8,30 @@
 import SwiftUI
 
 struct SavedLocationsView: View {
-    let todayCollection: [TodayWeatherModel]
+    let todayCollection: [LocationEntity]
     @EnvironmentObject var vm: SavedLocationsPersistence
-    
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
+
     var body: some View {
         List {
             if todayCollection.count == 0 {
                 Text("")
                     .listRowBackground(Color.clear)
             }
-            ForEach(todayCollection) { item in
+            ForEach(vm.savedLocations) { item in
                 SavedLocationCell(location: item)
                    // .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .listRowBackground(Color.clear)
+                    .onTapGesture {
+                        Task {
+                            await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude)
+                            vm.saveData()
+                            print("DATE IN SAVED LOCATION: \(item.currentDate)")
+
+                        }
+                    }
+                
                 
             }
             .onDelete(perform: vm.deleteFruit(indexSet:))
@@ -33,7 +43,7 @@ struct SavedLocationsView: View {
 
 struct SavedLocationsView_Previews: PreviewProvider {
     static var previews: some View {
-        SavedLocationsView(todayCollection: [TodayWeatherModel.holderData, TodayWeatherModel.holderData, TodayWeatherModel.holderData])
+        SavedLocationsView(todayCollection: [])
             .environmentObject(SavedLocationsPersistence())
         
     }

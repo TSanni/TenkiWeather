@@ -12,14 +12,14 @@ struct SearchingScreen: View {
     @FocusState private var focusSearch: Bool
     @Binding var showSearchScreen: Bool
     @Environment(\.colorScheme) var colorScheme
-//    @EnvironmentObject var vm: WeatherViewModel
-//    @EnvironmentObject var vm: SavedLocationsPersistence
+    //    @EnvironmentObject var vm: WeatherViewModel
+    //    @EnvironmentObject var vm: SavedLocationsPersistence
     
     //    let today: TodayWeatherModel
     
-        /// All saved locations in core data
-        let todayCollection: [TodayWeatherModel]
-
+    /// All saved locations in core data
+    let todayCollection: [LocationEntity]
+    
     //MARK: - Main View
     var body: some View {
         VStack {
@@ -37,7 +37,7 @@ struct SearchingScreen: View {
                         .foregroundColor(.secondary)
                     Spacer()
                 }
-
+                
                 CustomDivider()
                 
                 SavedLocationsView(todayCollection: todayCollection)
@@ -53,14 +53,14 @@ struct SearchingScreen: View {
             focusSearch = false
         }
         .background(colorScheme == .light ? Color.white : Color(uiColor: K.Colors.properBlack))
-//        .task {
-//
-//            do {
-//                 try await vm.fetchWeatherPlacesWithTaskGroup()
-//            } catch {
-//                print("\(error)")
-//            }
-//        }
+        //        .task {
+        //
+        //            do {
+        //                 try await vm.fetchWeatherPlacesWithTaskGroup()
+        //            } catch {
+        //                print("\(error)")
+        //            }
+        //        }
         
         
         
@@ -133,7 +133,7 @@ struct SearchingScreen: View {
 struct SearchingView_Previews: PreviewProvider {
     static var previews: some View {
         
-        SearchingScreen(showSearchScreen: .constant(true), todayCollection: [TodayWeatherModel.holderData])
+        SearchingScreen(showSearchScreen: .constant(true), todayCollection: [])
             .environmentObject(SavedLocationsPersistence())
     }
 }

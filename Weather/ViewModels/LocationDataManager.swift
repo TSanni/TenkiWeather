@@ -28,6 +28,9 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print(manager.authorizationStatus.rawValue)
+        print("locationManagerDidChangeAuthorization delegate called ")
+
         switch manager.authorizationStatus {
         case .authorizedWhenInUse:  // Location services are available.
             // Insert code here of what should happen when Location services are authorized
@@ -56,6 +59,7 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("didUpdateLocations delegate called ")
         // Insert code to handle location updates
         if let location = locations.last {
             manager.stopUpdatingLocation()
@@ -76,7 +80,7 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error: \(error.localizedDescription)")
+        print("Error from didFailWithError delegate method: \(error.localizedDescription)")
     }
     
     
