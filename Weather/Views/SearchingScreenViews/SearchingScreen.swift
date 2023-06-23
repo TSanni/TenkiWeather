@@ -12,10 +12,7 @@ struct SearchingScreen: View {
     @FocusState private var focusSearch: Bool
     @Binding var showSearchScreen: Bool
     @Environment(\.colorScheme) var colorScheme
-    //    @EnvironmentObject var vm: WeatherViewModel
-    //    @EnvironmentObject var vm: SavedLocationsPersistence
-    
-    //    let today: TodayWeatherModel
+
     
     /// All saved locations in core data
     let todayCollection: [LocationEntity]
@@ -28,7 +25,7 @@ struct SearchingScreen: View {
             CustomDivider()
             
             VStack {
-                //TODO: Add support for CoreLocation to get the weather
+                //TODO: Add support for CoreLocation to get the weather for user's current location
                 currentLocation
                 
                 HStack {
@@ -53,19 +50,8 @@ struct SearchingScreen: View {
             focusSearch = false
         }
         .background(colorScheme == .light ? Color.white : Color(uiColor: K.Colors.properBlack))
-        //        .task {
-        //
-        //            do {
-        //                 try await vm.fetchWeatherPlacesWithTaskGroup()
-        //            } catch {
-        //                print("\(error)")
-        //            }
-        //        }
-        
-        
-        
+   
     }
-    
     
     
     //MARK: - Textfield and Back button
@@ -120,10 +106,7 @@ struct SearchingScreen: View {
             }
         }
         .padding(.bottom)
-        
     }
-    
-    
 }
 
 

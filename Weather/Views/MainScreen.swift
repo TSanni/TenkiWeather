@@ -125,7 +125,7 @@ struct MainScreen: View {
             print(locationManager.longitude)
             if locationManager.authorizationStatus == .authorizedWhenInUse {
                 await vm.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
-                
+                persistenceLocations.saveData()
             }
         }
         .refreshable {
@@ -136,6 +136,8 @@ struct MainScreen: View {
             if newValue == .authorizedWhenInUse {
                 Task {
                     await vm.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                    persistenceLocations.saveData()
+
                 }
             }
         }
