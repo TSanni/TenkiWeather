@@ -9,19 +9,19 @@ import SwiftUI
 
 struct SearchBar: View {
     @Environment(\.colorScheme) var colorScheme
-    
+//    @EnvironmentObject var geoViewModel: GeocodingViewModel
+    @EnvironmentObject var locationManager: CoreLocationViewModel
     var body: some View {
         
             
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
-                Text("Rosenberg, Tx 77471")
+                Text(locationManager.currentLocationName)
                     .foregroundColor(.primary)
                 
                 Spacer()
-//                Circle().fill(Color.gray)
-//                    .frame(width: 30)
+
             }
             .padding()
             .background {

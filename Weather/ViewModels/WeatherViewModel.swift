@@ -15,6 +15,9 @@ class WeatherViewModel: ObservableObject {
     
     @Published var savedLocationsCurrentWeather: [TodayWeatherModel] = [TodayWeatherModel.holderData]
     
+    @Published var localTemp = ""
+    @Published var localsfSymbol = ""
+    @Published var localName = ""
     
     func getWeather(latitude: Double, longitude: Double) async {
         
@@ -34,24 +37,33 @@ class WeatherViewModel: ObservableObject {
             fatalError("Unable to get wather data. Check WeatherViewModel")
         }
         
-        
-//        guard let weatherAndTimeZone = try? await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude) else {
-//            fatalError("Unable to get wather data. Check WeatherViewModel")
-//        }
-//
-//        if let weather = weatherAndTimeZone.0 {
-//            await MainActor.run(body: {
-//                self.currentWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: weatherAndTimeZone.1)
-//                self.tomorrowWeather = WeatherManager.shared.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: weatherAndTimeZone.1)
-//                self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: weatherAndTimeZone.1)
-//            })
-//        }
     }
     
     
     
-    func getWeatherForSavedLocation() {
-        
+    func getLocalWeather(latitude: Double, longitude: Double, name: String) async {
+        do {
+            let (weather, timezone) = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude)
+            
+            if let weather = weather {
+                let a = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+//                let b = await GeocodingManager.shared.performRevereseGeocoding(lat: latitude, lon: longitude)
+                await MainActor.run {
+                    localTemp = a.currentTemperature
+                    localsfSymbol = a.symbol
+                    localName = name
+                    
+//                    if let c = b {
+//                    }
+                }
+            }
+            
+            
+
+            
+        } catch {
+            fatalError("Unable to get wather data. Check WeatherViewModel")
+        }
     }
     
     

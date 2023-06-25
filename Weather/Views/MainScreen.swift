@@ -15,10 +15,12 @@ import CoreLocation
 struct MainScreen: View {
     @StateObject private var vm = WeatherViewModel()
     @StateObject private var persistenceLocations = SavedLocationsPersistence()
-    @StateObject private var locationManager = LocationDataManager()
-    
+    @StateObject private var locationManager = CoreLocationViewModel()
+
     @State private var weatherTab: WeatherTabs = .today
     @State private var showSearchScreen: Bool = false
+    //@State can survive reloads on the `View`
+    @State private var taskId: UUID = .init()
     
     
     func getBarColor() -> Color {
@@ -41,6 +43,7 @@ struct MainScreen: View {
                     .transition(.move(edge: .bottom))
                     .environmentObject(persistenceLocations)
                     .environmentObject(vm)
+                    .environmentObject(locationManager)
             } else {
                 ZStack {
                     VStack(spacing: 0) {
@@ -59,7 +62,8 @@ struct MainScreen: View {
                                         showSearchScreen.toggle()
                                     }
                                     .environmentObject(vm)
-                                
+                                    .environmentObject(locationManager)
+
                                 
                                 Circle().fill(Color.red)
                                     .frame(width: 30)
@@ -67,12 +71,16 @@ struct MainScreen: View {
                                     .onTapGesture {
                                         print("Circle tapped")
                                         persistenceLocations.addFruit(lat: 48.856613, lon: 2.352222) // Paris coordinates
+                                        persistenceLocations.fetchLocations()
                                     }
                             }
                             
                             Button("TAP") {
                                 persistenceLocations.addFruit(lat: 43.062096, lon: 141.354370) // Sapporo Coordinates
+                                persistenceLocations.fetchLocations()
                             }
+                            Text(locationManager.currentLocationName)
+                                .font(.largeTitle)
                             
                             WeatherTabSelectionsView(weatherTab: $weatherTab)
                                 .padding(.top, 10)
@@ -119,23 +127,30 @@ struct MainScreen: View {
         }
         .animation(nil, value: showSearchScreen)
         .navigationViewStyle(.stack)
-        .task {
-            print("HAHAH")
-            print(locationManager.latitude)
-            print(locationManager.longitude)
+        .refreshable {
+            print("refreshable")
+            //Cause .task to re-run by changing the id.
+            taskId = .init()
+        }
+        .task(id: taskId) {
             if locationManager.authorizationStatus == .authorizedWhenInUse {
                 await vm.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                let userLocationName = locationManager.currentLocationName
+                await vm.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName)
+
                 persistenceLocations.saveData()
             }
         }
-        .refreshable {
-            await vm.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
-            persistenceLocations.saveData()
-        }
+
         .onChange(of: locationManager.authorizationStatus) { newValue in
             if newValue == .authorizedWhenInUse {
                 Task {
                     await vm.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                    await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                    let userLocationName = locationManager.currentLocationName
+                    await vm.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName)
+             
                     persistenceLocations.saveData()
 
                 }

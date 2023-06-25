@@ -11,6 +11,9 @@ struct SavedLocationsView: View {
     let todayCollection: [LocationEntity]
     @EnvironmentObject var vm: SavedLocationsPersistence
     @EnvironmentObject var weatherViewModel: WeatherViewModel
+//    @EnvironmentObject var geoViewModel: GeocodingViewModel
+    @EnvironmentObject var locationManager: CoreLocationViewModel
+
 
     var body: some View {
         List {
@@ -26,6 +29,9 @@ struct SavedLocationsView: View {
                     .onTapGesture {
                         Task {
                             await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude)
+                            await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
+//                            await geoViewModel.getReverseGeoData(lat: item.latitude, lon: item.longitude)
+
                             vm.saveData()
                             print("DATE IN SAVED LOCATION: \(item.currentDate)")
 

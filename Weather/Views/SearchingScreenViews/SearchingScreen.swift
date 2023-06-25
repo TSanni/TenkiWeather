@@ -12,7 +12,9 @@ struct SearchingScreen: View {
     @FocusState private var focusSearch: Bool
     @Binding var showSearchScreen: Bool
     @Environment(\.colorScheme) var colorScheme
-
+    @EnvironmentObject var vm: SavedLocationsPersistence
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
+    @EnvironmentObject var location: CoreLocationViewModel
     
     /// All saved locations in core data
     let todayCollection: [LocationEntity]
@@ -69,11 +71,24 @@ struct SearchingScreen: View {
                     .padding()
             }
             
-            TextField(text: $searchText) {
-                Text("Search places")
-            }
-            .focused($focusSearch)
-            .tint(Color(uiColor: K.Colors.textFieldBlinkingBarColor))
+            TextField("Search places", text: $searchText)
+                .focused($focusSearch)
+                .tint(Color(uiColor: K.Colors.textFieldBlinkingBarColor))
+                .onSubmit {
+                    Task {
+                        let newText = searchText.replacingOccurrences(of: " ", with: "+")
+                        let coordinates = try await location.getCoordinatesFromName(name: newText)
+                        print("COORDINATES: \(coordinates)")
+                        await weatherViewModel.getWeather(latitude: coordinates.coordinate.latitude, longitude:coordinates.coordinate.longitude)
+                        //TODO: Replace Geocoding Manager with Core Location ----------------------------------------------------
+//                        await geoViewModel.getGeoData(name: newText)
+                        //--------------------------------------------------------------------------------------------------------
+
+                        
+
+                    }
+                }
+            
         }
     }
     
@@ -82,7 +97,7 @@ struct SearchingScreen: View {
     var currentLocation: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("Rosenberg, TX 77471")
+                Text(weatherViewModel.localName)
                     .font(.headline)
                 HStack {
                     Image(systemName: "location.fill")
@@ -97,12 +112,13 @@ struct SearchingScreen: View {
             
             HStack {
                 HStack(alignment: .top, spacing: 0.0) {
-                    Text("77").font(.title)
+                    Text(weatherViewModel.localTemp).font(.title)
                     Text("°F")
                 }
                 .foregroundColor(.secondary)
                 
-                Image(systemName: "sun.max")
+                Image(systemName: WeatherManager.shared.getImage(imageName: weatherViewModel.localsfSymbol))
+                    .renderingMode(.original)
             }
         }
         .padding(.bottom)
@@ -115,7 +131,6 @@ struct SearchingScreen: View {
 
 struct SearchingView_Previews: PreviewProvider {
     static var previews: some View {
-        
         SearchingScreen(showSearchScreen: .constant(true), todayCollection: [])
             .environmentObject(SavedLocationsPersistence())
     }
