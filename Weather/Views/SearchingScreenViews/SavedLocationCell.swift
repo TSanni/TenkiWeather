@@ -16,7 +16,7 @@ struct SavedLocationCell: View {
                     Color.teal.opacity(0.000001)
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Tokyo, Japan")
+                            Text(location.name ?? "no name")
                                 .foregroundColor(.primary)
                                 .font(.headline)
                             
@@ -36,6 +36,7 @@ struct SavedLocationCell: View {
                             .foregroundColor(.secondary)
                             
                             Image(systemName: WeatherManager.shared.getImage(imageName: location.sfSymbol ?? ""))
+                                .renderingMode(.original)
                         }
                     }
                 }

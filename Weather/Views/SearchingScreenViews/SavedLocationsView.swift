@@ -6,51 +6,104 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct SavedLocationsView: View {
-    let todayCollection: [LocationEntity]
-    @EnvironmentObject var vm: SavedLocationsPersistence
+//    let todayCollection: [LocationEntity]
+//    @EnvironmentObject var vm: SavedLocationsPersistence
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-//    @EnvironmentObject var geoViewModel: GeocodingViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
-
+    @EnvironmentObject var appStateManager: AppStateManager
+//    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)], animation: .easeInOut) var places: FetchedResults<LocationEntity>
+    
+//    @Environment(\.managedObjectContext) var moc
+    var places: FetchedResults<LocationEntity>
+    let testMOC: NSManagedObjectContext
 
     var body: some View {
         List {
-            if todayCollection.count == 0 {
+            if places.count == 0 {
                 Text("")
                     .listRowBackground(Color.clear)
             }
-            ForEach(vm.savedLocations) { item in
+            ForEach(places, id: \.self) { item in
                 SavedLocationCell(location: item)
-                   // .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .listRowBackground(Color.clear)
+
                     .onTapGesture {
                         Task {
-                            await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude)
+//                            vm.updateFruit(entity: item)
+                            item.name = (item.name ?? "") + "!"
+                            try testMOC.save()
                             await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
-//                            await geoViewModel.getReverseGeoData(lat: item.latitude, lon: item.longitude)
 
-                            vm.saveData()
-                            print("DATE IN SAVED LOCATION: \(item.currentDate)")
+                            await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
+                            appStateManager.showSearchScreen = false
+
+//                            vm.saveData()
+//                            print("DATE IN SAVED LOCATION: \(item.currentDate)")
 
                         }
                     }
                 
                 
             }
-            .onDelete(perform: vm.deleteFruit(indexSet:))
+            .onDelete(perform: deletePlace(at:))
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.immediately)
     }
-}
-
-struct SavedLocationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SavedLocationsView(todayCollection: [])
-            .environmentObject(SavedLocationsPersistence())
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    func addLocation() {
+//        let addedCity = Place(context: moc)
+//        //dont need all this for core data
+//        //need to only store coordinates in core data
+//        addedCity.timeAdded = Date.now
+//        addedCity.name = weather.userLocation
+//        addedCity.date = weather.currentWeather.currentTime
+//        addedCity.date = weather.dateForCoreData
+//        addedCity.longitude = weather.lonForCoreData
+//        addedCity.latitude = weather.latForCoreData
+//
+//        try? moc.save()
+//        print("The coordinates saved to core data: Lat: \(addedCity.wrappedLatitude) Lon: \(addedCity.wrappedLongitude)")
+//    }
+    
+    
+    func deletePlace(at offsets: IndexSet) {
+        for offset in offsets {
+            let place = places[offset]
+            testMOC.delete(place)
+            
+        }
+        try? testMOC.save()
         
     }
+    
+    
+    
+    
+    
 }
+
+//struct SavedLocationsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SavedLocationsView()
+////            .environmentObject(SavedLocationsPersistence())
+//        
+//    }
+//}

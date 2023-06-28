@@ -19,17 +19,17 @@ class WeatherManager {
  
     
     
-    func getWeather(latitude: Double, longitude: Double) async throws -> (Weather?, Int) {
-        var timezoneOffset: Int = 0
-        let url = "https://api.openweathermap.org/data/2.5/onecall?exclude=minutely,hourly,current,daily&units=imperial" // will need passed in coordinates
+    func getWeather(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
+//        var timezoneOffset: Int = 0
+//        let url = "https://api.openweathermap.org/data/2.5/onecall?exclude=minutely,hourly,current,daily&units=imperial" // will need passed in coordinates
         
-        guard let apiKey = apiKey else {
-            print("UNABLE TO FIND APIKEY")
-            return (nil, timezoneOffset)
-        }
+//        guard let apiKey = apiKey else {
+//            print("UNABLE TO FIND APIKEY")
+//            return nil
+//        }
         
         do {
-            guard let url = URL(string: "\(url)&lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)") else { return (nil, timezoneOffset) } //passed in coordinates
+//            guard let url = URL(string: "\(url)&lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)") else { return (nil, timezoneOffset) } //passed in coordinates
 //            guard let url = URL(string: "\(url)\(apiKey)") else { return nil } //Sapporo
 
    
@@ -44,12 +44,12 @@ class WeatherManager {
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: -75.257721, longitude: 97.818153)) // Antarctica
 //            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
             
-            let (data, _) = try await URLSession.shared.data(from: url)
-               let decdodedData = try JSONDecoder().decode(TimeZoneModel.self, from: data)
-               timezoneOffset = decdodedData.timezone_offset
-            
-            print("TIMEZONE OFFSET: \(decdodedData.timezone_offset)")
-            return (weather, timezoneOffset)
+//            let (data, _) = try await URLSession.shared.data(from: url)
+//               let decdodedData = try JSONDecoder().decode(TimeZoneModel.self, from: data)
+//               timezoneOffset = decdodedData.timezone_offset
+//
+//            print("TIMEZONE OFFSET: \(decdodedData.timezone_offset)")
+            return weather
  
         } catch {
             fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")

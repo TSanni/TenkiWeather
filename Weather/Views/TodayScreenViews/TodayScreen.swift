@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TodayScreen: View {
-//    @EnvironmentObject var vm: WeatherKitManager
     let currentWeather: TodayWeatherModel
     
     var body: some View {
@@ -34,7 +33,7 @@ struct TodayScreen: View {
                                 .offset(x: 10)
                                 .padding(.bottom)
                         }
-                        .frame(height: geo.size.height * 0.99)
+                        .frame(height: geo.size.height)
 
                         CurrentDetailsView(title: "Current Details", details: currentWeather.currentDetails)
                         
@@ -87,14 +86,11 @@ struct TodayScreen: View {
                 }
                 Spacer()
                 VStack(spacing: 7.0) {
-//                    let symbolColors = vm.getSFColorForIcon(sfIcon: vm.currentWeather.symbol)
                     
                     Image(systemName: WeatherManager.shared.getImage(imageName: currentWeather.symbol))
                         .renderingMode(.original)
                         .font(.system(size: 100))
-                    
-//                        .foregroundStyle(symbolColors[0], symbolColors[1], symbolColors[2])
-                    
+                                        
                     Text(currentWeather.weatherDescription.description)
                 }
             }
@@ -117,34 +113,14 @@ struct TodayScreen: View {
         .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
     }
-    
-    
-    
-    
-    
-//    /// Manually checks for SF Symbols that do not have the fill option and returns that image without .fill added.
-//    /// Otherwise, .fill is added to the end of the symbol name
-//    //TODO: Add more sf symbols
-//    private func getImage(imageName: String) -> String {
-//        switch imageName {
-//            case "wind":
-//                return imageName
-//            case "snowflake":
-//                return imageName
-//            case "tornado":
-//                return imageName
-//
-//            default:
-//                return imageName + ".fill"
-//        }
-//    }
+
     
 }
 
 struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
         TodayScreen(currentWeather: TodayWeatherModel.holderData)
-            .previewDevice("iPhone 12 Pro Max")
+            .previewDevice("iPhone 11 Pro Max")
 //            .environmentObject(WeatherKitManager())
     }
 }

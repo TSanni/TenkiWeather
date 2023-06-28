@@ -6,19 +6,22 @@
 //
 
 import SwiftUI
-
+import CoreData
 struct SearchingScreen: View {
     @State private var searchText: String = ""
     @FocusState private var focusSearch: Bool
-    @Binding var showSearchScreen: Bool
+//    @Binding var showSearchScreen: Bool
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var vm: SavedLocationsPersistence
+//    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var location: CoreLocationViewModel
+    @EnvironmentObject var locationManager: CoreLocationViewModel
+    @EnvironmentObject var appStateManager: AppStateManager
     
     /// All saved locations in core data
-    let todayCollection: [LocationEntity]
-    
+//    let todayCollection: [LocationEntity]
+    var places: FetchedResults<LocationEntity>
+    let testMOC: NSManagedObjectContext
+
     //MARK: - Main View
     var body: some View {
         VStack {
@@ -27,7 +30,6 @@ struct SearchingScreen: View {
             CustomDivider()
             
             VStack {
-                //TODO: Add support for CoreLocation to get the weather for user's current location
                 currentLocation
                 
                 HStack {
@@ -39,7 +41,7 @@ struct SearchingScreen: View {
                 
                 CustomDivider()
                 
-                SavedLocationsView(todayCollection: todayCollection)
+                SavedLocationsView(places: places, testMOC: testMOC)
             }
             .padding()
         }
@@ -47,9 +49,6 @@ struct SearchingScreen: View {
         
         .onAppear {
             focusSearch = true
-        }
-        .onTapGesture {
-            focusSearch = false
         }
         .background(colorScheme == .light ? Color.white : Color(uiColor: K.Colors.properBlack))
    
@@ -60,9 +59,11 @@ struct SearchingScreen: View {
     var textFieldAndBackButton: some View {
         HStack {
             Button {
-                withAnimation {
-                    showSearchScreen = false
-                }
+//                withAnimation {
+                focusSearch = false
+                    appStateManager.showSearchScreen = false
+                
+//                }
                 
             } label: {
                 Image(systemName: "arrow.left")
@@ -77,15 +78,28 @@ struct SearchingScreen: View {
                 .onSubmit {
                     Task {
                         let newText = searchText.replacingOccurrences(of: " ", with: "+")
-                        let coordinates = try await location.getCoordinatesFromName(name: newText)
+                        let coordinates = try await locationManager.getCoordinatesFromName(name: newText)
+                        let timezone = locationManager.timezoneForCoordinateInput
                         print("COORDINATES: \(coordinates)")
-                        await weatherViewModel.getWeather(latitude: coordinates.coordinate.latitude, longitude:coordinates.coordinate.longitude)
-                        //TODO: Replace Geocoding Manager with Core Location ----------------------------------------------------
-//                        await geoViewModel.getGeoData(name: newText)
-                        //--------------------------------------------------------------------------------------------------------
-
+                        await weatherViewModel.getWeather(latitude: coordinates.coordinate.latitude, longitude:coordinates.coordinate.longitude, timezone: timezone)
                         
-
+//                        for i in places {
+//                            if let a = i.name {
+//                                if a.contains(locationManager.currentLocationName) {
+//                                    appStateManager.searchNameIsInPlacesArray = true
+//                                    break
+//                                } else {
+//                                    appStateManager.searchNameIsInPlacesArray = false
+//                                    break
+//                                }
+//                            }
+//                        }
+                            appStateManager.showSearchScreen = false
+                            
+                            
+                            
+                            
+                            
                     }
                 }
             
@@ -122,6 +136,20 @@ struct SearchingScreen: View {
             }
         }
         .padding(.bottom)
+        .onTapGesture {
+            Task {
+                await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                let timezone = locationManager.timezoneForCoordinateInput
+                await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
+                let userLocationName = locationManager.currentLocationName
+                await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+                appStateManager.showSearchScreen = false
+
+//                persistenceLocations.saveData()
+                
+
+            }
+        }
     }
 }
 
@@ -129,9 +157,9 @@ struct SearchingScreen: View {
 
 
 
-struct SearchingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchingScreen(showSearchScreen: .constant(true), todayCollection: [])
-            .environmentObject(SavedLocationsPersistence())
-    }
-}
+//struct SearchingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchingScreen()
+////            .environmentObject(SavedLocationsPersistence())
+//    }
+//}

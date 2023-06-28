@@ -43,75 +43,8 @@ struct WeatherTabSelectionsView: View {
                     }
                 }
                 .tint(.white)
-//                Spacer()
-
             }
         }
-        
-        
-        
-        
-        
-        
-//        HStack {
-//            VStack {
-//                Text("Today")
-//                    .onTapGesture {
-//                        withAnimation {
-//                            weatherTab = .today
-//                        }
-//                    }
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 10).fill(Color.clear)
-//                        .frame(height: 2)
-//                    if weatherTab == .today {
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .matchedGeometryEffect(id: "selected", in: underline)
-//                            .frame(height: 3)
-//                            .frame(width: 70)
-//                    }
-//                }
-//            }
-//            Spacer()
-//            VStack {
-//                Text("Tomorrow")
-//                    .onTapGesture {
-//                        withAnimation {
-//                            weatherTab = .tomorrow
-//                        }
-//                    }
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 10).fill(Color.clear)
-//                        .frame(height: 2)
-//                    if weatherTab == .tomorrow {
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .matchedGeometryEffect(id: "selected", in: underline)
-//                            .frame(height: 3)
-//                            .frame(width: 70)
-//                    }
-//                }
-//            }
-//            Spacer()
-//            VStack {
-//                Text("10 days")
-//                    .onTapGesture {
-//                        withAnimation {
-//                            weatherTab = .multiDay
-//                        }
-//                    }
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 10).fill(Color.clear)
-//                        .frame(height: 2)
-//                    if weatherTab == .multiDay {
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .matchedGeometryEffect(id: "selected", in: underline)
-//                            .frame(height: 3)
-//                            .frame(width: 70)
-//                    }
-//                }
-//            }
-//        }
-//        .foregroundColor(.white)
     }
 }
 

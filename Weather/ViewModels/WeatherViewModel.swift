@@ -19,10 +19,10 @@ class WeatherViewModel: ObservableObject {
     @Published var localsfSymbol = ""
     @Published var localName = ""
     
-    func getWeather(latitude: Double, longitude: Double) async {
+    func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         
         do {
-            let (weather, timezone) = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude)
+            let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
                 await MainActor.run(body: {
@@ -41,9 +41,9 @@ class WeatherViewModel: ObservableObject {
     
     
     
-    func getLocalWeather(latitude: Double, longitude: Double, name: String) async {
+    func getLocalWeather(latitude: Double, longitude: Double, name: String, timezone: Int) async {
         do {
-            let (weather, timezone) = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude)
+            let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
                 let a = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)

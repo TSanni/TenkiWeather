@@ -20,7 +20,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var authorizationStatus: CLAuthorizationStatus?
     @Published var publishedError: GeocodingErrors?
     @Published var currentLocationName: String = ""
-//    @Published var searchedLocationName: String = ""
+    @Published var timezoneForCoordinateInput: Int = 0
     
     var locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
@@ -76,12 +76,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         // Insert code to handle location updates
         if locations.last != nil {
             manager.stopUpdatingLocation()
-//            latitude = location.coordinate.latitude
-//            longitude = location.coordinate.longitude
             print("Latitude: \(latitude) and longitude: \(longitude)")
-            
-
-            
         }
     }
     
@@ -100,26 +95,35 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
             geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
                 if error != nil {
                     self?.publishedError = .reverseGeocodingError
-                    return
+                    continuation.resume()
                 }
                 
                 if let locations = places {
-                    print("CLPlacemark returned is: \(locations[0]) ")
-                    let cityName = locations[0].locality
-                    let state = locations[0].administrativeArea
+                    // print("CLPlacemark returned is: \(locations[0]) ")
+                    // let name = locations[0].name
                     
-                    self?.currentLocationName = "\(cityName ?? ""), \(state ?? "")"
+                    
+                    let cityName = locations[0].locality
+                    let timezone = locations[0].timeZone?.secondsFromGMT()
+                    
+                    self?.timezoneForCoordinateInput = timezone ?? 0
+                    
+                    let state = locations[0].administrativeArea
+                    let country = locations[0].country
+                    
+                    if cityName == state {
+                        self?.currentLocationName = "\(cityName ?? ""), \(country ?? "")"
+                    } else {
+                        self?.currentLocationName = "\(cityName ?? ""), \(state ?? ""), \(country ?? "")"
+                    }
+                    continuation.resume()
                 } else {
+                    continuation.resume()
                     fatalError("Unable to get location. Check getNameFromCoordinates function")
                 }
-                continuation.resume()
-                
+
             }
         }
-        
-        
-        
-        
 
     }
     
@@ -133,8 +137,15 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                 }
                 
                 if let locations = places {
-                    let name = locations[0].name
+//                    let name = locations[0].name
+                    
+                    
                     let cityName = locations[0].locality
+                    let timezone = locations[0].timeZone?.secondsFromGMT()
+                    
+                    self?.timezoneForCoordinateInput = timezone ?? 0
+
+                    
                     let state = locations[0].administrativeArea
                     let country = locations[0].country
                     
@@ -143,11 +154,11 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                     if let coordinates = locations[0].location {
 
                         
-                        if name == state {
-                            self?.currentLocationName = "\(name ?? ""), \(country ?? "")"
+                        if cityName == state {
+                            self?.currentLocationName = "\(cityName ?? ""), \(country ?? "")"
 
                         } else {
-                            self?.currentLocationName = "\(name ?? ""), \(state ?? ""), \(country ?? "")"
+                            self?.currentLocationName = "\(cityName ?? ""), \(state ?? ""), \(country ?? "")"
                         }
                         
 
@@ -159,72 +170,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                 }
             }
         }
-        
-        
-
-        
-//        geocoder.geocodeAddressString(name) { [weak self] places, error in
-//            if error != nil {
-//                self?.publishedError = .goecodingError
-//                return
-//            }
-//
-//            if let locations = places {
-//                let cityName = locations[0].locality
-//                let state = locations[0].administrativeArea
-//
-//                self?.searchedLocationName = "\(cityName ?? ""), \(state ?? "")"
-//                if let coordinates = locations[0].location {
-//                    print("got location!!!!!!")
-//                    print(coordinates)
-//                    print(locations[0])
-//                    returnedCoordinates = coordinates
-//                } else {
-//                    print("UNABLE TO GET COORDINATES: CHECK getCoordinatesFromName function")
-//                }
-//
-//            }
-//        }
-        
-//        return returnedCoordinates
+  
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    func test() {
-//        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-//        let placeName = "Houston"
-//        // get name
-//        geocoder.reverseGeocodeLocation(coordinates) { places, error in
-//            if error != nil {
-//                return
-//            }
-//
-//            if let places = places {
-//                places[0]
-//            }
-//        }
-//
-//        geocoder.geocodeAddressString(placeName) { geographicalCoordinates, error in
-//            if let a = geographicalCoordinates {
-//                var latAndLon = a[0].location
-//
-//                let lat = latAndLon?.coordinate.latitude
-//                let lon = latAndLon?.coordinate.longitude
-//            }
-//        }
-//    }
-    
-    
+
 }
