@@ -17,6 +17,7 @@ struct WindData: Identifiable {
     let windSpeed: String
     let windDirection: Wind.CompassDirection
     let time: String?
+    let speedUnit: String
     
     /// Computed property uses the wind speed and returns a string description
     var windDescriptionForMPH: String {
@@ -131,5 +132,8 @@ struct WindData: Identifiable {
     
     
     /// Holder data for wind details
-    static let windDataHolder = WindData(windSpeed: "-", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: nil)
+    static let windDataHolder = WindData(
+        windSpeed: "-",
+        windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north,
+        time: nil, speedUnit: "m/s")
 }

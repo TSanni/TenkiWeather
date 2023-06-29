@@ -9,10 +9,6 @@ import SwiftUI
 import WeatherKit
 import CoreLocation
 
-class AppStateManager: ObservableObject {
-    @Published var showSearchScreen: Bool = false
-    @Published var searchNameIsInPlacesArray: Bool = true
-}
 
 
 // Main screens get environment objects. Lesser views get passed in data
@@ -205,11 +201,15 @@ struct MainScreen: View {
         
         Group {
             if appStateManager.showSearchScreen {
-                SearchingScreen(places: places, testMOC: moc)
-                //                    .transition(.move(edge: .bottom))
-                    .environmentObject(weatherViewModel)
-                    .environmentObject(appStateManager)
+                VStack {
+                    SearchingScreen(places: places, testMOC: moc)
+                    //                    .transition(.move(edge: .bottom))
+                        .environmentObject(weatherViewModel)
+                        .environmentObject(appStateManager)
                     .environmentObject(locationManager)
+                    
+                    SettingsScreen()
+                }
             } else {
                 
                 VStack(spacing: 0) {

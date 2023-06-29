@@ -11,7 +11,40 @@ import WeatherKit
 class WeatherManager {
     static let shared = WeatherManager()
     
+
+    private func getUnitTemperature() -> UnitTemperature {
+        let a = UserDefaults.standard.string(forKey: "unittemperature")
+        
+        switch a {
+            case "fahrenheit":
+                return .fahrenheit
+            case "celsius":
+                return .celsius
+            case "kelvin":
+                return .kelvin
+            default:
+                print("CANT GET UNIT")
+                return .fahrenheit
+        }
+    }
     
+    private func getUnitSpeed() -> UnitSpeed {
+        let a = UserDefaults.standard.string(forKey: "unitdistance")
+        
+        switch a {
+            case  "Miles per hour":
+                return .milesPerHour
+            case "Kilometers per hour":
+                return .kilometersPerHour
+            case "Meters per second":
+                return .metersPerSecond
+            case "Knots":
+                return .knots
+            default:
+                print("CAN'T GET UNIT SPEED")
+                return .milesPerHour
+        }
+    }
     
     private let apiKey = K.apiKey
 //    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=" // Houston
@@ -77,7 +110,7 @@ class WeatherManager {
         /// Weather data for Current details card
         let currentDetailsCardInfo = DetailsModel(
             humidity: current.humidity.formatted(.percent),
-            dewPoint: String(format: "%.0f", current.dewPoint.converted(to: .fahrenheit).value) + current.dewPoint.converted(to: .fahrenheit).unit.symbol,
+            dewPoint: String(format: "%.0f", current.dewPoint.converted(to: getUnitTemperature()).value) + current.dewPoint.converted(to: getUnitTemperature()).unit.symbol,
             pressure: getReadableMeasurementPressure(measurement: current.pressure.converted(to: .inchesOfMercury)),
             uvIndex: (current.uvIndex.category.description) + ", " + (current.uvIndex.value.description),
             visibility: getReadableMeasurementLengths(measurement: current.visibility.converted(to: .miles)),
@@ -86,9 +119,10 @@ class WeatherManager {
         
         /// Weather data for wind
         let windDetailsInfo = WindData(
-            windSpeed: String(format: "%.0f", current.wind.speed.value),
+            windSpeed: String(format: "%.0f", current.wind.speed.converted(to: getUnitSpeed()).value),
             windDirection: current.wind.compassDirection,
-            time: nil
+            time: nil,
+            speedUnit: current.wind.speed.converted(to: getUnitSpeed()).unit.symbol
         )
         
         /// Weather data for sun events
@@ -105,15 +139,16 @@ class WeatherManager {
         for i in 0..<K.Time.twelveHours {
             hourlyWind.append(
                 WindData(
-                    windSpeed: String(format: "%.0f", hourlyWeatherStartingFromNow[i].wind.speed.value),
+                    windSpeed: String(format: "%.0f", hourlyWeatherStartingFromNow[i].wind.speed.converted(to: getUnitSpeed()).value),
                     windDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
-                    time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
+                    time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset),
+                    speedUnit: hourlyWeatherStartingFromNow[i].wind.speed.converted(to: getUnitSpeed()).unit.symbol
                 )
             )
             
             hourlyTemperatures.append(
                 HourlyTemperatures(
-                    temperature: String(format: "%.0f", hourlyWeatherStartingFromNow[i].temperature.converted(to: .fahrenheit).value),
+                    temperature: String(format: "%.0f", hourlyWeatherStartingFromNow[i].temperature.converted(to: getUnitTemperature()).value),
                     date: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset),
                     symbol: hourlyWeatherStartingFromNow[i].symbolName,
                     chanceOfPrecipitation: hourlyWeatherStartingFromNow[i].precipitationChance.formatted(.percent)
@@ -126,10 +161,10 @@ class WeatherManager {
         /// Weather data for the day (includes current details, wind data, and sun data)
         let todaysWeather = TodayWeatherModel(
             date: getReadableMainDate(date: current.date, timezoneOffset: timezoneOffset),
-            todayHigh: String(format: "%.0f", dailyWeather[0].highTemperature.converted(to: .fahrenheit).value),
-            todayLow: String(format: "%.0f", dailyWeather[0].lowTemperature.converted(to: .fahrenheit).value),
-            currentTemperature: String(format: "%.0f", current.temperature.converted(to: .fahrenheit).value),
-            feelsLikeTemperature: String(format: "%.0f", current.apparentTemperature.converted(to: .fahrenheit).value),
+            todayHigh: String(format: "%.0f", dailyWeather[0].highTemperature.converted(to: getUnitTemperature()).value),
+            todayLow: String(format: "%.0f", dailyWeather[0].lowTemperature.converted(to: getUnitTemperature()).value),
+            currentTemperature: String(format: "%.0f", current.temperature.converted(to: getUnitTemperature()).value),
+            feelsLikeTemperature: String(format: "%.0f", current.apparentTemperature.converted(to: getUnitTemperature()).value),
             symbol: current.symbolName,
             weatherDescription: current.condition,
             chanceOfPrecipitation: dailyWeather[0].precipitationChance.formatted(.percent),
@@ -139,7 +174,8 @@ class WeatherManager {
             sunData: sunData,
             isDaylight: current.isDaylight,
             hourlyTemperatures: hourlyTemperatures,
-            temperatureUnit: current.temperature.converted(to: .fahrenheit).unit.symbol
+            temperatureUnit: current.temperature.converted(to: getUnitTemperature()).unit.symbol
+            
         )
         
 
@@ -177,13 +213,14 @@ class WeatherManager {
         
         for hour in 0..<K.Time.twelveHours {
             tomorrowHourlyWind.append(WindData(
-                windSpeed: String(format: "%.0f", tomorrow12HourForecast[hour].wind.speed.value),
+                windSpeed: String(format: "%.0f", tomorrow12HourForecast[hour].wind.speed.converted(to: getUnitSpeed()).value),
                 windDirection: tomorrow12HourForecast[hour].wind.compassDirection,
-                time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)))
+                time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset),
+                speedUnit: tomorrow12HourForecast[hour].wind.speed.converted(to: getUnitSpeed()).unit.symbol))
             
             
             tomorrowHourlyTemperatures.append(HourlyTemperatures(
-                temperature: String(format: "%.0f", tomorrow12HourForecast[hour].temperature.converted(to: .fahrenheit).value),
+                temperature: String(format: "%.0f", tomorrow12HourForecast[hour].temperature.converted(to: getUnitTemperature()).value),
                 date: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset),
                 symbol: tomorrow12HourForecast[hour].symbolName,
                 chanceOfPrecipitation: tomorrow12HourForecast[hour].precipitationChance.formatted(.percent))
@@ -211,16 +248,17 @@ class WeatherManager {
         )
         
         let tomorrowWind = WindData(
-            windSpeed: String(format: "%.0f", tomorrowWeather.wind.speed.value),
+            windSpeed: String(format: "%.0f", tomorrowWeather.wind.speed.converted(to: getUnitSpeed()).value),
             windDirection: tomorrowWeather.wind.compassDirection,
-            time: nil
+            time: nil,
+            speedUnit: tomorrowWeather.wind.speed.converted(to: getUnitSpeed()).unit.symbol
         )
         
         
         let tomorrowsWeather = TomorrowWeatherModel(
             date: getDayOfWeekAndDate(date: tomorrowWeather.date, timezoneOffset: timezoneOffset),
-            tomorrowLow: String(format: "%.0f", tomorrowWeather.lowTemperature.converted(to: .fahrenheit).value),
-            tomorrowHigh: String(format: "%.0f", tomorrowWeather.highTemperature.converted(to: .fahrenheit).value),
+            tomorrowLow: String(format: "%.0f", tomorrowWeather.lowTemperature.converted(to: getUnitTemperature()).value),
+            tomorrowHigh: String(format: "%.0f", tomorrowWeather.highTemperature.converted(to: getUnitTemperature()).value),
             tomorrowSymbol: tomorrowWeather.symbolName,
             tomorrowWeatherDescription: tomorrowWeather.condition,
             tomorrowChanceOfPrecipitation: tomorrowWeather.precipitationChance.formatted(.percent),
@@ -245,9 +283,10 @@ class WeatherManager {
         for day in 0..<dailyWeather.count {
             
             let windDetails = WindData(
-                windSpeed: String(format: "%.0f", dailyWeather[day].wind.speed.value),
+                windSpeed: String(format: "%.0f", dailyWeather[day].wind.speed.converted(to: getUnitSpeed()).value),
                 windDirection: dailyWeather[day].wind.compassDirection,
-                time: nil
+                time: nil,
+                speedUnit: dailyWeather[day].wind.speed.converted(to: getUnitSpeed()).unit.symbol
             )
             
             let sunData = SunData(
@@ -267,8 +306,8 @@ class WeatherManager {
                     dailyWeatherDescription: dailyWeather[day].condition,
                     dailyChanceOfPrecipitation: dailyWeather[day].precipitationChance.formatted(.percent),
                     dailySymbol: dailyWeather[day].symbolName,
-                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.converted(to: .fahrenheit).value),
-                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.converted(to: .fahrenheit).value),
+                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.converted(to: getUnitTemperature()).value),
+                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.converted(to: getUnitTemperature()).value),
                     dailyWind: windDetails,
                     dailyUVIndex: dailyWeather[day].uvIndex.category.description + ", " + dailyWeather[day].uvIndex.value.description,
                     sunEvents: sunData,
@@ -303,7 +342,7 @@ extension WeatherManager {
         for i in 0..<15 {
             fifteenHours.append(
                 HourlyTemperatures(
-                    temperature: String(format: "%.0f", nextDayWeatherHours[i].temperature.converted(to: .fahrenheit).value),
+                    temperature: String(format: "%.0f", nextDayWeatherHours[i].temperature.converted(to: getUnitTemperature()).value),
                     date: getReadableHourOnly(date: nextDayWeatherHours[i].date, timezoneOffset: timezoneOffset),
                     symbol: nextDayWeatherHours[i].symbolName,
                     chanceOfPrecipitation: nextDayWeatherHours[i].precipitationChance.formatted(.percent)

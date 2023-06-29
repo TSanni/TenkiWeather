@@ -52,7 +52,7 @@ struct WindView: View {
                     Image(systemName: "location.fill")
 //                        .rotationEffect(.degrees(vm.getRotation(direction: windData.windDirection) + 180))
                         .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.windDirection) + 180) )
-                    Text("mph")
+                    Text(windData.speedUnit)
                 }
                 .foregroundColor(.secondary)
             }
@@ -79,7 +79,7 @@ struct WindView: View {
             Text(windData.windDescriptionForMPH)
                 .fontWeight(.light)
                 .font(.title)
-            Text("Average of about \(windData.windSpeed)")
+            Text("Average of about \(windData.windSpeed) \(windData.speedUnit)")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }

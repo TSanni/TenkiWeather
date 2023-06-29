@@ -82,7 +82,8 @@ struct TodayWeatherModel: Identifiable {
         todayHourlyWind: [WindData.windDataHolder],
         sunData: SunData.sunDataHolder,
         isDaylight: false,
-        hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData], temperatureUnit: "F"
+        hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData],
+        temperatureUnit: "F"
 
     )
     

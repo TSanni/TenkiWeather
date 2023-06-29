@@ -7,17 +7,23 @@
 
 import SwiftUI
 
+class AppStateManager: ObservableObject {
+    @Published var showSearchScreen: Bool = false
+    @Published var searchNameIsInPlacesArray: Bool = true
+    
+    
+    @Published var temperatureDistance: UnitLength = .miles
+}
+
+
 struct SettingsScreen: View {
-    enum Temps: String, CaseIterable {
-        case fahrenheit = "Fahrenheit"
-        case celsius = "Celsius"
-        case kelvin = "Kelvin"
-    }
+    @AppStorage("unittemperature") var temperatureUnit = "fahrenheit"
+    @AppStorage("unitdistance") var distanceUnit = "Miles per hour"
+    @EnvironmentObject var appStateManager: AppStateManager
     
+    var tempUnits = ["fahrenheit", "celsius", "kelvin"]
+    var distances = ["Miles per hour", "Kilometers per hour", "Meters per second", "Knots"]
     
-    var distances = ["mph", "kph", "m/s"]
-    @State private var tempSelection: Temps = .fahrenheit
-    @State private var distanceSelection = "mph"
     
     
     var body: some View {
@@ -31,16 +37,16 @@ struct SettingsScreen: View {
                 HStack {
                     Image(systemName: "xmark")
                     Spacer()
-                    Text("\(tempSelection.rawValue)")
+                    Text("Weather")
                     Spacer()
                 }
                 .font(.title)
                 
                 List {
         
-                    Picker(selection: $tempSelection) {
-                        ForEach(Temps.allCases, id: \.self) { i in
-                            Text(i.rawValue).tag(i)
+                    Picker(selection: $temperatureUnit) {
+                        ForEach(tempUnits, id: \.self) { i in
+                            Text(i)
                         }
                     } label: {
                         Label("Temperature Units", systemImage: "thermometer")
@@ -48,7 +54,7 @@ struct SettingsScreen: View {
                     
                     
                     
-                    Picker(selection: $distanceSelection) {
+                    Picker(selection: $distanceUnit) {
                         ForEach(distances, id: \.self) { i in
                             Text(i)
                                 .foregroundColor(.orange)
@@ -90,5 +96,6 @@ struct SettingsScreen_Previews: PreviewProvider {
         SettingsScreen()
             .frame(height: 300)
             .frame(width: 400)
+            .environmentObject(AppStateManager())
     }
 }
