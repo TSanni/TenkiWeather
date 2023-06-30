@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SavedLocationCell: View {
-    let location: LocationEntity
+    @ObservedObject var location: LocationEntity
     var body: some View {
         VStack {
             VStack {

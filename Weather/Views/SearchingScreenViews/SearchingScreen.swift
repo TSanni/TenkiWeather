@@ -20,6 +20,8 @@ struct SearchingScreen: View {
     /// All saved locations in core data
 //    let todayCollection: [LocationEntity]
     var places: FetchedResults<LocationEntity>
+//    @ObservedObject var places: [LocationEntity]
+
     let testMOC: NSManagedObjectContext
 
     //MARK: - Main View
@@ -50,7 +52,7 @@ struct SearchingScreen: View {
         .onAppear {
             focusSearch = true
         }
-        .background(colorScheme == .light ? Color.white : Color(uiColor: K.Colors.properBlack))
+        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
    
     }
     
@@ -59,12 +61,8 @@ struct SearchingScreen: View {
     var textFieldAndBackButton: some View {
         HStack {
             Button {
-//                withAnimation {
                 focusSearch = false
-                    appStateManager.showSearchScreen = false
-                
-//                }
-                
+                appStateManager.showSearchScreen = false
             } label: {
                 Image(systemName: "arrow.left")
                     .foregroundColor(.secondary)
@@ -83,23 +81,12 @@ struct SearchingScreen: View {
                         print("COORDINATES: \(coordinates)")
                         await weatherViewModel.getWeather(latitude: coordinates.coordinate.latitude, longitude:coordinates.coordinate.longitude, timezone: timezone)
                         
-//                        for i in places {
-//                            if let a = i.name {
-//                                if a.contains(locationManager.currentLocationName) {
-//                                    appStateManager.searchNameIsInPlacesArray = true
-//                                    break
-//                                } else {
-//                                    appStateManager.searchNameIsInPlacesArray = false
-//                                    break
-//                                }
-//                            }
-//                        }
-                            appStateManager.showSearchScreen = false
-                            
-                            
-                            
-                            
-                            
+                        appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
+                        appStateManager.searchedLocationDictionary["longitude"] = coordinates.coordinate.longitude
+                        appStateManager.searchedLocationDictionary["latitude"] = coordinates.coordinate.latitude
+                        
+                        appStateManager.showSearchScreen = false
+
                     }
                 }
             

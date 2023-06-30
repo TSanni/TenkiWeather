@@ -20,7 +20,7 @@ struct K {
         static let oneHourInSeconds = 3600
         static let twentyFourHoursInSeconds = 86400
         
-        static let twelveHours = 12
+        static let fifteenHours = 15
         static let twentyFourHours = 24
     }
     
@@ -47,7 +47,11 @@ struct K {
         
     }
     struct Colors {
-        static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
+//        static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
+//        static let goodDarkTheme = #colorLiteral(red: 0.172824204, green: 0.1956355572, blue: 0.2475694418, alpha: 1)
+        static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.172824204, green: 0.1956355572, blue: 0.2475694418, alpha: 1))
+        static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9803921569, alpha: 1))
+        static let properBlack = #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1)
 
         static let clearDay = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
         static let dayTimeCloudy = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
@@ -71,63 +75,6 @@ struct K {
         static let tenDayBarColor = #colorLiteral(red: 0.0978968963, green: 0.3324657381, blue: 0.4080292583, alpha: 1)
         
         static let textFieldBlinkingBarColor = #colorLiteral(red: 0.6047868133, green: 0.6487623453, blue: 1, alpha: 1)
+        
     }
 }
-
-
-
-
-
-
-
-
-//enum WeatherIconSymbols: String {
-//    case sunMax = "sun.max"
-//    case moonStars = "moon.stars"
-//    case cloudSun = "cloud.sun"
-//    case cloudMoon = "cloud.moon"
-//    case cloud = "cloud"
-//    case cloudRain = "cloud.rain"
-//    case cloudSunRain = "cloud.sun.rain"
-//    case cloudMoonRain = "cloud.moon.rain"
-//    case cloudBolt = "cloud.bolt"
-//    case snowflake = "snowflake"
-//    case cloudFog = "cloud.fog"
-//    case sunMin = "sun.min"
-//    case cloudBoltRain = "cloud.bolt.rain"
-//    
-//    
-//    var iconColor: [Color] {
-//        switch self {
-//            case .sunMax:
-//                return [.yellow, .yellow, .yellow]
-//            case .moonStars:
-//                return [K.Colors.moonColor, K.Colors.offWhite, .clear]
-//            case .cloudSun:
-//                return [K.Colors.offWhite, .yellow, .clear]
-//            case .cloudMoon:
-//                return [K.Colors.offWhite, K.Colors.moonColor, .clear]
-//            case .cloud:
-//                return [K.Colors.offWhite, K.Colors.offWhite, K.Colors.offWhite]
-//            case .cloudRain:
-//                return [K.Colors.offWhite, .cyan, .clear]
-//            case .cloudSunRain:
-//                return [K.Colors.offWhite, .yellow, .cyan]
-//            case .cloudMoonRain:
-//                return [K.Colors.offWhite, K.Colors.moonColor, .cyan]
-//            case .cloudBolt:
-//                return [K.Colors.offWhite, .yellow, .clear]
-//            case .snowflake:
-//                return [K.Colors.offWhite, .clear, .clear]
-//            case .cloudFog:
-//                return [K.Colors.offWhite, .gray, .clear]
-//            case .sunMin:
-//                return [.yellow, .yellow, .yellow]
-//            case .cloudBoltRain:
-//                return [K.Colors.offWhite, .cyan, .white]
-//        }
-//    }
-//    
-//    
-//    
-//}

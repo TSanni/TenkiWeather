@@ -13,25 +13,25 @@ class WeatherManager {
     
 
     private func getUnitTemperature() -> UnitTemperature {
-        let a = UserDefaults.standard.string(forKey: "unittemperature")
+        let chosenUnitTemperature = UserDefaults.standard.string(forKey: "unittemperature")
         
-        switch a {
-            case "fahrenheit":
+        switch chosenUnitTemperature {
+            case "Fahrenheit":
                 return .fahrenheit
-            case "celsius":
+            case "Celsius":
                 return .celsius
-            case "kelvin":
+            case "Kelvin":
                 return .kelvin
             default:
-                print("CANT GET UNIT")
+                print("CANT GET UNIT TEMPERATURE")
                 return .fahrenheit
         }
     }
     
     private func getUnitSpeed() -> UnitSpeed {
-        let a = UserDefaults.standard.string(forKey: "unitdistance")
+        let chosenUnitDistance = UserDefaults.standard.string(forKey: "unitdistance")
         
-        switch a {
+        switch chosenUnitDistance {
             case  "Miles per hour":
                 return .milesPerHour
             case "Kilometers per hour":
@@ -46,7 +46,7 @@ class WeatherManager {
         }
     }
     
-    private let apiKey = K.apiKey
+//    private let apiKey = K.apiKey
 //    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=" // Houston
 //    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=" //Sapporo
  
@@ -136,7 +136,7 @@ class WeatherManager {
         
         
         /// 12 hour forecast data for the Wind and temperatures
-        for i in 0..<K.Time.twelveHours {
+        for i in 0..<K.Time.fifteenHours {
             hourlyWind.append(
                 WindData(
                     windSpeed: String(format: "%.0f", hourlyWeatherStartingFromNow[i].wind.speed.converted(to: getUnitSpeed()).value),
@@ -206,12 +206,12 @@ class WeatherManager {
         var tomorrowHourlyTemperatures: [HourlyTemperatures] = []
 
         
-        for hour in 0..<K.Time.twelveHours {
+        for hour in 0..<K.Time.fifteenHours {
             tomorrow12HourForecast.append(nextDayWeatherHours[hour])
             
         }
         
-        for hour in 0..<K.Time.twelveHours {
+        for hour in 0..<K.Time.fifteenHours {
             tomorrowHourlyWind.append(WindData(
                 windSpeed: String(format: "%.0f", tomorrow12HourForecast[hour].wind.speed.converted(to: getUnitSpeed()).value),
                 windDirection: tomorrow12HourForecast[hour].wind.compassDirection,

@@ -34,8 +34,8 @@ struct WindView: View {
         }
         .padding()
         .padding(.top)
-        .background(colorScheme == .light ? Color.white : Color(uiColor: K.Colors.properBlack))
-        
+        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+
     }
     
     

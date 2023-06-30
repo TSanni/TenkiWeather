@@ -67,7 +67,7 @@ struct CurrentDetailsView: View {
         }
         .padding()
         .padding(.vertical)
-        .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
+        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
     }
     
     

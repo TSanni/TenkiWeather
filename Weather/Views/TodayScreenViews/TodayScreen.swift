@@ -23,7 +23,7 @@ struct TodayScreen: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
-                                    .frame(width: geo.size.width * 1.5)
+                                    .frame(width: geo.size.width * 2.5)
                                     .frame(height: geo.size.height * 0.3)
                                     .padding(.leading)
                                     .offset(x: -20)

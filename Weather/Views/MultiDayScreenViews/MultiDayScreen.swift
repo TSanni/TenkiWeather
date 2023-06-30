@@ -21,7 +21,7 @@ struct MultiDayScreen: View {
                     DailyWeatherCell(daily: daily[item], title: nil)
                 }
             }
-            .background(colorScheme == .light ? .white : Color(uiColor: K.Colors.properBlack))
+            .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
         }
         
     }

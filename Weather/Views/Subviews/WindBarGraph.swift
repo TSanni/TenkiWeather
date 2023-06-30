@@ -62,7 +62,6 @@ struct WindBarGraph: View {
     
     /// This function accesses the hourlyWind array and returns the largest wind speed value
     func getLargestValue() -> Double {
-        
         var highest: Double = 0
         
         for i in 0..<hourlyWind.count {

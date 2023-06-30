@@ -28,8 +28,10 @@ struct MainScreen: View {
     
     //@State can survive reloads on the `View`
     @State private var taskId: UUID = .init()
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)], animation: .easeInOut) var places: FetchedResults<LocationEntity>
     
+//    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)], animation: .easeInOut) var places: FetchedResults<LocationEntity>
+    @FetchRequest(entity: LocationEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \LocationEntity.name, ascending: true)], predicate: nil, animation: .linear) var places: FetchedResults<LocationEntity>
+
     
     
     func getBarColor() -> Color {
@@ -46,7 +48,7 @@ struct MainScreen: View {
     var barColor: some View {
         VStack(spacing: 0) {
             getBarColor().brightness(-0.1)
-            Color(uiColor: K.Colors.properBlack)
+            K.Colors.goodDarkTheme
         }
         .ignoresSafeArea()
         
@@ -133,70 +135,6 @@ struct MainScreen: View {
     
     var body: some View {
         
-        //        VStack {
-        //            if !appStateManager.showSearchScreen {
-        //                ZStack {
-        //                    barColor
-        //
-        //                    VStack(spacing: 0) {
-        //
-        //                        VStack {
-        //
-        //                            searchBar
-        //
-        //                            testButtons
-        //
-        //                            WeatherTabSelectionsView(weatherTab: $weatherTab)
-        //                                .padding(.top, 10)
-        //                        }
-        //                        .padding(.horizontal)
-        //
-        //                        TabView(selection: $weatherTab) {
-        //                            //                            Text("Hi there") // <-- Need this here for TabView to function properly
-        //
-        //                            TodayScreen(currentWeather: weatherViewModel.currentWeather)
-        //                                .tabItem {
-        //                                    Label("Today", systemImage: "house")
-        //                                }
-        //                                .tag(WeatherTabs.today)
-        //                                .ignoresSafeArea(edges: .bottom)
-        //                                .contentShape(Rectangle()).gesture(DragGesture())
-        //                                .environmentObject(weatherViewModel)
-        //
-        //                            TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
-        //                                .tabItem {
-        //                                    Label("Tomorrow", systemImage: "house")
-        //                                }
-        //                                .tag(WeatherTabs.tomorrow)
-        //                                .ignoresSafeArea(edges: .bottom)
-        //                                .contentShape(Rectangle()).gesture(DragGesture())
-        //                                .environmentObject(weatherViewModel)
-        //
-        //
-        //                            MultiDayScreen(daily: weatherViewModel.dailyWeather)
-        //                                .tabItem {
-        //                                    Label("10 Days", systemImage: "house")
-        //                                }
-        //                                .tag(WeatherTabs.multiDay)
-        //                                .contentShape(Rectangle()).gesture(DragGesture())
-        //                                .environmentObject(weatherViewModel)
-        //
-        //                        }
-        //                        .tabViewStyle(.page(indexDisplayMode: .never))
-        //                    }
-        //                    .ignoresSafeArea(edges: .bottom)
-        //                }
-        //
-        //            } else {
-        //
-        //                SearchingScreen()
-        //                    .transition(.move(edge: .bottom))
-        ////                    .environmentObject(persistenceLocations)
-        //                    .environmentObject(weatherViewModel)
-        //                    .environmentObject(locationManager)
-        //                    .environmentObject(appStateManager)
-        //            }
-        //        }
         
         
         Group {
@@ -206,63 +144,82 @@ struct MainScreen: View {
                     //                    .transition(.move(edge: .bottom))
                         .environmentObject(weatherViewModel)
                         .environmentObject(appStateManager)
-                    .environmentObject(locationManager)
+                        .environmentObject(locationManager)
                     
-                    SettingsScreen()
                 }
             } else {
                 
-                VStack(spacing: 0) {
-                    
-                    SearchBar()
-                        .environmentObject(weatherViewModel)
-                        .environmentObject(locationManager)
-                        .onTapGesture {
-                            appStateManager.showSearchScreen = true
-                        }
-                        .padding()
-                    
-                    testButtons
-                    
-                    Text("\(places.count)")
-                    
-                    WeatherTabSelectionsView(weatherTab: $weatherTab)
-                    
-                    TabView(selection: $weatherTab) {
-                        Group {
+                ZStack {
+                    VStack(spacing: 0) {
+                        
+                        SearchBar()
+                            .environmentObject(weatherViewModel)
+                            .environmentObject(locationManager)
+                            .environmentObject(appStateManager)
+                            .onTapGesture {
+                                appStateManager.showSearchScreen = true
+                            }
+                            .padding()
+                        
+                        testButtons
+                        
+                        Text("\(places.count)")
+                        
+                        WeatherTabSelectionsView(weatherTab: $weatherTab)
+                        
+                        TabView(selection: $weatherTab) {
+                            Group {
+                                
+                                TodayScreen(currentWeather: weatherViewModel.currentWeather)
+                                    .tag(WeatherTabs.today)
+                                    .environmentObject(weatherViewModel)
+                                    .contentShape(Rectangle()).gesture(DragGesture())
+                                
+                                TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
+                                    .tag(WeatherTabs.tomorrow)
+                                    .environmentObject(weatherViewModel)
+                                    .contentShape(Rectangle()).gesture(DragGesture())
+                                
+                                MultiDayScreen(daily: weatherViewModel.dailyWeather)
+                                    .tag(WeatherTabs.multiDay)
+                                    .environmentObject(weatherViewModel)
+                                    .contentShape(Rectangle()).gesture(DragGesture())
+                            }
+                            .onAppear {
+                                /// Need this onAppear method to remedy a bug where the tab selection does not change tab
+                                let test = weatherTab
+                                weatherTab = .today
+                                weatherTab = test
+                            }
                             
-                            TodayScreen(currentWeather: weatherViewModel.currentWeather)
-                                .tag(WeatherTabs.today)
-                                .environmentObject(weatherViewModel)
-                                .contentShape(Rectangle()).gesture(DragGesture())
-                            
-                            TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
-                                .tag(WeatherTabs.tomorrow)
-                                .environmentObject(weatherViewModel)
-                                .contentShape(Rectangle()).gesture(DragGesture())
-                            
-                            MultiDayScreen(daily: weatherViewModel.dailyWeather)
-                                .tag(WeatherTabs.multiDay)
-                                .environmentObject(weatherViewModel)
-                                .contentShape(Rectangle()).gesture(DragGesture())
                         }
-                        .onAppear {
-                            /// Need this onAppear method to remedy a bug where the tab selection does not change tab
-                            let test = weatherTab
-                            weatherTab = .today
-                            weatherTab = test
-                        }
+                        .tabViewStyle(.page(indexDisplayMode: .never))
                         
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .background(getBarColor().brightness(-0.1).ignoresSafeArea())
+                    .brightness(appStateManager.showSettingScreen ? -0.2 : 0)
+                    .zIndex(0)
+                    .disabled(appStateManager.showSettingScreen ? true : false)
+                    .onTapGesture {
+                        appStateManager.showSettingScreen = false
+                    }
+                    
+                    if appStateManager.showSettingScreen {
+                        SettingsScreen(testMOC: moc)
+//                            .transition(.scale)
+                            .environmentObject(appStateManager)
+                            .frame(height: 300)
+                            .padding()
+                            .zIndex(1)
+                    }
+
                     
                 }
-                .background(getBarColor().brightness(-0.1).ignoresSafeArea())
-                //                .transition(.move(edge: .bottom))
-                
+            
             }
         }
-        .animation(.linear, value: appStateManager.showSearchScreen)
+//        .animation(.linear, value: appStateManager.showSearchScreen)
+//        .animation(.linear(duration: 0.1), value: appStateManager.showSettingScreen)
         .refreshable {
             print("refreshable")
             //Cause .task to re-run by changing the id.
@@ -276,7 +233,16 @@ struct MainScreen: View {
                 let userLocationName = locationManager.currentLocationName
                 await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
                 
-                //                persistenceLocations.saveData()
+                
+                appStateManager.searchedLocationDictionary["name"] = userLocationName
+                appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
+                appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
+//                appStateManager.searchedLocationDictionary = [
+//                    "name": userLocationName,
+//                    "latitude": locationManager.latitude,
+//                    "longitude": locationManager.longitude
+//                ]
+                
                 
             }
         }
@@ -289,7 +255,6 @@ struct MainScreen: View {
                     let userLocationName = locationManager.currentLocationName
                     await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
                     
-                    //                    persistenceLocations.saveData()
                 }
             }
         }
@@ -302,6 +267,9 @@ struct MainScreen_Previews: PreviewProvider {
         MainScreen()
             .previewDevice("iPhone 11 Pro Max")
             .environmentObject(WeatherViewModel())
+            .environmentObject(CoreLocationViewModel())
+            .environmentObject(AppStateManager())
+
         
         MainScreen()
             .previewDevice("iPad Pro (12.9-inch) (6th generation)")

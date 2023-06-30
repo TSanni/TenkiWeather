@@ -17,6 +17,7 @@ struct SavedLocationsView: View {
 //    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)], animation: .easeInOut) var places: FetchedResults<LocationEntity>
     
 //    @Environment(\.managedObjectContext) var moc
+//    @ObservedObject var places: LocationEntity
     var places: FetchedResults<LocationEntity>
     let testMOC: NSManagedObjectContext
 
@@ -33,13 +34,19 @@ struct SavedLocationsView: View {
 
                     .onTapGesture {
                         Task {
+//                            self.locationManager.objectWillChange.send()
 //                            vm.updateFruit(entity: item)
                             item.name = (item.name ?? "") + "!"
                             try testMOC.save()
                             await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
 
                             await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
-                            appStateManager.showSearchScreen = false
+                            
+                            appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
+                            appStateManager.searchedLocationDictionary["longitude"] = item.longitude
+                            appStateManager.searchedLocationDictionary["latitude"] = item.latitude
+                            
+//                            appStateManager.showSearchScreen = false
 
 //                            vm.saveData()
 //                            print("DATE IN SAVED LOCATION: \(item.currentDate)")

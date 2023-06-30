@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     @Environment(\.colorScheme) var colorScheme
-//    @EnvironmentObject var geoViewModel: GeocodingViewModel
+    @EnvironmentObject var appStateManager: AppStateManager
     @EnvironmentObject var locationManager: CoreLocationViewModel
     var body: some View {
         
@@ -21,13 +21,23 @@ struct SearchBar: View {
                     .foregroundColor(.primary)
                 
                 Spacer()
+                
+                Circle().fill(Color.red)
+                    .frame(width: 30)
+                    .onTapGesture {
+                        print("Red button tapped!")
+                        appStateManager.showSettingScreen = true
+                        
+                    }
+            
 
             }
+
             .padding()
             .background {
                 ZStack {
                     RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 1).fill(Color.white).frame(height: 50)
-                    RoundedRectangle(cornerRadius: 5).fill(colorScheme == .light ? .white : Color(red: 0.15, green: 0.15, blue: 0.15) )
+                    RoundedRectangle(cornerRadius: 5).fill(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
                         .frame(height: 50)
                 }
             }
@@ -39,6 +49,7 @@ struct SearchBar_Previews: PreviewProvider {
         ZStack {
             Color.indigo
             SearchBar()
+                .environmentObject(CoreLocationViewModel())
         }
         
     }

@@ -25,7 +25,7 @@ struct TomorrowScreen: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 WeatherGraphView(hourlyTemperatures: tomorrowWeather.hourlyTemperatures, graphColor: tomorrowWeather.backgroundColor)
-                                    .frame(width: geo.size.width * 1.5)
+                                    .frame(width: geo.size.width * 2.5)
                                     .frame(height: geo.size.height * 0.3)
                                     .padding(.leading)
                                     .offset(x: -20)

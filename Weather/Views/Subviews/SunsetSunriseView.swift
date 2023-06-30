@@ -35,14 +35,14 @@ struct SunsetSunriseView: View {
                 Image(systemName: "sunrise.fill")
                     .resizable()
                     .scaledToFit()
-                    .foregroundStyle(colorScheme == .dark ? Color.white : Color(uiColor: K.Colors.properBlack), .yellow)
+                    .foregroundStyle(colorScheme == .dark ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme, .yellow)
                     .frame(height: 100)
                 Spacer()
                 Spacer()
                 Image(systemName: "sunset.fill")
                     .resizable()
                     .scaledToFit()
-                    .foregroundStyle(colorScheme == .dark ? Color.white : Color(uiColor: K.Colors.properBlack), .orange)
+                    .foregroundStyle(colorScheme == .dark ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme, .orange)
                     .frame(height: 100)
                 Spacer()
             }
@@ -93,7 +93,7 @@ struct SunsetSunriseView: View {
         }
         .padding()
         .padding(.bottom)
-        .background(colorScheme == .light ? Color.white : Color(red: 0.15, green: 0.15, blue: 0.15))
+        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
 
     }
 }
