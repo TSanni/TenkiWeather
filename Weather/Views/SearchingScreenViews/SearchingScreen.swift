@@ -6,24 +6,16 @@
 //
 
 import SwiftUI
-import CoreData
+
 struct SearchingScreen: View {
     @State private var searchText: String = ""
     @FocusState private var focusSearch: Bool
-//    @Binding var showSearchScreen: Bool
     @Environment(\.colorScheme) var colorScheme
-//    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
+    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateManager: AppStateManager
     
-    /// All saved locations in core data
-//    let todayCollection: [LocationEntity]
-    var places: FetchedResults<LocationEntity>
-//    @ObservedObject var places: [LocationEntity]
-
-    let testMOC: NSManagedObjectContext
-
     //MARK: - Main View
     var body: some View {
         VStack {
@@ -43,7 +35,7 @@ struct SearchingScreen: View {
                 
                 CustomDivider()
                 
-                SavedLocationsView(places: places, testMOC: testMOC)
+                SavedLocationsView()
             }
             .padding()
         }
@@ -84,6 +76,15 @@ struct SearchingScreen: View {
                         appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
                         appStateManager.searchedLocationDictionary["longitude"] = coordinates.coordinate.longitude
                         appStateManager.searchedLocationDictionary["latitude"] = coordinates.coordinate.latitude
+                        appStateManager.searchedLocationDictionary["timezone"] = timezone
+                        
+                        
+                        appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
+                        
+                        appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
+                        
+                        appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
+                        
                         
                         appStateManager.showSearchScreen = false
 
@@ -114,7 +115,7 @@ struct SearchingScreen: View {
             HStack {
                 HStack(alignment: .top, spacing: 0.0) {
                     Text(weatherViewModel.localTemp).font(.title)
-                    Text("°F")
+                    Text(weatherViewModel.currentWeather.temperatureUnit)
                 }
                 .foregroundColor(.secondary)
                 

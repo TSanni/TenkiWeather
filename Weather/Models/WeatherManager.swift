@@ -23,7 +23,7 @@ class WeatherManager {
             case "Kelvin":
                 return .kelvin
             default:
-                print("CANT GET UNIT TEMPERATURE")
+//                print("CANT GET UNIT TEMPERATURE")
                 return .fahrenheit
         }
     }
@@ -65,10 +65,10 @@ class WeatherManager {
 //            guard let url = URL(string: "\(url)&lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)") else { return (nil, timezoneOffset) } //passed in coordinates
 //            guard let url = URL(string: "\(url)\(apiKey)") else { return nil } //Sapporo
 
-   
+            
             
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude)) // passedd in coordinates
-
+            
             
 //            let weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
             // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
@@ -87,7 +87,6 @@ class WeatherManager {
         } catch {
             fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
         }
-        
         
     }
     

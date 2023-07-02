@@ -6,28 +6,16 @@
 //
 
 import SwiftUI
-import CoreData
-class AppStateManager: ObservableObject {
-    @Published var showSearchScreen: Bool = false
-    @Published var showSettingScreen: Bool = true
-    
-    @Published var searchedLocationDictionary: [String: Any] = [
-        "name": "",
-        "latitude": 0,
-        "longitude": 0
-        ]
-    
-    
-}
+
 
 
 struct SettingsScreen: View {
     @AppStorage("unittemperature") var temperatureUnit = "Fahrenheit"
     @AppStorage("unitdistance") var distanceUnit = "Miles per hour"
     @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var persistence: SavedLocationsPersistence
     @Environment(\.colorScheme) var colorScheme
     
-    let testMOC: NSManagedObjectContext
 
     var tempUnits = ["Fahrenheit", "Celsius", "Kelvin"]
     var distances = ["Miles per hour", "Kilometers per hour", "Meters per second", "Knots"]
@@ -92,17 +80,13 @@ struct SettingsScreen: View {
                     
                     
                     Button {
-                        let newPlace = LocationEntity(context: testMOC)
-                        newPlace.name = appStateManager.searchedLocationDictionary["name"] as? String
-                        newPlace.latitude = appStateManager.searchedLocationDictionary["latitude"] as! Double
-                        newPlace.longitude = appStateManager.searchedLocationDictionary["longitude"] as! Double
-                        try? testMOC.save()
+                        persistence.addLocation(locationDictionary: appStateManager.searchedLocationDictionary)
                     } label: {
                         Label {
                             VStack {
                                 Text("\(appStateManager.searchedLocationDictionary["name"] as! String)")
                                     .foregroundColor(.green)
-                                Text("Add this location to saved location?  Add this")
+                                Text("Add this location to saved location?")
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.2)
                             }

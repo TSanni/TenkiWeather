@@ -22,10 +22,13 @@ struct SearchBar: View {
                 
                 Spacer()
                 
-                Circle().fill(Color.red)
-                    .frame(width: 30)
+                
+                Image(systemName: "gear")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
                     .onTapGesture {
-                        print("Red button tapped!")
+                        print("Settings tapped!")
                         appStateManager.showSettingScreen = true
                         
                     }

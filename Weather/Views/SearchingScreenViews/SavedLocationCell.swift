@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SavedLocationCell: View {
     @ObservedObject var location: LocationEntity
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
     var body: some View {
         VStack {
             VStack {
@@ -31,7 +32,7 @@ struct SavedLocationCell: View {
                             HStack(alignment: .top, spacing: 0.0) {
                                 Text(location.temperature ?? "")
                                     .font(.title)
-                                Text("°F")
+                                Text("\(weatherViewModel.currentWeather.temperatureUnit)")
                             }
                             .foregroundColor(.secondary)
                             
@@ -41,8 +42,6 @@ struct SavedLocationCell: View {
                     }
                 }
             }
-            
-//            CustomDivider()
         }
     }
 }
