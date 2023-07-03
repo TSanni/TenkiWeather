@@ -12,9 +12,6 @@ import SwiftUI
 struct CustomNavBackButton: ViewModifier {
     @Binding var showSearchScreen: Bool
 
-//    init(test: Binding<Bool>) {
-//
-//    }
     
     
     @Environment(\.dismiss) var dismiss

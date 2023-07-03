@@ -16,42 +16,45 @@ enum WeatherTabs: String, CaseIterable {
 struct WeatherTabSelectionsView: View {
     
     @Binding var weatherTab: WeatherTabs
-    @Namespace var underline
+    let namespace: Namespace.ID
 
     var body: some View {
-        HStack {
-//            Spacer()
-            ForEach(WeatherTabs.allCases, id: \.self) { tab in
-                Button {
-                    withAnimation {
-                        weatherTab = tab
-                    }
-                } label: {
-                    VStack {
-                        Text(tab.rawValue)
-                            
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10).fill(Color.clear)
-                                .frame(height: 2)
-                            if weatherTab == tab {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .matchedGeometryEffect(id: "selected", in: underline)
-                                    .frame(height: 3)
-                                    .frame(width: 70)
+//        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+    //            Spacer()
+                ForEach(WeatherTabs.allCases, id: \.self) { tab in
+                    Button {
+                        withAnimation {
+                            weatherTab = tab
+                        }
+                    } label: {
+                        VStack {
+                            Text(tab.rawValue)
+                                
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10).fill(Color.clear)
+                                    .frame(height: 2)
+                                if weatherTab == tab {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .matchedGeometryEffect(id: "selected", in: namespace, properties: .frame)
+                                        .frame(height: 3)
+                                        .frame(width: 70)
+                                }
                             }
                         }
                     }
+                    .tint(.white)
                 }
-                .tint(.white)
             }
-        }
+//            .animation(.default, value: weatherTab)
+//        }
     }
 }
 
-struct WeatherTabSelectionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        WeatherTabSelectionsView(weatherTab: .constant(.today))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.red)
-    }
-}
+//struct WeatherTabSelectionsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WeatherTabSelectionsView(weatherTab: .constant(.today), namespace: <#Namespace.ID#>)
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .background(Color.red)
+//    }
+//}

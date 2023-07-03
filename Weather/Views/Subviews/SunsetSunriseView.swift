@@ -101,5 +101,6 @@ struct SunsetSunriseView: View {
 struct SunsetSunriseView_Previews: PreviewProvider {
     static var previews: some View {
         SunsetSunriseView(sunData: SunData.sunDataHolder, dayLight: true)
+            .previewDevice("iPhone 11 Pro Max")
     }
 }

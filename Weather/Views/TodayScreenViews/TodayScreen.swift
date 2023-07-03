@@ -7,6 +7,30 @@
 
 import SwiftUI
 
+struct CustomScroll: ViewModifier {
+    
+    var shouldScroll: Bool
+    
+    func body(content: Content) -> some View {
+        
+        if shouldScroll {
+            ScrollView(showsIndicators: false) {
+                content
+            }
+        } else {
+            content
+
+        }
+    }
+}
+
+extension View {
+    func scrollingFunction(shouldScroll: Bool) -> some View {
+        self.modifier(CustomScroll(shouldScroll: shouldScroll))
+    }
+}
+
+
 struct TodayScreen: View {
     let currentWeather: TodayWeatherModel
     

@@ -33,13 +33,12 @@ class SavedLocationsPersistence: ObservableObject {
         print(" \n fetchLocations method called! \n")
         
         let request = NSFetchRequest<LocationEntity>(entityName: "LocationEntity")
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded", ascending: false)]
         Task {
             do {
                 try await fetchWeatherPlacesWithTaskGroup()
                 try await MainActor.run {
                     savedLocations = try container.viewContext.fetch(request)
-
                 }
             } catch let error{
                 print("Error fetching. \(error)")
@@ -102,6 +101,7 @@ class SavedLocationsPersistence: ObservableObject {
                 fetchLocations()
             }
             
+            
             try container.viewContext.save()
 
         } catch let error {
@@ -131,14 +131,6 @@ class SavedLocationsPersistence: ObservableObject {
                     weather.append(data)
                 }
             }
-
-
-//           let a = weather
-//            await MainActor.run {
-//                self.savedLocations = a
-//            }
-
-//            return weather
         }
     }
     

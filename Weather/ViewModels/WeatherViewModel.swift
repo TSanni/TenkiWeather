@@ -25,18 +25,17 @@ class WeatherViewModel: ObservableObject {
             let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
-                await MainActor.run(body: {
+                await MainActor.run {
                     self.currentWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
                     self.tomorrowWeather = WeatherManager.shared.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: timezone)
                     self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
-                })
+                }
             }
             
             
         } catch {
             fatalError("Unable to get wather data. Check WeatherViewModel")
         }
-        
     }
     
     
@@ -47,25 +46,16 @@ class WeatherViewModel: ObservableObject {
             
             if let weather = weather {
                 let a = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
-//                let b = await GeocodingManager.shared.performRevereseGeocoding(lat: latitude, lon: longitude)
+                
                 await MainActor.run {
                     localTemp = a.currentTemperature
                     localsfSymbol = a.symbol
                     localName = name
-                    
-//                    if let c = b {
-//                    }
                 }
             }
-            
-            
-
-            
         } catch {
             fatalError("Unable to get wather data. Check WeatherViewModel")
         }
     }
-    
-    
-    
+
 }

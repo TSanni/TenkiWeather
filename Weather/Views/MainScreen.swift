@@ -25,10 +25,7 @@ struct MainScreen: View {
     
     //@State can survive reloads on the `View`
     @State private var taskId: UUID = .init()
-    
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)], animation: .easeInOut) var places: FetchedResults<LocationEntity>
-//    @FetchRequest(entity: LocationEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \LocationEntity.name, ascending: true)], predicate: nil, animation: .linear) var places: FetchedResults<LocationEntity>
-
+    @Namespace var namespace
     
     
     func getBarColor() -> Color {
@@ -42,108 +39,6 @@ struct MainScreen: View {
         }
     }
     
-//    var barColor: some View {
-//        VStack(spacing: 0) {
-//            getBarColor().brightness(-0.1)
-//            K.Colors.goodDarkTheme
-//        }
-//        .ignoresSafeArea()
-//
-//    }
-//
-//
-//    var searchBar: some View {
-//        ZStack(alignment: .trailing) {
-//
-//            SearchBar()
-//                .onTapGesture {
-//                    appStateManager.showSearchScreen.toggle()
-//                }
-//                .environmentObject(weatherViewModel)
-//                .environmentObject(locationManager)
-//
-//
-//            Circle().fill(Color.red)
-//                .frame(width: 30)
-//                .padding(.trailing)
-//                .onTapGesture {
-//                    print("Circle tapped")
-//                    //                    persistenceLocations.addLocation(lat: 48.856613, lon: 2.352222, timezone: 7200) // Paris coordinates
-//                    //                    persistenceLocations.fetchLocations()
-//                }
-//        }
-//    }
-//
-//
-//    var testButtons: some View {
-//        HStack {
-//            Button("Sapporo") {
-////                persistenceLocations.addFruit(name: "Sapporo", lat: 43.062096, lon: 141.354370, timezone: 32400) // Sapporo Coordinates
-//
-//                let testLocation: [String: Any] = [
-//                    "name": "Sapporo",
-//                    "latitude": 43.062096,
-//                    "longitude": 141.354370
-//
-//                ]
-//
-//
-//                persistenceLocations.addLocation(locationDictionary: testLocation)
-////                let newPlace = LocationEntity(context: moc)
-////                newPlace.name = "Sapporo"
-////                newPlace.latitude = 43.062096
-////                newPlace.longitude = 141.354370
-////                newPlace.timezone = 32400
-////                newPlace.sfSymbol = "snowflake"
-////
-////                try? moc.save()
-//            }
-//
-//            Button("Houston") {
-////                persistenceLocations.addFruit(name: "Houston", lat: 29.760427, lon: -95.369804, timezone: -18000) // Houston Coordinates
-//
-//                persistenceLocations.addLocation(locationDictionary: [:])
-//
-////                let newPlace = LocationEntity(context: moc)
-////                newPlace.name = "Houston, TX, United States"
-////                newPlace.latitude = 29.760427
-////                newPlace.longitude = -95.369804
-////                newPlace.timezone = -18000
-////                newPlace.sfSymbol = "cloud"
-//
-//
-////                try? moc.save()
-//            }
-//
-//            Button("Paris") {
-////                persistenceLocations.addFruit(name: "Paris", lat: 48.856613, lon: 2.352222, timezone: 7200) // Paris coordinates
-//                persistenceLocations.addLocation(locationDictionary: [:])
-//
-////                let newPlace = LocationEntity(context: moc)
-////                newPlace.name = "Paris"
-////                newPlace.latitude = 48.856613
-////                newPlace.longitude = 2.352222
-////                newPlace.timezone = 7200
-////                newPlace.sfSymbol = "sun.min"
-////
-////                try? moc.save()
-//            }
-//
-//            Button("Los Angeles") {
-////                persistenceLocations.addFruit(name: "Los Angeles", lat: 34.052235, lon: -118.243683, timezone: -25200) // Los Angeles
-//                persistenceLocations.addLocation(locationDictionary: [:])
-//
-////                let newPlace = LocationEntity(context: moc)
-////                newPlace.name = "Los Angeles"
-////                newPlace.latitude = 34.052235
-////                newPlace.longitude = -118.243683
-////                newPlace.timezone = -25200
-////                newPlace.sfSymbol = "cloud.bolt.rain"
-////
-////                try? moc.save()
-//            }
-//        }
-//    }
     
     
     var body: some View {
@@ -172,35 +67,30 @@ struct MainScreen: View {
                             }
                             .padding()
                         
-//                        testButtons
-//
-//                        Text("\(persistenceLocations.savedLocations.count)")
-
-                        WeatherTabSelectionsView(weatherTab: $weatherTab)
-                        
+                        WeatherTabSelectionsView(weatherTab: $weatherTab, namespace: namespace)
                         TabView(selection: $weatherTab) {
                             Group {
                                 
                                 TodayScreen(currentWeather: weatherViewModel.currentWeather)
                                     .tag(WeatherTabs.today)
                                     .environmentObject(weatherViewModel)
-                                    .contentShape(Rectangle()).gesture(DragGesture())
+//                                    .contentShape(Rectangle()).gesture(DragGesture())
                                 
                                 TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
                                     .tag(WeatherTabs.tomorrow)
                                     .environmentObject(weatherViewModel)
-                                    .contentShape(Rectangle()).gesture(DragGesture())
+//                                    .contentShape(Rectangle()).gesture(DragGesture())
                                 
                                 MultiDayScreen(daily: weatherViewModel.dailyWeather)
                                     .tag(WeatherTabs.multiDay)
                                     .environmentObject(weatherViewModel)
-                                    .contentShape(Rectangle()).gesture(DragGesture())
+//                                    .contentShape(Rectangle()).gesture(DragGesture())
                             }
                             .onAppear {
                                 /// Need this onAppear method to remedy a bug where the tab selection does not change tab
-                                let test = weatherTab
+                                let holderTab = weatherTab
                                 weatherTab = .today
-                                weatherTab = test
+                                weatherTab = holderTab
                             }
                             
                         }
@@ -224,12 +114,10 @@ struct MainScreen: View {
                             .padding()
                             .zIndex(1)
                     }
-
-                    
                 }
-            
             }
         }
+        .animation(.default, value: weatherTab)
         .refreshable {
             print("refreshable")
             //Cause .task to re-run by changing the id.
@@ -277,7 +165,6 @@ struct MainScreen: View {
                 }
             }
         }
-        
     }
 }
 

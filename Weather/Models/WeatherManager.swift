@@ -12,82 +12,17 @@ class WeatherManager {
     static let shared = WeatherManager()
     
 
-    private func getUnitTemperature() -> UnitTemperature {
-        let chosenUnitTemperature = UserDefaults.standard.string(forKey: "unittemperature")
-        
-        switch chosenUnitTemperature {
-            case "Fahrenheit":
-                return .fahrenheit
-            case "Celsius":
-                return .celsius
-            case "Kelvin":
-                return .kelvin
-            default:
-//                print("CANT GET UNIT TEMPERATURE")
-                return .fahrenheit
-        }
-    }
-    
-    private func getUnitSpeed() -> UnitSpeed {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: "unitdistance")
-        
-        switch chosenUnitDistance {
-            case  "Miles per hour":
-                return .milesPerHour
-            case "Kilometers per hour":
-                return .kilometersPerHour
-            case "Meters per second":
-                return .metersPerSecond
-            case "Knots":
-                return .knots
-            default:
-                print("CAN'T GET UNIT SPEED")
-                return .milesPerHour
-        }
-    }
-    
-//    private let apiKey = K.apiKey
-//    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=29.760427&lon=-95.369804&exclude=minutely,hourly,current,daily&units=imperial&appid=" // Houston
-//    private let url = "https://api.openweathermap.org/data/2.5/onecall?lat=43.062096&lon=141.354370&exclude=minutely,hourly,current,daily&units=imperial&appid=" //Sapporo
- 
-    
-    
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
-//        var timezoneOffset: Int = 0
-//        let url = "https://api.openweathermap.org/data/2.5/onecall?exclude=minutely,hourly,current,daily&units=imperial" // will need passed in coordinates
-        
-//        guard let apiKey = apiKey else {
-//            print("UNABLE TO FIND APIKEY")
-//            return nil
-//        }
         
         do {
-//            guard let url = URL(string: "\(url)&lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)") else { return (nil, timezoneOffset) } //passed in coordinates
-//            guard let url = URL(string: "\(url)\(apiKey)") else { return nil } //Sapporo
 
-            
-            
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude)) // passedd in coordinates
-            
-            
-//            let weather = try await WeatherService.shared.weather(for: .init(latitude: 43.062096, longitude: 141.354370)) // Sapporo Japan
-            // weather = try await WeatherService.shared.weather(for: .init(latitude: 37.322998, longitude: -122.032181)) // Cupertino?
-//            weather = try await WeatherService.shared.weather(for: .init(latitude: 29.760427, longitude: -95.369804)) // Houston
-//            weather = try await WeatherService.shared.weather(for: .init(latitude: 40.712776, longitude: -74.005974)) // New York City
-//            weather = try await WeatherService.shared.weather(for: .init(latitude: -75.257721, longitude: 97.818153)) // Antarctica
-//            weather = try await WeatherService.shared.weather(for: .init(latitude: 48.856613, longitude: 2.352222)) // Paris
-            
-//            let (data, _) = try await URLSession.shared.data(from: url)
-//               let decdodedData = try JSONDecoder().decode(TimeZoneModel.self, from: data)
-//               timezoneOffset = decdodedData.timezone_offset
-//
-//            print("TIMEZONE OFFSET: \(decdodedData.timezone_offset)")
+
             return weather
  
         } catch {
             fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
         }
-        
     }
     
     
@@ -112,7 +47,7 @@ class WeatherManager {
             dewPoint: String(format: "%.0f", current.dewPoint.converted(to: getUnitTemperature()).value) + current.dewPoint.converted(to: getUnitTemperature()).unit.symbol,
             pressure: getReadableMeasurementPressure(measurement: current.pressure.converted(to: .inchesOfMercury)),
             uvIndex: (current.uvIndex.category.description) + ", " + (current.uvIndex.value.description),
-            visibility: getReadableMeasurementLengths(measurement: current.visibility.converted(to: .miles)),
+            visibility: getReadableMeasurementLengths(measurement: current.visibility.converted(to: getUnitLength())),
             sunData: nil
         )
         
@@ -126,11 +61,11 @@ class WeatherManager {
         
         /// Weather data for sun events
         let sunData = SunData(
-            sunrise: getReadableHourAndMinute(date: dailyWeather[0].sun.sunrise!, timezoneOffset: timezoneOffset),
-            sunset: getReadableHourAndMinute(date: dailyWeather[0].sun.sunset!, timezoneOffset: timezoneOffset),
-            dawn: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDawn!, timezoneOffset: timezoneOffset),
-            solarNoon: getReadableHourAndMinute(date: dailyWeather[0].sun.solarNoon!, timezoneOffset: timezoneOffset),
-            dusk: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDusk!, timezoneOffset: timezoneOffset)
+            sunrise: getReadableHourAndMinute(date: dailyWeather[0].sun.sunrise, timezoneOffset: timezoneOffset),
+            sunset: getReadableHourAndMinute(date: dailyWeather[0].sun.sunset, timezoneOffset: timezoneOffset),
+            dawn: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDawn, timezoneOffset: timezoneOffset),
+            solarNoon: getReadableHourAndMinute(date: dailyWeather[0].sun.solarNoon, timezoneOffset: timezoneOffset),
+            dusk: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDusk, timezoneOffset: timezoneOffset)
         )
         
         
@@ -230,8 +165,8 @@ class WeatherManager {
 
         
         let sunDetails = SunData(
-            sunrise: getReadableHourAndMinute(date: tomorrowWeather.sun.sunrise!, timezoneOffset: timezoneOffset),
-            sunset: getReadableHourAndMinute(date: tomorrowWeather.sun.sunset!, timezoneOffset: timezoneOffset),
+            sunrise: getReadableHourAndMinute(date: tomorrowWeather.sun.sunrise, timezoneOffset: timezoneOffset),
+            sunset: getReadableHourAndMinute(date: tomorrowWeather.sun.sunset, timezoneOffset: timezoneOffset),
             dawn: "",
             solarNoon: "",
             dusk: ""
@@ -289,8 +224,8 @@ class WeatherManager {
             )
             
             let sunData = SunData(
-                sunrise: getReadableHourAndMinute(date: dailyWeather[day].sun.sunrise!, timezoneOffset: timezoneOffset),
-                sunset: getReadableHourAndMinute(date: dailyWeather[day].sun.sunset!, timezoneOffset: timezoneOffset),
+                sunrise: getReadableHourAndMinute(date: dailyWeather[day].sun.sunrise, timezoneOffset: timezoneOffset),
+                sunset: getReadableHourAndMinute(date: dailyWeather[day].sun.sunset, timezoneOffset: timezoneOffset),
                 dawn: "",
                 solarNoon: "",
                 dusk: ""
@@ -383,13 +318,16 @@ extension WeatherManager {
     
     /// This function accepts a date and returns a string of that date in a readable format
     ///  Ex: 12:07 PM
-    private func getReadableHourAndMinute(date: Date, timezoneOffset: Int) -> String {
+    private func getReadableHourAndMinute(date: Date?, timezoneOffset: Int) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
-        let readableHourAndMinute = dateFormatter.string(from: date)
-        return readableHourAndMinute
+        if let date = date {
+            let readableHourAndMinute = dateFormatter.string(from: date)
+            return readableHourAndMinute
+        } else {
+            return "-"
+        }
     }
     
     
@@ -414,6 +352,59 @@ extension WeatherManager {
         
         let readableDate = dateFormatter.string(from: date)
         return readableDate
+    }
+    
+    
+    private func getUnitLength() -> UnitLength {
+        let unitSpeed = getUnitSpeed()
+        
+        switch unitSpeed {
+            case .milesPerHour:
+                return .miles
+            case .kilometersPerHour:
+                return .kilometers
+            case .metersPerSecond:
+                return .meters
+            default:
+                print("Unable to get unit length")
+                return .miles
+        }
+    }
+    
+    
+    private func getUnitTemperature() -> UnitTemperature {
+        let chosenUnitTemperature = UserDefaults.standard.string(forKey: "unittemperature")
+        
+        switch chosenUnitTemperature {
+            case "Fahrenheit":
+                return .fahrenheit
+            case "Celsius":
+                return .celsius
+            case "Kelvin":
+                return .kelvin
+            default:
+                print("CANT GET UNIT TEMPERATURE")
+                return .fahrenheit
+        }
+    }
+    
+    
+    private func getUnitSpeed() -> UnitSpeed {
+        let chosenUnitDistance = UserDefaults.standard.string(forKey: "unitdistance")
+        
+        switch chosenUnitDistance {
+            case  "Miles per hour":
+                return .milesPerHour
+            case "Kilometers per hour":
+                return .kilometersPerHour
+            case "Meters per second":
+                return .metersPerSecond
+            case "Knots":
+                return .knots
+            default:
+                print("CAN'T GET UNIT SPEED")
+                return .milesPerHour
+        }
     }
 }
 
