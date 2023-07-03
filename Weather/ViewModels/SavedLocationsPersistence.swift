@@ -60,8 +60,8 @@ class SavedLocationsPersistence: ObservableObject {
         let newLocation = LocationEntity(context: container.viewContext)
         
         newLocation.name = locationDictionary["name"] as? String
-        newLocation.latitude = locationDictionary["latitude"] as! Double
-        newLocation.longitude = locationDictionary["longitude"] as! Double
+        newLocation.latitude = locationDictionary["latitude"] as? Double ?? 0
+        newLocation.longitude = locationDictionary["longitude"] as? Double ?? 0
         newLocation.timeAdded = Date.now
         newLocation.timezone = Double(time)
         

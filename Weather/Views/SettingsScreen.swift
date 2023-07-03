@@ -84,7 +84,7 @@ struct SettingsScreen: View {
                     } label: {
                         Label {
                             VStack {
-                                Text("\(appStateManager.searchedLocationDictionary["name"] as! String)")
+                                Text("\(appStateManager.searchedLocationDictionary["name"] as? String ?? "")")
                                     .foregroundColor(.green)
                                 Text("Add this location to saved location?")
                                     .lineLimit(1)
