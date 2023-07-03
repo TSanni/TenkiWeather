@@ -41,14 +41,12 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print(manager.authorizationStatus.rawValue)
         print("locationManagerDidChangeAuthorization delegate called ")
-
+        
         switch manager.authorizationStatus {
             case .authorizedWhenInUse:  // Location services are available.
                 // Insert code here of what should happen when Location services are authorized
                 authorizationStatus = .authorizedWhenInUse
-                locationManager.requestLocation()
-//                getNameFromCoordinates(latitude: latitude, longitude: longitude)
-                
+                locationManager.requestLocation()                
                 break
                 
             case .restricted:  // Location services currently unavailable.
@@ -89,88 +87,103 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     //MARK: - Geocoding
     
     ///Will get all names for pass in coordinates
-    func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async {
+    func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws {
         let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        return await withCheckedContinuation { continuation in
+        return try await withCheckedThrowingContinuation { continuation in
             geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
-                if error != nil {
-                    self?.publishedError = .reverseGeocodingError
-                    continuation.resume()
-                }
                 
-                if let locations = places {
-                    // print("CLPlacemark returned is: \(locations[0]) ")
-                    // let name = locations[0].name
+                if let places = places {
+                    let cityName = places[0].locality
+                    let state = places[0].administrativeArea
+                    let country = places[0].country
                     
-                    
-                    let cityName = locations[0].locality
-                    let timezone = locations[0].timeZone?.secondsFromGMT()
+                    let timezone = places[0].timeZone?.secondsFromGMT()
                     
                     self?.timezoneForCoordinateInput = timezone ?? 0
                     
-                    let state = locations[0].administrativeArea
-                    let country = locations[0].country
-                    
-                    if cityName == state {
-                        self?.currentLocationName = "\(cityName ?? ""), \(country ?? "")"
-                    } else {
-                        self?.currentLocationName = "\(cityName ?? ""), \(state ?? ""), \(country ?? "")"
-                    }
-                    continuation.resume()
-                } else {
-                    continuation.resume()
-                    fatalError("Unable to get location. Check getNameFromCoordinates function")
-                }
 
+                    
+                    
+                    ///Going through possible combinations of optionals existing
+                    if let cityName = cityName, let state = state, let country = country { // All optionals exist
+                        if cityName == state {
+                            self?.currentLocationName = "\(cityName), \(country)"
+                        } else {
+                            self?.currentLocationName = "\(cityName), \(state), \(country)"
+                        }
+                    } else if let state = state, let country = country { // Only state and country exist
+                        self?.currentLocationName = "\(state), \(country)"
+                    } else if let cityName = cityName, let country = country { // Only city and country exist
+                        self?.currentLocationName = "\(cityName), \(country)"
+                    } else if let cityName = cityName { // Only city exists
+                        self?.currentLocationName = "\(cityName)"
+                    } else if let state = state { // Only state exists
+                        self?.currentLocationName = "\(state)"
+                    } else if let country = country { // Only country exists
+                        self?.currentLocationName = "\(country)"
+                    }
+
+                    continuation.resume()
+                    
+                } else if let error = error {
+                    self?.publishedError = .reverseGeocodingError
+                    continuation.resume(throwing: error)
+                }
             }
         }
-
+        
     }
     
     func getCoordinatesFromName(name: String) async throws -> CLLocation {
         
         return try await withCheckedThrowingContinuation { continuation in
             geocoder.geocodeAddressString(name) { [weak self] places, error in
-                if let error = error {
+                
+                if let places = places {
+                    
+                    let cityName = places[0].locality
+                    let timezone = places[0].timeZone?.secondsFromGMT()
+                    
+                    self?.timezoneForCoordinateInput = timezone ?? 0
+                    
+                    
+                    let state = places[0].administrativeArea
+                    let country = places[0].country
+                    
+                    
+                    let coordinates = places[0].location
+                        
+                    ///Going through possible combinations of optionals existing
+                    if let cityName = cityName, let state = state, let country = country { // All optionals exist
+                        if cityName == state {
+                            self?.currentLocationName = "\(cityName), \(country)"
+                        } else {
+                            self?.currentLocationName = "\(cityName), \(state), \(country)"
+                        }
+                    } else if let state = state, let country = country { // Only state and country exist
+                        self?.currentLocationName = "\(state), \(country)"
+                    } else if let cityName = cityName, let country = country { // Only city and country exist
+                        self?.currentLocationName = "\(cityName), \(country)"
+                    } else if let cityName = cityName { // Only city exists
+                        self?.currentLocationName = "\(cityName)"
+                    } else if let state = state { // Only state exists
+                        self?.currentLocationName = "\(state)"
+                    } else if let country = country { // Only country exists
+                        self?.currentLocationName = "\(country)"
+                    }
+                        
+                        
+                    
+                    continuation.resume(returning: coordinates ?? CLLocation(latitude: 0, longitude: 0))
+                        
+                } else if let error = error {
                     self?.publishedError = .goecodingError
                     continuation.resume(throwing: error)
                 }
                 
-                if let locations = places {
-//                    let name = locations[0].name
-                    
-                    
-                    let cityName = locations[0].locality
-                    let timezone = locations[0].timeZone?.secondsFromGMT()
-                    
-                    self?.timezoneForCoordinateInput = timezone ?? 0
-
-                    
-                    let state = locations[0].administrativeArea
-                    let country = locations[0].country
-                    
-//                    self?.searchedLocationName = "\(cityName ?? ""), \(state ?? "")"
-                    
-                    if let coordinates = locations[0].location {
-
-                        
-                        if cityName == state {
-                            self?.currentLocationName = "\(cityName ?? ""), \(country ?? "")"
-
-                        } else {
-                            self?.currentLocationName = "\(cityName ?? ""), \(state ?? ""), \(country ?? "")"
-                        }
-                        
-
-                        continuation.resume(returning: coordinates)
-                    } else {
-                        print("UNABLE TO GET COORDINATES: CHECK getCoordinatesFromName function")
-                    }
-                    
-                }
             }
         }
-  
+        
     }
-
+    
 }

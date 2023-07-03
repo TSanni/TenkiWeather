@@ -16,5 +16,5 @@ struct HourlyTemperatures: Identifiable {
     let chanceOfPrecipitation: String
 
     
-    static let hourlyTempHolderData = HourlyTemperatures(temperature: "-", date: "-", symbol: "sun.min", chanceOfPrecipitation: "-")
+    static let hourlyTempHolderData = HourlyTemperatures(temperature: "77", date: "700", symbol: "sun.min", chanceOfPrecipitation: "777%")
 }

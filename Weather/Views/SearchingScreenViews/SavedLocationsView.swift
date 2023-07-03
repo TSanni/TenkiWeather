@@ -29,7 +29,7 @@ struct SavedLocationsView: View {
                         Task {
 //                            persistence.updateFruit(entity: item)
 
-                            await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
+                            try await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
 
                             await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
                             

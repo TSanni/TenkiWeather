@@ -21,7 +21,9 @@ class WeatherManager {
             return weather
  
         } catch {
-            fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
+            print("ERROR IN GETWEATHER FUNCTION \(error)")
+            return nil
+//            fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
         }
     }
     

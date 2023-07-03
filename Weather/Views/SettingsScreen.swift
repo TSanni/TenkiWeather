@@ -123,12 +123,14 @@ struct SettingsScreen: View {
     }
 }
 
-//struct SettingsScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingsScreen()
-//            .previewDevice("iPhone 11 Pro Max")
-//            .frame(height: 500)
-//            .frame(width: 400)
-//            .environmentObject(AppStateManager())
-//    }
-//}
+struct SettingsScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsScreen()
+            .previewDevice("iPhone 11 Pro Max")
+            .frame(height: 500)
+            .frame(width: 400)
+            .environmentObject(AppStateManager())
+            .environmentObject(SavedLocationsPersistence())
+
+    }
+}

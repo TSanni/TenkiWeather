@@ -14,12 +14,13 @@ import CoreLocation
 // Main screens get environment objects. Lesser views get passed in data
 
 struct MainScreen: View {
+    @Environment(\.scenePhase) var scenePhase
     @StateObject private var weatherViewModel = WeatherViewModel()
     @StateObject private var persistenceLocations = SavedLocationsPersistence()
-    
     @StateObject private var locationManager = CoreLocationViewModel()
     @StateObject private var appStateManager = AppStateManager()
     
+    @State private var savedDate = Date()
     @State private var weatherTab: WeatherTabs = .today
     @State private var redraw: Bool = true
     
@@ -125,24 +126,24 @@ struct MainScreen: View {
         }
         .task(id: taskId) {
             if locationManager.authorizationStatus == .authorizedWhenInUse {
-                await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                try? await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
                 let timezone = locationManager.timezoneForCoordinateInput
                 await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
                 let userLocationName = locationManager.currentLocationName
                 await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-                
-                
+
+
                 appStateManager.searchedLocationDictionary["name"] = userLocationName
                 appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
                 appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
                 appStateManager.searchedLocationDictionary["timezone"] = timezone
-                
+
                 appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
-                
+
                 appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
-                
+
                 appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
-                
+
                 persistenceLocations.saveData()
                 
             }
@@ -150,19 +151,52 @@ struct MainScreen: View {
         .onChange(of: locationManager.authorizationStatus) { newValue in
             if newValue == .authorizedWhenInUse {
                 Task {
-                    await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                    try await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
                     let timezone = locationManager.timezoneForCoordinateInput
                     await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
                     let userLocationName = locationManager.currentLocationName
                     await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-                    
+
                     appStateManager.searchedLocationDictionary["name"] = userLocationName
                     appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
                     appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
                     appStateManager.searchedLocationDictionary["timezone"] = timezone
 
-                    
+                    persistenceLocations.saveData()
+
                 }
+            }
+        }
+        .onChange(of: scenePhase) { newValue in
+            //use this modifier to periodically update the information
+            if newValue == .active {
+                
+                Task {
+                    if -savedDate.timeIntervalSinceNow > 60 * 10 {
+                        print("10 minutes have passed")
+                        
+                        try await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                        let timezone = locationManager.timezoneForCoordinateInput
+                        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
+                        let userLocationName = locationManager.currentLocationName
+                        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+
+                        appStateManager.searchedLocationDictionary["name"] = userLocationName
+                        appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
+                        appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
+                        appStateManager.searchedLocationDictionary["timezone"] = timezone
+
+                        persistenceLocations.saveData()
+                        
+                        
+                        
+                        savedDate = Date()
+                    } else {
+                        print("10 minutes have NOT passed")
+                    }
+                }
+                
+
             }
         }
     }
