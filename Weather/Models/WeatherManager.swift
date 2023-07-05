@@ -357,7 +357,7 @@ extension WeatherManager {
     }
     
     
-    private func getUnitLength() -> UnitLength {
+     func getUnitLength() -> UnitLength {
         let unitSpeed = getUnitSpeed()
         
         switch unitSpeed {
@@ -470,6 +470,8 @@ extension WeatherManager {
             case "snowflake":
                 return imageName
             case "tornado":
+                return imageName
+            case "snow":
                 return imageName
                 
             default:

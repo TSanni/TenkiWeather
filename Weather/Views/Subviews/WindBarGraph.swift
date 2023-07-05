@@ -28,7 +28,7 @@ struct WindBarGraph: View {
                     }
             }
             .chartYScale(domain: 0...(getLargestValue() + 20))
-//            .chartYAxis(.hidden)
+            .chartYAxis(.hidden)
             .chartXAxis {
                 AxisMarks(position: .bottom) { q in
                     AxisValueLabel {
@@ -46,7 +46,7 @@ struct WindBarGraph: View {
                     }
             }
             .chartYScale(domain: 0...(getLargestValue() + 20))
-//            .chartYAxis(.hidden)
+            .chartYAxis(.hidden)
             .chartXAxis {
                 AxisMarks(position: .bottom) { q in
                     AxisValueLabel {
@@ -73,8 +73,6 @@ struct WindBarGraph: View {
         }
         
         return highest
-        
-        // Optionally can also use max() method to get largest number
     }
     
     

@@ -46,11 +46,49 @@ struct K {
 
         
     }
+    
+    static func getBackGroundColor(symbol: String) -> Color {
+        switch symbol {
+            case K.Symbol.sunMax:
+                return Color(uiColor: K.Colors.clearDay)
+                
+            case K.Symbol.moon:
+                return Color(uiColor: K.Colors.nighttimePurple)
+            case K.Symbol.moonStars:
+                return Color(uiColor: K.Colors.nighttimePurple)
+            case K.Symbol.cloudSun:
+                return Color(uiColor: K.Colors.dayTimeCloudy)
+            case K.Symbol.cloudMoon:
+                return Color(uiColor: K.Colors.nighttimeCloudy)
+            case K.Symbol.cloud:
+                return Color(uiColor: K.Colors.cloudy)
+            case K.Symbol.cloudRain:
+                return Color(uiColor: K.Colors.dayTimeRain)
+            case K.Symbol.cloudSunRain:
+                return Color(uiColor: K.Colors.dayTimeRain) //
+            case K.Symbol.cloudMoonRain:
+                return Color(uiColor: K.Colors.dayTimeRain) //
+            case K.Symbol.cloudBolt:
+                return Color(uiColor: K.Colors.scatteredThunderstorm)
+            case K.Symbol.snowflake:
+                return Color(uiColor: K.Colors.dayTimeCloudy) //
+            case K.Symbol.cloudFog:
+                return Color(uiColor: K.Colors.cloudy)
+            case K.Symbol.cloudBoltRain:
+                return Color(uiColor: K.Colors.thunderstorm)
+                
+                
+                
+            default:
+                return Color(uiColor: K.Colors.clearDay)
+        }
+    }
+    
     struct Colors {
-//        static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
-//        static let goodDarkTheme = #colorLiteral(red: 0.172824204, green: 0.1956355572, blue: 0.2475694418, alpha: 1)
         static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.172824204, green: 0.1956355572, blue: 0.2475694418, alpha: 1))
-        static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9803921569, alpha: 1))
+//        static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9803921569, alpha: 1))
+//        static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9411759973, green: 0.9411769509, blue: 0.9626820683, alpha: 1))
+        static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607837796, green: 0.9607847333, blue: 0.9822904468, alpha: 1))
         static let properBlack = #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1)
 
         static let clearDay = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)

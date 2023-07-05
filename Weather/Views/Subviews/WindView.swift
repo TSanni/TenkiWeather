@@ -29,6 +29,7 @@ struct WindView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 WindBarGraph(hourlyWind: hourlyWindData)
                     .frame(width: UIScreen.main.bounds.width * 2)
+                    .saturation(2)
             }
             
         }

@@ -70,13 +70,18 @@ struct SettingsScreen: View {
                     .listRowSeparator(.hidden)
 
                     
-                    Button {
-                        print("Send feedback pressed!")
-                    } label: {
-                        Label("Send feedback", systemImage: "message")
-                    }
-                    .listRowBackground(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))
-                    .listRowSeparator(.hidden)
+//                    Button {
+//                        print("Send feedback pressed!")
+//                    } label: {
+//                        Label("Send feedback", systemImage: "message")
+//                    }
+//                    .listRowBackground(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))
+//                    .listRowSeparator(.hidden)
+                    
+                    
+                    SendMailView()
+                        .listRowBackground(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))
+                        .listRowSeparator(.hidden)
                     
                     
                     Button {

@@ -24,43 +24,46 @@ struct TomorrowWeatherModel: Identifiable {
     let tomorrowHourlyWind: [WindData]
     let hourlyTemperatures: [HourlyTemperatures]
     
-    
-    
+ 
     var backgroundColor: Color {
-        switch tomorrowSymbol {
-            case K.Symbol.sunMax:
-                return Color(uiColor: K.Colors.clearDay)
-            case K.Symbol.moon:
-                return Color(uiColor: K.Colors.nighttimePurple)
-            case K.Symbol.moonStars:
-                return Color(uiColor: K.Colors.nighttimePurple)
-            case K.Symbol.cloudSun:
-                return Color(uiColor: K.Colors.dayTimeCloudy)
-            case K.Symbol.cloudMoon:
-                return Color(uiColor: K.Colors.nighttimeCloudy)
-            case K.Symbol.cloud:
-                return Color(uiColor: K.Colors.cloudy)
-            case K.Symbol.cloudRain:
-                return Color(uiColor: K.Colors.dayTimeRain)
-            case K.Symbol.cloudSunRain:
-                return Color(uiColor: K.Colors.dayTimeRain) //
-            case K.Symbol.cloudMoonRain:
-                return Color(uiColor: K.Colors.dayTimeRain) //
-            case K.Symbol.cloudBolt:
-                return Color(uiColor: K.Colors.scatteredThunderstorm)
-            case K.Symbol.snowflake:
-                return Color(uiColor: K.Colors.dayTimeCloudy) //
-            case K.Symbol.cloudFog:
-                return Color(uiColor: K.Colors.cloudy)
-            case K.Symbol.cloudBoltRain:
-                return Color(uiColor: K.Colors.thunderstorm)
-                
-                
-                
-            default:
-                return Color(uiColor: K.Colors.clearDay)
-        }
+        K.getBackGroundColor(symbol: tomorrowSymbol)
     }
+    
+//    var backgroundColor: Color {
+//        switch tomorrowSymbol {
+//            case K.Symbol.sunMax:
+//                return Color(uiColor: K.Colors.clearDay)
+//            case K.Symbol.moon:
+//                return Color(uiColor: K.Colors.nighttimePurple)
+//            case K.Symbol.moonStars:
+//                return Color(uiColor: K.Colors.nighttimePurple)
+//            case K.Symbol.cloudSun:
+//                return Color(uiColor: K.Colors.dayTimeCloudy)
+//            case K.Symbol.cloudMoon:
+//                return Color(uiColor: K.Colors.nighttimeCloudy)
+//            case K.Symbol.cloud:
+//                return Color(uiColor: K.Colors.cloudy)
+//            case K.Symbol.cloudRain:
+//                return Color(uiColor: K.Colors.dayTimeRain)
+//            case K.Symbol.cloudSunRain:
+//                return Color(uiColor: K.Colors.dayTimeRain) //
+//            case K.Symbol.cloudMoonRain:
+//                return Color(uiColor: K.Colors.dayTimeRain) //
+//            case K.Symbol.cloudBolt:
+//                return Color(uiColor: K.Colors.scatteredThunderstorm)
+//            case K.Symbol.snowflake:
+//                return Color(uiColor: K.Colors.dayTimeCloudy) //
+//            case K.Symbol.cloudFog:
+//                return Color(uiColor: K.Colors.cloudy)
+//            case K.Symbol.cloudBoltRain:
+//                return Color(uiColor: K.Colors.thunderstorm)
+//
+//
+//
+//            default:
+//                return Color(uiColor: K.Colors.clearDay)
+//        }
+//    }
 
     
     /// Holder data for tomorrow's weather

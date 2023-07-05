@@ -51,6 +51,7 @@ struct TodayScreen: View {
                                     .frame(height: geo.size.height * 0.3)
                                     .padding(.leading)
                                     .offset(x: -20)
+                                    
                             }
                             
                             precipitationPrediction

@@ -70,7 +70,6 @@ struct SearchingScreen: View {
                         let newText = searchText.replacingOccurrences(of: " ", with: "+")
                         let coordinates = try await locationManager.getCoordinatesFromName(name: newText)
                         let timezone = locationManager.timezoneForCoordinateInput
-                        print("COORDINATES: \(coordinates)")
                         await weatherViewModel.getWeather(latitude: coordinates.coordinate.latitude, longitude:coordinates.coordinate.longitude, timezone: timezone)
                         
                         appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName

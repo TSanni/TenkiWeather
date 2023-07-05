@@ -39,7 +39,14 @@ struct SavedLocationsView: View {
                             appStateManager.searchedLocationDictionary["timezone"] = item.timezone
 
                             appStateManager.showSearchScreen = false
+                            
+                            persistence.saveData()
 
+                            
+                            let id = WeatherManager.shared.getUnitLength()
+                            if id == .miles {
+                                
+                            }
                         }
                     }
                 

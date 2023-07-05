@@ -21,7 +21,13 @@ struct WeatherGraphView: View {
             //MARK: - Area Graph
 //            AreaMark(x: .value("Time", item.date), y: .value("temp", Double(item.temperature) ?? 0))
             AreaMark(x: .value("Time", item.date), yStart: .value("start", getGraphStartingPoint()), yEnd: .value("temp", Double(item.temperature) ?? 0))
-                .foregroundStyle(LinearGradient(colors: [.white.opacity(0.2), graphColor], startPoint: .top, endPoint: .bottom))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.white.opacity(0.2), graphColor],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
             
             //MARK: - Bar graph
             BarMark(x: .value("Time", item.date), yStart: .value("start", getGraphStartingPoint()), yEnd: .value("temp", Double(item.temperature) ?? 0))
@@ -106,37 +112,3 @@ struct WeatherGraphView_Previews: PreviewProvider {
 }
 
 
-
-
-
-
-/*
- 
- //MARK: - Bar graph
- BarMark(
- x: .value("Category", item.xAxis),
- y: .value("Value", item.yAxis)
- )
- .foregroundStyle(Color.clear.gradient)
- .annotation(position: .top) {
- Text("\(item.yAxis.formatted())")
- }
- 
- //MARK: - Line Graph
- LineMark(
- x: .value("Category", item.xAxis),
- y: .value("Value", item.yAxis)
- )
- .foregroundStyle(Color.purple.gradient)
- 
- //MARK: - Area Graph
- AreaMark(
- x: .value("Category", item.xAxis),
- y: .value("Value", item.yAxis)
- )
- .foregroundStyle(Color.blue.gradient)
- 
- 
- 
- 
- */

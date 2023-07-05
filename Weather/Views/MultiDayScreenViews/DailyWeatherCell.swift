@@ -50,9 +50,11 @@ struct DailyWeatherCell: View {
                                 Image(systemName: WeatherManager.shared.getImage(imageName: daily.dailySymbol))
                                     .renderingMode(.original)
                                     .resizable()
-                                    .brightness(-0.07)
+//                                    .brightness(-0.07)
                                     .scaledToFit()
                                     .frame(width: 40, height: 40)
+                                    .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+
                             }
                             
                             VStack {
@@ -144,6 +146,6 @@ struct DailyWeatherCell: View {
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
         DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder, title: nil)
-            .previewDevice("iPhone 12 Pro Max")
+            .previewDevice("iPhone 11 Pro Max")
     }
 }

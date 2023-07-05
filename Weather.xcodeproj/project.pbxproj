@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EB2EF2A5508D400346B21 /* SendMailView.swift */; };
+		835EB2F32A5509CC00346B21 /* SwiftUIMailView in Frameworks */ = {isa = PBXBuildFile; productRef = 835EB2F22A5509CC00346B21 /* SwiftUIMailView */; };
 		83641E902A2B8D7E00F3A21C /* SunsetSunriseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */; };
 		83731A6A2A2FC2E400D481CA /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A692A2FC2E400D481CA /* DailyWeatherCell.swift */; };
 		83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A6C2A2FD97F00D481CA /* CustomDivider.swift */; };
@@ -47,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		835EB2EF2A5508D400346B21 /* SendMailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
 		83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunsetSunriseView.swift; sourceTree = "<group>"; };
 		83731A692A2FC2E400D481CA /* DailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCell.swift; sourceTree = "<group>"; };
 		83731A6C2A2FD97F00D481CA /* CustomDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				835EB2F32A5509CC00346B21 /* SwiftUIMailView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +125,7 @@
 			children = (
 				83E04FC12A255FBC009720AB /* MainScreen.swift */,
 				838461802A4C9DDC000B8E86 /* SettingsScreen.swift */,
+				835EB2EF2A5508D400346B21 /* SendMailView.swift */,
 				83E228572A49DE5700C4ED34 /* TESTVIEW.swift */,
 				83731A722A2FFC5F00D481CA /* SearchingScreenViews */,
 				83E04FC62A25A920009720AB /* TodayScreenViews */,
@@ -267,6 +272,7 @@
 			);
 			name = Weather;
 			packageProductDependencies = (
+				835EB2F22A5509CC00346B21 /* SwiftUIMailView */,
 			);
 			productName = Weather;
 			productReference = 83E04FA02A22DF1B009720AB /* Weather.app */;
@@ -297,6 +303,7 @@
 			);
 			mainGroup = 83E04F972A22DF1B009720AB;
 			packageReferences = (
+				835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */,
 			);
 			productRefGroup = 83E04FA12A22DF1B009720AB /* Products */;
 			projectDirPath = "";
@@ -329,6 +336,7 @@
 				83DA72EA2A419F9400C50C86 /* WeatherViewModel.swift in Sources */,
 				83DA72E42A41414200C50C86 /* SavedLocations.xcdatamodeld in Sources */,
 				83E04FD42A2B2892009720AB /* WindView.swift in Sources */,
+				835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */,
 				839F32EE2A3919510048EF05 /* SunModel.swift in Sources */,
 				83C4FFF92A352E9B00DEF7F3 /* K.swift in Sources */,
 				838461812A4C9DDC000B8E86 /* SettingsScreen.swift in Sources */,
@@ -492,12 +500,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tenki Weather";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide accurate weather data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,12 +534,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tenki Weather";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide accurate weather data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -565,6 +577,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-mail-view.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		835EB2F22A5509CC00346B21 /* SwiftUIMailView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */;
+			productName = SwiftUIMailView;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		83DA72E22A41414200C50C86 /* SavedLocations.xcdatamodeld */ = {
