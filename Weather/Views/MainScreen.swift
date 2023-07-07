@@ -40,7 +40,15 @@ struct MainScreen: View {
         }
     }
     
-    
+    var blurBackGround: some View {
+        Group {
+            if appStateManager.showSettingScreen {
+//                Color.clear.background(.ultraThinMaterial)
+                Color.black.ignoresSafeArea().opacity(0.5)
+                    .onTapGesture { appStateManager.showSettingScreen = false }
+            }
+        }
+    }
     
     var body: some View {
         
@@ -99,12 +107,17 @@ struct MainScreen: View {
                         
                     }
                     .background(getBarColor().brightness(-0.1).ignoresSafeArea())
-                    .brightness(appStateManager.showSettingScreen ? -0.2 : 0)
+//                    .brightness(appStateManager.showSettingScreen ? -0.2 : 0)
                     .zIndex(0)
                     .disabled(appStateManager.showSettingScreen ? true : false)
                     .onTapGesture {
                         appStateManager.showSettingScreen = false
                     }
+                    
+                    
+                    
+                    blurBackGround
+                    
                     
                     if appStateManager.showSettingScreen {
                         SettingsScreen()

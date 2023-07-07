@@ -38,6 +38,8 @@ struct SavedLocationCell: View {
                             
                             Image(systemName: WeatherManager.shared.getImage(imageName: location.sfSymbol ?? ""))
                                 .renderingMode(.original)
+                                .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+
                         }
                     }
                 }

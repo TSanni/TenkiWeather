@@ -62,7 +62,7 @@ struct SearchingScreen: View {
                     .padding()
             }
             
-            TextField("Search places", text: $searchText)
+            TextField("Search for a location", text: $searchText)
                 .focused($focusSearch)
                 .tint(Color(uiColor: K.Colors.textFieldBlinkingBarColor))
                 .onSubmit {

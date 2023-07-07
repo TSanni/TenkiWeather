@@ -43,6 +43,7 @@ struct K {
         static let cloudBoltRain = "cloud.bolt.rain"
         static let cloudDrizzle = "cloud.drizzle"
         static let cloudSnow = "cloud.snow"
+        static let cloudMoonBolt = "cloud.moon.bolt"
 
         
     }
@@ -76,6 +77,9 @@ struct K {
                 return Color(uiColor: K.Colors.cloudy)
             case K.Symbol.cloudBoltRain:
                 return Color(uiColor: K.Colors.thunderstorm)
+            case K.Symbol.cloudMoonBolt:
+                return Color(uiColor: K.Colors.scatteredThunderstorm)
+
                 
                 
                 

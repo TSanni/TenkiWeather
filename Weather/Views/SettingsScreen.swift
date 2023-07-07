@@ -91,7 +91,7 @@ struct SettingsScreen: View {
                             VStack {
                                 Text("\(appStateManager.searchedLocationDictionary["name"] as? String ?? "")")
                                     .foregroundColor(.green)
-                                Text("Add this location to saved location?")
+                                Text("Click to save this location")
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.2)
                             }
