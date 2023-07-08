@@ -70,13 +70,7 @@ struct SettingsScreen: View {
                     .listRowSeparator(.hidden)
 
                     
-//                    Button {
-//                        print("Send feedback pressed!")
-//                    } label: {
-//                        Label("Send feedback", systemImage: "message")
-//                    }
-//                    .listRowBackground(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))
-//                    .listRowSeparator(.hidden)
+
                     
                     
                     SendMailView()
@@ -88,7 +82,7 @@ struct SettingsScreen: View {
                         persistence.addLocation(locationDictionary: appStateManager.searchedLocationDictionary)
                     } label: {
                         Label {
-                            VStack {
+                            VStack(alignment: .center) {
                                 Text("\(appStateManager.searchedLocationDictionary["name"] as? String ?? "")")
                                     .foregroundColor(.green)
                                 Text("Click to save this location")
@@ -110,12 +104,41 @@ struct SettingsScreen: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .scrollDisabled(true)
                 
-                HStack {
-                    Text("Privacy Policy")
-                    Text("·")
-                    Text("Terms of Service")
+//                HStack {
+//                    Text("Privacy Policy")
+//
+//                    Text("·")
+//                    Text("Terms of Service")
+//                    //https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31
+//
+//                    WebView(urlString: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
+//
+//                }
+                
+                
+                
+                    
+                    HStack {
+                        
+                        NavigationLink {
+                            WebView(urlString: "https://www.termsfeed.com/live/942cbe01-c563-4e80-990f-60ed5641579c")
+                        } label: {
+                            Text("Privacy Policy")
+                        }
+                        
+                        Text("·")
 
-                }
+                        
+                        NavigationLink {
+                            WebView(urlString: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
+                        } label: {
+                            Text("Terms and Conditions")
+                        }
+                        
+                    }
+
+                
+                
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

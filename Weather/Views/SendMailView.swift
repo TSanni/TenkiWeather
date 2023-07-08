@@ -12,7 +12,7 @@ import SwiftUIMailView
 struct SendMailView: View {
     
     @State private var mailData = ComposeMailData(subject: "Feedback from iOS",
-                                                  recipients: ["tomas.sanni@yahoo.com"],
+                                                  recipients: ["tenkiweather7@gmail.com"],
                                                   message: "Ask a question or submit feedback.",
                                                   attachments: [])
     @State private var showMailView = false

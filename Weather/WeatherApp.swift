@@ -12,14 +12,12 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
-//    @StateObject private var dataController = PersistenceController()
     
     var body: some Scene {
         WindowGroup {
-//            NavigationView {
+            NavigationView {
                 MainScreen()
-//                    .environment(\.managedObjectContext, dataController.container.viewContext)
-//            }
+            }
         }
     }
 }

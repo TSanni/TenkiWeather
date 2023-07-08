@@ -21,7 +21,7 @@ class WeatherManager {
             return weather
  
         } catch {
-            print("ERROR IN GETWEATHER FUNCTION \(error)")
+            print("\n\n\nERROR IN GETWEATHER FUNCTION \(error.localizedDescription)\n\n\n")
             return nil
 //            fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
         }

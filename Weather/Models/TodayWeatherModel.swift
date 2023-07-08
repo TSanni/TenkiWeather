@@ -73,21 +73,21 @@ struct TodayWeatherModel: Identifiable {
     
     /// Holder data for Today's weather
     static let holderData = TodayWeatherModel(
-        date: "July 7, 2077",
-        todayHigh: "777",
-        todayLow: "777",
-        currentTemperature: "1000",
-        feelsLikeTemperature: "1000",
+        date: "-",
+        todayHigh: "-",
+        todayLow: "-",
+        currentTemperature: "-",
+        feelsLikeTemperature: "-",
         symbol: "sun.min",
         weatherDescription: .clear,
-        chanceOfPrecipitation: "1000%",
+        chanceOfPrecipitation: "-",
         currentDetails: DetailsModel.detailsDataHolder,
         todayWind: WindData.windDataHolder,
         todayHourlyWind: [WindData.windDataHolder],
         sunData: SunData.sunDataHolder,
         isDaylight: false,
         hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData],
-        temperatureUnit: "F"
+        temperatureUnit: ""
 
     )
     
