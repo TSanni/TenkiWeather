@@ -87,13 +87,13 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     //MARK: - Geocoding
     
     ///Will get all names for pass in coordinates
-    func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async throws {
+    func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async {
         let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        return try await withCheckedThrowingContinuation { continuation in
+        return await withCheckedContinuation { continuation in
             geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
                 
                 if let places = places {
-
+                    
                     let cityName = places[0].locality
                     let state = places[0].administrativeArea
                     let country = places[0].country
@@ -102,7 +102,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                     
                     self?.timezoneForCoordinateInput = timezone ?? 0
                     
-
+                    
                     
                     
                     ///Going through possible combinations of optionals existing
@@ -123,12 +123,12 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                     } else if let country = country { // Only country exists
                         self?.currentLocationName = "\(country)"
                     }
-
+                    
                     continuation.resume()
                     
                 } else if let error = error {
                     self?.publishedError = .reverseGeocodingError
-                    continuation.resume(throwing: error)
+                    continuation.resume()
                 }
             }
         }

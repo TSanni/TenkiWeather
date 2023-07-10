@@ -8,6 +8,23 @@
 import Foundation
 import WeatherKit
 
+enum WeatherErrors: Error {
+    case failedToGetWeatherKitData
+}
+
+extension WeatherErrors: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+            case .failedToGetWeatherKitData:
+                return NSLocalizedString(
+                          "Check your network connection and try again.",
+                          comment: ""
+                      )
+        }
+    }
+}
+
+
 class WeatherManager {
     static let shared = WeatherManager()
     
@@ -16,13 +33,14 @@ class WeatherManager {
         
         do {
 
-            let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude)) // passedd in coordinates
+            let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
 
             return weather
  
         } catch {
             print("\n\n\nERROR IN GETWEATHER FUNCTION \(error.localizedDescription)\n\n\n")
-            return nil
+            throw WeatherErrors.failedToGetWeatherKitData
+//            return nil
 //            fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
         }
     }

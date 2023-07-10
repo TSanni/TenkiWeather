@@ -1,8 +1,7 @@
 //
 //  WebView.swift
-//  HackerNews
 //
-//  Created by Tomas Sanni on 11/3/21.
+//  Created by Tomas Sanni on 7/7/23.
 //
 
 import Foundation

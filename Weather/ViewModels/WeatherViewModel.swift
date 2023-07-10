@@ -19,6 +19,8 @@ class WeatherViewModel: ObservableObject {
     @Published var localsfSymbol = ""
     @Published var localName = ""
     
+    @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
+    
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         
         do {
@@ -34,7 +36,11 @@ class WeatherViewModel: ObservableObject {
             
             
         } catch {
-            fatalError("Unable to get wather data. Check WeatherViewModel")
+            print(error.localizedDescription)
+            await MainActor.run {
+                errorPublisher = (true, error.localizedDescription)
+            }
+            //            fatalError("Unable to get wather data. Check WeatherViewModel")
         }
     }
     
@@ -54,7 +60,11 @@ class WeatherViewModel: ObservableObject {
                 }
             }
         } catch {
-            fatalError("Unable to get wather data. Check WeatherViewModel")
+            await MainActor.run {
+                errorPublisher = (true, error.localizedDescription)
+            }
+
+//            fatalError("Unable to get wather data. Check WeatherViewModel")
         }
     }
 

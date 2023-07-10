@@ -24,9 +24,9 @@ struct WeatherTabSelectionsView: View {
     //            Spacer()
                 ForEach(WeatherTabs.allCases, id: \.self) { tab in
                     Button {
-                        withAnimation {
+//                        withAnimation {
                             weatherTab = tab
-                        }
+//                        }
                     } label: {
                         VStack {
                             Text(tab.rawValue)

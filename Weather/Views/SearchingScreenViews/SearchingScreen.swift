@@ -125,7 +125,7 @@ struct SearchingScreen: View {
         .padding(.bottom)
         .onTapGesture {
             Task {
-                try await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
                 let timezone = locationManager.timezoneForCoordinateInput
                 await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
                 let userLocationName = locationManager.currentLocationName

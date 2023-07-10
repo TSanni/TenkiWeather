@@ -7,26 +7,31 @@
 
 import SwiftUI
 
-struct CustomScroll: ViewModifier {
-    
-    var shouldScroll: Bool
-    
-    func body(content: Content) -> some View {
-        
-        if shouldScroll {
-            ScrollView(showsIndicators: false) {
-                content
+struct Legal: View {
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        VStack(spacing: 10.0) {
+            Text(" Weather")
+                .foregroundColor(.primary)
+                .font(.headline)
+            
+            NavigationLink {
+                WebView(urlString: "https://weatherkit.apple.com/legal-attribution.html")
+            } label: {
+                Group {
+                    Text("Learn more about ")
+                    + Text("weather sources").underline()
+                }
+                .foregroundColor(.secondary)
+                .font(.subheadline)
             }
-        } else {
-            content
-
         }
-    }
-}
+        .frame(maxWidth: .infinity)
+        .padding(.vertical)
+        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
 
-extension View {
-    func scrollingFunction(shouldScroll: Bool) -> some View {
-        self.modifier(CustomScroll(shouldScroll: shouldScroll))
+        
     }
 }
 
@@ -71,6 +76,9 @@ struct TodayScreen: View {
                         SunsetSunriseView(sunData: currentWeather.sunData, dayLight: currentWeather.isDaylight)
                         
                         CustomDivider()
+                        
+                        Legal()
+
                         
                     }
                 }
@@ -146,7 +154,11 @@ struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
         TodayScreen(currentWeather: TodayWeatherModel.holderData)
             .previewDevice("iPhone 11 Pro Max")
-//            .environmentObject(WeatherKitManager())
+        
+//        NavigationView {
+            Legal()
+                .previewDevice("iPhone 11 Pro Max")
+//        }
     }
 }
 

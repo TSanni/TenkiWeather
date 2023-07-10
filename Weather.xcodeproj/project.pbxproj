@@ -49,7 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8348115E2A58BBF1008EB616 /* Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Weather.entitlements; path = ../../../../.Trash/Weather.entitlements; sourceTree = "<group>"; };
+		83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tenki Weather.entitlements"; sourceTree = "<group>"; };
 		8348115F2A58EAFB008EB616 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		835EB2EF2A5508D400346B21 /* SendMailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
 		83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunsetSunriseView.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsPersistence.swift; sourceTree = "<group>"; };
 		83DA72E72A419C7C00C50C86 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		83DA72E92A419F9400C50C86 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
-		83E04FA02A22DF1B009720AB /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83E04FA02A22DF1B009720AB /* Tenki Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tenki Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E04FA32A22DF1B009720AB /* WeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApp.swift; sourceTree = "<group>"; };
 		83E04FA72A22DF1E009720AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83E04FAA2A22DF1E009720AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -193,6 +193,7 @@
 		83E04F972A22DF1B009720AB = {
 			isa = PBXGroup;
 			children = (
+				83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */,
 				83E04FA22A22DF1B009720AB /* Weather */,
 				83E04FA12A22DF1B009720AB /* Products */,
 			);
@@ -201,7 +202,7 @@
 		83E04FA12A22DF1B009720AB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				83E04FA02A22DF1B009720AB /* Weather.app */,
+				83E04FA02A22DF1B009720AB /* Tenki Weather.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				839F32F72A3BD62C0048EF05 /* Info.plist */,
-				8348115E2A58BBF1008EB616 /* Weather.entitlements */,
 				83E04FA32A22DF1B009720AB /* WeatherApp.swift */,
 				839F32EC2A3918FD0048EF05 /* Models */,
 				83DA72DA2A3FC12800C50C86 /* ViewModels */,
@@ -258,9 +258,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		83E04F9F2A22DF1B009720AB /* Weather */ = {
+		83E04F9F2A22DF1B009720AB /* Tenki Weather */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 83E04FAE2A22DF1E009720AB /* Build configuration list for PBXNativeTarget "Weather" */;
+			buildConfigurationList = 83E04FAE2A22DF1E009720AB /* Build configuration list for PBXNativeTarget "Tenki Weather" */;
 			buildPhases = (
 				83E04F9C2A22DF1B009720AB /* Sources */,
 				83E04F9D2A22DF1B009720AB /* Frameworks */,
@@ -270,12 +270,12 @@
 			);
 			dependencies = (
 			);
-			name = Weather;
+			name = "Tenki Weather";
 			packageProductDependencies = (
 				835EB2F22A5509CC00346B21 /* SwiftUIMailView */,
 			);
 			productName = Weather;
-			productReference = 83E04FA02A22DF1B009720AB /* Weather.app */;
+			productReference = 83E04FA02A22DF1B009720AB /* Tenki Weather.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -309,7 +309,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				83E04F9F2A22DF1B009720AB /* Weather */,
+				83E04F9F2A22DF1B009720AB /* Tenki Weather */,
 			);
 		};
 /* End PBXProject section */
@@ -423,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -477,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -492,7 +492,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Weather/Weather.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Tenki Weather.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -516,7 +516,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -532,7 +532,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Weather/Weather.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Tenki Weather.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -556,7 +556,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -579,7 +579,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83E04FAE2A22DF1E009720AB /* Build configuration list for PBXNativeTarget "Weather" */ = {
+		83E04FAE2A22DF1E009720AB /* Build configuration list for PBXNativeTarget "Tenki Weather" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83E04FAF2A22DF1E009720AB /* Debug */,

@@ -107,7 +107,6 @@ struct MainScreen: View {
                         
                     }
                     .background(getBarColor().brightness(-0.1).ignoresSafeArea())
-//                    .brightness(appStateManager.showSettingScreen ? -0.2 : 0)
                     .zIndex(0)
                     .disabled(appStateManager.showSettingScreen ? true : false)
                     .onTapGesture {
@@ -121,7 +120,6 @@ struct MainScreen: View {
                     
                     if appStateManager.showSettingScreen {
                         SettingsScreen()
-//                            .transition(.scale)
                             .environmentObject(appStateManager)
                             .environmentObject(persistenceLocations)
                             .frame(height: 300)
@@ -131,6 +129,11 @@ struct MainScreen: View {
                 }
             }
         }
+        .alert("Weather Request Failed", isPresented: $weatherViewModel.errorPublisher.errorBool) {
+            
+        } message: {
+            Text(weatherViewModel.errorPublisher.errorMessage)
+        }
         .animation(.default, value: weatherTab)
         .refreshable {
             print("refreshable")
@@ -138,8 +141,9 @@ struct MainScreen: View {
             taskId = .init()
         }
         .task(id: taskId) {
+            print("\n\n\n\n TASK MODIFIER CALLED \n\n\n\n\n")
             if locationManager.authorizationStatus == .authorizedWhenInUse {
-                try? await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
                 let timezone = locationManager.timezoneForCoordinateInput
                 await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
                 let userLocationName = locationManager.currentLocationName
@@ -162,9 +166,10 @@ struct MainScreen: View {
             }
         }
         .onChange(of: locationManager.authorizationStatus) { newValue in
+            print("\n\n\n\n\n onChange of locationManager.authorizationStatus modifier called \n\n\n\n\n")
             if newValue == .authorizedWhenInUse {
                 Task {
-                    try await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                    await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
                     let timezone = locationManager.timezoneForCoordinateInput
                     await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
                     let userLocationName = locationManager.currentLocationName
@@ -181,6 +186,7 @@ struct MainScreen: View {
             }
         }
         .onChange(of: scenePhase) { newValue in
+            print("\n\n\n\n\n onChange of scenePhase modifier called \n\n\n\n\n\n")
             //use this modifier to periodically update the information
             if newValue == .active {
                 
@@ -188,7 +194,7 @@ struct MainScreen: View {
                     if -savedDate.timeIntervalSinceNow > 60 * 10 {
                         print("10 minutes have passed")
                         
-                        try await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+                        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
                         let timezone = locationManager.timezoneForCoordinateInput
                         await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
                         let userLocationName = locationManager.currentLocationName

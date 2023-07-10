@@ -29,7 +29,7 @@ struct SavedLocationsView: View {
                         Task {
 //                            persistence.updateFruit(entity: item)
 
-                            try await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
+                            await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
 
                             await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
                             
@@ -41,12 +41,6 @@ struct SavedLocationsView: View {
                             appStateManager.showSearchScreen = false
                             
                             persistence.saveData()
-
-                            
-                            let id = WeatherManager.shared.getUnitLength()
-                            if id == .miles {
-                                
-                            }
                         }
                     }
                 

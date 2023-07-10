@@ -40,7 +40,7 @@ struct SettingsScreen: View {
                             appStateManager.showSettingScreen = false
                         }
                     Spacer()
-                    Text("Weather")
+                    Text("Tenki Weather")
                     Spacer()
                 }
                 .font(.title)
