@@ -130,6 +130,14 @@ struct SearchingScreen: View {
                 await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
                 let userLocationName = locationManager.currentLocationName
                 await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+                
+                
+                
+                appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
+                appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
+                appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
+                appStateManager.searchedLocationDictionary["timezone"] = timezone
+                
                 appStateManager.showSearchScreen = false
 
 //                persistenceLocations.saveData()

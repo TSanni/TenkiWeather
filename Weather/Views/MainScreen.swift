@@ -9,7 +9,21 @@ import SwiftUI
 import WeatherKit
 import CoreLocation
 
+struct SettingsViewFrameViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 500 : nil)
+            .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 300 : 300)
 
+
+    }
+}
+
+extension View {
+    func settingsFrame() -> some View {
+        return self.modifier(SettingsViewFrameViewModifier())
+    }
+}
 
 // Main screens get environment objects. Lesser views get passed in data
 
@@ -122,7 +136,7 @@ struct MainScreen: View {
                         SettingsScreen()
                             .environmentObject(appStateManager)
                             .environmentObject(persistenceLocations)
-                            .frame(height: 300)
+                            .settingsFrame()
                             .padding()
                             .zIndex(1)
                     }

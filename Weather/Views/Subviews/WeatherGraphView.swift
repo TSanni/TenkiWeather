@@ -90,7 +90,7 @@ struct WeatherGraphView: View {
             allTemperatures.append(Double(hourlyTemperatures[i].temperature) ?? 0)
         }
         
-        return (allTemperatures.max() ?? 0) + 5
+        return (allTemperatures.max() ?? 0) + 10
     }
 }
 
