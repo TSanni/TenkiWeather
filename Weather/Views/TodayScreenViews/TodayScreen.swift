@@ -41,7 +41,7 @@ struct TodayScreen: View {
     
     var body: some View {
         GeometryReader { geo in
-            ScrollView(showsIndicators: false) {
+            ScrollView(.vertical ,showsIndicators: false) {
                 ZStack {
                     currentWeather.backgroundColor
                     VStack(alignment: .leading, spacing: 0.0) {

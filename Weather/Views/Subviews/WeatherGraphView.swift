@@ -9,7 +9,6 @@ import SwiftUI
 import Charts
 
 struct WeatherGraphView: View {
-//    @EnvironmentObject var vm: WeatherKitManager
     let hourlyTemperatures: [HourlyTemperatures]
     let graphColor: Color
     

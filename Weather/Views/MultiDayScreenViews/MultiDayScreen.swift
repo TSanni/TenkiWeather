@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MultiDayScreen: View {
-//    @EnvironmentObject var vm: WeatherKitManager
     @Environment(\.colorScheme) var colorScheme
     let daily: [DailyWeatherModel]
     
@@ -29,7 +28,7 @@ struct MultiDayScreen: View {
 
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
-        MultiDayScreen(daily: [DailyWeatherModel.dailyDataHolder])
+        MultiDayScreen(daily: [DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder])
             .previewDevice("iPhone 11 Pro Max")
     }
 }

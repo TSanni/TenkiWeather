@@ -42,9 +42,7 @@ struct SavedLocationsView: View {
                             
                             persistence.saveData()
                         }
-                    }
-                
-                
+                    }                
             }
             .onDelete(perform: persistence.deletePlace(indexSet:))
         }

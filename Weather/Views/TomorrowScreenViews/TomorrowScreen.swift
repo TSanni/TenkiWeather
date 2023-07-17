@@ -14,7 +14,7 @@ struct TomorrowScreen: View {
     
     var body: some View {
         GeometryReader { geo in
-            ScrollView(showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: false) {
                 ZStack {
                     tomorrowWeather.backgroundColor
         
