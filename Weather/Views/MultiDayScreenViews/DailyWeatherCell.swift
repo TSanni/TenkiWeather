@@ -113,11 +113,7 @@ struct DailyWeatherCell: View {
                 Text(title)
                     .foregroundColor(.primary)
                     .font(.headline)
-            } else {
-                Text(daily.date)
-                    .foregroundColor(.primary)
-                    .font(.headline)
-            }
+            } 
             
             
             

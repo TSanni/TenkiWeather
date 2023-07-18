@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		834811602A58EAFB008EB616 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8348115F2A58EAFB008EB616 /* WebView.swift */; };
-		8351EDE62A64409F00B6EB87 /* SettingsViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351EDE52A64409F00B6EB87 /* SettingsViewModifier.swift */; };
+		8351EDE62A64409F00B6EB87 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351EDE52A64409F00B6EB87 /* ViewModifiers.swift */; };
 		835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EB2EF2A5508D400346B21 /* SendMailView.swift */; };
 		835EB2F32A5509CC00346B21 /* SwiftUIMailView in Frameworks */ = {isa = PBXBuildFile; productRef = 835EB2F22A5509CC00346B21 /* SwiftUIMailView */; };
 		83641E902A2B8D7E00F3A21C /* SunsetSunriseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */; };
@@ -25,6 +25,8 @@
 		839F32F02A39198C0048EF05 /* HourlyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32EF2A39198C0048EF05 /* HourlyModel.swift */; };
 		839F32F22A3919C70048EF05 /* DetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32F12A3919C70048EF05 /* DetailsModel.swift */; };
 		83B5ADC52A310FAB00C3C2F6 /* TodayWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5ADC42A310FAB00C3C2F6 /* TodayWeatherModel.swift */; };
+		83B760912A6710FF007075E2 /* FullScreenWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760902A6710FF007075E2 /* FullScreenWebView.swift */; };
+		83B760932A67119C007075E2 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760922A67119C007075E2 /* LabelView.swift */; };
 		83C4FFF12A34005F00DEF7F3 /* TomorrowWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */; };
 		83C4FFF72A34BFC000DEF7F3 /* DailyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */; };
 		83C4FFF92A352E9B00DEF7F3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF82A352E9B00DEF7F3 /* K.swift */; };
@@ -52,7 +54,7 @@
 /* Begin PBXFileReference section */
 		83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tenki Weather.entitlements"; sourceTree = "<group>"; };
 		8348115F2A58EAFB008EB616 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		8351EDE52A64409F00B6EB87 /* SettingsViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModifier.swift; sourceTree = "<group>"; };
+		8351EDE52A64409F00B6EB87 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		835EB2EF2A5508D400346B21 /* SendMailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
 		83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunsetSunriseView.swift; sourceTree = "<group>"; };
 		83731A692A2FC2E400D481CA /* DailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCell.swift; sourceTree = "<group>"; };
@@ -69,6 +71,8 @@
 		839F32F12A3919C70048EF05 /* DetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModel.swift; sourceTree = "<group>"; };
 		839F32F72A3BD62C0048EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		83B5ADC42A310FAB00C3C2F6 /* TodayWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherModel.swift; sourceTree = "<group>"; };
+		83B760902A6710FF007075E2 /* FullScreenWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenWebView.swift; sourceTree = "<group>"; };
+		83B760922A67119C007075E2 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherModel.swift; sourceTree = "<group>"; };
 		83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherModel.swift; sourceTree = "<group>"; };
 		83C4FFF82A352E9B00DEF7F3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 				83E04FD52A2B29DE009720AB /* WindBarGraph.swift */,
 				83641E8F2A2B8D7E00F3A21C /* SunsetSunriseView.swift */,
 				83731A6C2A2FD97F00D481CA /* CustomDivider.swift */,
+				83B760902A6710FF007075E2 /* FullScreenWebView.swift */,
+				83B760922A67119C007075E2 /* LabelView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -187,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				83731A772A3003FB00D481CA /* CustomNavBackButton.swift */,
-				8351EDE52A64409F00B6EB87 /* SettingsViewModifier.swift */,
+				8351EDE52A64409F00B6EB87 /* ViewModifiers.swift */,
 				83C4FFF82A352E9B00DEF7F3 /* K.swift */,
 			);
 			path = Utils;
@@ -360,14 +366,16 @@
 				83C4FFF72A34BFC000DEF7F3 /* DailyWeatherModel.swift in Sources */,
 				83B5ADC52A310FAB00C3C2F6 /* TodayWeatherModel.swift in Sources */,
 				83731A762A2FFE4300D481CA /* SavedLocationsView.swift in Sources */,
-				8351EDE62A64409F00B6EB87 /* SettingsViewModifier.swift in Sources */,
+				8351EDE62A64409F00B6EB87 /* ViewModifiers.swift in Sources */,
 				83641E902A2B8D7E00F3A21C /* SunsetSunriseView.swift in Sources */,
 				83E04FC42A25655F009720AB /* SearchBar.swift in Sources */,
 				83731A782A3003FB00D481CA /* CustomNavBackButton.swift in Sources */,
+				83B760912A6710FF007075E2 /* FullScreenWebView.swift in Sources */,
 				83E04FC02A2555DE009720AB /* WeatherTabSelectionsView.swift in Sources */,
 				83E04FA42A22DF1B009720AB /* WeatherApp.swift in Sources */,
 				839F32F22A3919C70048EF05 /* DetailsModel.swift in Sources */,
 				83DA72E62A41655400C50C86 /* SavedLocationsPersistence.swift in Sources */,
+				83B760932A67119C007075E2 /* LabelView.swift in Sources */,
 				834811602A58EAFB008EB616 /* WebView.swift in Sources */,
 				83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */,
 				83E04FD02A2A62A9009720AB /* CurrentDetailsView.swift in Sources */,
@@ -518,7 +526,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -558,7 +566,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";

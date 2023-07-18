@@ -7,42 +7,9 @@
 
 import SwiftUI
 
-struct LabelView: View {
-    var title: String
-    let iconSymbol: String
-    
-    var body: some View {
-        Label {
-            Text(title)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-        } icon: {
-            Image(systemName: iconSymbol)
-        }
-        
-    }
-}
 
 
-struct SettingsListBackgroundViewModifier: ViewModifier {
-    @Environment(\.colorScheme) var colorScheme
-    
-    func body(content: Content) -> some View {
-        let darkTheme = K.Colors.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: 10))
-        let lightTheme = K.Colors.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: 10))
-        
-        content
-            .listRowBackground(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))
-            .listRowSeparator(.hidden)
-        
-    }
-}
 
-extension View {
-    func settingsListBackgroundChange() -> some View {
-        return self.modifier(SettingsListBackgroundViewModifier())
-    }
-}
 
 struct SettingsScreen: View {
     @AppStorage("unittemperature") var temperatureUnit = "Fahrenheit"
@@ -51,7 +18,9 @@ struct SettingsScreen: View {
     @EnvironmentObject var persistence: SavedLocationsPersistence
     @Environment(\.colorScheme) var colorScheme
     @State private var locationSaved: Bool = false
-    
+    @State private var showPrivacyWebsite = false
+    @State private var showTermsAndConditionsWebsite = false
+
     var tempUnits = ["Fahrenheit", "Celsius", "Kelvin"]
     var distances = ["Miles per hour", "Kilometers per hour", "Meters per second", "Knots"]
     
@@ -143,26 +112,16 @@ struct SettingsScreen: View {
                 
                 HStack {
                     
-                    NavigationLink {
-                        WebView(urlString: "https://www.termsfeed.com/live/942cbe01-c563-4e80-990f-60ed5641579c")
-                    } label: {
-                        Text("Privacy Policy")
-                    }
+                    Text("Privacy Policy")
+                        .onTapGesture { showPrivacyWebsite = true }
+
                     
                     Text("·")
-                    
-                    
-                    NavigationLink {
-                        WebView(urlString: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
-                    } label: {
-                        Text("Terms and Conditions")
-                    }
+
+                    Text("Terms and Conditions")
+                        .onTapGesture { showTermsAndConditionsWebsite = true }
                     
                 }
-                
-                
-                
-                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
@@ -171,6 +130,13 @@ struct SettingsScreen: View {
         .alert(isPresented: $locationSaved) {
             Alert(title: Text("Saved"), message: Text("Location saved to favorites"))
         }
+        .fullScreenCover(isPresented: $showPrivacyWebsite) {
+            FullScreenWebView(url: "https://www.termsfeed.com/live/942cbe01-c563-4e80-990f-60ed5641579c")
+        }
+        .fullScreenCover(isPresented: $showTermsAndConditionsWebsite) {
+            FullScreenWebView(url: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
+        }
+        
         
         
         

@@ -28,7 +28,10 @@ struct MainScreen: View {
     @Namespace var namespace
     
     func getWeather() async {
-        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+//        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+        
+        locationManager.getNameFromCoordinates2(latitude: locationManager.latitude, longitude: locationManager.longitude)
+        
         let timezone = locationManager.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
         let userLocationName = locationManager.currentLocationName
@@ -64,7 +67,6 @@ struct MainScreen: View {
     var blurBackGround: some View {
         Group {
             if appStateManager.showSettingScreen {
-//                Color.clear.background(.ultraThinMaterial)
                 Color.black.ignoresSafeArea().opacity(0.5)
                     .onTapGesture { appStateManager.showSettingScreen = false }
             }

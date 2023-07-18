@@ -85,6 +85,56 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     
     
     //MARK: - Geocoding
+    func getNameFromCoordinates2(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
+        
+            geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
+                
+                if let places = places {
+                    
+                    let cityName = places[0].locality
+                    let state = places[0].administrativeArea
+                    let country = places[0].country
+                    
+                    let timezone = places[0].timeZone?.secondsFromGMT()
+                    
+                    self?.timezoneForCoordinateInput = timezone ?? 0
+                    
+                    
+                    
+                    
+                    ///Going through possible combinations of optionals existing
+                    if let cityName = cityName, let state = state, let country = country { // All optionals exist
+                        if cityName == state {
+                            self?.currentLocationName = "\(cityName), \(country)"
+                        } else {
+                            self?.currentLocationName = "\(cityName), \(state), \(country)"
+                        }
+                    } else if let state = state, let country = country { // Only state and country exist
+                        self?.currentLocationName = "\(state), \(country)"
+                    } else if let cityName = cityName, let country = country { // Only city and country exist
+                        self?.currentLocationName = "\(cityName), \(country)"
+                    } else if let cityName = cityName { // Only city exists
+                        self?.currentLocationName = "\(cityName)"
+                    } else if let state = state { // Only state exists
+                        self?.currentLocationName = "\(state)"
+                    } else if let country = country { // Only country exists
+                        self?.currentLocationName = "\(country)"
+                    }
+                    
+                    
+                    
+                } else if let error = error {
+                    self?.publishedError = .reverseGeocodingError
+                    
+                }
+            }
+        
+        
+    }
+    
+    
+    
     
     ///Will get all names for pass in coordinates
     func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async {

@@ -77,7 +77,7 @@ struct TodayScreen: View {
                         
                         CustomDivider()
                         
-                        Legal()
+                        // Legal()
 
                         
                     }
