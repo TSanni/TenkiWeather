@@ -18,20 +18,47 @@ struct MultiDayScreen: View {
         ScrollView(showsIndicators: false) {
             VStack {
                 DailyWeatherCell(daily: daily[0], title: "Today")
+                CustomDivider()
                 
                 ForEach(1..<daily.count, id: \.self) { item in
-                    DailyWeatherCell(daily: daily[item], title: daily[item].date)
+                    
+                    if daily.count == item+1 {
+                        VStack {
+                            DailyWeatherCell(daily: daily[item], title: daily[item].date)
+                            HStack {
+                                Spacer()
+                                VStack(alignment: .trailing) {
+                                    Text(" Weather")
+                                        .foregroundColor(.primary)
+                                        .font(.caption)
+                                    
+                                    HStack(spacing: 0.0) {
+                                        Text("Learn more about ")
+                                        
+                                        
+                                        Text("weather data")
+                                            .underline()
+                                            .onTapGesture { showWebView = true }
+
+                                    }
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding(.top)
+                            .padding(.horizontal, 10)
+                            
+                            CustomDivider()
+                            
+                        }
+                    } else {
+                        
+                        DailyWeatherCell(daily: daily[item], title: daily[item].date)
+                        CustomDivider()
+                    }
                 }
 
-                    HStack {
-                        Text("")
-                        Spacer()
-                        Text(" Weather")
-                            .foregroundColor(.primary)
-                            .font(.headline)
-                    }
-                    .padding(10)
-                    .onTapGesture { showWebView = true }
+
             }
             .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
         }
@@ -47,9 +74,9 @@ struct MultiDayScreen: View {
 
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+//        NavigationView {
             MultiDayScreen(daily: [DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder])
                 .previewDevice("iPhone 11 Pro Max")
-        }
+//        }
     }
 }

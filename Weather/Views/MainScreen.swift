@@ -28,9 +28,9 @@ struct MainScreen: View {
     @Namespace var namespace
     
     func getWeather() async {
-//        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
         
-        locationManager.getNameFromCoordinates2(latitude: locationManager.latitude, longitude: locationManager.longitude)
+        //locationManager.getNameFromCoordinates2(latitude: locationManager.latitude, longitude: locationManager.longitude)
         
         let timezone = locationManager.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)

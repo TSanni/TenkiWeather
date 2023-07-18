@@ -85,6 +85,9 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     
     
     //MARK: - Geocoding
+    
+    /*
+    
     func getNameFromCoordinates2(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         let coordinates = CLLocation(latitude: latitude, longitude: longitude)
         
@@ -133,7 +136,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         
     }
     
-    
+    */
     
     
     ///Will get all names for pass in coordinates

@@ -41,7 +41,7 @@ struct DailyWeatherCell: View {
             .padding(.vertical, 10)
             .padding(.horizontal)
             
-            CustomDivider()
+//            CustomDivider()
         }
         
     }
