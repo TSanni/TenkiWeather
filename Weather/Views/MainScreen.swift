@@ -104,19 +104,25 @@ struct MainScreen: View {
                             Group {
                                 
                                 TodayScreen(currentWeather: weatherViewModel.currentWeather)
+                                    .tabItem {
+                                        Label("Today", systemImage: "sun.min")
+                                    }
                                     .tag(WeatherTabs.today)
                                     .environmentObject(weatherViewModel)
-//                                    .contentShape(Rectangle()).gesture(DragGesture())
                                 
                                 TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
+                                    .tabItem {
+                                        Label("Tomorrow", systemImage: "snow")
+                                    }
                                     .tag(WeatherTabs.tomorrow)
                                     .environmentObject(weatherViewModel)
-//                                    .contentShape(Rectangle()).gesture(DragGesture())
                                 
                                 MultiDayScreen(daily: weatherViewModel.dailyWeather)
+                                    .tabItem {
+                                        Label("10 Days", systemImage: "cloud")
+                                    }
                                     .tag(WeatherTabs.multiDay)
                                     .environmentObject(weatherViewModel)
-//                                    .contentShape(Rectangle()).gesture(DragGesture())
                             }
                             .onAppear {
                                 /// Need this onAppear method to remedy a bug where the tab selection does not change tab
@@ -132,9 +138,9 @@ struct MainScreen: View {
                     .background(getBarColor().brightness(-0.1).ignoresSafeArea())
                     .zIndex(0)
                     .disabled(appStateManager.showSettingScreen ? true : false)
-                    .onTapGesture {
-                        appStateManager.showSettingScreen = false
-                    }
+//                    .onTapGesture {
+//                        appStateManager.showSettingScreen = false
+//                    }
                     
                     
                     
@@ -168,26 +174,6 @@ struct MainScreen: View {
             print("\n\n\n\n TASK MODIFIER CALLED \n\n\n\n\n")
             if locationManager.authorizationStatus == .authorizedWhenInUse {
                 await getWeather()
-//                await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
-//                let timezone = locationManager.timezoneForCoordinateInput
-//                await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-//                let userLocationName = locationManager.currentLocationName
-//                await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-//
-//
-//                appStateManager.searchedLocationDictionary["name"] = userLocationName
-//                appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
-//                appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
-//                appStateManager.searchedLocationDictionary["timezone"] = timezone
-//
-//                appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
-//
-//                appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
-//
-//                appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
-//
-//                persistenceLocations.saveData()
-                
             }
         }
         .onChange(of: locationManager.authorizationStatus) { newValue in
@@ -195,19 +181,6 @@ struct MainScreen: View {
             if newValue == .authorizedWhenInUse {
                 Task {
                     await getWeather()
-//                    await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
-//                    let timezone = locationManager.timezoneForCoordinateInput
-//                    await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-//                    let userLocationName = locationManager.currentLocationName
-//                    await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-//
-//                    appStateManager.searchedLocationDictionary["name"] = userLocationName
-//                    appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
-//                    appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
-//                    appStateManager.searchedLocationDictionary["timezone"] = timezone
-//
-//                    persistenceLocations.saveData()
-
                 }
             }
         }
@@ -221,20 +194,6 @@ struct MainScreen: View {
                         print("10 minutes have passed")
                         
                         await getWeather()
-//                        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
-//                        let timezone = locationManager.timezoneForCoordinateInput
-//                        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-//                        let userLocationName = locationManager.currentLocationName
-//                        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-//
-//                        appStateManager.searchedLocationDictionary["name"] = userLocationName
-//                        appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
-//                        appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
-//                        appStateManager.searchedLocationDictionary["timezone"] = timezone
-//
-//                        persistenceLocations.saveData()
-                        
-                        
                         
                         savedDate = Date()
                     } else {

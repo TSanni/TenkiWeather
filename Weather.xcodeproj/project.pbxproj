@@ -49,6 +49,7 @@
 		83E04FD42A2B2892009720AB /* WindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD32A2B2892009720AB /* WindView.swift */; };
 		83E04FD62A2B29DF009720AB /* WindBarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD52A2B29DE009720AB /* WindBarGraph.swift */; };
 		83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */; };
+		83E4D77C2A69917C00F5B061 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4D77B2A69917C00F5B061 /* SwiftUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		83E04FD32A2B2892009720AB /* WindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindView.swift; sourceTree = "<group>"; };
 		83E04FD52A2B29DE009720AB /* WindBarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindBarGraph.swift; sourceTree = "<group>"; };
 		83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
+		83E4D77B2A69917C00F5B061 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				83E04FC12A255FBC009720AB /* MainScreen.swift */,
+				83E4D77B2A69917C00F5B061 /* SwiftUIView.swift */,
 				838461802A4C9DDC000B8E86 /* SettingsScreen.swift */,
 				8348115F2A58EAFB008EB616 /* WebView.swift */,
 				835EB2EF2A5508D400346B21 /* SendMailView.swift */,
@@ -374,6 +377,7 @@
 				83E04FC02A2555DE009720AB /* WeatherTabSelectionsView.swift in Sources */,
 				83E04FA42A22DF1B009720AB /* WeatherApp.swift in Sources */,
 				839F32F22A3919C70048EF05 /* DetailsModel.swift in Sources */,
+				83E4D77C2A69917C00F5B061 /* SwiftUIView.swift in Sources */,
 				83DA72E62A41655400C50C86 /* SavedLocationsPersistence.swift in Sources */,
 				83B760932A67119C007075E2 /* LabelView.swift in Sources */,
 				834811602A58EAFB008EB616 /* WebView.swift in Sources */,

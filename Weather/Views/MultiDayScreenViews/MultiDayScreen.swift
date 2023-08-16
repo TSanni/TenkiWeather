@@ -22,6 +22,7 @@ struct MultiDayScreen: View {
                 
                 ForEach(1..<daily.count, id: \.self) { item in
                     
+                    // Getting the last item in the daily array
                     if daily.count == item+1 {
                         VStack {
                             DailyWeatherCell(daily: daily[item], title: daily[item].date)
