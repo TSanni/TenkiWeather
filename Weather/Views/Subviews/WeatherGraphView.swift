@@ -8,6 +8,7 @@
 import SwiftUI
 import Charts
 
+//MARK: - View
 struct WeatherGraphView: View {
     let hourlyTemperatures: [HourlyTemperatures]
     let graphColor: Color
@@ -18,7 +19,6 @@ struct WeatherGraphView: View {
         Chart(hourlyTemperatures) { item in
             
             //MARK: - Area Graph
-//            AreaMark(x: .value("Time", item.date), y: .value("temp", Double(item.temperature) ?? 0))
             AreaMark(x: .value("Time", item.date), yStart: .value("start", getGraphStartingPoint()), yEnd: .value("temp", Double(item.temperature) ?? 0))
                 .foregroundStyle(
                     LinearGradient(
@@ -30,7 +30,6 @@ struct WeatherGraphView: View {
             
             //MARK: - Bar graph
             BarMark(x: .value("Time", item.date), yStart: .value("start", getGraphStartingPoint()), yEnd: .value("temp", Double(item.temperature) ?? 0))
-//            BarMark(x: .value("Time", item.date), y: .value("temp", Double(item.temperature) ?? 0))
                 .foregroundStyle(Color.clear)
                 .annotation(position: .top) {
                     Text("\(item.temperature)°")
@@ -45,18 +44,22 @@ struct WeatherGraphView: View {
                 AxisValueLabel {
                     VStack {
 
-                        Text("\(hourlyTemperatures[q.index].date)")
-                            .font(.footnote)
-                            .fontWeight(.light)
+                        Image(systemName: WeatherManager.shared.getImage(imageName: hourlyTemperatures[q.index].symbol))
+                            .renderingMode(.original)
+                            .font(.title2)
                         
                         Text(hourlyTemperatures[q.index].chanceOfPrecipitation)
                             .font(.footnote)
                             .fontWeight(.light)
                             .foregroundColor(hourlyTemperatures[q.index].chanceOfPrecipitation == "0%" ? .clear : Color(uiColor: K.Colors.precipitationBlue))
                         
-                        Image(systemName: WeatherManager.shared.getImage(imageName: hourlyTemperatures[q.index].symbol))
-                            .renderingMode(.original)
-                        
+                        Text("\(hourlyTemperatures[q.index].date)")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .fontWeight(.light)
+                            .shadow(color: .white.opacity(0.3), radius: 1, y: 1.7)
+
+                                                                        
                     }
                     .foregroundColor(.black)
                     .font(.subheadline)
@@ -93,6 +96,7 @@ struct WeatherGraphView: View {
     }
 }
 
+//MARK: - Preview
 struct WeatherGraphView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {

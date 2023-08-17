@@ -90,7 +90,7 @@ class WeatherManager {
         
         
         /// 12 hour forecast data for the Wind and temperatures
-        for i in 0..<K.Time.fifteenHours {
+        for i in 0..<K.Time.twentyFourHours {
             hourlyWind.append(
                 WindData(
                     windSpeed: String(format: "%.0f", hourlyWeatherStartingFromNow[i].wind.speed.converted(to: getUnitSpeed()).value),
@@ -160,12 +160,12 @@ class WeatherManager {
         var tomorrowHourlyTemperatures: [HourlyTemperatures] = []
 
         
-        for hour in 0..<K.Time.fifteenHours {
+        for hour in 0..<K.Time.twentyFourHours {
             tomorrow12HourForecast.append(nextDayWeatherHours[hour])
             
         }
         
-        for hour in 0..<K.Time.fifteenHours {
+        for hour in 0..<K.Time.twentyFourHours {
             tomorrowHourlyWind.append(WindData(
                 windSpeed: String(format: "%.0f", tomorrow12HourForecast[hour].wind.speed.converted(to: getUnitSpeed()).value),
                 windDirection: tomorrow12HourForecast[hour].wind.compassDirection,
@@ -288,12 +288,12 @@ extension WeatherManager {
         /// Gets all hourly forecasts starting with 7AM that day
         let nextDayWeatherHours = hours.filter({ hourWeather in
             /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
-            return hourWeather.date >= day.date.advanced(by: 25200)
+            return hourWeather.date >= day.date.advanced(by: K.Time.sevenHoursInSeconds)
         })
         
 
         
-        for i in 0..<15 {
+        for i in 0..<K.Time.fifteenHours {
             fifteenHours.append(
                 HourlyTemperatures(
                     temperature: String(format: "%.0f", nextDayWeatherHours[i].temperature.converted(to: getUnitTemperature()).value),

@@ -44,6 +44,8 @@ struct SearchBar: View {
                         .frame(height: 50)
                 }
             }
+            .padding()
+
     }
 }
 

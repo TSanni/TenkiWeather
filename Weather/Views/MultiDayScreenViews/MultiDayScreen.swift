@@ -75,9 +75,7 @@ struct MultiDayScreen: View {
 
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
-//        NavigationView {
-            MultiDayScreen(daily: [DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder])
+            MultiDayScreen(daily: [DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder, DailyWeatherModel.dailyDataHolder])
                 .previewDevice("iPhone 11 Pro Max")
-//        }
     }
 }

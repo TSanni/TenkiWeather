@@ -16,7 +16,9 @@ enum WeatherTabs: String, CaseIterable {
 struct WeatherTabSelectionsView: View {
     
     @Binding var weatherTab: WeatherTabs
-    let namespace: Namespace.ID
+        @Namespace var namespace
+
+//    let namespace: Namespace.ID
 
     var body: some View {
 //        ScrollView(.horizontal, showsIndicators: false) {

@@ -10,6 +10,7 @@ import Foundation
 class AppStateManager: ObservableObject {
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
+    @Published var resetScrollToggle: Bool = false
     
     @Published var searchedLocationDictionary: [String: Any] = [
         "name": "",
@@ -20,6 +21,11 @@ class AppStateManager: ObservableObject {
         "date": "",
         "symbol": ""
         ]
+    
+    
+    func resetScrollViewToTop() {
+        resetScrollToggle.toggle()
+    }
     
     
 }

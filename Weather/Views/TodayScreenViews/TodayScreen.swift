@@ -7,79 +7,56 @@
 
 import SwiftUI
 
-struct Legal: View {
-    @Environment(\.colorScheme) var colorScheme
-
-    var body: some View {
-        VStack(spacing: 10.0) {
-            Text(" Weather")
-                .foregroundColor(.primary)
-                .font(.headline)
-            
-            NavigationLink {
-                WebView(urlString: "https://weatherkit.apple.com/legal-attribution.html")
-            } label: {
-                Group {
-                    Text("Learn more about ")
-                    + Text("weather sources").underline()
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical)
-        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
-
-        
-    }
-}
-
 
 struct TodayScreen: View {
+    @EnvironmentObject private var appStateManager: AppStateManager
+
     let currentWeather: TodayWeatherModel
     
     var body: some View {
         GeometryReader { geo in
             ScrollView(.vertical ,showsIndicators: false) {
-                ZStack {
-                    currentWeather.backgroundColor
-                    VStack(alignment: .leading, spacing: 0.0) {
+                ScrollViewReader { proxy in
+                    ZStack {
+                        currentWeather.backgroundColor
+                        VStack(alignment: .leading, spacing: 0.0) {
 
-                        VStack {
-                            immediateTempDetails
-                            
-                            
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
-                                    .frame(width: geo.size.width * 2.5)
-                                    .frame(height: geo.size.height * 0.3)
-                                    .padding(.leading)
-                                    .offset(x: -20)
-                                    
+                            VStack {
+                                immediateTempDetails
+                                
+                                
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
+                                        .frame(width: geo.size.width * 3.5)
+                                        .frame(height: geo.size.height * 0.3)
+                                        .padding(.leading)
+                                        .offset(x: -20)
+                                        
+                                }
+                                
+                                precipitationPrediction
+                                    .offset(x: 10)
+                                    .padding(.bottom)
                             }
+                            .frame(height: geo.size.height)
+                            .id(0)
+
+                            CurrentDetailsView(title: "Current Details", details: currentWeather.currentDetails)
                             
-                            precipitationPrediction
-                                .offset(x: 10)
-                                .padding(.bottom)
+                            CustomDivider()
+                            
+                            WindView(windData: currentWeather.todayWind, hourlyWindData: currentWeather.todayHourlyWind, setTodayWeather: true, geo: geo)
+                            
+                            
+                            CustomDivider()
+                            
+                            SunsetSunriseView(sunData: currentWeather.sunData, dayLight: currentWeather.isDaylight)
+                            
+                            CustomDivider()
                         }
-                        .frame(height: geo.size.height)
-
-                        CurrentDetailsView(title: "Current Details", details: currentWeather.currentDetails)
-                        
-                        CustomDivider()
-                        
-                        WindView(windData: currentWeather.todayWind, hourlyWindData: currentWeather.todayHourlyWind, setTodayWeather: true)
-                        
-                        CustomDivider()
-                        
-                        SunsetSunriseView(sunData: currentWeather.sunData, dayLight: currentWeather.isDaylight)
-                        
-                        CustomDivider()
-                        
-                        // Legal()
-
-                        
+                    }
+                    .onChange(of: appStateManager.resetScrollToggle) { _ in
+                        proxy.scrollTo(0)
                     }
                 }
             }
@@ -154,11 +131,6 @@ struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
         TodayScreen(currentWeather: TodayWeatherModel.holderData)
             .previewDevice("iPhone 11 Pro Max")
-        
-//        NavigationView {
-            Legal()
-                .previewDevice("iPhone 11 Pro Max")
-//        }
     }
 }
 

@@ -43,7 +43,7 @@ struct TomorrowScreen: View {
                         
                         CustomDivider()
                         
-                        WindView(windData: tomorrowWeather.tomorrowWind, hourlyWindData: tomorrowWeather.tomorrowHourlyWind, setTodayWeather: false)
+                        WindView(windData: tomorrowWeather.tomorrowWind, hourlyWindData: tomorrowWeather.tomorrowHourlyWind, setTodayWeather: false, geo: geo)
                         
                         CustomDivider()
                     }

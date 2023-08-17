@@ -13,6 +13,7 @@ struct WindView: View {
     let windData: WindData
     let hourlyWindData: [WindData]
     let setTodayWeather: Bool
+    let geo: GeometryProxy
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,7 +29,8 @@ struct WindView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 WindBarGraph(hourlyWind: hourlyWindData)
-                    .frame(width: UIScreen.main.bounds.width * 2)
+//                    .frame(width: UIScreen.main.bounds.width * 2)
+                    .frame(width: geo.size.width * 3)
                     .saturation(2)
             }
             
@@ -89,8 +91,10 @@ struct WindView: View {
 
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
-        WindView(windData: WindData.windDataHolder, hourlyWindData: [WindData.windDataHolder], setTodayWeather: false)
-            .previewDevice("iPhone 12 Pro Max")
+        GeometryReader { geo in
+            WindView(windData: WindData.windDataHolder, hourlyWindData: [WindData.windDataHolder], setTodayWeather: false, geo: geo)
+                .previewDevice("iPhone 12 Pro Max")
+        }
 //            .environmentObject(WeatherKitManager())
         
     }

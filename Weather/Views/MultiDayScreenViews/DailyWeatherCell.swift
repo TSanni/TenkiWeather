@@ -49,7 +49,7 @@ struct DailyWeatherCell: View {
     
     
     private var dayDetails: some View {
-        Group {
+        VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 5.0) {
                     Text("Wind")

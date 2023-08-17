@@ -17,8 +17,9 @@ struct K {
 
     
     struct Time {
-        static let oneHourInSeconds = 3600
-        static let twentyFourHoursInSeconds = 86400
+        static let oneHourInSeconds = 3600.0
+        static let sevenHoursInSeconds = 25000.0
+        static let twentyFourHoursInSeconds = 86400.0
         
         static let fifteenHours = 15
         static let twentyFourHours = 24
