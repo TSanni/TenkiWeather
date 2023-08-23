@@ -131,10 +131,11 @@ struct SettingsScreen: View {
             Alert(title: Text("Saved"), message: Text("Location saved to favorites"))
         }
         .fullScreenCover(isPresented: $showPrivacyWebsite) {
-            FullScreenWebView(url: "https://www.termsfeed.com/live/942cbe01-c563-4e80-990f-60ed5641579c")
+            FullScreenWebView(url: "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621")
         }
         .fullScreenCover(isPresented: $showTermsAndConditionsWebsite) {
-            FullScreenWebView(url: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
+            //FullScreenWebView(url: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
+            TermsAndConditionsView()
         }
         
         

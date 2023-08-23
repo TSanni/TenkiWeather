@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,9 @@
 		83731A782A3003FB00D481CA /* CustomNavBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A772A3003FB00D481CA /* CustomNavBackButton.swift */; };
 		838461812A4C9DDC000B8E86 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461802A4C9DDC000B8E86 /* SettingsScreen.swift */; };
 		838461832A508E14000B8E86 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461822A508E13000B8E86 /* AppStateManager.swift */; };
+		8390BF942A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */; };
+		8390BF962A9356CE00E0B865 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */; };
+		8390BF9F2A9656F800E0B865 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */; };
 		839F32EB2A39186C0048EF05 /* WindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32EA2A39186C0048EF05 /* WindModel.swift */; };
 		839F32EE2A3919510048EF05 /* SunModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32ED2A3919510048EF05 /* SunModel.swift */; };
 		839F32F02A39198C0048EF05 /* HourlyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32EF2A39198C0048EF05 /* HourlyModel.swift */; };
@@ -30,7 +33,7 @@
 		83C4FFF12A34005F00DEF7F3 /* TomorrowWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */; };
 		83C4FFF72A34BFC000DEF7F3 /* DailyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */; };
 		83C4FFF92A352E9B00DEF7F3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF82A352E9B00DEF7F3 /* K.swift */; };
-		83C930522A8EB573001CC566 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C930512A8EB573001CC566 /* LegalView.swift */; };
+		83C930522A8EB573001CC566 /* AppleLegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C930512A8EB573001CC566 /* AppleLegalView.swift */; };
 		83DA72E42A41414200C50C86 /* SavedLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E22A41414200C50C86 /* SavedLocations.xcdatamodeld */; };
 		83DA72E62A41655400C50C86 /* SavedLocationsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */; };
 		83DA72E82A419C7C00C50C86 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E72A419C7C00C50C86 /* WeatherManager.swift */; };
@@ -50,10 +53,11 @@
 		83E04FD42A2B2892009720AB /* WindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD32A2B2892009720AB /* WindView.swift */; };
 		83E04FD62A2B29DF009720AB /* WindBarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD52A2B29DE009720AB /* WindBarGraph.swift */; };
 		83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */; };
-		83E4D77C2A69917C00F5B061 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E4D77B2A69917C00F5B061 /* SwiftUIView.swift */; };
+		C19D9DA1ACABA4B0AC8CD510 /* Pods_Tenki_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		451B1D756BE94706A02B180F /* Pods-Tenki Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenki Weather.release.xcconfig"; path = "Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather.release.xcconfig"; sourceTree = "<group>"; };
 		83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tenki Weather.entitlements"; sourceTree = "<group>"; };
 		8348115F2A58EAFB008EB616 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		8351EDE52A64409F00B6EB87 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
@@ -67,6 +71,9 @@
 		83731A772A3003FB00D481CA /* CustomNavBackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavBackButton.swift; sourceTree = "<group>"; };
 		838461802A4C9DDC000B8E86 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		838461822A508E13000B8E86 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
+		8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewControllerBridge.swift; sourceTree = "<group>"; };
+		8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
+		8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		839F32EA2A39186C0048EF05 /* WindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindModel.swift; sourceTree = "<group>"; };
 		839F32ED2A3919510048EF05 /* SunModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunModel.swift; sourceTree = "<group>"; };
 		839F32EF2A39198C0048EF05 /* HourlyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyModel.swift; sourceTree = "<group>"; };
@@ -78,7 +85,7 @@
 		83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherModel.swift; sourceTree = "<group>"; };
 		83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherModel.swift; sourceTree = "<group>"; };
 		83C4FFF82A352E9B00DEF7F3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
-		83C930512A8EB573001CC566 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
+		83C930512A8EB573001CC566 /* AppleLegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLegalView.swift; sourceTree = "<group>"; };
 		83DA72E32A41414200C50C86 /* SavedLocations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedLocations.xcdatamodel; sourceTree = "<group>"; };
 		83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsPersistence.swift; sourceTree = "<group>"; };
 		83DA72E72A419C7C00C50C86 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
@@ -99,7 +106,8 @@
 		83E04FD32A2B2892009720AB /* WindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindView.swift; sourceTree = "<group>"; };
 		83E04FD52A2B29DE009720AB /* WindBarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindBarGraph.swift; sourceTree = "<group>"; };
 		83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
-		83E4D77B2A69917C00F5B061 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenki Weather.debug.xcconfig"; path = "Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather.debug.xcconfig"; sourceTree = "<group>"; };
+		D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tenki_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,12 +116,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				835EB2F32A5509CC00346B21 /* SwiftUIMailView in Frameworks */,
+				C19D9DA1ACABA4B0AC8CD510 /* Pods_Tenki_Weather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42153E690532CE7A0ADF9022 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		83731A6B2A2FD91E00D481CA /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +145,11 @@
 				83731A6C2A2FD97F00D481CA /* CustomDivider.swift */,
 				83B760902A6710FF007075E2 /* FullScreenWebView.swift */,
 				83B760922A67119C007075E2 /* LabelView.swift */,
-				83C930512A8EB573001CC566 /* LegalView.swift */,
+				83C930512A8EB573001CC566 /* AppleLegalView.swift */,
+				8348115F2A58EAFB008EB616 /* WebView.swift */,
+				835EB2EF2A5508D400346B21 /* SendMailView.swift */,
+				8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */,
+				8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -137,10 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				83E04FC12A255FBC009720AB /* MainScreen.swift */,
-				83E4D77B2A69917C00F5B061 /* SwiftUIView.swift */,
 				838461802A4C9DDC000B8E86 /* SettingsScreen.swift */,
-				8348115F2A58EAFB008EB616 /* WebView.swift */,
-				835EB2EF2A5508D400346B21 /* SendMailView.swift */,
+				8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */,
 				83731A722A2FFC5F00D481CA /* SearchingScreenViews */,
 				83E04FC62A25A920009720AB /* TodayScreenViews */,
 				83E04FC72A25A944009720AB /* TomorrowScreenViews */,
@@ -211,6 +230,8 @@
 				83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */,
 				83E04FA22A22DF1B009720AB /* Weather */,
 				83E04FA12A22DF1B009720AB /* Products */,
+				E0E7814CA5C8B1CCA8C1255C /* Pods */,
+				42153E690532CE7A0ADF9022 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -270,6 +291,15 @@
 			path = MultiDayScreenViews;
 			sourceTree = "<group>";
 		};
+		E0E7814CA5C8B1CCA8C1255C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */,
+				451B1D756BE94706A02B180F /* Pods-Tenki Weather.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -277,9 +307,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83E04FAE2A22DF1E009720AB /* Build configuration list for PBXNativeTarget "Tenki Weather" */;
 			buildPhases = (
+				4347BBD862282172C989F511 /* [CP] Check Pods Manifest.lock */,
 				83E04F9C2A22DF1B009720AB /* Sources */,
 				83E04F9D2A22DF1B009720AB /* Frameworks */,
 				83E04F9E2A22DF1B009720AB /* Resources */,
+				291046639E5E8843A5A70FDD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -309,7 +341,7 @@
 				};
 			};
 			buildConfigurationList = 83E04F9B2A22DF1B009720AB /* Build configuration list for PBXProject "Weather" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -334,12 +366,55 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8390BF9F2A9656F800E0B865 /* Launch Screen.storyboard in Resources */,
 				83E04FAB2A22DF1E009720AB /* Preview Assets.xcassets in Resources */,
 				83E04FA82A22DF1E009720AB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		291046639E5E8843A5A70FDD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4347BBD862282172C989F511 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tenki Weather-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83E04F9C2A22DF1B009720AB /* Sources */ = {
@@ -360,6 +435,7 @@
 				83E04FB42A2472A5009720AB /* TomorrowScreen.swift in Sources */,
 				83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */,
 				83731A712A2FDAA700D481CA /* SearchingScreen.swift in Sources */,
+				8390BF942A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift in Sources */,
 				83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */,
 				83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */,
 				83E04FB22A247295009720AB /* TodayScreen.swift in Sources */,
@@ -370,6 +446,7 @@
 				839F32EB2A39186C0048EF05 /* WindModel.swift in Sources */,
 				838461832A508E14000B8E86 /* AppStateManager.swift in Sources */,
 				83C4FFF72A34BFC000DEF7F3 /* DailyWeatherModel.swift in Sources */,
+				8390BF962A9356CE00E0B865 /* TermsAndConditionsView.swift in Sources */,
 				83B5ADC52A310FAB00C3C2F6 /* TodayWeatherModel.swift in Sources */,
 				83731A762A2FFE4300D481CA /* SavedLocationsView.swift in Sources */,
 				8351EDE62A64409F00B6EB87 /* ViewModifiers.swift in Sources */,
@@ -380,12 +457,11 @@
 				83E04FC02A2555DE009720AB /* WeatherTabSelectionsView.swift in Sources */,
 				83E04FA42A22DF1B009720AB /* WeatherApp.swift in Sources */,
 				839F32F22A3919C70048EF05 /* DetailsModel.swift in Sources */,
-				83E4D77C2A69917C00F5B061 /* SwiftUIView.swift in Sources */,
 				83DA72E62A41655400C50C86 /* SavedLocationsPersistence.swift in Sources */,
 				83B760932A67119C007075E2 /* LabelView.swift in Sources */,
 				834811602A58EAFB008EB616 /* WebView.swift in Sources */,
 				83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */,
-				83C930522A8EB573001CC566 /* LegalView.swift in Sources */,
+				83C930522A8EB573001CC566 /* AppleLegalView.swift in Sources */,
 				83E04FD02A2A62A9009720AB /* CurrentDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +585,7 @@
 		};
 		83E04FAF2A22DF1E009720AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -527,6 +604,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -534,7 +612,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -549,6 +627,7 @@
 		};
 		83E04FB02A22DF1E009720AB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 451B1D756BE94706A02B180F /* Pods-Tenki Weather.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -567,6 +646,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -574,7 +654,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";

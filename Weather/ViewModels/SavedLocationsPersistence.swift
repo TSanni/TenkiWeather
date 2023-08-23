@@ -47,7 +47,7 @@ class SavedLocationsPersistence: ObservableObject {
 
     }
     
-    //TODO: Add initial temperature and symbol
+    
     func addLocation(locationDictionary: [String: Any])  {
         
         print(" \n addLocation method called \n")

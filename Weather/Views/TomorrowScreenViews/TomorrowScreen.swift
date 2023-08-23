@@ -9,43 +9,52 @@ import SwiftUI
 
 struct TomorrowScreen: View {
     @EnvironmentObject var vm: WeatherViewModel
+    @EnvironmentObject private var appStateManager: AppStateManager
+
     let tomorrowWeather: TomorrowWeatherModel
     
     
     var body: some View {
         GeometryReader { geo in
             ScrollView(.vertical, showsIndicators: false) {
-                ZStack {
-                    tomorrowWeather.backgroundColor
-        
-                    VStack(alignment: .leading, spacing: 0.0) {
+                ScrollViewReader { proxy in
+                    ZStack {
+                        tomorrowWeather.backgroundColor
                         
-                        VStack {
-                            immediateTomorrowDetails
+                        VStack(alignment: .leading, spacing: 0.0) {
                             
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                WeatherGraphView(hourlyTemperatures: tomorrowWeather.hourlyTemperatures, graphColor: tomorrowWeather.backgroundColor)
-                                    .frame(width: geo.size.width * 2.5)
-                                    .frame(height: geo.size.height * 0.3)
-                                    .padding(.leading)
-                                    .offset(x: -20)
-                                    
+                            VStack {
+                                immediateTomorrowDetails
+                                
+                                
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    WeatherGraphView(hourlyTemperatures: tomorrowWeather.hourlyTemperatures, graphColor: tomorrowWeather.backgroundColor)
+                                        .frame(width: geo.size.width * 3.5)
+                                        .frame(height: geo.size.height * 0.3)
+                                        .padding(.leading)
+                                        .offset(x: -20)
+
+                                }
+                                
+                                precipitationPrediction
+                                    .offset(x: 10)
+                                    .padding(.bottom)
+                                
                             }
+                            .frame(height: geo.size.height)
+                            .id(0)
                             
-                            precipitationPrediction
-                                .offset(x: 10)
-                                .padding(.bottom)
-                            
+                            CurrentDetailsView(title: "Details", details: tomorrowWeather.tomorrowDetails)
+//                            
+                            CustomDivider()
+//                            
+                            WindView(windData: tomorrowWeather.tomorrowWind, hourlyWindData: tomorrowWeather.tomorrowHourlyWind, setTodayWeather: false, geo: geo)
+//                            
+                            CustomDivider()
                         }
-                        .frame(height: geo.size.height)
-                        
-                        CurrentDetailsView(title: "Details", details: tomorrowWeather.tomorrowDetails)
-                        
-                        CustomDivider()
-                        
-                        WindView(windData: tomorrowWeather.tomorrowWind, hourlyWindData: tomorrowWeather.tomorrowHourlyWind, setTodayWeather: false, geo: geo)
-                        
-                        CustomDivider()
+                    }
+                    .onChange(of: appStateManager.resetScrollToggle) { _ in
+                        proxy.scrollTo(0)
                     }
                 }
                 
@@ -89,7 +98,6 @@ struct TomorrowScreen: View {
             Spacer()
         }
         .foregroundColor(.white)
-//        .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
     }
     
@@ -109,6 +117,8 @@ struct TomorrowScreen: View {
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.tomorrowDataHolder)
+            .previewDevice("iPhone 11 Pro Max")
             .environmentObject(WeatherViewModel())
+            .environmentObject(AppStateManager())
     }
 }

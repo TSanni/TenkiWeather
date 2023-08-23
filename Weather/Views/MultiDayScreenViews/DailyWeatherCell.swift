@@ -88,11 +88,12 @@ struct DailyWeatherCell: View {
                         VStack {
                             Text("\(hour.temperature)°")
                             Image(systemName: WeatherManager.shared.getImage(imageName: hour.symbol))
-                                .resizable()
                                 .renderingMode(.original)
+                                .resizable()
                                 .scaledToFit()
                                 .frame(width: 40, height: 40)
-                                .brightness(-0.07)
+                                .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+
                             
                             Text("\(hour.date)")
                                 .font(.callout)
@@ -130,12 +131,10 @@ struct DailyWeatherCell: View {
                     Text("\(daily.dailyChanceOfPrecipitation)")
                         .foregroundColor(.teal)
                         .lineLimit(1)
-                    //                                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 Image(systemName: WeatherManager.shared.getImage(imageName: daily.dailySymbol))
                     .renderingMode(.original)
                     .resizable()
-                //                                    .brightness(-0.07)
                     .scaledToFit()
                     .frame(width: 40, height: 40)
                     .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
@@ -157,7 +156,7 @@ struct DailyWeatherCell: View {
 
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
-        DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder, title: nil)
+        DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder[0], title: nil)
             .previewDevice("iPhone 11 Pro Max")
     }
 }

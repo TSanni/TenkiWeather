@@ -1,5 +1,5 @@
 //
-//  LegalView.swift
+//  AppleLegalView.swift
 //  Tenki Weather
 //
 //  Created by Tomas Sanni on 8/17/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LegalView: View {
+struct AppleLegalView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -38,6 +38,6 @@ struct LegalView: View {
 
 struct LegalView_Previews: PreviewProvider {
     static var previews: some View {
-        LegalView()
+        AppleLegalView()
     }
 }

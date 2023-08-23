@@ -11,7 +11,7 @@ import WeatherKit
 class WeatherViewModel: ObservableObject {
     @Published var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
     @Published var tomorrowWeather: TomorrowWeatherModel = TomorrowWeatherModel.tomorrowDataHolder
-    @Published var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.dailyDataHolder]
+    @Published var dailyWeather: [DailyWeatherModel] = DailyWeatherModel.dailyDataHolder
     
     @Published var savedLocationsCurrentWeather: [TodayWeatherModel] = [TodayWeatherModel.holderData]
     
@@ -21,9 +21,14 @@ class WeatherViewModel: ObservableObject {
     
     @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
     
+    @Published var loading: Bool = false
+    
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         
         do {
+            await MainActor.run(body: {
+                self.loading = true
+            })
             let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
@@ -33,6 +38,11 @@ class WeatherViewModel: ObservableObject {
                     self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
                 }
             }
+            
+            await MainActor.run(body: {
+                self.loading = false
+
+            })
             
             
         } catch {

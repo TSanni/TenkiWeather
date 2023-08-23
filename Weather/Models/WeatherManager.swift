@@ -89,6 +89,7 @@ class WeatherManager {
         )
         
         
+        
         /// 12 hour forecast data for the Wind and temperatures
         for i in 0..<K.Time.twentyFourHours {
             hourlyWind.append(

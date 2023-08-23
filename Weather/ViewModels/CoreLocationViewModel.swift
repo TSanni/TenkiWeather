@@ -16,6 +16,8 @@ enum GeocodingErrors: Error {
     case goecodingError
 }
 
+//TODO: Remove publishedError property
+
 class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus?
     @Published var publishedError: GeocodingErrors?
@@ -84,81 +86,111 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     
     
     
-    //MARK: - Geocoding
-    
-    /*
-    
-    func getNameFromCoordinates2(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        
-            geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
-                
-                if let places = places {
-                    
-                    let cityName = places[0].locality
-                    let state = places[0].administrativeArea
-                    let country = places[0].country
-                    
-                    let timezone = places[0].timeZone?.secondsFromGMT()
-                    
-                    self?.timezoneForCoordinateInput = timezone ?? 0
-                    
-                    
-                    
-                    
-                    ///Going through possible combinations of optionals existing
-                    if let cityName = cityName, let state = state, let country = country { // All optionals exist
-                        if cityName == state {
-                            self?.currentLocationName = "\(cityName), \(country)"
-                        } else {
-                            self?.currentLocationName = "\(cityName), \(state), \(country)"
-                        }
-                    } else if let state = state, let country = country { // Only state and country exist
-                        self?.currentLocationName = "\(state), \(country)"
-                    } else if let cityName = cityName, let country = country { // Only city and country exist
-                        self?.currentLocationName = "\(cityName), \(country)"
-                    } else if let cityName = cityName { // Only city exists
-                        self?.currentLocationName = "\(cityName)"
-                    } else if let state = state { // Only state exists
-                        self?.currentLocationName = "\(state)"
-                    } else if let country = country { // Only country exists
-                        self?.currentLocationName = "\(country)"
-                    }
-                    
-                    
-                    
-                } else if let error = error {
-                    self?.publishedError = .reverseGeocodingError
-                    
-                }
+    private func combinationOfNames(cityName: String?, state: String?, country: String?) {
+        /// Going through possible combinations of optionals existing
+        if let cityName = cityName, let state = state, let country = country { // All optionals exist
+            if cityName == state || cityName.contains(state) {
+                self.currentLocationName = "\(cityName), \(country)"
+            } else {
+                self.currentLocationName = "\(cityName), \(state), \(country)"
             }
-        
-        
+        } else if let state = state, let country = country { // Only state and country exist
+            self.currentLocationName = "\(state), \(country)"
+        } else if let cityName = cityName, let country = country { // Only city and country exist
+            self.currentLocationName = "\(cityName), \(country)"
+        } else if let cityName = cityName { // Only city exists
+            self.currentLocationName = "\(cityName)"
+        } else if let state = state { // Only state exists
+            self.currentLocationName = "\(state)"
+        } else if let country = country { // Only country exists
+            self.currentLocationName = "\(country)"
+        }
     }
     
-    */
+    
+    private func getLocationName(place: CLPlacemark, placeFromGoogle: String? = nil) {
+        
+        let cityName = place.locality
+        let state = place.administrativeArea
+        let country = place.country
+        let timezone = place.timeZone?.secondsFromGMT()
+        
+        self.timezoneForCoordinateInput = timezone ?? 0
+
+        print("CITY NAME: \(String(describing: cityName))")
+        print("STATE: \(String(describing: state))")
+        print("COUNTRY: \(String(describing: country))")
+        
+        
+        if let placeFromGoogle = placeFromGoogle {
+            if Int(placeFromGoogle) == nil { /// user submits name, not zipcode
+                self.currentLocationName = "\(placeFromGoogle), \(country ?? "")"
+            } else {
+                combinationOfNames(cityName: cityName, state: state, country: country)
+            }
+        } else {
+            combinationOfNames(cityName: cityName, state: state, country: country)
+        }
+
+        
+        /*
+
+        /// Going through possible combinations of optionals existing
+        if let cityName = cityName, let state = state, let country = country { // All optionals exist
+            if cityName == state || cityName.contains(state) {
+                self.currentLocationName = "\(cityName), \(country)"
+            } else {
+                self.currentLocationName = "\(cityName), \(state), \(country)"
+            }
+        } else if let state = state, let country = country { // Only state and country exist
+            self.currentLocationName = "\(state), \(country)"
+        } else if let cityName = cityName, let country = country { // Only city and country exist
+            self.currentLocationName = "\(cityName), \(country)"
+        } else if let cityName = cityName { // Only city exists
+            self.currentLocationName = "\(cityName)"
+        } else if let state = state { // Only state exists
+            self.currentLocationName = "\(state)"
+        } else if let country = country { // Only country exists
+            self.currentLocationName = "\(country)"
+        }
+        
+        */
+    }
     
     
+    //MARK: - Geocoding
     ///Will get all names for pass in coordinates
-    func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async {
+    func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, nameFromGoogleAPI: String? = nil) async {
         let coordinates = CLLocation(latitude: latitude, longitude: longitude)
         return await withCheckedContinuation { continuation in
             geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
                 
+                if let place = places?.first {
+                    self?.getLocationName(place: place, placeFromGoogle: nameFromGoogleAPI)
+                    continuation.resume()
+                } else {
+                    self?.publishedError = .reverseGeocodingError
+                    continuation.resume()
+                }
+                
+                
+              /*
+                
                 if let places = places {
-                    
+
+
                     let cityName = places[0].locality
                     let state = places[0].administrativeArea
                     let country = places[0].country
-                    
+
                     let timezone = places[0].timeZone?.secondsFromGMT()
-                    
+
                     self?.timezoneForCoordinateInput = timezone ?? 0
-                    
-                    
-                    
-                    
-                    ///Going through possible combinations of optionals existing
+
+
+
+
+                    /// Going through possible combinations of optionals existing
                     if let cityName = cityName, let state = state, let country = country { // All optionals exist
                         if cityName == state {
                             self?.currentLocationName = "\(cityName), \(country)"
@@ -176,13 +208,17 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                     } else if let country = country { // Only country exists
                         self?.currentLocationName = "\(country)"
                     }
-                    
+
                     continuation.resume()
-                    
+
                 } else if let error = error {
                     self?.publishedError = .reverseGeocodingError
                     continuation.resume()
                 }
+                
+                
+                */
+           
             }
         }
         

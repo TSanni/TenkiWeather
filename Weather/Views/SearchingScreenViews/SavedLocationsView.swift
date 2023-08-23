@@ -33,6 +33,8 @@ struct SavedLocationsView: View {
 
                             await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
                             
+                            locationManager.currentLocationName = item.name!
+                            
                             appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
                             appStateManager.searchedLocationDictionary["longitude"] = item.longitude
                             appStateManager.searchedLocationDictionary["latitude"] = item.latitude

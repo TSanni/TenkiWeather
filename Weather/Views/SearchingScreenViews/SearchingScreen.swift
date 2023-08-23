@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SearchingScreen: View {
-    @State private var searchText: String = ""
-    @FocusState private var focusSearch: Bool
+//    @State private var searchText: String = ""
+    @State private var showGoogleSearchScreen: Bool = false
+//    @FocusState private var focusSearch: Bool
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
     @EnvironmentObject var weatherViewModel: WeatherViewModel
@@ -40,11 +41,38 @@ struct SearchingScreen: View {
             .padding()
         }
         .contentShape(Rectangle())
-        
-        .onAppear {
-            focusSearch = true
-        }
+//        .onAppear {
+//            focusSearch = true
+//        }
         .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+        .sheet(isPresented: $showGoogleSearchScreen) {
+            PlacesViewControllerBridge { place in
+                Task {
+                    
+                    let coordinates = place.coordinate
+                    await locationManager.getNameFromCoordinates(latitude: coordinates.latitude, longitude: coordinates.longitude, nameFromGoogleAPI: place.name)
+                    let timezone = locationManager.timezoneForCoordinateInput
+
+                    await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
+                    
+                    appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
+                    appStateManager.searchedLocationDictionary["longitude"] = coordinates.longitude
+                    appStateManager.searchedLocationDictionary["latitude"] = coordinates.latitude
+                    appStateManager.searchedLocationDictionary["timezone"] = timezone
+                    
+                    
+                    appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
+                    
+                    appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
+                    
+                    appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
+                    
+                    
+                    appStateManager.showSearchScreen = false
+                }
+
+            }
+        }
    
     }
     
@@ -53,7 +81,7 @@ struct SearchingScreen: View {
     var textFieldAndBackButton: some View {
         HStack {
             Button {
-                focusSearch = false
+//                focusSearch = false
                 appStateManager.showSearchScreen = false
             } label: {
                 Image(systemName: "arrow.left")
@@ -62,33 +90,44 @@ struct SearchingScreen: View {
                     .padding()
             }
             
-            TextField("Search for a location", text: $searchText)
-                .focused($focusSearch)
-                .tint(Color(uiColor: K.Colors.textFieldBlinkingBarColor))
-                .onSubmit {
-                    Task {
-                        let newText = searchText.replacingOccurrences(of: " ", with: "+")
-                        let coordinates = try await locationManager.getCoordinatesFromName(name: newText)
-                        let timezone = locationManager.timezoneForCoordinateInput
-                        await weatherViewModel.getWeather(latitude: coordinates.coordinate.latitude, longitude:coordinates.coordinate.longitude, timezone: timezone)
-                        
-                        appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
-                        appStateManager.searchedLocationDictionary["longitude"] = coordinates.coordinate.longitude
-                        appStateManager.searchedLocationDictionary["latitude"] = coordinates.coordinate.latitude
-                        appStateManager.searchedLocationDictionary["timezone"] = timezone
-                        
-                        
-                        appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
-                        
-                        appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
-                        
-                        appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
-                        
-                        
-                        appStateManager.showSearchScreen = false
-
-                    }
+            Text("Search for a location")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(.secondary)
+                .onTapGesture {
+                    showGoogleSearchScreen = true
                 }
+            
+            /*
+
+//            TextField("Search for a location", text: $searchText)
+//                .focused($focusSearch)
+//                .tint(Color(uiColor: K.Colors.textFieldBlinkingBarColor))
+//                .onSubmit {
+//                    Task {
+//                        let newText = searchText.replacingOccurrences(of: " ", with: "+")
+//                        let coordinates = try await locationManager.getCoordinatesFromName(name: newText)
+//                        let timezone = locationManager.timezoneForCoordinateInput
+//                        await weatherViewModel.getWeather(latitude: coordinates.coordinate.latitude, longitude:coordinates.coordinate.longitude, timezone: timezone)
+//
+//                        appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
+//                        appStateManager.searchedLocationDictionary["longitude"] = coordinates.coordinate.longitude
+//                        appStateManager.searchedLocationDictionary["latitude"] = coordinates.coordinate.latitude
+//                        appStateManager.searchedLocationDictionary["timezone"] = timezone
+//
+//
+//                        appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
+//
+//                        appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
+//
+//                        appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
+//
+//
+//                        appStateManager.showSearchScreen = false
+//
+//                    }
+//                }
+            
+            */
             
         }
     }
@@ -152,9 +191,9 @@ struct SearchingScreen: View {
 
 
 
-//struct SearchingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchingScreen()
-////            .environmentObject(SavedLocationsPersistence())
-//    }
-//}
+struct SearchingView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchingScreen()
+//            .environmentObject(SavedLocationsPersistence())
+    }
+}

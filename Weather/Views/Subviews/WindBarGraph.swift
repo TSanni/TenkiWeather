@@ -9,12 +9,35 @@ import SwiftUI
 import Charts
 import WeatherKit
 
+
+//MARK: - Preview
+struct WindBarGraph_Previews: PreviewProvider {
+    static var previews: some View {
+        WindBarGraph(hourlyWind: WindData.windDataHolder)
+            .previewDevice("iPhone 11 Pro Max")
+            .frame(height: 300)
+    }
+}
+
+
+//MARK: - View
 struct WindBarGraph: View {
     let hourlyWind: [WindData]
     
     var body: some View {
         ZStack {
             
+//            Chart(hourlyWind) { item in
+//                BarMark(x: .value("time", item.time ?? ""), y: .value("windspeed", Double(item.windSpeed) ?? 0))
+//                    .annotation(position: .top) {
+//                        if item.windSpeed != "0" {
+//                            Image(systemName: "location.fill")
+//                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
+//                                .foregroundColor(.secondary)
+//                        }
+//                    }
+//            }
+
             //MARK: - Background Bar Graph to place location images equally in height
             Chart(hourlyWind) { item in
                 BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", getLargestValue() + 10))
@@ -29,6 +52,7 @@ struct WindBarGraph: View {
             }
             .chartYScale(domain: 0...(getLargestValue() + 20))
             .chartYAxis(.hidden)
+            .chartXAxis(.hidden)
             .chartXAxis {
                 AxisMarks(position: .bottom) { q in
                     AxisValueLabel {
@@ -36,7 +60,7 @@ struct WindBarGraph: View {
                     }
                 }
             }
-            
+
             //MARK: - Bar Graph with wind data
             Chart(hourlyWind) { item in
                 BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", Double(item.windSpeed) ?? 0))
@@ -120,10 +144,4 @@ struct WindBarGraph: View {
     
 }
 
-struct WindBarGraph_Previews: PreviewProvider {
-    static var previews: some View {
-        WindBarGraph(hourlyWind: [WindData.windDataHolder, WindData.windDataHolder, WindData.windDataHolder])
-            .previewDevice("iPhone 12 Pro Max")
-            .frame(height: 300)
-    }
-}
+

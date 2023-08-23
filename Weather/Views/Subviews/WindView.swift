@@ -9,7 +9,6 @@ import SwiftUI
 
 struct WindView: View {
     @Environment(\.colorScheme) var colorScheme
-//    @EnvironmentObject var vm: WeatherKitManager
     let windData: WindData
     let hourlyWindData: [WindData]
     let setTodayWeather: Bool
@@ -29,7 +28,6 @@ struct WindView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 WindBarGraph(hourlyWind: hourlyWindData)
-//                    .frame(width: UIScreen.main.bounds.width * 2)
                     .frame(width: geo.size.width * 3)
                     .saturation(2)
             }
@@ -53,7 +51,6 @@ struct WindView: View {
                 
                 VStack {
                     Image(systemName: "location.fill")
-//                        .rotationEffect(.degrees(vm.getRotation(direction: windData.windDirection) + 180))
                         .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.windDirection) + 180) )
                     Text(windData.speedUnit)
                 }
@@ -92,10 +89,8 @@ struct WindView: View {
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geo in
-            WindView(windData: WindData.windDataHolder, hourlyWindData: [WindData.windDataHolder], setTodayWeather: false, geo: geo)
-                .previewDevice("iPhone 12 Pro Max")
+            WindView(windData: WindData.windDataHolder[0], hourlyWindData: WindData.windDataHolder, setTodayWeather: false, geo: geo)
+                .previewDevice("iPhone 11 Pro Max")
         }
-//            .environmentObject(WeatherKitManager())
-        
     }
 }

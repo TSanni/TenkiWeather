@@ -9,18 +9,15 @@ import Foundation
 import SwiftUI
 
 
-
-
 struct K {
-//    static let properBlack = #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1)
-    static let apiKey = Bundle.main.object(forInfoDictionaryKey: "apiKey")
+//    static let apiKey = Bundle.main.object(forInfoDictionaryKey: "apiKey")
+    static let googleApiKey = Bundle.main.object(forInfoDictionaryKey: "googlePlacesApiKey") as! String
 
     
     struct Time {
         static let oneHourInSeconds = 3600.0
         static let sevenHoursInSeconds = 25000.0
         static let twentyFourHoursInSeconds = 86400.0
-        
         static let fifteenHours = 15
         static let twentyFourHours = 24
     }
@@ -45,15 +42,13 @@ struct K {
         static let cloudDrizzle = "cloud.drizzle"
         static let cloudSnow = "cloud.snow"
         static let cloudMoonBolt = "cloud.moon.bolt"
-
-        
+        static let wind = "wind"
     }
     
     static func getBackGroundColor(symbol: String) -> Color {
         switch symbol {
             case K.Symbol.sunMax:
                 return Color(uiColor: K.Colors.clearDay)
-                
             case K.Symbol.moon:
                 return Color(uiColor: K.Colors.nighttimePurple)
             case K.Symbol.moonStars:
@@ -67,34 +62,30 @@ struct K {
             case K.Symbol.cloudRain:
                 return Color(uiColor: K.Colors.dayTimeRain)
             case K.Symbol.cloudSunRain:
-                return Color(uiColor: K.Colors.dayTimeRain) //
+                return Color(uiColor: K.Colors.dayTimeRain)
             case K.Symbol.cloudMoonRain:
-                return Color(uiColor: K.Colors.dayTimeRain) //
+                return Color(uiColor: K.Colors.dayTimeRain)
             case K.Symbol.cloudBolt:
                 return Color(uiColor: K.Colors.scatteredThunderstorm)
             case K.Symbol.snowflake:
-                return Color(uiColor: K.Colors.dayTimeCloudy) //
+                return Color(uiColor: K.Colors.dayTimeCloudy)
             case K.Symbol.cloudFog:
                 return Color(uiColor: K.Colors.cloudy)
             case K.Symbol.cloudBoltRain:
                 return Color(uiColor: K.Colors.thunderstorm)
             case K.Symbol.cloudMoonBolt:
                 return Color(uiColor: K.Colors.scatteredThunderstorm)
-
-                
-                
-                
+    
             default:
                 return Color(uiColor: K.Colors.clearDay)
         }
     }
     
     struct Colors {
-        static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.172824204, green: 0.1956355572, blue: 0.2475694418, alpha: 1))
-//        static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.9803921569, alpha: 1))
-//        static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9411759973, green: 0.9411769509, blue: 0.9626820683, alpha: 1))
+//        static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.172824204, green: 0.1956355572, blue: 0.2475694418, alpha: 1))
         static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607837796, green: 0.9607847333, blue: 0.9822904468, alpha: 1))
         static let properBlack = #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1)
+        static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1))
 
         static let clearDay = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
         static let dayTimeCloudy = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
@@ -104,8 +95,9 @@ struct K {
         static let dayTimeRain = #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1)
         static let nighttimeCloudy = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
         static let scatteredThunderstorm = #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1)
-        static let nighttimePurple = #colorLiteral(red: 0.5575598478, green: 0.3759173751, blue: 0.9990670085, alpha: 1)
         static let maroon = #colorLiteral(red: 0.5871755481, green: 0.3745910525, blue: 0.5551333427, alpha: 1)
+        
+        static let nighttimePurple = #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1)
         
         static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
         static let offWhite = #colorLiteral(red: 0.9740188718, green: 0.9712695479, blue: 0.9717465043, alpha: 1)

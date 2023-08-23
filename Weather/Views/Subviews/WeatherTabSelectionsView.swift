@@ -16,19 +16,14 @@ enum WeatherTabs: String, CaseIterable {
 struct WeatherTabSelectionsView: View {
     
     @Binding var weatherTab: WeatherTabs
-        @Namespace var namespace
-
-//    let namespace: Namespace.ID
+    @Namespace var namespace
+    
 
     var body: some View {
-//        ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-    //            Spacer()
                 ForEach(WeatherTabs.allCases, id: \.self) { tab in
                     Button {
-//                        withAnimation {
                             weatherTab = tab
-//                        }
                     } label: {
                         VStack {
                             Text(tab.rawValue)
@@ -48,15 +43,13 @@ struct WeatherTabSelectionsView: View {
                     .tint(.white)
                 }
             }
-//            .animation(.default, value: weatherTab)
-//        }
     }
 }
 
-//struct WeatherTabSelectionsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WeatherTabSelectionsView(weatherTab: .constant(.today), namespace: <#Namespace.ID#>)
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-//            .background(Color.red)
-//    }
-//}
+struct WeatherTabSelectionsView_Previews: PreviewProvider {
+    static var previews: some View {
+        WeatherTabSelectionsView(weatherTab: .constant(.today))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.red)
+    }
+}

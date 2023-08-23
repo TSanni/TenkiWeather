@@ -28,17 +28,56 @@ struct DailyWeatherModel: Identifiable {
     
     
     /// Holder data for daily weather
-    static let dailyDataHolder = DailyWeatherModel(
-        date: "-",
-        dailyWeatherDescription: .clear,
-        dailyChanceOfPrecipitation: "-",
-        dailySymbol: "-",
-        dailyLowTemp: "-",
-        dailyHighTemp: "-",
-        dailyWind: WindData.windDataHolder,
-        dailyUVIndex: "-",
-        sunEvents: SunData.sunDataHolder, hourlyTemperatures: [HourlyTemperatures.hourlyTempHolderData]
-    )
+    
+    static let dailyDataHolder: [DailyWeatherModel] = [
+        DailyWeatherModel(
+            date: "-",
+            dailyWeatherDescription: .clear,
+            dailyChanceOfPrecipitation: "-",
+            dailySymbol: "-",
+            dailyLowTemp: "-",
+            dailyHighTemp: "-",
+            dailyWind: WindData.windDataHolder[0],
+            dailyUVIndex: "-",
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+        ),
+        
+        DailyWeatherModel(
+            date: "-",
+            dailyWeatherDescription: .clear,
+            dailyChanceOfPrecipitation: "-",
+            dailySymbol: "-",
+            dailyLowTemp: "-",
+            dailyHighTemp: "-",
+            dailyWind: WindData.windDataHolder[0],
+            dailyUVIndex: "-",
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+        ),
+        
+        DailyWeatherModel(
+            date: "-",
+            dailyWeatherDescription: .clear,
+            dailyChanceOfPrecipitation: "-",
+            dailySymbol: "-",
+            dailyLowTemp: "-",
+            dailyHighTemp: "-",
+            dailyWind: WindData.windDataHolder[0],
+            dailyUVIndex: "-",
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+        )
+    ]
+    
+//    static let dailyDataHolder = DailyWeatherModel(
+//        date: "-",
+//        dailyWeatherDescription: .clear,
+//        dailyChanceOfPrecipitation: "-",
+//        dailySymbol: "-",
+//        dailyLowTemp: "-",
+//        dailyHighTemp: "-",
+//        dailyWind: WindData.windDataHolder[0],
+//        dailyUVIndex: "-",
+//        sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+//    )
     
 
 }

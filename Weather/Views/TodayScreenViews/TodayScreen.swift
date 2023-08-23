@@ -28,10 +28,10 @@ struct TodayScreen: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
                                         .frame(width: geo.size.width * 3.5)
+//                                        .frame(width: 700)
                                         .frame(height: geo.size.height * 0.3)
-                                        .padding(.leading)
-                                        .offset(x: -20)
-                                        
+//                                        .padding(.leading)
+//                                        .offset(x: -20)
                                 }
                                 
                                 precipitationPrediction
@@ -42,16 +42,16 @@ struct TodayScreen: View {
                             .id(0)
 
                             CurrentDetailsView(title: "Current Details", details: currentWeather.currentDetails)
-                            
+//                            
                             CustomDivider()
-                            
+//                            
                             WindView(windData: currentWeather.todayWind, hourlyWindData: currentWeather.todayHourlyWind, setTodayWeather: true, geo: geo)
-                            
-                            
+//                            
+//                            
                             CustomDivider()
-                            
+//                            
                             SunsetSunriseView(sunData: currentWeather.sunData, dayLight: currentWeather.isDaylight)
-                            
+//                            
                             CustomDivider()
                         }
                     }
@@ -131,6 +131,7 @@ struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
         TodayScreen(currentWeather: TodayWeatherModel.holderData)
             .previewDevice("iPhone 11 Pro Max")
+            .environmentObject(AppStateManager())
     }
 }
 

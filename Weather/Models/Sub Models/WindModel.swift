@@ -95,11 +95,6 @@ struct WindData: Identifiable {
         }
     }
     
-    
-    func test() {
-        
-    }
-    
     var windColor: Color {
         let light = #colorLiteral(red: 0.04400173575, green: 0.5181836486, blue: 0.9972603917, alpha: 1)
         let breeze = #colorLiteral(red: 0.1430673301, green: 0.6491933465, blue: 0.60500741, alpha: 1)
@@ -112,7 +107,6 @@ struct WindData: Identifiable {
         
         if let numWindSpeed = Int(windSpeed) {
            
-            //TODO: Miles and kilometer are done. Get meters and knots next
             
             if unit == .miles { // Wind speed colors for miles
                 switch numWindSpeed {
@@ -200,8 +194,13 @@ struct WindData: Identifiable {
     
     
     /// Holder data for wind details
-    static let windDataHolder = WindData(
-        windSpeed: "-",
-        windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north,
-        time: nil, speedUnit: "m/s")
+    static let windDataHolder: [WindData] = [
+        WindData(windSpeed: "10", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "1 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "12", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "2 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "15", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "3 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "17", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "4 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "15", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "5 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "12", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "6 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "10", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "7 AM", speedUnit: "m/s"),
+    ]
 }

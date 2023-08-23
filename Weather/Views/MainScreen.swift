@@ -92,25 +92,35 @@ struct MainScreen: View {
                         .tabItem {
                             Label("Today", systemImage: "sun.min")
                         }
+                        .edgesIgnoringSafeArea(.bottom)
                         .tag(WeatherTabs.today)
                         .environmentObject(weatherViewModel)
                         .environmentObject(appStateManager)
-
+//                        .refreshable {
+//                            print("refreshable")
+//                            await getWeather()
+//                        }
                     
                     
                     TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
                         .tabItem {
                             Label("Tomorrow", systemImage: "snow")
                         }
+                        .edgesIgnoringSafeArea(.bottom)
                         .tag(WeatherTabs.tomorrow)
                         .environmentObject(weatherViewModel)
+                        .environmentObject(appStateManager)
+
                     
                     MultiDayScreen(daily: weatherViewModel.dailyWeather)
                         .tabItem {
                             Label("10 Days", systemImage: "cloud")
                         }
+                        .edgesIgnoringSafeArea(.bottom)
                         .tag(WeatherTabs.multiDay)
                         .environmentObject(weatherViewModel)
+                        .environmentObject(appStateManager)
+
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .edgesIgnoringSafeArea(.bottom)
@@ -120,9 +130,7 @@ struct MainScreen: View {
             .zIndex(0)
             .disabled(appStateManager.showSettingScreen ? true : false)
 
-            
-            
-            
+    
             blurBackGround
             
             
@@ -135,6 +143,7 @@ struct MainScreen: View {
                     .zIndex(1)
             }
         }
+        .redacted(reason: weatherViewModel.loading ? .placeholder : [])
         .animation(.default, value: weatherTab)
         .fullScreenCover(isPresented: $appStateManager.showSearchScreen) {
             SearchingScreen()
@@ -144,16 +153,16 @@ struct MainScreen: View {
                 .environmentObject(persistenceLocations)
         }
         .alert("Weather Request Failed", isPresented: $weatherViewModel.errorPublisher.errorBool) {
-            
+
         } message: {
             Text(weatherViewModel.errorPublisher.errorMessage)
         }
-        .refreshable {
-            print("refreshable")
-            //Cause .task to re-run by changing the id.
-            //            taskId = .init()
-            await getWeather()
-        }
+//        .refreshable {
+//            print("refreshable")
+//            //Cause .task to re-run by changing the id.
+//            //            taskId = .init()
+//            await getWeather()
+//        }
         .task {
             if locationManager.authorizationStatus == .authorizedWhenInUse {
                 await getWeather()
