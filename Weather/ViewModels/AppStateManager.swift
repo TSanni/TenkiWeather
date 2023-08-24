@@ -20,12 +20,23 @@ class AppStateManager: ObservableObject {
         "temperature": "",
         "date": "",
         "symbol": ""
-        ]
+    ]
     
     
     func resetScrollViewToTop() {
         resetScrollToggle.toggle()
     }
     
+    
+    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String) {
+        
+        searchedLocationDictionary["name"] = name
+        searchedLocationDictionary["latitude"] = latitude
+        searchedLocationDictionary["longitude"] = longitude
+        searchedLocationDictionary["timezone"] = timezone
+        searchedLocationDictionary["temperature"] = temperature
+        searchedLocationDictionary["date"] = date
+        searchedLocationDictionary["symbol"] = symbol
+    }
     
 }

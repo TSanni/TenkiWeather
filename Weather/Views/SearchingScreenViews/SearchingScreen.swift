@@ -12,7 +12,7 @@ struct SearchingScreen: View {
     @State private var showGoogleSearchScreen: Bool = false
 //    @FocusState private var focusSearch: Bool
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
+//    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateManager: AppStateManager
@@ -55,17 +55,17 @@ struct SearchingScreen: View {
 
                     await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
                     
-                    appStateManager.searchedLocationDictionary["name"] = locationManager.currentLocationName
-                    appStateManager.searchedLocationDictionary["longitude"] = coordinates.longitude
-                    appStateManager.searchedLocationDictionary["latitude"] = coordinates.latitude
-                    appStateManager.searchedLocationDictionary["timezone"] = timezone
                     
+                    appStateManager.setSearchedLocationDictionary(
+                        name: locationManager.currentLocationName,
+                        latitude: coordinates.latitude,
+                        longitude: coordinates.longitude,
+                        timezone: timezone,
+                        temperature: weatherViewModel.currentWeather.currentTemperature,
+                        date: weatherViewModel.currentWeather.date,
+                        symbol: weatherViewModel.currentWeather.symbol
+                    )
                     
-                    appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
-                    
-                    appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
-                    
-                    appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
                     
                     
                     appStateManager.showSearchScreen = false
@@ -194,6 +194,10 @@ struct SearchingScreen: View {
 struct SearchingView_Previews: PreviewProvider {
     static var previews: some View {
         SearchingScreen()
-//            .environmentObject(SavedLocationsPersistence())
+            .previewDevice("iPhone 11 Pro Max")
+            .environmentObject(WeatherViewModel())
+            .environmentObject(CoreLocationViewModel())
+            .environmentObject(AppStateManager())
+            .environmentObject(SavedLocationsPersistence())
     }
 }

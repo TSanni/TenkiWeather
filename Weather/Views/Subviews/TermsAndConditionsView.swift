@@ -7,35 +7,7 @@
 
 import SwiftUI
 
-struct HeaderViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.largeTitle)
-            .fontWeight(.bold)
-            .multilineTextAlignment(.leading)
-            .padding()
-    }
-}
 
-
-struct SubHeaderViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.title)
-            .fontWeight(.bold)
-            .padding()
-    }
-}
-
-extension View {
-    func header() -> some View {
-        return self.modifier(HeaderViewModifier())
-    }
-    
-    func subHeader() -> some View {
-        return self.modifier(SubHeaderViewModifier())
-    }
-}
 
 struct TermsAndConditionsView: View {
     @Environment(\.dismiss) var dismiss

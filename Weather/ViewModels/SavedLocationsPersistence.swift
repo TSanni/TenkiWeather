@@ -50,7 +50,6 @@ class SavedLocationsPersistence: ObservableObject {
     
     func addLocation(locationDictionary: [String: Any])  {
         
-        print(" \n addLocation method called \n")
 
         guard let time = locationDictionary["timezone"] as? Int else {
             print("COULD NOT CONVERT")
@@ -86,7 +85,6 @@ class SavedLocationsPersistence: ObservableObject {
 //    }
     
     func deletePlace(indexSet: IndexSet) {
-        print(" \n deletePlace method called! \n ")
         guard let index = indexSet.first else { return }
         let entity = savedLocations[index]
         container.viewContext.delete(entity)
@@ -94,7 +92,6 @@ class SavedLocationsPersistence: ObservableObject {
     }
     
     func saveData() {
-        print(" \n saveData method called! \n")
         do {
             Task {
                 try await fetchWeatherPlacesWithTaskGroup()
@@ -111,7 +108,6 @@ class SavedLocationsPersistence: ObservableObject {
     
     
     func fetchWeatherPlacesWithTaskGroup() async throws   {
-        print(" \n fetchWeatherPlacesWithTaskGroup method called! \n")
         
         return try await withThrowingTaskGroup(of: LocationEntity?.self) { group in
             var weather: [LocationEntity] = []
@@ -140,7 +136,6 @@ class SavedLocationsPersistence: ObservableObject {
     
     
     private func fetchCurrentWeather(entity: LocationEntity) async throws -> LocationEntity {
-        print(" \n fetchCurrentWeather method called! \n")
         
         
         let weather = try await WeatherManager.shared.getWeather(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))

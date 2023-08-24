@@ -17,7 +17,6 @@
 		83731A712A2FDAA700D481CA /* SearchingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A702A2FDAA700D481CA /* SearchingScreen.swift */; };
 		83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */; };
 		83731A762A2FFE4300D481CA /* SavedLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A752A2FFE4300D481CA /* SavedLocationsView.swift */; };
-		83731A782A3003FB00D481CA /* CustomNavBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A772A3003FB00D481CA /* CustomNavBackButton.swift */; };
 		838461812A4C9DDC000B8E86 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461802A4C9DDC000B8E86 /* SettingsScreen.swift */; };
 		838461832A508E14000B8E86 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461822A508E13000B8E86 /* AppStateManager.swift */; };
 		8390BF942A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */; };
@@ -68,7 +67,6 @@
 		83731A702A2FDAA700D481CA /* SearchingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingScreen.swift; sourceTree = "<group>"; };
 		83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationCell.swift; sourceTree = "<group>"; };
 		83731A752A2FFE4300D481CA /* SavedLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsView.swift; sourceTree = "<group>"; };
-		83731A772A3003FB00D481CA /* CustomNavBackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavBackButton.swift; sourceTree = "<group>"; };
 		838461802A4C9DDC000B8E86 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		838461822A508E13000B8E86 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewControllerBridge.swift; sourceTree = "<group>"; };
@@ -217,7 +215,6 @@
 		83DA72DB2A3FC13500C50C86 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				83731A772A3003FB00D481CA /* CustomNavBackButton.swift */,
 				8351EDE52A64409F00B6EB87 /* ViewModifiers.swift */,
 				83C4FFF82A352E9B00DEF7F3 /* K.swift */,
 			);
@@ -249,8 +246,8 @@
 				839F32F72A3BD62C0048EF05 /* Info.plist */,
 				83E04FA32A22DF1B009720AB /* WeatherApp.swift */,
 				839F32EC2A3918FD0048EF05 /* Models */,
-				83DA72DA2A3FC12800C50C86 /* ViewModels */,
 				83731A6F2A2FD9F300D481CA /* Views */,
+				83DA72DA2A3FC12800C50C86 /* ViewModels */,
 				83DA72DB2A3FC13500C50C86 /* Utils */,
 				83E04FA72A22DF1E009720AB /* Assets.xcassets */,
 				83E04FA92A22DF1E009720AB /* Preview Content */,
@@ -452,7 +449,6 @@
 				8351EDE62A64409F00B6EB87 /* ViewModifiers.swift in Sources */,
 				83641E902A2B8D7E00F3A21C /* SunsetSunriseView.swift in Sources */,
 				83E04FC42A25655F009720AB /* SearchBar.swift in Sources */,
-				83731A782A3003FB00D481CA /* CustomNavBackButton.swift in Sources */,
 				83B760912A6710FF007075E2 /* FullScreenWebView.swift in Sources */,
 				83E04FC02A2555DE009720AB /* WeatherTabSelectionsView.swift in Sources */,
 				83E04FA42A22DF1B009720AB /* WeatherApp.swift in Sources */,

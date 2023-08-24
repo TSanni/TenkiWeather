@@ -32,7 +32,60 @@ struct SettingsListBackgroundViewModifier: ViewModifier {
     }
 }
 
+
+struct HeaderViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .fontWeight(.bold)
+            .multilineTextAlignment(.leading)
+            .padding()
+    }
+}
+
+
+struct SubHeaderViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title)
+            .fontWeight(.bold)
+            .padding()
+    }
+}
+
+//MARK: - Add this view modifier to any view that requires a custom back button
+struct CustomNavBackButton: ViewModifier {
+    @Binding var showScreen: Bool
+
+    
+    
+    @Environment(\.dismiss) var dismiss
+    func body(content: Content) -> some View {
+        content
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        withAnimation {
+                            showScreen = false
+                        }
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.secondary)
+                            .contentShape(Rectangle())
+                    }
+
+                }
+            }
+    }
+}
+
+
 extension View {
+    
+    func customNavBackButton(showSearchScreen: Binding<Bool>) -> some View {
+        return self.modifier(CustomNavBackButton(showScreen: showSearchScreen))
+    }
+    
     func settingsListBackgroundChange() -> some View {
         return self.modifier(SettingsListBackgroundViewModifier())
     }
@@ -41,5 +94,12 @@ extension View {
         return self.modifier(SettingsViewFrameViewModifier())
     }
     
+    func header() -> some View {
+        return self.modifier(HeaderViewModifier())
+    }
+    
+    func subHeader() -> some View {
+        return self.modifier(SubHeaderViewModifier())
+    }
 }
 

@@ -34,18 +34,17 @@ struct MainScreen: View {
         let userLocationName = locationManager.currentLocationName
         await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
         
+        appStateManager.setSearchedLocationDictionary(
+            name: userLocationName,
+            latitude: locationManager.latitude,
+            longitude: locationManager.longitude,
+            timezone: timezone,
+            temperature: weatherViewModel.currentWeather.currentTemperature,
+            date: weatherViewModel.currentWeather.date,
+            symbol: weatherViewModel.currentWeather.symbol
+        )
         
-        appStateManager.searchedLocationDictionary["name"] = userLocationName
-        appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
-        appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
-        appStateManager.searchedLocationDictionary["timezone"] = timezone
-        
-        appStateManager.searchedLocationDictionary["temperature"] = weatherViewModel.currentWeather.currentTemperature
-        
-        appStateManager.searchedLocationDictionary["date"] = weatherViewModel.currentWeather.date
-        
-        appStateManager.searchedLocationDictionary["symbol"] = weatherViewModel.currentWeather.symbol
-        
+      
         persistenceLocations.saveData()
     }
     
