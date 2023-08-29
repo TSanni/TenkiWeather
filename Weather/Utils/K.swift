@@ -43,6 +43,8 @@ struct K {
         static let cloudSnow = "cloud.snow"
         static let cloudMoonBolt = "cloud.moon.bolt"
         static let wind = "wind"
+        static let sunHaze = "sun.haze"
+        static let moonHaze = "moon.haze"
     }
     
     static func getBackGroundColor(symbol: String) -> Color {
@@ -75,6 +77,12 @@ struct K {
                 return Color(uiColor: K.Colors.thunderstorm)
             case K.Symbol.cloudMoonBolt:
                 return Color(uiColor: K.Colors.scatteredThunderstorm)
+            case K.Symbol.wind:
+                return Color(uiColor: K.Colors.wind)
+            case K.Symbol.sunHaze:
+                return Color(uiColor: K.Colors.haze)
+            case K.Symbol.moonHaze:
+                return Color(uiColor: K.Colors.haze)
     
             default:
                 return Color(uiColor: K.Colors.clearDay)
@@ -82,22 +90,23 @@ struct K {
     }
     
     struct Colors {
-//        static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.172824204, green: 0.1956355572, blue: 0.2475694418, alpha: 1))
         static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607837796, green: 0.9607847333, blue: 0.9822904468, alpha: 1))
         static let properBlack = #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1)
         static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1))
 
         static let clearDay = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
+        static let nighttimePurple = #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1)
         static let dayTimeCloudy = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
-        static let haze = #colorLiteral(red: 0.6361310482, green: 0.6071113944, blue: 0.5944020152, alpha: 1)
-        static let thunderstorm = #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1)
+        static let nighttimeCloudy = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
         static let cloudy = #colorLiteral(red: 0.4886933565, green: 0.624339819, blue: 0.7615836859, alpha: 1)
         static let dayTimeRain = #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1)
-        static let nighttimeCloudy = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
         static let scatteredThunderstorm = #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1)
+        static let thunderstorm = #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1)
+        static let wind = #colorLiteral(red: 0.3438811302, green: 0.6744567752, blue: 0.9567326903, alpha: 1)
+        static let haze = #colorLiteral(red: 0.6361310482, green: 0.6071113944, blue: 0.5944020152, alpha: 1)
+        
         static let maroon = #colorLiteral(red: 0.5871755481, green: 0.3745910525, blue: 0.5551333427, alpha: 1)
         
-        static let nighttimePurple = #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1)
         
         static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
         static let offWhite = #colorLiteral(red: 0.9740188718, green: 0.9712695479, blue: 0.9717465043, alpha: 1)
