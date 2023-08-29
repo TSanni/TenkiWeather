@@ -11,6 +11,12 @@ class AppStateManager: ObservableObject {
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
     @Published var resetScrollToggle: Bool = false
+    @Published var loading: Bool = false
+    @Published var weatherTab: WeatherTabs = .today
+    
+    @Published var currentLocationName: String = ""
+    @Published var currentLocationTimezone: Int = 0
+
     
     @Published var searchedLocationDictionary: [String: Any] = [
         "name": "",
@@ -23,8 +29,17 @@ class AppStateManager: ObservableObject {
     ]
     
     
-    func resetScrollViewToTop() {
+    func scrollToTopAndChangeTabToToday() {
         resetScrollToggle.toggle()
+        weatherTab = .today
+    }
+    
+    func setCurrentLocationName(name: String) {
+        currentLocationName = name
+    }
+    
+    func setCurrentLocationTimezone(timezone: Int) {
+        currentLocationTimezone = timezone
     }
     
     
@@ -37,6 +52,14 @@ class AppStateManager: ObservableObject {
         searchedLocationDictionary["temperature"] = temperature
         searchedLocationDictionary["date"] = date
         searchedLocationDictionary["symbol"] = symbol
+    }
+    
+    func dataIsLoading() {
+        self.loading = true
+    }
+    
+    func dataCompletedLoading() {
+        self.loading = false
     }
     
 }

@@ -17,7 +17,7 @@ struct SearchBar: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
-                Text(locationManager.currentLocationName)
+                Text(locationManager.searchedLocationName)
                     .foregroundColor(.primary)
                 
                 Spacer()

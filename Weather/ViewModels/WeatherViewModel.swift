@@ -12,6 +12,7 @@ class WeatherViewModel: ObservableObject {
     @Published var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
     @Published var tomorrowWeather: TomorrowWeatherModel = TomorrowWeatherModel.tomorrowDataHolder
     @Published var dailyWeather: [DailyWeatherModel] = DailyWeatherModel.dailyDataHolder
+    @Published var weatherAlert: WeatherAlertModel? = nil
     
     @Published var savedLocationsCurrentWeather: [TodayWeatherModel] = [TodayWeatherModel.holderData]
     
@@ -30,12 +31,15 @@ class WeatherViewModel: ObservableObject {
                 self.loading = true
             })
             let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
+
             
             if let weather = weather {
                 await MainActor.run {
                     self.currentWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
                     self.tomorrowWeather = WeatherManager.shared.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: timezone)
                     self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+                    
+                    self.weatherAlert = WeatherManager.shared.getWeatherAlert(optionalWeatherAlert: weather.weatherAlerts)
                 }
             }
             
@@ -50,7 +54,6 @@ class WeatherViewModel: ObservableObject {
             await MainActor.run {
                 errorPublisher = (true, error.localizedDescription)
             }
-            //            fatalError("Unable to get wather data. Check WeatherViewModel")
         }
     }
     
@@ -74,7 +77,6 @@ class WeatherViewModel: ObservableObject {
                 errorPublisher = (true, error.localizedDescription)
             }
 
-//            fatalError("Unable to get wather data. Check WeatherViewModel")
         }
     }
 

@@ -35,7 +35,7 @@ struct WeatherTabSelectionsView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .matchedGeometryEffect(id: "selected", in: namespace, properties: .frame)
                                         .frame(height: 3)
-                                        .frame(width: 70)
+                                        .frame(width: 50)
                                 }
                             }
                         }
@@ -48,7 +48,7 @@ struct WeatherTabSelectionsView: View {
 
 struct WeatherTabSelectionsView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherTabSelectionsView(weatherTab: .constant(.today))
+        WeatherTabSelectionsView(weatherTab: .constant(.tomorrow))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.red)
     }

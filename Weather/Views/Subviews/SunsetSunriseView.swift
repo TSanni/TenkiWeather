@@ -5,6 +5,8 @@
 //  Created by Tomas Sanni on 6/3/23.
 //
 
+
+// TODO: Update this view to be more of a list style
 import SwiftUI
 
 struct SunsetSunriseView: View {

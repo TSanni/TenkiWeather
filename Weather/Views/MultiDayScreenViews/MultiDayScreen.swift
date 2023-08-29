@@ -46,8 +46,7 @@ struct MultiDayScreen: View {
                                     .foregroundColor(.secondary)
                                 }
                             }
-                            .padding(.top)
-                            .padding(.horizontal, 10)
+                            .padding()
                             
                             CustomDivider()
                             
@@ -79,3 +78,4 @@ struct MultiDayScreen_Previews: PreviewProvider {
                 .previewDevice("iPhone 11 Pro Max")
     }
 }
+ 

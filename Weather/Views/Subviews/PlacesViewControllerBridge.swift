@@ -18,7 +18,11 @@ struct PlacesViewControllerBridge: UIViewControllerRepresentable {
         uiViewControllerPlaces.delegate = context.coordinator
         
         // Specify the place data types to return.
-        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(UInt(GMSPlaceField.name.rawValue) | UInt(GMSPlaceField.placeID.rawValue) | UInt(GMSPlaceField.coordinate.rawValue)))
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(UInt(GMSPlaceField.name.rawValue) |
+                                                                   UInt(GMSPlaceField.placeID.rawValue) |
+                                                                   UInt(GMSPlaceField.coordinate.rawValue)
+                                                                  )
+        )
         uiViewControllerPlaces.placeFields = fields
         
         

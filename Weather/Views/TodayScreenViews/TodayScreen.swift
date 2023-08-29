@@ -12,6 +12,7 @@ struct TodayScreen: View {
     @EnvironmentObject private var appStateManager: AppStateManager
 
     let currentWeather: TodayWeatherModel
+    let weatherAlert: WeatherAlertModel?
     
     var body: some View {
         GeometryReader { geo in
@@ -28,10 +29,7 @@ struct TodayScreen: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
                                         .frame(width: geo.size.width * 3.5)
-//                                        .frame(width: 700)
                                         .frame(height: geo.size.height * 0.3)
-//                                        .padding(.leading)
-//                                        .offset(x: -20)
                                 }
                                 
                                 precipitationPrediction
@@ -40,18 +38,24 @@ struct TodayScreen: View {
                             }
                             .frame(height: geo.size.height)
                             .id(0)
+                            
+                            if let weatherAlert {
+                                WeatherAlertView(weatherAlert: weatherAlert)
+                            }
+
+                            CustomDivider()
 
                             CurrentDetailsView(title: "Current Details", details: currentWeather.currentDetails)
-//                            
+                            
                             CustomDivider()
-//                            
+                            
                             WindView(windData: currentWeather.todayWind, hourlyWindData: currentWeather.todayHourlyWind, setTodayWeather: true, geo: geo)
-//                            
-//                            
+                            
+                            
                             CustomDivider()
-//                            
+                            
                             SunsetSunriseView(sunData: currentWeather.sunData, dayLight: currentWeather.isDaylight)
-//                            
+                            
                             CustomDivider()
                         }
                     }
@@ -129,7 +133,7 @@ struct TodayScreen: View {
 
 struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TodayScreen(currentWeather: TodayWeatherModel.holderData)
+        TodayScreen(currentWeather: TodayWeatherModel.holderData, weatherAlert: nil)
             .previewDevice("iPhone 11 Pro Max")
             .environmentObject(AppStateManager())
     }

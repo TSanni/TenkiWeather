@@ -21,18 +21,21 @@ struct MainScreen: View {
     @StateObject private var appStateManager = AppStateManager()
     
     @State private var savedDate = Date()
-    @State private var weatherTab: WeatherTabs = .today
     
-    //@State can survive reloads on the `View`
-    @State private var taskId: UUID = .init()
-    
-    func getWeather() async {
-        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
-                
+    private func getWeather() async {
+        appStateManager.dataIsLoading()
+        
+//        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+        await locationManager.getLocalLocationName()
+        locationManager.searchedLocationName = locationManager.localLocationName
         let timezone = locationManager.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-        let userLocationName = locationManager.currentLocationName
+        let userLocationName = locationManager.localLocationName
         await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+        
+        appStateManager.setCurrentLocationName(name: userLocationName)
+        appStateManager.setCurrentLocationTimezone(timezone: timezone)
+        appStateManager.dataCompletedLoading()
         
         appStateManager.setSearchedLocationDictionary(
             name: userLocationName,
@@ -44,14 +47,14 @@ struct MainScreen: View {
             symbol: weatherViewModel.currentWeather.symbol
         )
         
+        appStateManager.scrollToTopAndChangeTabToToday()
+        
       
         persistenceLocations.saveData()
     }
     
-    
-    
-    var getBarColor: Color {
-        switch weatherTab {
+    private var getBarColor: Color {
+        switch appStateManager.weatherTab {
             case .today:
                 return weatherViewModel.currentWeather.backgroundColor
             case .tomorrow:
@@ -61,7 +64,7 @@ struct MainScreen: View {
         }
     }
     
-    var blurBackGround: some View {
+    private var blurBackGround: some View {
         Group {
             if appStateManager.showSettingScreen {
                 Color.black.ignoresSafeArea().opacity(0.5)
@@ -70,80 +73,91 @@ struct MainScreen: View {
         }
     }
     
+    private var searchBarAndTabView: some View {
+        VStack(spacing: 0) {
+            
+            SearchBar()
+                .environmentObject(weatherViewModel)
+                .environmentObject(locationManager)
+                .environmentObject(appStateManager)
+                .onTapGesture {
+                    appStateManager.showSearchScreen = true
+                }
+            
+            WeatherTabSelectionsView(weatherTab: $appStateManager.weatherTab)
+            
+            TabView(selection: $appStateManager.weatherTab) {
+                
+                
+                TodayScreen(currentWeather: weatherViewModel.currentWeather, weatherAlert: weatherViewModel.weatherAlert)
+                    .tabItem {
+                        Label("Today", systemImage: "sun.min")
+                    }
+                    .edgesIgnoringSafeArea(.bottom)
+                    .tag(WeatherTabs.today)
+                    .environmentObject(weatherViewModel)
+                    .environmentObject(appStateManager)
+                
+                
+                TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
+                    .tabItem {
+                        Label("Tomorrow", systemImage: "snow")
+                    }
+                    .edgesIgnoringSafeArea(.bottom)
+                    .tag(WeatherTabs.tomorrow)
+                    .environmentObject(weatherViewModel)
+                    .environmentObject(appStateManager)
+
+                
+                MultiDayScreen(daily: weatherViewModel.dailyWeather)
+                    .tabItem {
+                        Label("10 Days", systemImage: "cloud")
+                    }
+                    .edgesIgnoringSafeArea(.bottom)
+                    .tag(WeatherTabs.multiDay)
+                    .environmentObject(weatherViewModel)
+                    .environmentObject(appStateManager)
+
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .edgesIgnoringSafeArea(.bottom)
+            
+        }
+        .background(getBarColor.brightness(-0.1).ignoresSafeArea())
+        .zIndex(0)
+        .disabled(appStateManager.showSettingScreen ? true : false)
+    }
+    
+    private var settings: some View {
+        SettingsScreen()
+            .environmentObject(appStateManager)
+            .environmentObject(persistenceLocations)
+            .settingsFrame()
+            .padding()
+            .zIndex(1)
+        
+    }
+    
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
-                
-                SearchBar()
-                    .environmentObject(weatherViewModel)
-                    .environmentObject(locationManager)
-                    .environmentObject(appStateManager)
-                    .onTapGesture {
-                        appStateManager.showSearchScreen = true
-                    }
-                
-                WeatherTabSelectionsView(weatherTab: $weatherTab)
-                
-                TabView(selection: $weatherTab) {
-                    
-                    
-                    TodayScreen(currentWeather: weatherViewModel.currentWeather)
-                        .tabItem {
-                            Label("Today", systemImage: "sun.min")
-                        }
-                        .edgesIgnoringSafeArea(.bottom)
-                        .tag(WeatherTabs.today)
-                        .environmentObject(weatherViewModel)
-                        .environmentObject(appStateManager)
-//                        .refreshable {
-//                            print("refreshable")
-//                            await getWeather()
-//                        }
-                    
-                    
-                    TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
-                        .tabItem {
-                            Label("Tomorrow", systemImage: "snow")
-                        }
-                        .edgesIgnoringSafeArea(.bottom)
-                        .tag(WeatherTabs.tomorrow)
-                        .environmentObject(weatherViewModel)
-                        .environmentObject(appStateManager)
-
-                    
-                    MultiDayScreen(daily: weatherViewModel.dailyWeather)
-                        .tabItem {
-                            Label("10 Days", systemImage: "cloud")
-                        }
-                        .edgesIgnoringSafeArea(.bottom)
-                        .tag(WeatherTabs.multiDay)
-                        .environmentObject(weatherViewModel)
-                        .environmentObject(appStateManager)
-
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .edgesIgnoringSafeArea(.bottom)
-                
-            }
-            .background(getBarColor.brightness(-0.1).ignoresSafeArea())
-            .zIndex(0)
-            .disabled(appStateManager.showSettingScreen ? true : false)
+            
+            searchBarAndTabView
 
     
             blurBackGround
             
             
             if appStateManager.showSettingScreen {
-                SettingsScreen()
-                    .environmentObject(appStateManager)
-                    .environmentObject(persistenceLocations)
-                    .settingsFrame()
-                    .padding()
-                    .zIndex(1)
+                settings
+            }
+            
+            
+            if appStateManager.loading {
+                ProgressView()
             }
         }
-        .redacted(reason: weatherViewModel.loading ? .placeholder : [])
-        .animation(.default, value: weatherTab)
+        .redacted(reason: appStateManager.loading ? .placeholder : [])
+        .animation(.default, value: appStateManager.weatherTab)
         .fullScreenCover(isPresented: $appStateManager.showSearchScreen) {
             SearchingScreen()
                 .environmentObject(weatherViewModel)
@@ -152,16 +166,18 @@ struct MainScreen: View {
                 .environmentObject(persistenceLocations)
         }
         .alert("Weather Request Failed", isPresented: $weatherViewModel.errorPublisher.errorBool) {
-
+//            Button("Ok") {
+//                NetworkMonitor.shared.startMonitoring()
+//                
+//                Task {
+//                    await getWeather()
+//                    NetworkMonitor.shared.stopMonitoring()
+//                }
+//                
+//            }
         } message: {
             Text(weatherViewModel.errorPublisher.errorMessage)
         }
-//        .refreshable {
-//            print("refreshable")
-//            //Cause .task to re-run by changing the id.
-//            //            taskId = .init()
-//            await getWeather()
-//        }
         .task {
             if locationManager.authorizationStatus == .authorizedWhenInUse {
                 await getWeather()
@@ -181,8 +197,6 @@ struct MainScreen: View {
                     if -savedDate.timeIntervalSinceNow > 60 * 10 {
                         print("10 minutes have passed")
                         await getWeather()
-                        weatherTab = .today
-                        appStateManager.resetScrollViewToTop()
                         savedDate = Date()
                     } else {
                         print("10 minutes have NOT passed")
@@ -201,10 +215,5 @@ struct MainScreen_Previews: PreviewProvider {
             .environmentObject(CoreLocationViewModel())
             .environmentObject(AppStateManager())
             .environmentObject(SavedLocationsPersistence())
-        
-//        MainScreen()
-//            .previewDevice("iPad Pro (12.9-inch) (6th generation)")
-//        MainScreen()
-//            .previewDevice("iPhone SE (3rd generation)")
     }
 }

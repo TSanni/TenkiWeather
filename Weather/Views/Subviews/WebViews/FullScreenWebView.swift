@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FullScreenWebView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
+
     let url: String
     
     var body: some View {
@@ -25,6 +27,8 @@ struct FullScreenWebView: View {
 
             WebView(urlString: url)
         }
+        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+
     }
 
 

@@ -32,16 +32,12 @@ class WeatherManager {
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
         
         do {
-
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
-
             return weather
  
         } catch {
             print("\n\n\nERROR IN GETWEATHER FUNCTION \(error.localizedDescription)\n\n\n")
             throw WeatherErrors.failedToGetWeatherKitData
-//            return nil
-//            fatalError("ERROR IN GETWEATHER FUNCTION: \(error)")
         }
     }
     
@@ -274,6 +270,49 @@ class WeatherManager {
         return daily
     }
 
+    
+    //MARK: - Get Optional Weather Alert
+    func getWeatherAlert(optionalWeatherAlert: [WeatherAlert]?) -> WeatherAlertModel? {
+        
+        /// if the optionalWeatherAlert passed in is NOT nil
+        if let unwrappedWeatherAlerts = optionalWeatherAlert {
+            
+            /// if there is data in optionalWeatherAlert
+            if !unwrappedWeatherAlerts.isEmpty {
+                
+                let weatherAlert = WeatherAlertModel(
+                    detailsURL: unwrappedWeatherAlerts[0].detailsURL,
+                    region: unwrappedWeatherAlerts[0].region ?? "",
+                    severity: unwrappedWeatherAlerts[0].severity,
+                    source: unwrappedWeatherAlerts[0].source,
+                    summary: unwrappedWeatherAlerts[0].summary
+                )
+                
+                print("NOT EMPTY")
+                print("DETAILS URL: \(unwrappedWeatherAlerts[0].detailsURL)")
+                print("META DATA: \(unwrappedWeatherAlerts[0].metadata)")
+                print("REGION: \(unwrappedWeatherAlerts[0].region ?? "NO REGION")")
+                print("SEVERITY: \(unwrappedWeatherAlerts[0].severity)")
+                print("SOURCE: \(unwrappedWeatherAlerts[0].source)")
+                print("SUMMARY: \(unwrappedWeatherAlerts[0].summary)")
+                
+                return weatherAlert
+                
+
+            } else { /// if optionalWeatherAlert is an empty array
+                print("EMPTY")
+                return nil
+            }
+            
+        } else { /// if the optionalWeatherAlert passed in is nil
+            return nil
+        }
+        
+        
+    }
+
+    
+    
     
 }
 

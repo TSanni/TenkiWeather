@@ -80,6 +80,7 @@ struct TomorrowScreen: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.3)
                         .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
+                        .padding(.top, 5)
 
                 }
                 
