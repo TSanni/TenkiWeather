@@ -28,8 +28,6 @@ Plus you can also download [Tenki Weather](https://apps.apple.com/us/app/tenki-w
 ## Demo
 
 ![Simulator Screen Recording - iPhone 11 Pro Max - 2023-09-01 at 13 07 32](https://github.com/TSanni/TenkiWeather/assets/50508424/b3be972e-092d-4f06-a986-22c1c49cc97b)
-
-
 ![Simulator Screen Recording - iPhone 11 Pro Max - 2023-09-01 at 13 29 56](https://github.com/TSanni/TenkiWeather/assets/50508424/e59d6e5a-cc96-43ba-af02-b234fe571ec8)
 
 
