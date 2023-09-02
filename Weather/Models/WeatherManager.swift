@@ -311,9 +311,7 @@ class WeatherManager {
         
     }
 
-    
-    
-    
+
 }
 
 

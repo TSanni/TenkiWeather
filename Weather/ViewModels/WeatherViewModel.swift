@@ -22,14 +22,11 @@ class WeatherViewModel: ObservableObject {
     
     @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
     
-    @Published var loading: Bool = false
     
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         
         do {
-            await MainActor.run(body: {
-                self.loading = true
-            })
+        
             let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
 
             
@@ -41,14 +38,7 @@ class WeatherViewModel: ObservableObject {
                     
                     self.weatherAlert = WeatherManager.shared.getWeatherAlert(optionalWeatherAlert: weather.weatherAlerts)
                 }
-            }
-            
-            await MainActor.run(body: {
-                self.loading = false
-
-            })
-            
-            
+            }    
         } catch {
             print(error.localizedDescription)
             await MainActor.run {

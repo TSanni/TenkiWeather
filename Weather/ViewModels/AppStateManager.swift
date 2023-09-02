@@ -18,6 +18,9 @@ class AppStateManager: ObservableObject {
     @Published var currentLocationTimezone: Int = 0
 
     
+    // This property's only purpose is to add data to CoreData.
+    // You can find it's data being saved to CoreData in the SettingScreen
+    // This is the only dictionary type in the project
     @Published var searchedLocationDictionary: [String: Any] = [
         "name": "",
         "latitude": 0,
