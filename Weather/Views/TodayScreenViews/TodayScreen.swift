@@ -27,10 +27,24 @@ struct TodayScreen: View {
                                 
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
-                                        .frame(width: geo.size.width * 3.5)
-                                        .frame(height: geo.size.height * 0.3)
+                                    ScrollViewReader { proxy2 in
+                                        HStack {
+                                            HStack {}
+                                                .id(1)
+                                            WeatherGraphView(hourlyTemperatures: currentWeather.hourlyTemperatures, graphColor: currentWeather.backgroundColor)
+                                                .frame(width: geo.size.width * 3.5)
+                                                .frame(height: geo.size.height * 0.3)
+
+                                        }
+                                        .onChange(of: appStateManager.resetScrollToggle) { _ in
+                                            proxy2.scrollTo(1)
+                                            
+                                        }
+                    
+                                    }
+            
                                 }
+                                
                                 
                                 precipitationPrediction
                                     .offset(x: 10)
@@ -61,6 +75,7 @@ struct TodayScreen: View {
                     }
                     .onChange(of: appStateManager.resetScrollToggle) { _ in
                         proxy.scrollTo(0)
+                        
                     }
                 }
             }

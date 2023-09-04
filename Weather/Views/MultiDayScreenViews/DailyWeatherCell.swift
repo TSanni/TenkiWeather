@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DailyWeatherCell: View {
+    @EnvironmentObject private var appStateManager: AppStateManager
     @State private var showRest: Bool = false
     let daily: DailyWeatherModel
     let title: String?
@@ -40,6 +41,9 @@ struct DailyWeatherCell: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal)
+        }
+        .onChange(of: appStateManager.resetScrollToggle) { _ in
+            showRest = false
         }
     }
     
@@ -155,5 +159,6 @@ struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
         DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder[0], title: nil)
             .previewDevice("iPhone 11 Pro Max")
+            .environmentObject(AppStateManager())
     }
 }
