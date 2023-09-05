@@ -21,6 +21,8 @@ struct WeatherAlertView: View {
                 
                 Text("\(weatherAlert.summary)")
                     .font(.title)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     .foregroundColor(.primary)
                     .bold()
             }
@@ -67,5 +69,6 @@ struct WeatherAlertView_Previews: PreviewProvider {
         
         let holder = WeatherAlertModel(detailsURL: URL(string: "https://www.google.com")!, region: "Fort Bend", severity: .severe, source: "National Weather Service", summary: "Excessive heat warning")
         WeatherAlertView(weatherAlert: holder)
+            .previewDevice("iPhone 11 Pro Max")
     }
 }

@@ -50,33 +50,33 @@ struct K {
     static func getBackGroundColor(symbol: String) -> Color {
         switch symbol {
             case K.Symbol.sunMax:
-                return Color(uiColor: K.Colors.clearDay)
+                return Color(uiColor: K.Colors.sunMaxColor)
             case K.Symbol.moon:
-                return Color(uiColor: K.Colors.nighttimePurple)
+                return Color(uiColor: K.Colors.moonAndStarsColor)
             case K.Symbol.moonStars:
-                return Color(uiColor: K.Colors.nighttimePurple)
+                return Color(uiColor: K.Colors.moonAndStarsColor)
             case K.Symbol.cloudSun:
-                return Color(uiColor: K.Colors.dayTimeCloudy)
+                return Color(uiColor: K.Colors.cloudSunColor)
             case K.Symbol.cloudMoon:
-                return Color(uiColor: K.Colors.nighttimeCloudy)
+                return Color(uiColor: K.Colors.cloudMoonColor)
             case K.Symbol.cloud:
                 return Color(uiColor: K.Colors.cloudy)
             case K.Symbol.cloudRain:
-                return Color(uiColor: K.Colors.dayTimeRain)
+                return Color(uiColor: K.Colors.cloudSunRainColor)
             case K.Symbol.cloudSunRain:
-                return Color(uiColor: K.Colors.dayTimeRain)
+                return Color(uiColor: K.Colors.cloudSunRainColor)
             case K.Symbol.cloudMoonRain:
-                return Color(uiColor: K.Colors.dayTimeRain)
+                return Color(uiColor: K.Colors.cloudMoonRainColor)
             case K.Symbol.cloudBolt:
-                return Color(uiColor: K.Colors.scatteredThunderstorm)
+                return Color(uiColor: K.Colors.cloudBoltColor)
             case K.Symbol.snowflake:
-                return Color(uiColor: K.Colors.dayTimeCloudy)
+                return Color(uiColor: K.Colors.cloudSunColor)
             case K.Symbol.cloudFog:
                 return Color(uiColor: K.Colors.cloudy)
             case K.Symbol.cloudBoltRain:
-                return Color(uiColor: K.Colors.thunderstorm)
+                return Color(uiColor: K.Colors.cloudBoltRainColor)
             case K.Symbol.cloudMoonBolt:
-                return Color(uiColor: K.Colors.scatteredThunderstorm)
+                return Color(uiColor: K.Colors.cloudBoltColor)
             case K.Symbol.wind:
                 return Color(uiColor: K.Colors.wind)
             case K.Symbol.sunHaze:
@@ -85,7 +85,7 @@ struct K {
                 return Color(uiColor: K.Colors.haze)
     
             default:
-                return Color(uiColor: K.Colors.clearDay)
+                return Color(uiColor: K.Colors.sunMaxColor)
         }
     }
     
@@ -94,31 +94,25 @@ struct K {
         static let properBlack = #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1)
         static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1))
 
-        static let clearDay = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
-        static let nighttimePurple = #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1)
-        static let dayTimeCloudy = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
-        static let nighttimeCloudy = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
+        static let sunMaxColor = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
+        static let moonAndStarsColor = #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1)
+        static let cloudSunColor = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
+        static let cloudMoonColor = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
         static let cloudy = #colorLiteral(red: 0.4886933565, green: 0.624339819, blue: 0.7615836859, alpha: 1)
-        static let dayTimeRain = #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1)
-        static let scatteredThunderstorm = #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1)
-        static let thunderstorm = #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1)
+        static let cloudSunRainColor = #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1)
+        static let cloudMoonRainColor = #colorLiteral(red: 0, green: 0.3320232332, blue: 0.6122661233, alpha: 1)
+        static let cloudBoltColor = #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1)
+        static let cloudBoltRainColor = #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1)
         static let wind = #colorLiteral(red: 0.3438811302, green: 0.6744567752, blue: 0.9567326903, alpha: 1)
         static let haze = #colorLiteral(red: 0.6361310482, green: 0.6071113944, blue: 0.5944020152, alpha: 1)
-        
-        static let maroon = #colorLiteral(red: 0.5871755481, green: 0.3745910525, blue: 0.5551333427, alpha: 1)
-        
+                
         
         static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
-        static let offWhite = #colorLiteral(red: 0.9740188718, green: 0.9712695479, blue: 0.9717465043, alpha: 1)
         
         
-        static let moonColor = #colorLiteral(red: 0.7508266568, green: 0.8291798234, blue: 0.8629794717, alpha: 1)
-        static let darkBlue = #colorLiteral(red: 0.02143974602, green: 0.003193902783, blue: 0.3691283166, alpha: 1)
         static let cloudyBlue = #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1)
-        static let thunderstormPurple = #colorLiteral(red: 0.869899869, green: 0.2400925457, blue: 0.5949490666, alpha: 1)
         static let tenDayBarColor = #colorLiteral(red: 0.0978968963, green: 0.3324657381, blue: 0.4080292583, alpha: 1)
         
-        static let textFieldBlinkingBarColor = #colorLiteral(red: 0.6047868133, green: 0.6487623453, blue: 1, alpha: 1)
         
     }
 }

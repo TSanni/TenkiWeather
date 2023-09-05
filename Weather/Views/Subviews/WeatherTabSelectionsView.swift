@@ -49,6 +49,7 @@ struct WeatherTabSelectionsView: View {
 struct WeatherTabSelectionsView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherTabSelectionsView(weatherTab: .constant(.tomorrow))
+            .previewDevice("iPhone 11 Pro Max")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.red)
     }
