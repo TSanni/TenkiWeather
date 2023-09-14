@@ -7,14 +7,15 @@
 
 import SwiftUI
 
+//MARK: - MultiDayScreen View
 struct MultiDayScreen: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var appStateManager: AppStateManager
 
-    let daily: [DailyWeatherModel]
     @State private var showWebView = false
-    
+    let daily: [DailyWeatherModel]
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             ScrollViewReader { proxy in
@@ -80,7 +81,7 @@ struct MultiDayScreen: View {
 }
 
 
-
+//MARK: - MultiDayScreen Preview
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
             MultiDayScreen(daily: DailyWeatherModel.dailyDataHolder)

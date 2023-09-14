@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-
+//MARK: - Today Screen View
 struct TodayScreen: View {
     @EnvironmentObject private var appStateManager: AppStateManager
 
@@ -85,6 +85,27 @@ struct TodayScreen: View {
     
     
     
+
+
+    
+}
+
+
+
+
+
+//MARK: - TodayScreen Preview
+struct TodayScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        TodayScreen(currentWeather: TodayWeatherModel.holderData, weatherAlert: nil)
+            .previewDevice("iPhone 11 Pro Max")
+            .environmentObject(AppStateManager())
+    }
+}
+
+
+
+extension TodayScreen {
     var immediateTempDetails: some View {
         VStack(alignment: .leading, spacing: 15.0) {
             Text(currentWeather.date)
@@ -125,7 +146,7 @@ struct TodayScreen: View {
             }
             .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
-            Spacer()            
+            Spacer()
         }
         .foregroundColor(.white)
         .padding()
@@ -141,16 +162,6 @@ struct TodayScreen: View {
         .foregroundColor(.white)
         .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
-    }
-
-    
-}
-
-struct TodayScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        TodayScreen(currentWeather: TodayWeatherModel.holderData, weatherAlert: nil)
-            .previewDevice("iPhone 11 Pro Max")
-            .environmentObject(AppStateManager())
     }
 }
 

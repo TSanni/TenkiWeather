@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+//MARK: - TomorrowScreen View
 struct TomorrowScreen: View {
     @EnvironmentObject var vm: WeatherViewModel
     @EnvironmentObject private var appStateManager: AppStateManager
@@ -76,6 +78,24 @@ struct TomorrowScreen: View {
     }
     
     
+
+    
+}
+
+
+//MARK: - TomorrowScreen Preview
+struct TomorrowScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.tomorrowDataHolder)
+            .previewDevice("iPhone 11 Pro Max")
+            .environmentObject(WeatherViewModel())
+            .environmentObject(AppStateManager())
+    }
+}
+
+
+//MARK: - TomorrowScreen View Extension
+extension TomorrowScreen {
     var immediateTomorrowDetails: some View {
         VStack(alignment: .leading) {
             Text(tomorrowWeather.date)
@@ -123,15 +143,5 @@ struct TomorrowScreen: View {
         .foregroundColor(.white)
         .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
         .padding()
-    }
-    
-}
-
-struct TomorrowScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.tomorrowDataHolder)
-            .previewDevice("iPhone 11 Pro Max")
-            .environmentObject(WeatherViewModel())
-            .environmentObject(AppStateManager())
     }
 }
