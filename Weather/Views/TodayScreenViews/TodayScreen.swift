@@ -122,6 +122,8 @@ extension TodayScreen {
                     HStack(alignment: .top, spacing: 0.0) {
                         Text(currentWeather.currentTemperature)
                             .font(.system(size: 100))
+//                            .font(.custom("Times New Roman", size: 100, relativeTo: .body))
+
                             .lineLimit(1)
                             .minimumScaleFactor(0.3)
                         

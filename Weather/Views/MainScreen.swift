@@ -29,6 +29,8 @@ struct MainScreen: View {
         ZStack {
             
             searchBarAndTabView
+//                .font(.custom("Times New Roman", size: 20, relativeTo: .body))
+
 
     
             blurBackGround
@@ -96,28 +98,12 @@ struct MainScreen: View {
 
 
 
-//MARK: - Preview
-struct MainScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        MainScreen()
-            .previewDevice("iPhone 11 Pro Max")
-            .environmentObject(WeatherViewModel())
-            .environmentObject(CoreLocationViewModel())
-            .environmentObject(AppStateManager())
-            .environmentObject(SavedLocationsPersistence())
-    }
-}
-
-
-
-
 
 //MARK: - Main View Extension
 extension MainScreen {
     private func getWeather() async {
         appStateManager.dataIsLoading()
         
-//        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
         await locationManager.getLocalLocationName()
         locationManager.searchedLocationName = locationManager.localLocationName
         let timezone = locationManager.timezoneForCoordinateInput
@@ -169,6 +155,7 @@ extension MainScreen {
         VStack(spacing: 0) {
             
             SearchBar()
+//                .font(.custom("Times New Roman", size: 20, relativeTo: .body))
                 .environmentObject(weatherViewModel)
                 .environmentObject(locationManager)
                 .environmentObject(appStateManager)
@@ -177,6 +164,7 @@ extension MainScreen {
                 }
             
             WeatherTabSelectionsView(weatherTab: $appStateManager.weatherTab)
+
             
             TabView(selection: $appStateManager.weatherTab) {
                 
@@ -230,3 +218,24 @@ extension MainScreen {
         
     }
 }
+
+
+
+
+
+
+
+
+
+//MARK: - Preview
+struct MainScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        MainScreen()
+            .previewDevice("iPhone 11 Pro Max")
+            .environmentObject(WeatherViewModel())
+            .environmentObject(CoreLocationViewModel())
+            .environmentObject(AppStateManager())
+            .environmentObject(SavedLocationsPersistence())
+    }
+}
+

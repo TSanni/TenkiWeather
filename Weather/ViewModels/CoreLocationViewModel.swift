@@ -91,26 +91,19 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         /// Going through possible combinations of optionals existing
         if let cityName = cityName, let state = state, let country = country { // All optionals exist
             if cityName == state || cityName.contains(state) {
-//                self.searchedLocationName = "\(cityName), \(country)"
                 return "\(cityName), \(country)"
             } else {
-//                self.searchedLocationName = "\(cityName), \(state), \(country)"
                 return "\(cityName), \(state), \(country)"
             }
         } else if let state = state, let country = country { // Only state and country exist
-//            self.searchedLocationName = "\(state), \(country)"
             return "\(state), \(country)"
         } else if let cityName = cityName, let country = country { // Only city and country exist
-//            self.searchedLocationName = "\(cityName), \(country)"
             return "\(cityName), \(country)"
         } else if let cityName = cityName { // Only city exists
-//            self.searchedLocationName = "\(cityName)"
             return "\(cityName)"
         } else if let state = state { // Only state exists
-//            self.searchedLocationName = "\(state)"
             return "\(state)"
         } else if let country = country { // Only country exists
-//            self.searchedLocationName = "\(country)"
             return "\(country)"
         } else {
             return ""

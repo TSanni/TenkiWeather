@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftui-mail-view",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-mail-view.git",
+      "state" : {
+        "revision" : "dad1d289cb904d477f2fbabcca5ba82bfcfb2ea6",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}

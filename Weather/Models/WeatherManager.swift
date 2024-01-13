@@ -34,9 +34,8 @@ class WeatherManager {
         do {
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
             return weather
- 
+            
         } catch {
-            print("\n\n\nERROR IN GETWEATHER FUNCTION \(error.localizedDescription)\n\n\n")
             throw WeatherErrors.failedToGetWeatherKitData
         }
     }
@@ -288,23 +287,14 @@ class WeatherManager {
                     summary: unwrappedWeatherAlerts[0].summary
                 )
                 
-                print("NOT EMPTY")
-                print("DETAILS URL: \(unwrappedWeatherAlerts[0].detailsURL)")
-                print("META DATA: \(unwrappedWeatherAlerts[0].metadata)")
-                print("REGION: \(unwrappedWeatherAlerts[0].region ?? "NO REGION")")
-                print("SEVERITY: \(unwrappedWeatherAlerts[0].severity)")
-                print("SOURCE: \(unwrappedWeatherAlerts[0].source)")
-                print("SUMMARY: \(unwrappedWeatherAlerts[0].summary)")
-                
                 return weatherAlert
                 
 
-            } else { /// if optionalWeatherAlert is an empty array
-                print("EMPTY")
+            } else { /// if optionalWeatherAlert is an empty ARRAY
                 return nil
             }
             
-        } else { /// if the optionalWeatherAlert passed in is nil
+        } else { /// if the optionalWeatherAlert passed in is NIL
             return nil
         }
         
@@ -441,7 +431,6 @@ extension WeatherManager {
             case "Kelvin":
                 return .kelvin
             default:
-                print("CANT GET UNIT TEMPERATURE")
                 return .fahrenheit
         }
     }
@@ -460,7 +449,6 @@ extension WeatherManager {
             case "Knots":
                 return .knots
             default:
-                print("CAN'T GET UNIT SPEED")
                 return .milesPerHour
         }
     }

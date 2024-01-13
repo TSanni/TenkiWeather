@@ -60,6 +60,7 @@ class WeatherViewModel: ObservableObject {
                     localTemp = a.currentTemperature
                     localsfSymbol = a.symbol
                     localName = name
+                    print("TIME: \(a.date)")
                 }
             }
         } catch {
