@@ -34,7 +34,7 @@
 		83B760932A67119C007075E2 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760922A67119C007075E2 /* LabelView.swift */; };
 		83C4FFF12A34005F00DEF7F3 /* TomorrowWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */; };
 		83C4FFF72A34BFC000DEF7F3 /* DailyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */; };
-		83C4FFF92A352E9B00DEF7F3 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF82A352E9B00DEF7F3 /* K.swift */; };
+		83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF82A352E9B00DEF7F3 /* Constants.swift */; };
 		83C930522A8EB573001CC566 /* AppleLegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C930512A8EB573001CC566 /* AppleLegalView.swift */; };
 		83DA72E42A41414200C50C86 /* SavedLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E22A41414200C50C86 /* SavedLocations.xcdatamodeld */; };
 		83DA72E62A41655400C50C86 /* SavedLocationsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */; };
@@ -87,7 +87,7 @@
 		83B760922A67119C007075E2 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherModel.swift; sourceTree = "<group>"; };
 		83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherModel.swift; sourceTree = "<group>"; };
-		83C4FFF82A352E9B00DEF7F3 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		83C4FFF82A352E9B00DEF7F3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		83C930512A8EB573001CC566 /* AppleLegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLegalView.swift; sourceTree = "<group>"; };
 		83DA72E32A41414200C50C86 /* SavedLocations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedLocations.xcdatamodel; sourceTree = "<group>"; };
 		83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsPersistence.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				8351EDE52A64409F00B6EB87 /* ViewModifiers.swift */,
-				83C4FFF82A352E9B00DEF7F3 /* K.swift */,
+				83C4FFF82A352E9B00DEF7F3 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					83E04F9F2A22DF1B009720AB = {
 						CreatedOnToolsVersion = 14.3;
@@ -446,7 +446,7 @@
 				83E04FD42A2B2892009720AB /* WindView.swift in Sources */,
 				835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */,
 				839F32EE2A3919510048EF05 /* SunModel.swift in Sources */,
-				83C4FFF92A352E9B00DEF7F3 /* K.swift in Sources */,
+				83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */,
 				838461812A4C9DDC000B8E86 /* SettingsScreen.swift in Sources */,
 				83C4FFF12A34005F00DEF7F3 /* TomorrowWeatherModel.swift in Sources */,
 				83E04FC22A255FBC009720AB /* MainScreen.swift in Sources */,
@@ -525,6 +525,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -585,6 +586,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
