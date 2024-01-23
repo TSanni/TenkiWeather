@@ -1,5 +1,5 @@
 //
-//  SettingsScreen.swift
+//  SettingsScreenTile.swift
 //  Weather
 //
 //  Created by Tomas Sanni on 6/28/23.
@@ -11,7 +11,7 @@ import SwiftUI
 
 
 
-struct SettingsScreen: View {
+struct SettingsScreenTile: View {
     @AppStorage("unittemperature") var temperatureUnit = "Fahrenheit"
     @AppStorage("unitdistance") var distanceUnit = "Miles per hour"
     @EnvironmentObject var appStateManager: AppStateManager
@@ -146,7 +146,7 @@ struct SettingsScreen: View {
 
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsScreen()
+        SettingsScreenTile()
             .previewDevice("iPhone SE (3rd generation)")
         //            .previewDevice("iPhone 11 Pro Max")
             .frame(height: 300)
@@ -155,7 +155,7 @@ struct SettingsScreen_Previews: PreviewProvider {
             .environmentObject(SavedLocationsPersistence())
         
         
-        SettingsScreen()
+        SettingsScreenTile()
             .previewDevice("iPad Pro (12.9-inch) (6th generation)")
         //            .previewDevice("iPhone 11 Pro Max")
             .frame(height: 300)

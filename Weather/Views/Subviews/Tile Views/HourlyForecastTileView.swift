@@ -1,5 +1,5 @@
 //
-//  HourlyForecastView.swift
+//  HourlyForecastTileView.swift
 //  Tenki Weather
 //
 //  Created by Tomas Sanni on 1/22/24.
@@ -22,7 +22,7 @@ let DUMMY_FORECAST_DATA = [
 
 ]
 
-struct HourlyForecastView: View {
+struct HourlyForecastTileView: View {
     let hourlyTemperatures: [HourlyTemperatures]
     let color: Color
     
@@ -73,6 +73,6 @@ struct HourlyForecastView: View {
 #Preview {
     ZStack {
         Color(uiColor: K.Colors.cloudMoonRainColor).brightness(0.1)
-        HourlyForecastView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData, color: Color(uiColor: K.Colors.cloudMoonRainColor))
+        HourlyForecastTileView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData, color: Color(uiColor: K.Colors.cloudMoonRainColor))
     }
 }
