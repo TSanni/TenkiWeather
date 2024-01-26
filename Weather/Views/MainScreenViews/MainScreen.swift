@@ -29,10 +29,7 @@ struct MainScreen: View {
         ZStack {
             
             searchBarAndTabView
-//                .font(.custom("Times New Roman", size: 20, relativeTo: .body))
 
-
-    
             blurBackGround
             
             
@@ -122,7 +119,8 @@ extension MainScreen {
             timezone: timezone,
             temperature: weatherViewModel.currentWeather.currentTemperature,
             date: weatherViewModel.currentWeather.date,
-            symbol: weatherViewModel.currentWeather.symbol
+            symbol: weatherViewModel.currentWeather.symbol,
+            weatherCondition: weatherViewModel.currentWeather.weatherDescription.description
         )
         
         appStateManager.scrollToTopAndChangeTabToToday()
@@ -155,7 +153,6 @@ extension MainScreen {
         VStack(spacing: 0) {
             
             SearchBar()
-//                .font(.custom("Times New Roman", size: 20, relativeTo: .body))
                 .environmentObject(weatherViewModel)
                 .environmentObject(locationManager)
                 .environmentObject(appStateManager)
@@ -209,19 +206,14 @@ extension MainScreen {
     }
     
     private var settings: some View {
-        SettingsScreen()
+        SettingsScreenTile()
             .environmentObject(appStateManager)
             .environmentObject(persistenceLocations)
             .settingsFrame()
             .padding()
             .zIndex(1)
-        
     }
 }
-
-
-
-
 
 
 

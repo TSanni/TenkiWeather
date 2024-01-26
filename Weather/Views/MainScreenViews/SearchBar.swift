@@ -55,6 +55,8 @@ struct SearchBar_Previews: PreviewProvider {
             Color.indigo
             SearchBar()
                 .environmentObject(CoreLocationViewModel())
+                .environmentObject(AppStateManager())
+
         }
         
     }
