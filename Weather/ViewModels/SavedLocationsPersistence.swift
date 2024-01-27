@@ -68,6 +68,7 @@ class SavedLocationsPersistence: ObservableObject {
         newLocation.temperature = locationDictionary["temperature"] as? String
         newLocation.currentDate = locationDictionary["date"] as? String
         newLocation.sfSymbol = locationDictionary["symbol"] as? String
+        newLocation.weatherCondition = locationDictionary["weatherCondition"] as? String
         
         
         Task {
@@ -149,6 +150,8 @@ class SavedLocationsPersistence: ObservableObject {
             entity.currentDate = todaysWeather.date
             entity.temperature = todaysWeather.currentTemperature
             entity.sfSymbol = todaysWeather.symbol
+            entity.weatherCondition = todaysWeather.weatherDescription.description
+            
             return entity
         } else {
             throw URLError(.badURL)

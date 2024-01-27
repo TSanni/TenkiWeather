@@ -20,11 +20,14 @@ struct SavedLocationsView: View {
             if persistence.savedLocations.count == 0 {
                 Text("")
                     .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
             }
             ForEach(persistence.savedLocations, id: \.self) { item in
                 SavedLocationCell(location: item)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .padding(.top)
                     .onTapGesture {
                         Task {
                             appStateManager.showSearchScreen = false
@@ -35,9 +38,21 @@ struct SavedLocationsView: View {
                             persistence.saveData()
                             
                         }
-                    }                
+                    }
             }
             .onDelete(perform: persistence.deletePlace(indexSet:))
+            
+            
+            
+            
+            
+//            ForEach(0..<19, id: \.self) { item in
+//                Text("A")
+//                    .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
+//                    .listRowBackground(Color.clear)
+//                    .listRowSeparator(.hidden)
+//
+//            }
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)

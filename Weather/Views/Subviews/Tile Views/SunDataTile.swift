@@ -31,15 +31,13 @@ struct SunDataTile: View {
             
             Spacer()
 
-            Text("Dawn: \(sundata.dawn)")
+            Text("Dawn: \(sundata.dawn).")
+                .font(.footnote)
+
  
         }
-        .padding()
-        .background(backgroundColor)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .aspectRatio(1, contentMode: .fit)
-        .frame(width: width)
-        .foregroundStyle(.white)
+        .cardTileModifier(backgroundColor: backgroundColor, width: width)
+
     }
     
     var sunset: some View {
@@ -59,15 +57,13 @@ struct SunDataTile: View {
             
             Spacer()
 
-            Text("Dusk: \(sundata.dusk)")
+            Text("Dusk: \(sundata.dusk).")
+                .font(.footnote)
+
  
         }
-        .padding()
-        .background(backgroundColor)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .aspectRatio(1, contentMode: .fit)
-        .frame(width: width)
-        .foregroundStyle(.white)
+        .cardTileModifier(backgroundColor: backgroundColor, width: width)
+
     }
     
     

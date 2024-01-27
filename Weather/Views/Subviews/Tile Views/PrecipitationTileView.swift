@@ -8,11 +8,45 @@
 import SwiftUI
 
 struct PrecipitationTileView: View {
+    let precipitationDetails: TomorrowWeatherModel
+    let width: CGFloat
+    let backgroundColor: Color
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            HStack {
+                Image(systemName: "drop.fill")
+                Text("Precipitation")
+                Spacer()
+                
+            }
+            .foregroundStyle(.secondary)
+            
+            Spacer()
+            
+            VStack(alignment: .leading, spacing: 0.0) {
+                
+                Text(precipitationDetails.tomorrowChanceOfPrecipitation)
+                    .font(.largeTitle)
+                    .bold()
+                
+                Text(precipitationDetails.precipitation.description.capitalized)
+                    .font(.title3)
+                    .bold()
+            }
+            
+            
+            Spacer()
+            
+            Text("\(precipitationDetails.tomorrowChanceOfPrecipitation) chance of precipitation.")
+                .font(.footnote)
+
+            
+        }
+        .cardTileModifier(backgroundColor: backgroundColor, width: width)
     }
+
 }
 
 #Preview {
-    PrecipitationTileView()
+    PrecipitationTileView(precipitationDetails: TomorrowWeatherModel.tomorrowDataHolder, width: 200, backgroundColor: Color.red)
 }

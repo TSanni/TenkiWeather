@@ -58,13 +58,17 @@ class WeatherManager {
         
         /// Weather data for Current details card
         let currentDetailsCardInfo = DetailsModel(
-            humidity: current.humidity.formatted(.percent),
+            humidity: current.humidity,
             dewPoint: String(format: "%.0f", current.dewPoint.converted(to: getUnitTemperature()).value) + current.dewPoint.converted(to: getUnitTemperature()).unit.symbol,
             pressure: getReadableMeasurementPressure(measurement: current.pressure.converted(to: .inchesOfMercury)),
-            uvIndex: (current.uvIndex.category.description) + ", " + (current.uvIndex.value.description),
+            uvIndexCategory: current.uvIndex.category,
+            uvIndexValue: current.uvIndex.value,
             visibility: getReadableMeasurementLengths(measurement: current.visibility.converted(to: getUnitLength())),
-            sunData: nil
+            sunData: nil,
+            visibilityValue: current.visibility.value,
+            pressureTrend: current.pressureTrend
         )
+                
         
         /// Weather data for wind
         let windDetailsInfo = WindData(
@@ -183,18 +187,21 @@ class WeatherManager {
         let sunDetails = SunData(
             sunrise: getReadableHourAndMinute(date: tomorrowWeather.sun.sunrise, timezoneOffset: timezoneOffset),
             sunset: getReadableHourAndMinute(date: tomorrowWeather.sun.sunset, timezoneOffset: timezoneOffset),
-            dawn: "",
-            solarNoon: "",
-            dusk: ""
+            dawn: getReadableHourAndMinute(date: tomorrowWeather.sun.civilDawn, timezoneOffset: timezoneOffset),
+            solarNoon: getReadableHourAndMinute(date: tomorrowWeather.sun.solarNoon, timezoneOffset: timezoneOffset),
+            dusk: getReadableHourAndMinute(date: tomorrowWeather.sun.civilDusk, timezoneOffset: timezoneOffset)
         )
         
         let tomorrowDetails = DetailsModel(
-            humidity: nil,
+            humidity: 0,
             dewPoint: nil,
             pressure: nil,
-            uvIndex: tomorrowWeather.uvIndex.category.description + ", " + tomorrowWeather.uvIndex.value.description,
-            visibility: nil,
-            sunData: sunDetails
+            uvIndexCategory: tomorrowWeather.uvIndex.category,
+            uvIndexValue: tomorrowWeather.uvIndex.value,
+            visibility: "",
+            sunData: sunDetails,
+            visibilityValue: nil,
+            pressureTrend: nil
         )
         
         let tomorrowWind = WindData(
@@ -203,7 +210,6 @@ class WeatherManager {
             time: nil,
             speedUnit: tomorrowWeather.wind.speed.converted(to: getUnitSpeed()).unit.symbol
         )
-        
         
         let tomorrowsWeather = TomorrowWeatherModel(
             date: getDayOfWeekAndDate(date: tomorrowWeather.date, timezoneOffset: timezoneOffset),
@@ -215,7 +221,9 @@ class WeatherManager {
             tomorrowDetails: tomorrowDetails,
             tomorrowWind: tomorrowWind,
             tomorrowHourlyWind: tomorrowHourlyWind,
-            hourlyTemperatures: tomorrowHourlyTemperatures
+            hourlyTemperatures: tomorrowHourlyTemperatures,
+            sunData: sunDetails,
+            precipitation: tomorrowWeather.precipitation
         )
         
         return tomorrowsWeather
@@ -281,7 +289,7 @@ class WeatherManager {
                 
                 let weatherAlert = WeatherAlertModel(
                     detailsURL: unwrappedWeatherAlerts[0].detailsURL,
-                    region: unwrappedWeatherAlerts[0].region ?? "",
+                    region: unwrappedWeatherAlerts[0].region,
                     severity: unwrappedWeatherAlerts[0].severity,
                     source: unwrappedWeatherAlerts[0].source,
                     summary: unwrappedWeatherAlerts[0].summary
@@ -421,35 +429,39 @@ extension WeatherManager {
     
     
     private func getUnitTemperature() -> UnitTemperature {
-        let chosenUnitTemperature = UserDefaults.standard.string(forKey: "unittemperature")
+        let chosenUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
         
         switch chosenUnitTemperature {
-            case "Fahrenheit":
-                return .fahrenheit
-            case "Celsius":
-                return .celsius
-            case "Kelvin":
-                return .kelvin
-            default:
-                return .fahrenheit
+        case K.TemperatureUnits.fahrenheit:
+            return .fahrenheit
+        case K.TemperatureUnits.celsius:
+            return .celsius
+        case   K.TemperatureUnits.kelvin:
+            return .kelvin
+        default:
+            print("CAN'T DETERMINE UNIT TEMPERATURE")
+            return .fahrenheit
         }
+        
+
     }
     
     
     private func getUnitSpeed() -> UnitSpeed {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: "unitdistance")
+        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
         
         switch chosenUnitDistance {
-            case  "Miles per hour":
-                return .milesPerHour
-            case "Kilometers per hour":
-                return .kilometersPerHour
-            case "Meters per second":
-                return .metersPerSecond
-            case "Knots":
-                return .knots
-            default:
-                return .milesPerHour
+        case  K.DistanceUnits.mph:
+            return .milesPerHour
+        case K.DistanceUnits.kiloPerHour:
+            return .kilometersPerHour
+        case K.DistanceUnits.meterPerSecond:
+            return .metersPerSecond
+        case K.DistanceUnits.knots:
+            return .knots
+        default:
+            print("CAN'T DETERMINE UNIT SPEED")
+            return .milesPerHour
         }
     }
 }

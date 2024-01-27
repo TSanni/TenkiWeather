@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct SavedLocationImageView: View {
+    let imageName: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Circle()
+            .fill(Color(uiColor: K.Colors.prussianBlue))
+            .overlay {
+                Image(systemName: WeatherManager.shared.getImage(imageName: imageName))
+                    .renderingMode(.original)
+                    .padding()
+                    .font(.headline)
+            }
+            .frame(width: 40)
     }
 }
 
 #Preview {
-    SavedLocationImageView()
+    ZStack {
+        Color(uiColor: K.Colors.properBlack)
+        SavedLocationImageView(imageName: "cloud.moon.rain")
+    }
 }

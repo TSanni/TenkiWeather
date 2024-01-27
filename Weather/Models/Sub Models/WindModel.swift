@@ -96,8 +96,11 @@ struct WindData: Identifiable {
     }
     
     var windColor: Color {
-        let light = #colorLiteral(red: 0.04400173575, green: 0.5181836486, blue: 0.9972603917, alpha: 1)
-        let breeze = #colorLiteral(red: 0.1430673301, green: 0.6491933465, blue: 0.60500741, alpha: 1)
+        let oldLight = #colorLiteral(red: 0.04400173575, green: 0.5181836486, blue: 0.9972603917, alpha: 1)
+        let light = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+
+    //    let oldbreeze = #colorLiteral(red: 0.1430673301, green: 0.6491933465, blue: 0.60500741, alpha: 1)
+        let breeze = #colorLiteral(red: 0, green: 0.9810667634, blue: 0.5736914277, alpha: 1)
         let gale = #colorLiteral(red: 0.9978212714, green: 0.9978941083, blue: 0.5972678661, alpha: 1)
         let strongGale = #colorLiteral(red: 0.9998317361, green: 0.7493718266, blue: 0, alpha: 1)
         let storm = #colorLiteral(red: 1, green: 0.6042675376, blue: 0.395904392, alpha: 1)
@@ -196,11 +199,11 @@ struct WindData: Identifiable {
     /// Holder data for wind details
     static let windDataHolder: [WindData] = [
         WindData(windSpeed: "10", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "1 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "12", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "2 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "15", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "3 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "17", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "4 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "15", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "5 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "12", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "6 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "10", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "7 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "31", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "2 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "38", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "3 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "54", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "4 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "63", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "5 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "72", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "6 AM", speedUnit: "m/s"),
+        WindData(windSpeed: "500", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "7 AM", speedUnit: "m/s"),
     ]
 }

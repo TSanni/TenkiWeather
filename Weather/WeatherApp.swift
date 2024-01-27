@@ -25,10 +25,22 @@ struct WeatherApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    @StateObject private var weatherViewModel = WeatherViewModel()
+    @StateObject private var persistenceLocations = SavedLocationsPersistence()
+    @StateObject private var locationManager = CoreLocationViewModel()
+    @StateObject private var appStateManager = AppStateManager()
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 MainScreen()
+                    .environmentObject(weatherViewModel)
+                    .environmentObject(persistenceLocations)
+                    .environmentObject(locationManager)
+                    .environmentObject(appStateManager)
+
+
+
             }
             .navigationViewStyle(.stack)
         }

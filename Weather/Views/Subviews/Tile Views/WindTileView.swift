@@ -30,7 +30,6 @@ struct WindTileView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 WindBarGraph(hourlyWind: hourlyWindData)
                     .frame(width: geo.size.width * 3)
-                    .saturation(2)
             }
             
         }
@@ -41,7 +40,6 @@ struct WindTileView: View {
         .brightness(-0.15)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding()
-//        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
 
     }
     
@@ -60,7 +58,6 @@ struct WindTileView: View {
                         .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.windDirection) + 180) )
                     Text(windData.speedUnit)
                 }
-//                .foregroundColor(.secondary)
             }
             
             
@@ -72,7 +69,6 @@ struct WindTileView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
                 Text("Now · From \(windData.readableWindDirection)")
-//                    .foregroundColor(.secondary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
 
@@ -88,7 +84,6 @@ struct WindTileView: View {
                 .font(.title)
             Text("Average of about \(windData.windSpeed) \(windData.speedUnit)")
                 .font(.subheadline)
-//                .foregroundColor(.secondary)
         }
     }
 }
@@ -96,7 +91,7 @@ struct WindTileView: View {
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geo in
-            WindTileView(windData: WindData.windDataHolder[0], hourlyWindData: WindData.windDataHolder, setTodayWeather: false, geo: geo, backgroundColor: TodayWeatherModel.holderData.backgroundColor)
+            WindTileView(windData: WindData.windDataHolder[0], hourlyWindData: WindData.windDataHolder, setTodayWeather: true, geo: geo, backgroundColor: TodayWeatherModel.holderData.backgroundColor)
                 .previewDevice("iPhone 11 Pro Max")
         }
     }

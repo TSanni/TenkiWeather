@@ -19,25 +19,16 @@ struct WeatherAlertTileView: View {
         HStack {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(Color(uiColor: K.Colors.maroon))
-//                .foregroundColor(weatherAlert.severityColor)
-
-                .font(.title)
-                .padding()
+                .padding(10)
                 .background(Color(uiColor: K.Colors.lightPink))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             
             VStack(alignment: .leading) {
                 Text(weatherAlert.summary)
                     .bold()
-                HStack(spacing: 0) {
-                    if weatherAlert.region != "" {
-                        Text("\(weatherAlert.region) • ")
-                    }
-                    Text("\(weatherAlert.source) ")
-
-                }
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
+                
+                Text("\(weatherAlert.unwrappedRegion) \(weatherAlert.source)")
+                .font(.footnote)
                 
             }
             
@@ -72,64 +63,3 @@ struct WeatherAlertView_Previews: PreviewProvider {
     }
 }
 
-
-
-
-
-
-
-/*
- 
- var oldAlertView: some View {
-     VStack(alignment: .leading, spacing: 10.0) {
-         HStack {
-             Image(systemName: "exclamationmark.triangle.fill")
-                 .foregroundColor(weatherAlert.severityColor)
-             
-             Text("\(weatherAlert.summary)")
-                 .font(.title)
-                 .lineLimit(1)
-                 .minimumScaleFactor(0.5)
-                 .foregroundColor(.primary)
-                 .bold()
-         }
-
-         HStack(spacing: 0) {
-             Text("\(weatherAlert.source) ")
-                 .lineLimit(1)
-                 .minimumScaleFactor(0.7)
-             
-             if weatherAlert.region != "" {
-                 Text("• \(weatherAlert.region)")
-                     .lineLimit(1)
-                     .minimumScaleFactor(0.7)
-             }
-         }
-         .foregroundColor(.secondary)
-
-         HStack(spacing: 0) {
-             Text("More Info")
-                 .foregroundColor(.primary)
-             
-             Text(" →")
-                 .foregroundColor(.secondary)
-         }
-         .padding([.vertical])
-         .onTapGesture {
-             showWeatherAlertURL = true
-         }
-     }
-     .padding()
-     .frame(maxWidth: .infinity, alignment: .leading)
-     .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
-     .fullScreenCover(isPresented: $showWeatherAlertURL) {
-         FullScreenWebView(url: weatherAlert.detailsURL.absoluteString)
-             .edgesIgnoringSafeArea(.bottom)
-
-     }
-
- }
-
- 
- 
- */

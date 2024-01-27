@@ -19,6 +19,7 @@ class WeatherViewModel: ObservableObject {
     @Published var localTemp = ""
     @Published var localsfSymbol = ""
     @Published var localName = ""
+    @Published var localConditions = ""
     
     @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
     
@@ -60,6 +61,7 @@ class WeatherViewModel: ObservableObject {
                     localTemp = a.currentTemperature
                     localsfSymbol = a.symbol
                     localName = name
+                    localConditions = a.weatherDescription.description
                     print("TIME: \(a.date)")
                 }
             }

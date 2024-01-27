@@ -19,6 +19,7 @@ struct SearchBar: View {
                     .foregroundColor(.secondary)
                 Text(locationManager.searchedLocationName)
                     .foregroundColor(.primary)
+                    .lineLimit(1)
                 
                 Spacer()
                 

@@ -8,11 +8,44 @@
 import SwiftUI
 
 struct UVIndexTileView: View {
+    let uvIndexDetails: DetailsModel
+    let width: CGFloat
+    let backgroundColor: Color
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            HStack {
+                Image(systemName: "sun.max.fill")
+                Text("UV Index")
+                Spacer()
+            }
+            .foregroundStyle(.secondary)
+
+            
+            Spacer()
+            
+//            VStack(alignment: .leading, spacing: 0.0) {
+                
+                Text(uvIndexDetails.uvIndexValueDescription)
+                    .font(.largeTitle)
+                    .bold()
+                
+                Text(uvIndexDetails.uvIndexCategoryDescription)
+//                    .font(.title3)
+                    .bold()
+                
+                Spacer()
+                
+                Text(uvIndexDetails.uvIndexActionRecommendation)
+                    .font(.footnote)
+                    
+//            }
+  
+        }
+        .cardTileModifier(backgroundColor: backgroundColor, width: width)
     }
 }
 
+
 #Preview {
-    UVIndexTileView()
+    UVIndexTileView(uvIndexDetails: DetailsModel.detailsDataHolder, width: 170, backgroundColor: Color.red)
 }

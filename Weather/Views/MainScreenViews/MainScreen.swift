@@ -15,52 +15,57 @@ import CoreLocation
 
 //MARK: - View
 struct MainScreen: View {
-    
     @Environment(\.scenePhase) var scenePhase
-    @StateObject private var weatherViewModel = WeatherViewModel()
-    @StateObject private var persistenceLocations = SavedLocationsPersistence()
-    @StateObject private var locationManager = CoreLocationViewModel()
-    @StateObject private var appStateManager = AppStateManager()
+    
+    
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
+    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
+    @EnvironmentObject var locationManager: CoreLocationViewModel
+    @EnvironmentObject var appStateManager: AppStateManager
+    
     @State private var savedDate = Date()
     
-
+    
     
     var body: some View {
         ZStack {
             
-            searchBarAndTabView
-
+            
+            VStack(spacing: 0) {
+                SearchBar().onTapGesture { appStateManager.showSearchScreen = true }
+                
+                WeatherTabSelectionsView()
+                
+                TabViews()
+                
+            }
+            .background(getBarColor.brightness(-0.1).ignoresSafeArea())
+            .zIndex(0)
+            .disabled(appStateManager.showSettingScreen ? true : false)
+            
             blurBackGround
             
+            settingsTile
             
-            if appStateManager.showSettingScreen {
-                settings
-            }
+            progresView
             
-            
-            if appStateManager.loading {
-                ProgressView()
-            }
         }
         .redacted(reason: appStateManager.loading ? .placeholder : [])
         .animation(.default, value: appStateManager.weatherTab)
         .fullScreenCover(isPresented: $appStateManager.showSearchScreen) {
             SearchingScreen()
-                .environmentObject(weatherViewModel)
-                .environmentObject(appStateManager)
-                .environmentObject(locationManager)
-                .environmentObject(persistenceLocations)
+            
         }
         .alert("Weather Request Failed", isPresented: $weatherViewModel.errorPublisher.errorBool) {
-//            Button("Ok") {
-//                NetworkMonitor.shared.startMonitoring()
-//                
-//                Task {
-//                    await getWeather()
-//                    NetworkMonitor.shared.stopMonitoring()
-//                }
-//                
-//            }
+            //            Button("Ok") {
+            //                NetworkMonitor.shared.startMonitoring()
+            //
+            //                Task {
+            //                    await getWeather()
+            //                    NetworkMonitor.shared.stopMonitoring()
+            //                }
+            //
+            //            }
         } message: {
             Text(weatherViewModel.errorPublisher.errorMessage)
         }
@@ -125,18 +130,18 @@ extension MainScreen {
         
         appStateManager.scrollToTopAndChangeTabToToday()
         
-      
+        
         persistenceLocations.saveData()
     }
     
     private var getBarColor: Color {
         switch appStateManager.weatherTab {
-            case .today:
-                return weatherViewModel.currentWeather.backgroundColor
-            case .tomorrow:
-                return weatherViewModel.tomorrowWeather.backgroundColor
-            case .multiDay:
-                return Color(uiColor: K.Colors.tenDayBarColor)
+        case .today:
+            return weatherViewModel.currentWeather.backgroundColor
+        case .tomorrow:
+            return weatherViewModel.tomorrowWeather.backgroundColor
+        case .multiDay:
+            return Color(uiColor: K.Colors.tenDayBarColor)
         }
     }
     
@@ -149,69 +154,23 @@ extension MainScreen {
         }
     }
     
-    private var searchBarAndTabView: some View {
-        VStack(spacing: 0) {
-            
-            SearchBar()
-                .environmentObject(weatherViewModel)
-                .environmentObject(locationManager)
-                .environmentObject(appStateManager)
-                .onTapGesture {
-                    appStateManager.showSearchScreen = true
-                }
-            
-            WeatherTabSelectionsView(weatherTab: $appStateManager.weatherTab)
-
-            
-            TabView(selection: $appStateManager.weatherTab) {
-                
-                
-                TodayScreen(currentWeather: weatherViewModel.currentWeather, weatherAlert: weatherViewModel.weatherAlert)
-                    .tabItem {
-                        Label("Today", systemImage: "sun.min")
-                    }
-                    .edgesIgnoringSafeArea(.bottom)
-                    .tag(WeatherTabs.today)
-                    .environmentObject(weatherViewModel)
-                    .environmentObject(appStateManager)
-                
-                
-                TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
-                    .tabItem {
-                        Label("Tomorrow", systemImage: "snow")
-                    }
-                    .edgesIgnoringSafeArea(.bottom)
-                    .tag(WeatherTabs.tomorrow)
-                    .environmentObject(weatherViewModel)
-                    .environmentObject(appStateManager)
-
-                
-                MultiDayScreen(daily: weatherViewModel.dailyWeather)
-                    .tabItem {
-                        Label("10 Days", systemImage: "cloud")
-                    }
-                    .edgesIgnoringSafeArea(.bottom)
-                    .tag(WeatherTabs.multiDay)
-                    .environmentObject(weatherViewModel)
-                    .environmentObject(appStateManager)
-
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .edgesIgnoringSafeArea(.bottom)
-            
+    
+    @ViewBuilder
+    private var settingsTile: some View {
+        if appStateManager.showSettingScreen {
+            SettingsScreenTile()
+                .settingsFrame()
+                .padding()
+                .zIndex(1)
         }
-        .background(getBarColor.brightness(-0.1).ignoresSafeArea())
-        .zIndex(0)
-        .disabled(appStateManager.showSettingScreen ? true : false)
+        
     }
     
-    private var settings: some View {
-        SettingsScreenTile()
-            .environmentObject(appStateManager)
-            .environmentObject(persistenceLocations)
-            .settingsFrame()
-            .padding()
-            .zIndex(1)
+    @ViewBuilder
+    private var progresView: some View {
+        if appStateManager.loading {
+            ProgressView()
+        }
     }
 }
 
