@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class AppStateManager: ObservableObject {
     @Published var showSearchScreen: Bool = false
@@ -19,18 +20,30 @@ class AppStateManager: ObservableObject {
 
     
     // This property's only purpose is to add data to CoreData.
-    // You can find it's data being saved to CoreData in the SettingScreen
+    // You can find it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
     @Published var searchedLocationDictionary: [String: Any] = [
-        "name": "",
-        "latitude": 0,
-        "longitude": 0,
-        "timezone": 0.0,
-        "temperature": "",
-        "date": "",
-        "symbol": ""
+        K.LocationDictionaryKeys.name: "",
+        K.LocationDictionaryKeys.latitude: 0,
+        K.LocationDictionaryKeys.longitude: 0,
+        K.LocationDictionaryKeys.timezone: 0.0,
+        K.LocationDictionaryKeys.temperature: "",
+        K.LocationDictionaryKeys.date: "",
+        K.LocationDictionaryKeys.symbol: "",
+        K.LocationDictionaryKeys.weatherCondition: ""
     ]
     
+    
+    
+    ///Returns columns and tile size accounting for iPhone and iPad
+    func getGridColumnAndSize(geo: GeometryProxy) -> [GridItem] {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return [GridItem(.adaptive(minimum: geo.size.width * 0.20, maximum: .infinity))]
+            
+        } else {
+            return [GridItem(.adaptive(minimum: geo.size.width * 0.44, maximum: 200))]
+        }
+    }
     
     func scrollToTopAndChangeTabToToday() {
         resetScrollToggle.toggle()
@@ -46,7 +59,7 @@ class AppStateManager: ObservableObject {
     }
     
     
-    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String) {
+    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String) {
         
         searchedLocationDictionary["name"] = name
         searchedLocationDictionary["latitude"] = latitude
@@ -55,6 +68,7 @@ class AppStateManager: ObservableObject {
         searchedLocationDictionary["temperature"] = temperature
         searchedLocationDictionary["date"] = date
         searchedLocationDictionary["symbol"] = symbol
+        searchedLocationDictionary["weatherCondition"] = weatherCondition
     }
     
     func dataIsLoading() {
@@ -63,6 +77,30 @@ class AppStateManager: ObservableObject {
     
     func dataCompletedLoading() {
         self.loading = false
+    }
+        
+    func fortyFivePercentTileSize(geo: GeometryProxy) -> Double {
+        return geo.size.width * 0.45
+    }
+    
+    
+    func blendColors(themeColor: Color) -> Color {
+        let themeColor = UIColor(themeColor)
+        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.7, color2: themeColor, intensity2: 0.3))
+        
+        return blendedColor
+    }
+    
+    func blendColors2(themeColor: Color) -> Color {
+        let themeColor = UIColor(themeColor)
+        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.6, color2: themeColor, intensity2: 0.4))
+        
+        return blendedColor
+    }
+    
+    func fillImageToPrepareForRendering(symbol: String) -> String {
+        let filledInSymbol = WeatherManager.shared.getImage(imageName: symbol)
+        return filledInSymbol
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  SettingsScreen.swift
+//  SettingsScreenTile.swift
 //  Weather
 //
 //  Created by Tomas Sanni on 6/28/23.
@@ -7,22 +7,37 @@
 
 import SwiftUI
 
+enum TemperatureUnits: String, CaseIterable {
+    case fahrenheit = "Fahrenheit"
+    case celsius = "Celsius"
+    case kelvin = "Kelvin"
+}
+
+enum DistanceUnits: String, CaseIterable {
+    case miles = "Miles per hour"
+    case kilometer = "Kilometers per hour"
+    case meters = "Meters per second"
+}
 
 
 
-
-struct SettingsScreen: View {
-    @AppStorage("unittemperature") var temperatureUnit = "Fahrenheit"
-    @AppStorage("unitdistance") var distanceUnit = "Miles per hour"
+struct SettingsScreenTile: View {
+    @AppStorage(K.UserDefaultKeys.unitTemperatureKey) var temperatureUnit: TemperatureUnits = .fahrenheit
+    @AppStorage(K.UserDefaultKeys.unitDistanceKey) var distanceUnit: DistanceUnits = .miles
     @EnvironmentObject var appStateManager: AppStateManager
     @EnvironmentObject var persistence: SavedLocationsPersistence
     @Environment(\.colorScheme) var colorScheme
     @State private var locationSaved: Bool = false
     @State private var showPrivacyWebsite = false
     @State private var showTermsAndConditionsWebsite = false
-
-    var tempUnits = ["Fahrenheit", "Celsius", "Kelvin"]
-    var distances = ["Miles per hour", "Kilometers per hour", "Meters per second", "Knots"]
+    
+    @State private var alertTitle: Text = Text("")
+    @State private var alertMessage: Text = Text("")
+    
+//    @State private var tempUnits2: TemperatureUnits = .fahrenheit
+    
+//    var tempUnits = ["Fahrenheit", "Celsius", "Kelvin"]
+//    var distances = ["Miles per hour", "Kilometers per hour", "Meters per second", "Knots"]
     
     
     
@@ -52,8 +67,8 @@ struct SettingsScreen: View {
                 List {
                     
                     Picker(selection: $temperatureUnit) {
-                        ForEach(tempUnits, id: \.self) { i in
-                            Text(i)
+                        ForEach(TemperatureUnits.allCases, id: \.self) { i in
+                            Text(i.rawValue)
                         }
                     } label: {
                         LabelView(title: "Temperature", iconSymbol: "thermometer")
@@ -62,19 +77,15 @@ struct SettingsScreen: View {
                     
                     
                     
-                    
                     Picker(selection: $distanceUnit) {
-                        ForEach(distances, id: \.self) { i in
-                            Text(i)
+                        ForEach(DistanceUnits.allCases, id: \.self) { i in
+                            Text(i.rawValue)
                         }
                     } label: {
                         LabelView(title: "Distance", iconSymbol: "ruler")
                     }
                     .settingsListBackgroundChange()
-                    
-                    
-                    
-                    
+
                     
                     
                     SendMailView()
@@ -83,13 +94,22 @@ struct SettingsScreen: View {
                     
                     
                     Button {
-                        persistence.addLocation(locationDictionary: appStateManager.searchedLocationDictionary)
+                        
+                        if persistence.savedLocations.count >= 10 {
+                            alertTitle = Text("Error")
+                            alertMessage = Text("Can't save location. Remove some saved locations before trying again.")
+                        } else {
+                            alertTitle = Text("Saved")
+                            alertMessage =  Text("Location saved to favorites")
+                            persistence.addLocation(locationDictionary: appStateManager.searchedLocationDictionary)
+                        }
                         locationSaved.toggle()
-                        print("Location added")
+                        
+                        
                     } label: {
                         Label {
                             VStack(alignment: .center) {
-                                Text("\(appStateManager.searchedLocationDictionary["name"] as? String ?? "")")
+                                Text("\(appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] as? String ?? "")")
                                     .foregroundColor(.green)
                                 Text("Click to save this location")
                                     .lineLimit(1)
@@ -114,10 +134,10 @@ struct SettingsScreen: View {
                     
                     Text("Privacy Policy")
                         .onTapGesture { showPrivacyWebsite = true }
-
+                    
                     
                     Text("·")
-
+                    
                     Text("Terms and Conditions")
                         .onTapGesture { showTermsAndConditionsWebsite = true }
                     
@@ -128,7 +148,7 @@ struct SettingsScreen: View {
         }
         .foregroundColor(colorScheme == .light ? .black : .white)
         .alert(isPresented: $locationSaved) {
-            Alert(title: Text("Saved"), message: Text("Location saved to favorites"))
+            Alert(title: alertTitle, message: alertMessage)
         }
         .fullScreenCover(isPresented: $showPrivacyWebsite) {
             FullScreenWebView(url: "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621")
@@ -137,32 +157,17 @@ struct SettingsScreen: View {
             //FullScreenWebView(url: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
             TermsAndConditionsView()
         }
-        
-        
-        
-        
     }
 }
 
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsScreen()
+        SettingsScreenTile()
             .previewDevice("iPhone SE (3rd generation)")
-        //            .previewDevice("iPhone 11 Pro Max")
             .frame(height: 300)
             .padding()
             .environmentObject(AppStateManager())
             .environmentObject(SavedLocationsPersistence())
-        
-        
-        SettingsScreen()
-            .previewDevice("iPad Pro (12.9-inch) (6th generation)")
-        //            .previewDevice("iPhone 11 Pro Max")
-            .frame(height: 300)
-            .padding()
-            .environmentObject(AppStateManager())
-            .environmentObject(SavedLocationsPersistence())
-        
         
     }
 }

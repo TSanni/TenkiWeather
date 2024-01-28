@@ -11,7 +11,7 @@ import SwiftUI
 
 struct WeatherAlertModel {
     let detailsURL: URL
-    let region: String
+    let region: String?
     let severity: WeatherSeverity
     let source: String
     let summary: String
@@ -32,6 +32,15 @@ struct WeatherAlertModel {
                 return Color.gray
             @unknown default:
                 return Color.gray
+        }
+    }
+    
+    
+    var unwrappedRegion: String {
+        if let region = region {
+            return "\(region) •"
+        } else {
+            return ""
         }
     }
 }

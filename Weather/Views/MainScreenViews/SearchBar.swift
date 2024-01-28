@@ -19,6 +19,7 @@ struct SearchBar: View {
                     .foregroundColor(.secondary)
                 Text(locationManager.searchedLocationName)
                     .foregroundColor(.primary)
+                    .lineLimit(1)
                 
                 Spacer()
                 
@@ -29,8 +30,10 @@ struct SearchBar: View {
                     .frame(width: 30, height: 30)
                     .onTapGesture {
                         print("Settings tapped!")
-                        appStateManager.showSettingScreen = true
-                        
+                        withAnimation(.snappy) {
+                            appStateManager.showSettingScreen = true
+                        }
+
                     }
             
 
@@ -55,6 +58,8 @@ struct SearchBar_Previews: PreviewProvider {
             Color.indigo
             SearchBar()
                 .environmentObject(CoreLocationViewModel())
+                .environmentObject(AppStateManager())
+
         }
         
     }

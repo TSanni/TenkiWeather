@@ -24,12 +24,25 @@ struct SearchingScreen: View {
             CustomDivider()
             
             VStack {
-                currentLocation
+                CurrentLocationView()
+                    .padding(.bottom)
+                    .padding(.bottom)
+                    .onTapGesture {
+                        Task {
+                            appStateManager.showSearchScreen = false
+                            appStateManager.dataIsLoading()
+                            await getWeatherAndUpdateDictionary()
+                            persistenceLocations.saveData()
+                            appStateManager.dataCompletedLoading()
+                            appStateManager.scrollToTopAndChangeTabToToday()
+                            
+                            
+                        }
+                    }
                 
                 HStack {
                     Text("Saved locations")
                         .font(.headline)
-                        .foregroundColor(.secondary)
                     Spacer()
                 }
                 
@@ -39,8 +52,9 @@ struct SearchingScreen: View {
             }
             .padding()
         }
+        .foregroundStyle(.white)
         .contentShape(Rectangle())
-        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+        .background(K.Colors.goodDarkTheme)
         .sheet(isPresented: $showGoogleSearchScreen) {
             PlacesViewControllerBridge { place in
                 Task {
@@ -53,10 +67,10 @@ struct SearchingScreen: View {
                     appStateManager.showSearchScreen = false
                     appStateManager.scrollToTopAndChangeTabToToday()
                 }
-
+                
             }
         }
-   
+        
     }
     
     
@@ -67,18 +81,18 @@ struct SearchingScreen: View {
                 appStateManager.showSearchScreen = false
             } label: {
                 Image(systemName: "arrow.left")
-                    .foregroundColor(.secondary)
+                //                    .foregroundColor(.secondary)
                     .contentShape(Rectangle())
                     .padding()
             }
             
             Text("Search for a location")
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(.secondary)
+            //                .foregroundColor(.secondary)
                 .onTapGesture {
                     showGoogleSearchScreen = true
                 }
-                        
+            
         }
     }
     
@@ -87,12 +101,11 @@ struct SearchingScreen: View {
     var currentLocation: some View {
         HStack {
             VStack(alignment: .leading) {
-//                Text(weatherViewModel.localName)
                 
                 if locationManager.localLocationName == "" {
                     Text("Tap to reload")
                         .font(.headline)
-
+                    
                 } else {
                     Text(locationManager.localLocationName)
                         .font(.headline)
@@ -128,8 +141,8 @@ struct SearchingScreen: View {
                 persistenceLocations.saveData()
                 appStateManager.dataCompletedLoading()
                 appStateManager.scrollToTopAndChangeTabToToday()
-
-
+                
+                
             }
         }
     }
@@ -137,9 +150,9 @@ struct SearchingScreen: View {
     
     
     private func getWeatherAndUpdateDictionary() async {
-
+        
         await locationManager.getLocalLocationName()
-//        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
+        //        await locationManager.getNameFromCoordinates(latitude: locationManager.latitude, longitude: locationManager.longitude)
         let timezone = locationManager.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
         let userLocationName = locationManager.localLocationName
@@ -157,9 +170,9 @@ struct SearchingScreen: View {
     private func getWeatherWithGoogleData(place: GMSPlace) async {
         let coordinates = place.coordinate
         await locationManager.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
-//        let name = await locationManager.getNameFromCoordinates(latitude: coordinates.latitude, longitude: coordinates.longitude, nameFromGoogleAPI: place.name)
+        //        let name = await locationManager.getNameFromCoordinates(latitude: coordinates.latitude, longitude: coordinates.longitude, nameFromGoogleAPI: place.name)
         let timezone = locationManager.timezoneForCoordinateInput
-
+        
         await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         
         
@@ -170,7 +183,8 @@ struct SearchingScreen: View {
             timezone: timezone,
             temperature: weatherViewModel.currentWeather.currentTemperature,
             date: weatherViewModel.currentWeather.date,
-            symbol: weatherViewModel.currentWeather.symbol
+            symbol: weatherViewModel.currentWeather.symbol,
+            weatherCondition: weatherViewModel.currentWeather.weatherDescription.description
         )
     }
 }

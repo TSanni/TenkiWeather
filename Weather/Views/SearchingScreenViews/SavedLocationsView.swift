@@ -20,11 +20,14 @@ struct SavedLocationsView: View {
             if persistence.savedLocations.count == 0 {
                 Text("")
                     .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
             }
             ForEach(persistence.savedLocations, id: \.self) { item in
                 SavedLocationCell(location: item)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .padding(.top)
                     .onTapGesture {
                         Task {
                             appStateManager.showSearchScreen = false
@@ -35,11 +38,15 @@ struct SavedLocationsView: View {
                             persistence.saveData()
                             
                         }
-                    }                
+                    }
             }
             .onDelete(perform: persistence.deletePlace(indexSet:))
+
+            
+
         }
         .listStyle(.plain)
+        .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .scrollDismissesKeyboard(.immediately)
     }
@@ -48,28 +55,26 @@ struct SavedLocationsView: View {
     private func getWeatherAndUpdateDictionary(item: LocationEntity) async {
         await locationManager.getLocalLocationName()
         await locationManager.getSearchedLocationName(lat: item.latitude, lon: item.longitude, nameFromGoogle: nil)
-//        let name = await locationManager.getNameFromCoordinates(latitude: item.latitude, longitude: item.longitude)
         await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
         await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: locationManager.localLocationName, timezone: appStateManager.currentLocationTimezone)
-        print("\n\n")
-        print("LOCAL NAME: \(weatherViewModel.localName)")
-        print("LOCAL TEMP: \(weatherViewModel.localTemp)")
-        print("\n\n")
+        
 
         locationManager.searchedLocationName = item.name!
         
-        appStateManager.searchedLocationDictionary["name"] = locationManager.searchedLocationName
-        appStateManager.searchedLocationDictionary["longitude"] = item.longitude
-        appStateManager.searchedLocationDictionary["latitude"] = item.latitude
-        appStateManager.searchedLocationDictionary["timezone"] = item.timezone
+        
+        
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = item.longitude
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = item.latitude
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = item.timezone
     }
 
 }
 
-//struct SavedLocationsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SavedLocationsView()
-////            .environmentObject(SavedLocationsPersistence())
-//        
-//    }
-//}
+struct SavedLocationsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SavedLocationsView()
+            .environmentObject(SavedLocationsPersistence())
+        
+    }
+}

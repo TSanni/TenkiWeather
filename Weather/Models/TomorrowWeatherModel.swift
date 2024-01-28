@@ -23,6 +23,9 @@ struct TomorrowWeatherModel: Identifiable {
     let tomorrowWind: WindData
     let tomorrowHourlyWind: [WindData]
     let hourlyTemperatures: [HourlyTemperatures]
+    let sunData: SunData
+    let precipitation: Precipitation
+
     
  
     var backgroundColor: Color {
@@ -41,6 +44,6 @@ struct TomorrowWeatherModel: Identifiable {
         tomorrowDetails: DetailsModel.detailsDataHolder,
         tomorrowWind: WindData.windDataHolder[0],
         tomorrowHourlyWind: WindData.windDataHolder,
-        hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+        hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData, sunData: SunData.sunDataHolder, precipitation: Precipitation.hail
     )
 }

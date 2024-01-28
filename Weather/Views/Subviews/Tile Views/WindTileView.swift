@@ -1,5 +1,5 @@
 //
-//  WindView.swift
+//  WindTileView.swift
 //  Weather
 //
 //  Created by Tomas Sanni on 6/3/23.
@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct WindView: View {
+struct WindTileView: View {
     @Environment(\.colorScheme) var colorScheme
     let windData: WindData
     let hourlyWindData: [WindData]
     let setTodayWeather: Bool
     let geo: GeometryProxy
+    let backgroundColor: Color
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -29,13 +30,16 @@ struct WindView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 WindBarGraph(hourlyWind: hourlyWindData)
                     .frame(width: geo.size.width * 3)
-                    .saturation(2)
             }
             
         }
         .padding()
         .padding(.top)
-        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+        .foregroundStyle(.white)
+        .background(backgroundColor)
+        .brightness(-0.15)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding()
 
     }
     
@@ -54,7 +58,6 @@ struct WindView: View {
                         .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.windDirection) + 180) )
                     Text(windData.speedUnit)
                 }
-                .foregroundColor(.secondary)
             }
             
             
@@ -65,7 +68,7 @@ struct WindView: View {
                     .fontWeight(.light)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
-                Text("Now · From \(windData.readableWindDirection)").foregroundColor(.secondary)
+                Text("Now · From \(windData.readableWindDirection)")
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
 
@@ -81,7 +84,6 @@ struct WindView: View {
                 .font(.title)
             Text("Average of about \(windData.windSpeed) \(windData.speedUnit)")
                 .font(.subheadline)
-                .foregroundColor(.secondary)
         }
     }
 }
@@ -89,7 +91,7 @@ struct WindView: View {
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geo in
-            WindView(windData: WindData.windDataHolder[0], hourlyWindData: WindData.windDataHolder, setTodayWeather: false, geo: geo)
+            WindTileView(windData: WindData.windDataHolder[0], hourlyWindData: WindData.windDataHolder, setTodayWeather: true, geo: geo, backgroundColor: TodayWeatherModel.holderData.backgroundColor)
                 .previewDevice("iPhone 11 Pro Max")
         }
     }

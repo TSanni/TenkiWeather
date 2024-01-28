@@ -27,16 +27,6 @@ struct WindBarGraph: View {
     var body: some View {
         ZStack {
             
-//            Chart(hourlyWind) { item in
-//                BarMark(x: .value("time", item.time ?? ""), y: .value("windspeed", Double(item.windSpeed) ?? 0))
-//                    .annotation(position: .top) {
-//                        if item.windSpeed != "0" {
-//                            Image(systemName: "location.fill")
-//                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
-//                                .foregroundColor(.secondary)
-//                        }
-//                    }
-//            }
 
             //MARK: - Background Bar Graph to place location images equally in height
             Chart(hourlyWind) { item in
