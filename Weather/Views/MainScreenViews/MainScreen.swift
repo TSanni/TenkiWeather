@@ -46,6 +46,8 @@ struct MainScreen: View {
             blurBackGround
             
             settingsTile
+                .transition(.offset(y: -30))
+
             
             progresView
             

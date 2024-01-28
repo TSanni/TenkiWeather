@@ -32,7 +32,6 @@ struct SearchBar: View {
                         print("Settings tapped!")
                         withAnimation(.snappy) {
                             appStateManager.showSettingScreen = true
-
                         }
 
                     }
