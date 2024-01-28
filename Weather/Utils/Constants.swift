@@ -151,7 +151,7 @@ struct K {
         static let lightPink = #colorLiteral(red: 1, green: 0.7621075511, blue: 0.7261560559, alpha: 1)
         static let maroon = #colorLiteral(red: 0.4117647059, green: 0.003921568627, blue: 0.01960784314, alpha: 1)
         static let prussianBlue = #colorLiteral(red: 0.003921568627, green: 0.2, blue: 0.3294117647, alpha: 1)
-        
+
         
     }
 }

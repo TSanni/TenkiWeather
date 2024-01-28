@@ -28,7 +28,7 @@ struct ImmediateWeatherDetails: View {
             HStack {
                 HStack {
                     Text("\(currentWeather.currentTemperature)°")
-                        .font(.system(size: 75, weight: .bold, design: .default))
+                        .font(.system(size: 85, weight: .bold, design: .default))
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
 
@@ -47,7 +47,7 @@ struct ImmediateWeatherDetails: View {
                     Text("Feels like \(currentWeather.feelsLikeTemperature)°")
                         .foregroundStyle(blendColor2)
                         .fontWeight(.semibold)
-                        .font(.title3)
+                        .font(.headline)
                 }
             }
             

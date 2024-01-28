@@ -30,8 +30,11 @@ struct SearchBar: View {
                     .frame(width: 30, height: 30)
                     .onTapGesture {
                         print("Settings tapped!")
-                        appStateManager.showSettingScreen = true
-                        
+                        withAnimation(.snappy) {
+                            appStateManager.showSettingScreen = true
+
+                        }
+
                     }
             
 
