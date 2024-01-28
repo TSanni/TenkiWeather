@@ -457,8 +457,6 @@ extension WeatherManager {
             return .kilometersPerHour
         case K.DistanceUnits.meterPerSecond:
             return .metersPerSecond
-        case K.DistanceUnits.knots:
-            return .knots
         default:
             print("CAN'T DETERMINE UNIT SPEED")
             return .milesPerHour

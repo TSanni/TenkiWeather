@@ -66,7 +66,7 @@ struct DailyWeatherCell: View {
                 Spacer()
                 
                 VStack(alignment: .leading, spacing: 5.0) {
-                    Text("\(daily.dailyWind.windDescriptionForMPH), \(daily.dailyWind.windSpeed) mph \(daily.dailyWind.windDirection.abbreviation)")
+                    Text("\(daily.dailyWind.windDescriptionForMPH), \(daily.dailyWind.windSpeed) \(daily.dailyWind.speedUnit) \(daily.dailyWind.windDirection.abbreviation)")
                     Text(daily.dailyUVIndex)
                     
                     if daily.dailyChanceOfPrecipitation != "0%" {

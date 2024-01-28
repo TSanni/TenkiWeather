@@ -39,7 +39,6 @@ struct K {
         static let mph = "Miles per hour"
         static let kiloPerHour = "Kilometers per hour"
         static let meterPerSecond = "Meters per second"
-        static let knots = "Knots"
     }
     
     struct Time {

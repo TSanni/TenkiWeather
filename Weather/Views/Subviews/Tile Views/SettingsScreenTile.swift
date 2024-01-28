@@ -17,7 +17,6 @@ enum DistanceUnits: String, CaseIterable {
     case miles = "Miles per hour"
     case kilometer = "Kilometers per hour"
     case meters = "Meters per second"
-    case knots = "Knots"
 }
 
 
