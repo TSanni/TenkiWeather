@@ -41,7 +41,7 @@ struct UVIndexTileView: View {
 //            }
   
         }
-        .cardTileModifier(backgroundColor: backgroundColor, width: width)
+        .cardTileModifier(backgroundColor: backgroundColor)
     }
 }
 

@@ -30,7 +30,6 @@ struct TodayWeatherModel: Identifiable {
     
     
     var backgroundColor: Color {
-        
         K.getBackGroundColor(symbol: symbol)
     }
     

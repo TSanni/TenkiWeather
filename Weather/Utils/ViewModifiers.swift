@@ -82,7 +82,6 @@ struct CustomNavBackButton: ViewModifier {
 
 struct CardViewModifier: ViewModifier {
     let backgroundColor: Color
-    let width: CGFloat
     
     func body(content: Content) -> some View {
         content
@@ -91,7 +90,6 @@ struct CardViewModifier: ViewModifier {
             .background(backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .aspectRatio(1, contentMode: .fit)
-//            .frame(width: width)
             .brightness(-0.15)
     }
 }
@@ -121,8 +119,8 @@ extension View {
         return self.modifier(SubHeaderViewModifier())
     }
     
-    func cardTileModifier(backgroundColor: Color, width: CGFloat) -> some View {
-        return self.modifier(CardViewModifier(backgroundColor: backgroundColor, width: width))
+    func cardTileModifier(backgroundColor: Color) -> some View {
+        return self.modifier(CardViewModifier(backgroundColor: backgroundColor))
     }
 }
 

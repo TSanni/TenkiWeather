@@ -63,7 +63,10 @@ struct HourlyForecastTileView: View {
 #Preview {
     ZStack {
         Color(uiColor: K.Colors.cloudMoonRainColor).brightness(0.1)
-        HourlyForecastTileView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData, color: Color(uiColor: K.Colors.cloudMoonRainColor))
-            .environmentObject(AppStateManager())
+        HourlyForecastTileView(
+            hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData,
+            color: Color(uiColor: K.Colors.cloudMoonRainColor)
+        )
+        .environmentObject(AppStateManager())
     }
 }

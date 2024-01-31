@@ -36,7 +36,7 @@ struct SunDataTile: View {
 
  
         }
-        .cardTileModifier(backgroundColor: backgroundColor, width: width)
+        .cardTileModifier(backgroundColor: backgroundColor)
 
     }
     
@@ -62,7 +62,7 @@ struct SunDataTile: View {
 
  
         }
-        .cardTileModifier(backgroundColor: backgroundColor, width: width)
+        .cardTileModifier(backgroundColor: backgroundColor)
 
     }
     

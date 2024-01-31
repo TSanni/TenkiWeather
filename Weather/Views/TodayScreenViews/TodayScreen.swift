@@ -14,19 +14,7 @@ struct TodayScreen: View {
     let currentWeather: TodayWeatherModel
     let weatherAlert: WeatherAlertModel?
     
-//    let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    //    let columns2 = [GridItem(.adaptive(minimum: 175, maximum: .infinity))]
-    
-    
-    //    ///Returns columns and tile size accounting for iPhone and iPad
-    //    func getDevice(geo: GeometryProxy) -> [GridItem] {
-    //        if UIDevice.current.userInterfaceIdiom == .pad {
-    //            return [GridItem(.adaptive(minimum: geo.size.width * 0.20, maximum: .infinity))]
-    //
-    //        } else {
-    //            return [GridItem(.adaptive(minimum: geo.size.width * 0.44, maximum: 200))]
-    //        }
-    //    }
+
     
     
     var body: some View {
