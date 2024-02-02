@@ -9,10 +9,19 @@ import SwiftUI
 
 struct HumidityTileView: View {
     let humidityDetails: DetailsModel
-    let width: CGFloat
     let backgroundColor: Color
     
+    
+    ///The humidity passed in is a value 0-1 representing a percentage.
+    ///This function multiplies that value by 100 to get a regular number
+    ///Ex) 0.2 will return 20
+    func convertHumidityFromPercentToDouble(humidity: Double) -> Double {
+        let newHumidity = humidity * 100
+        return newHumidity
+    }
+    
     var body: some View {
+        let humidity = convertHumidityFromPercentToDouble(humidity: humidityDetails.humidity)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "humidity.fill")
@@ -24,9 +33,22 @@ struct HumidityTileView: View {
             
             Spacer()
             
-            Text(humidityDetails.humidityPercentage)
-                .font(.largeTitle)
-                .bold()
+            HStack {
+                Text(humidityDetails.humidityPercentage)
+                    .font(.largeTitle)
+                    .bold()
+                
+                Spacer()
+                
+                TileImageProgressView(
+                    height: 40,
+                    value: humidity,
+                    sfSymbol: "humidity.fill",
+                    color: K.Colors.precipitationBlue
+                )
+                .aspectRatio(1, contentMode: .fit)
+
+            }
             
             Spacer()
             
@@ -41,5 +63,6 @@ struct HumidityTileView: View {
 }
 
 #Preview {
-    HumidityTileView(humidityDetails: DetailsModel.detailsDataHolder, width: 200, backgroundColor: Color.red)
+    HumidityTileView(humidityDetails: DetailsModel.detailsDataHolder, backgroundColor: Color(uiColor: K.Colors.haze))
+        .frame(width: 200)
 }

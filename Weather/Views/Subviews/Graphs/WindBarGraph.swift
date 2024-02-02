@@ -29,27 +29,27 @@ struct WindBarGraph: View {
             
 
             //MARK: - Background Bar Graph to place location images equally in height
-            Chart(hourlyWind) { item in
-                BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", getLargestValue() + 10))
-                    .foregroundStyle(Color.clear)
-                    .annotation(position: .top) {
-                        if item.windSpeed != "0" {
-                            Image(systemName: "location.fill")
-                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-            }
-            .chartYScale(domain: 0...(getLargestValue() + 20))
-            .chartYAxis(.hidden)
-            .chartXAxis(.hidden)
-            .chartXAxis {
-                AxisMarks(position: .bottom) { q in
-                    AxisValueLabel {
-                        Text("\(hourlyWind[q.index].time ?? "-")")
-                    }
-                }
-            }
+//            Chart(hourlyWind) { item in
+//                BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", getLargestValue() + 10))
+//                    .foregroundStyle(Color.clear)
+//                    .annotation(position: .top) {
+//                        if item.windSpeed != "0" {
+//                            Image(systemName: "location.fill")
+//                                .rotationEffect(.degrees(getRotation(direction: item.windDirection) + 180))
+//                                .foregroundColor(.secondary)
+//                        }
+//                    }
+//            }
+//            .chartYScale(domain: 0...(getLargestValue() + 20))
+//            .chartYAxis(.hidden)
+//            .chartXAxis(.hidden)
+//            .chartXAxis {
+//                AxisMarks(position: .bottom) { q in
+//                    AxisValueLabel {
+//                        Text("\(hourlyWind[q.index].time ?? "-")")
+//                    }
+//                }
+//            }
 
             //MARK: - Bar Graph with wind data
             Chart(hourlyWind) { item in
@@ -59,7 +59,7 @@ struct WindBarGraph: View {
                         Text("\(item.windSpeed)")
                     }
             }
-            .chartYScale(domain: 0...(getLargestValue() + 20))
+//            .chartYScale(domain: 0...(getLargestValue() + 20))
             .chartYAxis(.hidden)
             .chartXAxis {
                 AxisMarks(position: .bottom) { q in

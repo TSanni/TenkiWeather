@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PressureTileView: View {
     let pressureDetails: DetailsModel
-    let width: CGFloat
     let backgroundColor: Color
     
     
@@ -25,11 +24,20 @@ struct PressureTileView: View {
             
             Spacer()
             
-            VStack(alignment: .leading, spacing: 0.0) {
+            HStack {
                 
-                Text(pressureDetails.pressureValue)
+                Text(pressureDetails.pressureString)
                     .font(.largeTitle)
-                    .bold()
+                    .fontWeight(.semibold)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.5)
+                
+                Spacer()
+                
+                CircularProgressView(pressure: pressureDetails.pressureValue)
+                    .frame(width: 80)
+                    .aspectRatio(1, contentMode: .fit)
+                
                 
             }
             
@@ -46,5 +54,6 @@ struct PressureTileView: View {
 }
 
 #Preview {
-    PressureTileView(pressureDetails: DetailsModel.detailsDataHolder, width: 200, backgroundColor: Color.red)
+    PressureTileView(pressureDetails: DetailsModel.detailsDataHolder, backgroundColor: Color.brown)
+        .frame(width: 250)
 }

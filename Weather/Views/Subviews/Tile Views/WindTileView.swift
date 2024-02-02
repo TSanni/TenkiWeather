@@ -9,10 +9,11 @@ import SwiftUI
 
 struct WindTileView: View {
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var appStateManager: AppStateManager
+    
     let windData: WindData
     let hourlyWindData: [WindData]
     let setTodayWeather: Bool
-    let geo: GeometryProxy
     let backgroundColor: Color
     
     var body: some View {
@@ -28,19 +29,35 @@ struct WindTileView: View {
             }
             
             ScrollView(.horizontal, showsIndicators: false) {
-                WindBarGraph(hourlyWind: hourlyWindData)
-                    .frame(width: geo.size.width * 3)
+                
+                ScrollViewReader { proxy in
+                    HStack {
+                        EmptyView()
+                            .id(0)
+                        ForEach(hourlyWindData) { datum in
+                            Image(systemName: "location.fill")
+                                .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: datum.windDirection) + 180))
+                                .padding(.vertical)
+                                .padding(.horizontal, 10)
+                        }
+                    }
+                    .onChange(of: appStateManager.resetScrollToggle) { _ in
+                        proxy.scrollTo(0)
+                    }
+                    
+                    WindBarGraph(hourlyWind: hourlyWindData)
+   
+                }
             }
-            
         }
         .padding()
         .padding(.top)
         .foregroundStyle(.white)
         .background(backgroundColor)
         .brightness(-0.15)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
         .padding()
-
+        
     }
     
     
@@ -71,8 +88,8 @@ struct WindTileView: View {
                 Text("Now · From \(windData.readableWindDirection)")
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
-
-
+                
+                
             }
         }
     }
@@ -91,8 +108,14 @@ struct WindTileView: View {
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geo in
-            WindTileView(windData: WindData.windDataHolder[0], hourlyWindData: WindData.windDataHolder, setTodayWeather: true, geo: geo, backgroundColor: TodayWeatherModel.holderData.backgroundColor)
-                .previewDevice("iPhone 11 Pro Max")
+            WindTileView(
+                windData: WindData.windDataHolder[0],
+                hourlyWindData: WindData.windDataHolder,
+                setTodayWeather: true,
+                backgroundColor: Color(uiColor: K.Colors.haze)
+            )
+            .environmentObject(AppStateManager())
+            
         }
     }
 }

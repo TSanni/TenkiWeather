@@ -45,8 +45,8 @@ struct SettingsScreenTile: View {
         
         
         ZStack(alignment: .top) {
-            let darkTheme = K.Colors.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: 10))
-            let lightTheme = K.Colors.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: 10))
+            let darkTheme = K.Colors.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
+            let lightTheme = K.Colors.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
             
             
             
@@ -127,7 +127,7 @@ struct SettingsScreenTile: View {
                 .background(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))
                 .scrollContentBackground(.hidden)
                 .listStyle(.plain)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
                 .scrollIndicators(.hidden)
                 
                 HStack {
@@ -151,10 +151,9 @@ struct SettingsScreenTile: View {
             Alert(title: alertTitle, message: alertMessage)
         }
         .fullScreenCover(isPresented: $showPrivacyWebsite) {
-            FullScreenWebView(url: "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621")
+            FullScreenWebView(url: K.privacyPolicyURL)
         }
         .fullScreenCover(isPresented: $showTermsAndConditionsWebsite) {
-            //FullScreenWebView(url: "https://www.termsfeed.com/live/ea65e2ba-f3a8-4de0-80f0-2719c1e43d31")
             TermsAndConditionsView()
         }
     }
@@ -163,7 +162,6 @@ struct SettingsScreenTile: View {
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         SettingsScreenTile()
-            .previewDevice("iPhone SE (3rd generation)")
             .frame(height: 300)
             .padding()
             .environmentObject(AppStateManager())

@@ -51,9 +51,12 @@ struct TomorrowScreen: View {
                                 
                                 LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
                                     
-                                    UVIndexTileView(uvIndexDetails: tomorrowWeather.tomorrowDetails, width: tileSize, backgroundColor: tomorrowWeather.backgroundColor)
+                                    UVIndexTileView(uvIndexDetails: tomorrowWeather.tomorrowDetails, backgroundColor: tomorrowWeather.backgroundColor)
                                     
-                                    PrecipitationTileView(precipitationDetails: tomorrowWeather, width: tileSize, backgroundColor: tomorrowWeather.backgroundColor)
+                                    PrecipitationTileView(
+                                        precipitationDetails: tomorrowWeather,
+                                        backgroundColor: tomorrowWeather.backgroundColor
+                                    )
                                     
                                     
                                     SunDataTile(sundata: tomorrowWeather.sunData, backgroundColor: tomorrowWeather.backgroundColor, isSunrise: true, width: tileSize)
@@ -64,7 +67,12 @@ struct TomorrowScreen: View {
                                 
                             }
                             
-                            WindTileView(windData: tomorrowWeather.tomorrowWind, hourlyWindData: tomorrowWeather.tomorrowHourlyWind, setTodayWeather: false, geo: geo, backgroundColor: tomorrowWeather.backgroundColor)
+                            WindTileView(
+                                windData: tomorrowWeather.tomorrowWind,
+                                hourlyWindData: tomorrowWeather.tomorrowHourlyWind,
+                                setTodayWeather: false,
+                                backgroundColor: tomorrowWeather.backgroundColor
+                            )
                             
                         }
                     }

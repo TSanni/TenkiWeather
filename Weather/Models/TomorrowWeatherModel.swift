@@ -17,7 +17,7 @@ struct TomorrowWeatherModel: Identifiable {
     let tomorrowHigh: String
     let tomorrowSymbol: String
     let tomorrowWeatherDescription: WeatherCondition
-    let tomorrowChanceOfPrecipitation: String
+    let tomorrowChanceOfPrecipitation: Double
     
     let tomorrowDetails: DetailsModel
     let tomorrowWind: WindData
@@ -40,7 +40,7 @@ struct TomorrowWeatherModel: Identifiable {
         tomorrowHigh: "-",
         tomorrowSymbol: "cloud.rain",
         tomorrowWeatherDescription: .clear,
-        tomorrowChanceOfPrecipitation: "-",
+        tomorrowChanceOfPrecipitation: 0.5,
         tomorrowDetails: DetailsModel.detailsDataHolder,
         tomorrowWind: WindData.windDataHolder[0],
         tomorrowHourlyWind: WindData.windDataHolder,

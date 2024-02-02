@@ -7,7 +7,7 @@
 
 import Foundation
 import WeatherKit
-
+import SwiftUI
 
 
 //MARK: - Details Model : Will be part of main model
@@ -21,6 +21,7 @@ struct DetailsModel {
     let sunData: SunData?
     let visibilityValue: Double?
     let pressureTrend: PressureTrend?
+    let pressureValue: Double
     
     
     var visiblityDescription: String {
@@ -59,23 +60,6 @@ struct DetailsModel {
         uvIndexValue.description
     }
     
-    var pressureValue: String {
-        pressure ?? "Pressure unavailable"
-    }
-    
-    var pressureDescription: String {
-        switch pressureTrend {
-        case .rising:
-            return "The pressure is rising."
-        case .falling:
-            return "The pressure is falling."
-        case .steady:
-            return "The pressure is not changing."
-        case nil:
-            return "No pressure data"
-        }
-    }
-    
     var uvIndexActionRecommendation: String {
         switch uvIndexCategory {
         case .low:
@@ -91,9 +75,44 @@ struct DetailsModel {
         }
     }
     
+    var uvIndexColor: Color {
+        switch uvIndexCategory {
+        case .low:
+            return Color.green
+        case .moderate:
+            return Color.orange
+        case .high:
+            return Color.red
+        case .veryHigh:
+            return Color.red
+        case .extreme:
+            return Color.red
+        }
+    }
+
+    var pressureString: String {
+        pressure ?? "Pressure unavailable"
+    }
+    
+    var pressureDescription: String {
+        switch pressureTrend {
+        case .rising:
+            return "The pressure is rising."
+        case .falling:
+            return "The pressure is falling."
+        case .steady:
+            return "The pressure is not changing."
+        case nil:
+            return "No pressure data"
+        default:
+            return "No pressure data"
+        }
+    }
+    
+
     
     
     
     /// Holder data for today's current weather details
-    static let detailsDataHolder = DetailsModel(humidity: 0.8, dewPoint: "-", pressure: "-", uvIndexCategory: .extreme, uvIndexValue: 10, visibility: "-", sunData: SunData.sunDataHolder, visibilityValue: 100, pressureTrend: .rising)
+    static let detailsDataHolder = DetailsModel(humidity: 0.5, dewPoint: "-", pressure: "-", uvIndexCategory: .extreme, uvIndexValue: 7, visibility: "-", sunData: SunData.sunDataHolder, visibilityValue: 100, pressureTrend: .rising, pressureValue: 30)
 }

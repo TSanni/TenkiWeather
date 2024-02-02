@@ -66,7 +66,8 @@ class WeatherManager {
             visibility: getReadableMeasurementLengths(measurement: current.visibility.converted(to: getUnitLength())),
             sunData: nil,
             visibilityValue: current.visibility.value,
-            pressureTrend: current.pressureTrend
+            pressureTrend: current.pressureTrend,
+            pressureValue: current.pressure.converted(to: .inchesOfMercury).value
         )
                 
         
@@ -201,7 +202,8 @@ class WeatherManager {
             visibility: "",
             sunData: sunDetails,
             visibilityValue: nil,
-            pressureTrend: nil
+            pressureTrend: nil,
+            pressureValue: 0
         )
         
         let tomorrowWind = WindData(
@@ -217,7 +219,7 @@ class WeatherManager {
             tomorrowHigh: String(format: "%.0f", tomorrowWeather.highTemperature.converted(to: getUnitTemperature()).value),
             tomorrowSymbol: tomorrowWeather.symbolName,
             tomorrowWeatherDescription: tomorrowWeather.condition,
-            tomorrowChanceOfPrecipitation: tomorrowWeather.precipitationChance.formatted(.percent),
+            tomorrowChanceOfPrecipitation: tomorrowWeather.precipitationChance,
             tomorrowDetails: tomorrowDetails,
             tomorrowWind: tomorrowWind,
             tomorrowHourlyWind: tomorrowHourlyWind,
@@ -356,7 +358,7 @@ extension WeatherManager {
     /// Takes a UnitPressure measurement and converts it to a readable format by removing floating numbers.
     /// Returns a String of that format
     private func getReadableMeasurementPressure(measurement: Measurement<UnitPressure>) -> String {
-        return String(format: "%.0f", measurement.value) + " " + measurement.unit.symbol
+        return String(format: "%.2f", measurement.value) + " " + measurement.unit.symbol
         
     }
      

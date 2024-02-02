@@ -9,9 +9,20 @@ import SwiftUI
 
 struct PrecipitationTileView: View {
     let precipitationDetails: TomorrowWeatherModel
-    let width: CGFloat
     let backgroundColor: Color
+    
+    
+    ///The humidity passed in is a value 0-1 representing a percentage.
+    ///This function multiplies that value by 100 to get a regular number
+    ///Ex) 0.2 will return 20
+    func convertPrecipitationFromPercentToDouble(precipitation: Double) -> Double {
+        let newPrecipitation = precipitation * 100
+        return newPrecipitation
+    }
+    
+    
     var body: some View {
+        let precipitation = convertPrecipitationFromPercentToDouble(precipitation: precipitationDetails.tomorrowChanceOfPrecipitation)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "drop.fill")
@@ -23,21 +34,33 @@ struct PrecipitationTileView: View {
             
             Spacer()
             
-            VStack(alignment: .leading, spacing: 0.0) {
+            HStack {
+                VStack(alignment: .leading, spacing: 0.0) {
+                    
+                    Text(precipitationDetails.tomorrowChanceOfPrecipitation.formatted(.percent))
+                        .font(.largeTitle)
+                        .bold()
+                    
+                    Text(precipitationDetails.precipitation.description.capitalized)
+                        .font(.title3)
+                        .bold()
+                }
                 
-                Text(precipitationDetails.tomorrowChanceOfPrecipitation)
-                    .font(.largeTitle)
-                    .bold()
+                Spacer()
                 
-                Text(precipitationDetails.precipitation.description.capitalized)
-                    .font(.title3)
-                    .bold()
+                TileImageProgressView(
+                    height: 40,
+                    value: precipitation,
+                    sfSymbol: "drop.fill",
+                    color: K.Colors.precipitationBlue
+                )
+                .aspectRatio(1, contentMode: .fit)
             }
             
             
             Spacer()
             
-            Text("\(precipitationDetails.tomorrowChanceOfPrecipitation) chance of precipitation.")
+            Text("\(precipitationDetails.tomorrowChanceOfPrecipitation.formatted(.percent)) chance of precipitation.")
                 .font(.footnote)
 
             
@@ -48,5 +71,9 @@ struct PrecipitationTileView: View {
 }
 
 #Preview {
-    PrecipitationTileView(precipitationDetails: TomorrowWeatherModel.tomorrowDataHolder, width: 200, backgroundColor: Color.red)
+    PrecipitationTileView(
+        precipitationDetails: TomorrowWeatherModel.tomorrowDataHolder,
+        backgroundColor: Color(uiColor: K.Colors.haze)
+    )
+    .frame(width: 200)
 }

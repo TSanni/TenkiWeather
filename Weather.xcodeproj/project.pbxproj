@@ -30,6 +30,9 @@
 		83731A712A2FDAA700D481CA /* SearchingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A702A2FDAA700D481CA /* SearchingScreen.swift */; };
 		83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */; };
 		83731A762A2FFE4300D481CA /* SavedLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A752A2FFE4300D481CA /* SavedLocationsView.swift */; };
+		837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */; };
+		837D7DA92B6BF6AF0031B296 /* TileImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DA82B6BF6AF0031B296 /* TileImageProgressView.swift */; };
+		837D7DAB2B6D879F0031B296 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */; };
 		838461812A4C9DDC000B8E86 /* SettingsScreenTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */; };
 		838461832A508E14000B8E86 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461822A508E13000B8E86 /* AppStateManager.swift */; };
 		838FAE0B2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */; };
@@ -95,6 +98,9 @@
 		83731A702A2FDAA700D481CA /* SearchingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingScreen.swift; sourceTree = "<group>"; };
 		83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationCell.swift; sourceTree = "<group>"; };
 		83731A752A2FFE4300D481CA /* SavedLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsView.swift; sourceTree = "<group>"; };
+		837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastLineGraphView.swift; sourceTree = "<group>"; };
+		837D7DA82B6BF6AF0031B296 /* TileImageProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileImageProgressView.swift; sourceTree = "<group>"; };
+		837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTile.swift; sourceTree = "<group>"; };
 		838461822A508E13000B8E86 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastTileView.swift; sourceTree = "<group>"; };
@@ -193,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				83E04FC92A25BE35009720AB /* WeatherGraphView.swift */,
+				837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */,
 				83E04FD52A2B29DE009720AB /* WindBarGraph.swift */,
 			);
 			path = Graphs;
@@ -202,6 +209,8 @@
 			isa = PBXGroup;
 			children = (
 				838FAE162B6084A200AAC0C1 /* Tile Views */,
+				837D7DA82B6BF6AF0031B296 /* TileImageProgressView.swift */,
+				837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */,
 				834E1F762A98C49C00DB4DE5 /* Graphs */,
 				830279DE2A98E80000E3487D /* WebViews */,
 				83B760922A67119C007075E2 /* LabelView.swift */,
@@ -529,6 +538,7 @@
 				838FAE0D2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift in Sources */,
 				83E04FB22A247295009720AB /* TodayScreen.swift in Sources */,
 				83E04FD62A2B29DF009720AB /* WindBarGraph.swift in Sources */,
+				837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */,
 				83DA72E82A419C7C00C50C86 /* WeatherManager.swift in Sources */,
 				83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */,
 				839F32EB2A39186C0048EF05 /* WindModel.swift in Sources */,
@@ -545,6 +555,7 @@
 				834E1F782A98C51800DB4DE5 /* WeatherAlertTileView.swift in Sources */,
 				83E04FC42A25655F009720AB /* SearchBar.swift in Sources */,
 				83B760912A6710FF007075E2 /* FullScreenWebView.swift in Sources */,
+				837D7DAB2B6D879F0031B296 /* CircularProgressView.swift in Sources */,
 				83E04FC02A2555DE009720AB /* WeatherTabSelectionsView.swift in Sources */,
 				83E04FA42A22DF1B009720AB /* WeatherApp.swift in Sources */,
 				8313DE862B61A20D0031C5E7 /* PressureTileView.swift in Sources */,
@@ -559,6 +570,7 @@
 				838FAE0F2B5EA82200AAC0C1 /* CurrentConditionsTile.swift in Sources */,
 				8313DE942B63DB890031C5E7 /* TabViews.swift in Sources */,
 				8313DE7E2B6129FB0031C5E7 /* HumidityTileView.swift in Sources */,
+				837D7DA92B6BF6AF0031B296 /* TileImageProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +717,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -748,6 +761,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

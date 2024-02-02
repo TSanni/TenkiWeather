@@ -12,6 +12,10 @@ import SwiftUI
 struct K {
 //    static let apiKey = Bundle.main.object(forInfoDictionaryKey: "apiKey")
     static let googleApiKey = Bundle.main.object(forInfoDictionaryKey: "googlePlacesApiKey") as! String
+    
+    static let privacyPolicyURL = "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621"
+    
+    static let tileCornerRadius: CGFloat = 20
 
     struct UserDefaultKeys {
         static let unitTemperatureKey = "UnitTemperature"
@@ -139,8 +143,8 @@ struct K {
         static let haze = #colorLiteral(red: 0.6361310482, green: 0.6071113944, blue: 0.5944020152, alpha: 1)
         static let cloudSnow = #colorLiteral(red: 0.2117647059, green: 0.3294117647, blue: 0.5254901961, alpha: 1)
                 
-        
-        static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
+        static let precipitationBlue = Color(uiColor: #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1))
+//        static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
         
         
         static let cloudyBlue = #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1)

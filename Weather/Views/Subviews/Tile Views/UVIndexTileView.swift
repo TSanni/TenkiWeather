@@ -9,7 +9,6 @@ import SwiftUI
 
 struct UVIndexTileView: View {
     let uvIndexDetails: DetailsModel
-    let width: CGFloat
     let backgroundColor: Color
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,29 +22,41 @@ struct UVIndexTileView: View {
             
             Spacer()
             
-//            VStack(alignment: .leading, spacing: 0.0) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(uvIndexDetails.uvIndexValueDescription)
+                        .font(.largeTitle)
+                        .bold()
+                    Text(uvIndexDetails.uvIndexCategoryDescription)
+                        .bold()
+                }
                 
-                Text(uvIndexDetails.uvIndexValueDescription)
-                    .font(.largeTitle)
-                    .bold()
+                Spacer()
                 
-                Text(uvIndexDetails.uvIndexCategoryDescription)
-//                    .font(.title3)
-                    .bold()
-                
+                TileImageProgressView(
+                    height: 50,
+                    value: CGFloat(uvIndexDetails.uvIndexValue),
+                    sfSymbol: "seal.fill",
+                    color: uvIndexDetails.uvIndexColor,
+                    maxValue: 11
+                )
+                .aspectRatio(1, contentMode: .fit)
+
+            }
+       
                 Spacer()
                 
                 Text(uvIndexDetails.uvIndexActionRecommendation)
                     .font(.footnote)
-                    
-//            }
-  
+                      
         }
         .cardTileModifier(backgroundColor: backgroundColor)
+        
     }
 }
 
 
 #Preview {
-    UVIndexTileView(uvIndexDetails: DetailsModel.detailsDataHolder, width: 170, backgroundColor: Color.red)
+    UVIndexTileView(uvIndexDetails: DetailsModel.detailsDataHolder, backgroundColor: Color(uiColor: K.Colors.haze))
+        .frame(width: 200)
 }

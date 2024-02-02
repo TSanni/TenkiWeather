@@ -55,14 +55,12 @@ struct TodayScreen: View {
                                 
                                 HumidityTileView(
                                     humidityDetails: currentWeather.currentDetails,
-                                    width: appStateManager.fortyFivePercentTileSize(geo: geo),
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
                                 
                                 UVIndexTileView(
                                     uvIndexDetails: currentWeather.currentDetails,
-                                    width: appStateManager.fortyFivePercentTileSize(geo: geo),
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
@@ -75,7 +73,6 @@ struct TodayScreen: View {
                                 
                                 PressureTileView(
                                     pressureDetails: currentWeather.currentDetails,
-                                    width: appStateManager.fortyFivePercentTileSize(geo: geo),
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                             }
@@ -85,7 +82,7 @@ struct TodayScreen: View {
                             WindTileView(
                                 windData: currentWeather.todayWind,
                                 hourlyWindData: currentWeather.todayHourlyWind,
-                                setTodayWeather: true, geo: geo,
+                                setTodayWeather: true, 
                                 backgroundColor: currentWeather.backgroundColor
                             )
                             

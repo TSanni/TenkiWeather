@@ -88,7 +88,7 @@ struct CardViewModifier: ViewModifier {
             .foregroundStyle(.white)
             .padding()
             .background(backgroundColor)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
             .aspectRatio(1, contentMode: .fit)
             .brightness(-0.15)
     }
