@@ -28,7 +28,7 @@ struct PressureTileView: View {
                 
                 Text(pressureDetails.pressureString)
                     .font(.largeTitle)
-                    .fontWeight(.semibold)
+                    .fontWeight(.bold)
                     .lineLimit(2)
                     .minimumScaleFactor(0.5)
                 

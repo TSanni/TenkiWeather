@@ -59,9 +59,17 @@ struct TomorrowScreen: View {
                                     )
                                     
                                     
-                                    SunDataTile(sundata: tomorrowWeather.sunData, backgroundColor: tomorrowWeather.backgroundColor, isSunrise: true, width: tileSize)
+                                    SunDataTile(
+                                        sundata: tomorrowWeather.sunData,
+                                        backgroundColor: tomorrowWeather.backgroundColor,
+                                        isSunrise: true
+                                    )
                                     
-                                    SunDataTile(sundata: tomorrowWeather.sunData, backgroundColor: tomorrowWeather.backgroundColor, isSunrise: false, width: tileSize)
+                                    SunDataTile(
+                                        sundata: tomorrowWeather.sunData, 
+                                        backgroundColor: tomorrowWeather.backgroundColor, 
+                                        isSunrise: false
+                                    )
                                 }
                                 .padding()
                                 

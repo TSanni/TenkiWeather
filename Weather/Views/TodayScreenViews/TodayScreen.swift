@@ -98,15 +98,13 @@ struct TodayScreen: View {
                                 SunDataTile(
                                     sundata: currentWeather.sunData,
                                     backgroundColor: currentWeather.backgroundColor,
-                                    isSunrise: true,
-                                    width: appStateManager.fortyFivePercentTileSize(geo: geo)
+                                    isSunrise: true
                                 )
                                 
                                 SunDataTile(
                                     sundata: currentWeather.sunData,
                                     backgroundColor: currentWeather.backgroundColor,
-                                    isSunrise: false,
-                                    width: appStateManager.fortyFivePercentTileSize(geo: geo)
+                                    isSunrise: false
                                 )
                             }
                             .padding()

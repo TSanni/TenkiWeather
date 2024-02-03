@@ -11,7 +11,6 @@ struct SunDataTile: View {
     let sundata: SunData
     let backgroundColor: Color
     let isSunrise: Bool
-    let width: CGFloat
     
     
     var sunrise: some View {
@@ -26,8 +25,21 @@ struct SunDataTile: View {
             
             Spacer()
             
-            Text(sundata.sunrise)
-                .font(.largeTitle)
+            HStack {
+                Text(sundata.sunrise)
+                    .font(.largeTitle)
+                    .bold()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                
+                Spacer()
+                
+                Image(systemName: "sunrise.fill")
+                    .renderingMode(.original)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 55)
+            }
             
             Spacer()
 
@@ -52,8 +64,21 @@ struct SunDataTile: View {
             
             Spacer()
             
-            Text(sundata.sunset)
-                .font(.largeTitle)
+            HStack {
+                Text(sundata.sunset)
+                    .font(.largeTitle)
+                    .bold()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                
+                Spacer()
+                
+                Image(systemName: "sunset.fill")
+                    .resizable()
+                    .foregroundStyle(.white, .orange)
+                    .scaledToFit()
+                    .frame(width: 55)
+            }
             
             Spacer()
 
@@ -81,5 +106,10 @@ struct SunDataTile: View {
 }
 
 #Preview {
-    SunDataTile(sundata: SunData.sunDataHolder, backgroundColor: TodayWeatherModel.holderData.backgroundColor, isSunrise: true, width: 200)
+    SunDataTile(
+        sundata: SunData.sunDataHolder,
+        backgroundColor: Color(uiColor: K.Colors.haze),
+        isSunrise: false
+    )
+    .frame(width: 200)
 }
