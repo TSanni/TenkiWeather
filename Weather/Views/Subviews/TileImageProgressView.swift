@@ -15,15 +15,40 @@ struct TileImageProgressView: View {
     let color: Color
     var maxValue: Double? = 100
     
+    @State private var secondRectangleWidth: CGFloat = 0
+    
     var body: some View {
         
         
         ZStack(alignment: .bottom) {
-            Rectangle().fill(Color.white.opacity(0.5))
+            Rectangle()
+                .fill(color.opacity(0.2))
+                .scaledToFit()
                 .frame(height: height)
+                .background { // use this modifier to get the dimensions of this rectangle and set the state value
+                    GeometryReader { geo in
+                        Path { path in
+                            DispatchQueue.main.async {
+                                print("1 frame size = \(geo.size)")
+                                secondRectangleWidth = geo.size.width
+                            }
 
-            Rectangle().fill(color)
+                        }
+                    }
+                }
+
+            Rectangle()
+                .fill(color)
                 .frame(height: getRectangleHeight() )
+                .frame(width: secondRectangleWidth)
+                .background {
+                    GeometryReader { geo in
+                        Path { path in
+                            print("2 frame size = \(geo.size)")
+                        }
+                    }
+                }
+            
         }
         .mask {
             Image(systemName: sfSymbol)
@@ -44,6 +69,6 @@ struct TileImageProgressView: View {
 #Preview {
     ZStack {
         Color.brown
-        TileImageProgressView(height: 100, value: 50, sfSymbol: "drop.fill", color: Color.blue)
+        TileImageProgressView(height: 100, value: 50, sfSymbol: "drop.fill", color: Color.orange)
     }
 }

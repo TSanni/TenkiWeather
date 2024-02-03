@@ -49,7 +49,7 @@ struct PrecipitationTileView: View {
                 Spacer()
                 
                 TileImageProgressView(
-                    height: 40,
+                    height: 50,
                     value: precipitation,
                     sfSymbol: "drop.fill",
                     color: K.Colors.precipitationBlue

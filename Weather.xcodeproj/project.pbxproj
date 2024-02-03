@@ -226,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				8313DE922B63DB250031C5E7 /* MainScreenViews */,
-				8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */,
 				83731A722A2FFC5F00D481CA /* SearchingScreenViews */,
 				83E04FC62A25A920009720AB /* TodayScreenViews */,
 				83E04FC72A25A944009720AB /* TomorrowScreenViews */,
@@ -336,6 +335,7 @@
 			children = (
 				839F32F72A3BD62C0048EF05 /* Info.plist */,
 				83E04FA32A22DF1B009720AB /* WeatherApp.swift */,
+				8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */,
 				839F32EC2A3918FD0048EF05 /* Models */,
 				83731A6F2A2FD9F300D481CA /* Views */,
 				83DA72DA2A3FC12800C50C86 /* ViewModels */,

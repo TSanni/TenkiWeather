@@ -19,7 +19,7 @@ struct CircularProgressView: View {
                 
                 Circle()
                     .trim(from: 0.0, to: 0.8)
-                    .stroke(Color.gray, style: StrokeStyle(lineWidth: 10, lineCap: .round))
+                    .stroke(Color.white.opacity(0.5), style: StrokeStyle(lineWidth: 10, lineCap: .round))
                     .rotationEffect(.degrees(125))
                 
                 
@@ -76,4 +76,5 @@ struct CircularProgressView: View {
 #Preview {
     CircularProgressView(pressure: 30)
         .padding()
+        .background(Color.indigo)
 }

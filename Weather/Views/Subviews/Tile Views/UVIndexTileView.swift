@@ -40,7 +40,7 @@ struct UVIndexTileView: View {
                     color: uvIndexDetails.uvIndexColor,
                     maxValue: 11
                 )
-                .aspectRatio(1, contentMode: .fit)
+//                .aspectRatio(1, contentMode: .fit)
 
             }
        

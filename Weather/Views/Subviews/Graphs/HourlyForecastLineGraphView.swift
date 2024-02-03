@@ -21,7 +21,6 @@ struct HourlyForecastLineGraphView: View {
                     y: .value("temp", Double(item.temperature) ?? 0)
                 )
                 .symbol(.circle)
-
             }
         }
         .chartYAxis(.hidden)
@@ -59,4 +58,7 @@ struct HourlyForecastLineGraphView: View {
 
 #Preview {
     HourlyForecastLineGraphView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData)
+        .background {
+            Color(uiColor: K.Colors.haze)
+        }
 }

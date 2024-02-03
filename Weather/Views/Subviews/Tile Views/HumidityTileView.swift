@@ -41,12 +41,12 @@ struct HumidityTileView: View {
                 Spacer()
                 
                 TileImageProgressView(
-                    height: 40,
+                    height: 50,
                     value: humidity,
                     sfSymbol: "humidity.fill",
                     color: K.Colors.precipitationBlue
                 )
-                .aspectRatio(1, contentMode: .fit)
+//                .aspectRatio(1, contentMode: .fit)
 
             }
             

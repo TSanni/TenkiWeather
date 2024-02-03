@@ -46,7 +46,8 @@ struct MainScreen: View {
             blurBackGround
             
             settingsTile
-                .transition(.offset(y: -30))
+                .transition(.push(from: .top))
+//                .transition(.offset(y: -90))
 
             
             progresView
@@ -54,6 +55,7 @@ struct MainScreen: View {
         }
         .redacted(reason: appStateManager.loading ? .placeholder : [])
         .animation(.default, value: appStateManager.weatherTab)
+        .animation(.default, value: appStateManager.showSettingScreen)
         .fullScreenCover(isPresented: $appStateManager.showSearchScreen) {
             SearchingScreen()
             
@@ -151,7 +153,9 @@ extension MainScreen {
         Group {
             if appStateManager.showSettingScreen {
                 Color.black.ignoresSafeArea().opacity(0.5)
-                    .onTapGesture { appStateManager.showSettingScreen = false }
+                    .onTapGesture {
+                            appStateManager.showSettingScreen = false
+                    }
             }
         }
     }
@@ -184,7 +188,6 @@ extension MainScreen {
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
-            .previewDevice("iPhone 11 Pro Max")
             .environmentObject(WeatherViewModel())
             .environmentObject(CoreLocationViewModel())
             .environmentObject(AppStateManager())
