@@ -96,16 +96,23 @@ struct WindData: Identifiable {
     }
     
     var windColor: Color {
-        let oldLight = #colorLiteral(red: 0.04400173575, green: 0.5181836486, blue: 0.9972603917, alpha: 1)
-        let light = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
-
-    //    let oldbreeze = #colorLiteral(red: 0.1430673301, green: 0.6491933465, blue: 0.60500741, alpha: 1)
-        let breeze = #colorLiteral(red: 0, green: 0.9810667634, blue: 0.5736914277, alpha: 1)
-        let gale = #colorLiteral(red: 0.9978212714, green: 0.9978941083, blue: 0.5972678661, alpha: 1)
+//        let light = #colorLiteral(red: 0.04400173575, green: 0.5181836486, blue: 0.9972603917, alpha: 1)
+//        let breeze = #colorLiteral(red: 0.1430673301, green: 0.6491933465, blue: 0.60500741, alpha: 1)
+//        let gale = #colorLiteral(red: 0.9978212714, green: 0.9978941083, blue: 0.5972678661, alpha: 1)
+//        let strongGale = #colorLiteral(red: 0.9998317361, green: 0.7493718266, blue: 0, alpha: 1)
+//        let storm = #colorLiteral(red: 1, green: 0.6042675376, blue: 0.395904392, alpha: 1)
+//        let violentStorm = #colorLiteral(red: 1, green: 0.400586307, blue: 0, alpha: 1)
+//        let hurricane = #colorLiteral(red: 0.8019552231, green: 0.195156306, blue: 0.004458193202, alpha: 1)
+        
+        let light = Color.blue
+        let breeze = Color.green
+        let gale = Color.yellow
         let strongGale = #colorLiteral(red: 0.9998317361, green: 0.7493718266, blue: 0, alpha: 1)
         let storm = #colorLiteral(red: 1, green: 0.6042675376, blue: 0.395904392, alpha: 1)
-        let violentStorm = #colorLiteral(red: 1, green: 0.400586307, blue: 0, alpha: 1)
-        let hurricane = #colorLiteral(red: 0.8019552231, green: 0.195156306, blue: 0.004458193202, alpha: 1)
+        let violentStorm = Color.orange
+        let hurricane = Color.red
+        
+        
         let unit = WeatherManager.shared.getUnitLength()
         
         if let numWindSpeed = Int(windSpeed) {
@@ -114,84 +121,84 @@ struct WindData: Identifiable {
             if unit == .miles { // Wind speed colors for miles
                 switch numWindSpeed {
                     case 0...12://
-                        return Color(uiColor: light)
+                        return light
                     case 13...31:
-                        return Color(uiColor: breeze)
+                        return breeze
                     case 32...38:
-                        return Color(uiColor: gale)
+                        return gale
                     case 39...54:
                         return Color(uiColor: strongGale)
                     case 55...63:
                         return Color(uiColor: storm)
                     case 64...72:
-                        return Color(uiColor: violentStorm)
+                        return violentStorm
                     case 73...500:
-                        return Color(uiColor: hurricane)
+                        return hurricane
                     default:
-                        return Color(uiColor: light)
+                        return light
                 }
             } else if unit == .kilometers { // Wind speed colors for kilometers
                 switch numWindSpeed {
                     case 0...19:
-                        return Color(uiColor: light)
+                        return light
                     case 20...50:
-                        return Color(uiColor: breeze)
+                        return breeze
                     case 51...61:
-                        return Color(uiColor: gale)
+                        return gale
                     case 62...87:
                         return Color(uiColor: strongGale)
                     case 88...101:
                         return Color(uiColor: storm)
                     case 102...116:
-                        return Color(uiColor: violentStorm)
+                        return violentStorm
                     case 117...500:
-                        return Color(uiColor: hurricane)
+                        return hurricane
                     default:
-                        return Color(uiColor: light)
+                        return light
                 }
             } else if unit == .meters { // Wind speed colors for meters
                 switch numWindSpeed {
                     case 0...5://
-                        return Color(uiColor: light)
+                        return light
                     case 6...13://
-                        return Color(uiColor: breeze)
+                        return breeze
                     case 14...17://
-                        return Color(uiColor: gale)
+                        return gale
                     case 18...24://
                         return Color(uiColor: strongGale)
                     case 25...28://
                         return Color(uiColor: storm)
                     case 29...32://
-                        return Color(uiColor: violentStorm)
+                        return violentStorm
                     case 33...500:
-                        return Color(uiColor: hurricane)
+                        return hurricane
                     default:
-                        return Color(uiColor: light)
+                        return light
                 }
             } else { //Knots
                 switch numWindSpeed {
                     case 0...10:
-                        return Color(uiColor: light)
+                        return light
                     case 6...27:
-                        return Color(uiColor: breeze)
+                        return breeze
                     case 14...33:
-                        return Color(uiColor: gale)
+                        return gale
                     case 18...47:
                         return Color(uiColor: strongGale)
                     case 25...54:
                         return Color(uiColor: storm)
                     case 29...63:
-                        return Color(uiColor: violentStorm)
+                        return violentStorm
                     case 64...500:
-                        return Color(uiColor: hurricane)
+                        return hurricane
                     default:
-                        return Color(uiColor: light)
+                        return light
                 }
 
 
             }
         } else {
-            return Color(uiColor: light)
+            return light
         }
     }
     

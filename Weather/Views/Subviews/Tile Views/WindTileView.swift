@@ -46,6 +46,7 @@ struct WindTileView: View {
                     }
                     
                     WindBarGraph(hourlyWind: hourlyWindData)
+                        .frame(height: 100)
    
                 }
             }

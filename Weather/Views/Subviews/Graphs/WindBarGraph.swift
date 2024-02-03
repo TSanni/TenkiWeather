@@ -14,8 +14,8 @@ import WeatherKit
 struct WindBarGraph_Previews: PreviewProvider {
     static var previews: some View {
         WindBarGraph(hourlyWind: WindData.windDataHolder)
-            .previewDevice("iPhone 11 Pro Max")
-            .frame(height: 300)
+            .background(Color.indigo)
+//            .frame(height: 300)
     }
 }
 
@@ -53,19 +53,23 @@ struct WindBarGraph: View {
 
             //MARK: - Bar Graph with wind data
             Chart(hourlyWind) { item in
-                BarMark(x: .value("time", item.time ?? "-"), y: .value("windSpeed", Double(item.windSpeed) ?? 0))
-                    .foregroundStyle(item.windColor)
-                    .annotation(position: .top) {
-                        Text("\(item.windSpeed)")
-                    }
+                BarMark(
+                    x: .value("time", item.time ?? "-"),
+                    y: .value("windSpeed", Double(item.windSpeed) ?? 0)
+                )
+                .foregroundStyle(item.windColor)
+                .annotation(position: .top) {
+                    Text("\(item.windSpeed)")
+                        .foregroundStyle(.white)
+                }
             }
-//            .chartYScale(domain: 0...(getLargestValue() + 20))
+            .chartYScale(domain: 0...(getLargestValue()))
             .chartYAxis(.hidden)
             .chartXAxis {
                 AxisMarks(position: .bottom) { q in
                     AxisValueLabel {
                         Text("\(hourlyWind[q.index].time ?? "-")")
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.white)
                     }
                 }
             }
