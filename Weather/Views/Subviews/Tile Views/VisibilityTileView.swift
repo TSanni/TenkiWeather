@@ -9,7 +9,6 @@ import SwiftUI
 
 struct VisibilityTileView: View {
     let visibilityDetails: DetailsModel
-    let width: CGFloat
     let backgroundColor: Color
     
     var body: some View {
@@ -46,5 +45,9 @@ struct VisibilityTileView: View {
 }
 
 #Preview {
-    VisibilityTileView(visibilityDetails: DetailsModel.detailsDataHolder, width: 200, backgroundColor: Color.red)
+    VisibilityTileView(
+        visibilityDetails: DetailsModel.detailsDataHolder,
+        backgroundColor: Color(uiColor: K.Colors.haze)
+    )
+    .frame(width: 250)
 }

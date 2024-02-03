@@ -67,7 +67,6 @@ struct TodayScreen: View {
                                 
                                 VisibilityTileView(
                                     visibilityDetails: currentWeather.currentDetails,
-                                    width: appStateManager.fortyFivePercentTileSize(geo: geo),
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
