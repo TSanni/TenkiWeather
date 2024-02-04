@@ -81,16 +81,19 @@ struct CustomNavBackButton: ViewModifier {
 
 
 struct CardViewModifier: ViewModifier {
+    @EnvironmentObject var appStateManager: AppStateManager
+    
     let backgroundColor: Color
     
     func body(content: Content) -> some View {
         content
             .foregroundStyle(.white)
             .padding()
-            .background(backgroundColor)
+            .background(appStateManager.blendColorWithTwentyPercentBlack(themeColor: backgroundColor))
+//            .background(backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
             .aspectRatio(1, contentMode: .fit)
-            .brightness(-0.15)
+//            .brightness(-0.15)
     }
 }
 

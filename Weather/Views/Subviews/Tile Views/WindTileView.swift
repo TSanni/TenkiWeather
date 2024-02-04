@@ -17,6 +17,8 @@ struct WindTileView: View {
     let backgroundColor: Color
     
     var body: some View {
+        let color = appStateManager.blendColorWithTwentyPercentBlack(themeColor: backgroundColor)
+
         VStack(alignment: .leading) {
             Text("Wind")
                 .bold()
@@ -54,8 +56,8 @@ struct WindTileView: View {
         .padding()
         .padding(.top)
         .foregroundStyle(.white)
-        .background(backgroundColor)
-        .brightness(-0.15)
+        .background(color)
+//        .brightness(-0.15)
         .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
         .padding()
         

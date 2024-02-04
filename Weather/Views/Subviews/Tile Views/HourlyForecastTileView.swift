@@ -16,6 +16,8 @@ struct HourlyForecastTileView: View {
     let color: Color
 
     var body: some View {
+        let color = appStateManager.blendColorWithTwentyPercentBlack(themeColor: color)
+        
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { proxy in
                 
@@ -79,7 +81,6 @@ struct HourlyForecastTileView: View {
             RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(color)
         }
         .padding()
-        .brightness(-0.15)
         
     }
 }
