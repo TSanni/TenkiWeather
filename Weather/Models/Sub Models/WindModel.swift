@@ -105,8 +105,8 @@ struct WindData: Identifiable {
 //        let hurricane = #colorLiteral(red: 0.8019552231, green: 0.195156306, blue: 0.004458193202, alpha: 1)
         
         let light = Color(uiColor: #colorLiteral(red: 0.08248766512, green: 0.2948074937, blue: 1, alpha: 1))
-        let breeze = Color.green
-        let gale = Color.yellow
+        let breeze = Color(uiColor: #colorLiteral(red: 0.2198026478, green: 0.6681205034, blue: 0.29497841, alpha: 1))
+        let gale = Color(uiColor: #colorLiteral(red: 1, green: 0.7626845241, blue: 0.04172243923, alpha: 1))
         let strongGale = #colorLiteral(red: 0.9998317361, green: 0.7493718266, blue: 0, alpha: 1)
         let storm = #colorLiteral(red: 1, green: 0.6042675376, blue: 0.395904392, alpha: 1)
         let violentStorm = Color.orange

@@ -89,8 +89,16 @@ struct CardViewModifier: ViewModifier {
         content
             .foregroundStyle(.white)
             .padding()
-            .background(appStateManager.blendColorWithTwentyPercentWhite(themeColor: backgroundColor))
-            .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
+        //            .background(appStateManager.blendColorWithTwentyPercentWhite(themeColor: backgroundColor))
+        //            .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
+            .background {
+                ZStack {
+                    RoundedRectangle(cornerRadius: K.tileCornerRadius)
+                        .stroke(lineWidth: 0.5)
+                        .fill(.white)
+                    RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(appStateManager.blendColorWithTwentyPercentWhite(themeColor: backgroundColor))
+                }
+            }
             .aspectRatio(1, contentMode: .fit)
     }
 }

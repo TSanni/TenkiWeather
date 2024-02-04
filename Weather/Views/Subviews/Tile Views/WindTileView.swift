@@ -49,16 +49,20 @@ struct WindTileView: View {
                     
                     WindBarGraph(hourlyWind: hourlyWindData)
                         .frame(height: 100)
-   
                 }
             }
         }
         .padding()
         .padding(.top)
         .foregroundStyle(.white)
-        .background(color)
-//        .brightness(-0.15)
-        .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
+        .background {
+            ZStack {
+                RoundedRectangle(cornerRadius: K.tileCornerRadius)
+                    .stroke(lineWidth: 0.5)
+                    .fill(.white)
+                RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(color)
+            }
+        }
         .padding()
         
     }
@@ -110,15 +114,18 @@ struct WindTileView: View {
 
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
-        GeometryReader { geo in
-            WindTileView(
-                windData: WindData.windDataHolder[0],
-                hourlyWindData: WindData.windDataHolder,
-                setTodayWeather: true,
-                backgroundColor: Color(uiColor: K.Colors.haze)
-            )
-            .environmentObject(AppStateManager())
-            
+        ZStack {
+            Color(uiColor: K.Colors.haze).ignoresSafeArea()
+            GeometryReader { geo in
+                WindTileView(
+                    windData: WindData.windDataHolder[0],
+                    hourlyWindData: WindData.windDataHolder,
+                    setTodayWeather: true,
+                    backgroundColor: Color(uiColor: K.Colors.haze)
+                )
+                .environmentObject(AppStateManager())
+                
+            }
         }
     }
 }

@@ -80,7 +80,12 @@ struct HourlyForecastTileView: View {
         }
         .foregroundStyle(.white)
         .background {
-            RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(color)
+            ZStack {
+                RoundedRectangle(cornerRadius: K.tileCornerRadius)
+                    .stroke(lineWidth: 0.5)
+                    .fill(.white)
+                RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(color)
+            }
         }
         .padding()
         

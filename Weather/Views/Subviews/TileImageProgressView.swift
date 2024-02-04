@@ -22,7 +22,7 @@ struct TileImageProgressView: View {
         
         ZStack(alignment: .bottom) {
             Rectangle()
-                .fill(color.opacity(0.2))
+                .fill(color.opacity(0.4))
                 .scaledToFit()
                 .frame(height: height)
                 .background { // use this modifier to get the dimensions of this rectangle and set the state value
