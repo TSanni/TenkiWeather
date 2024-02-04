@@ -98,9 +98,9 @@ class AppStateManager: ObservableObject {
         return blendedColor
     }
     
-    func blendColorWithTwentyPercentBlack(themeColor: Color) -> Color {
+    func blendColorWithTwentyPercentWhite(themeColor: Color) -> Color {
         let themeColor = UIColor(themeColor)
-        let blendedColor = Color(UIColor.blend(color1: .black, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
+        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
         
         return blendedColor
     }

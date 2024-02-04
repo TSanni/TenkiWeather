@@ -17,7 +17,7 @@ struct WindTileView: View {
     let backgroundColor: Color
     
     var body: some View {
-        let color = appStateManager.blendColorWithTwentyPercentBlack(themeColor: backgroundColor)
+        let color = appStateManager.blendColorWithTwentyPercentWhite(themeColor: backgroundColor)
 
         VStack(alignment: .leading) {
             Text("Wind")

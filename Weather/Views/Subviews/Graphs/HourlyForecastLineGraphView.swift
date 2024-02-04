@@ -20,7 +20,11 @@ struct HourlyForecastLineGraphView: View {
                     x: .value("time", item.date),
                     y: .value("temp", Double(item.temperature) ?? 0)
                 )
-                .symbol(.circle)
+                .lineStyle(StrokeStyle(lineWidth: 1))
+                .symbol {
+                    Circle().fill(.white)
+                        .frame(width: 5)
+                }
                 
             }
         }
@@ -58,8 +62,12 @@ struct HourlyForecastLineGraphView: View {
 }
 
 #Preview {
-    HourlyForecastLineGraphView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData)
-        .background {
-            Color(uiColor: K.Colors.haze).ignoresSafeArea()
-        }
+    ScrollView {
+        HourlyForecastLineGraphView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData)
+       
+    }     
+    .background {
+        Color(uiColor: K.Colors.haze).ignoresSafeArea()
+    }
+
 }

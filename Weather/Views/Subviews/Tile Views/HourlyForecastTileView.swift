@@ -16,7 +16,7 @@ struct HourlyForecastTileView: View {
     let color: Color
 
     var body: some View {
-        let color = appStateManager.blendColorWithTwentyPercentBlack(themeColor: color)
+        let color = appStateManager.blendColorWithTwentyPercentWhite(themeColor: color)
         
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { proxy in
@@ -31,17 +31,20 @@ struct HourlyForecastTileView: View {
                             
                             VStack(spacing: 7.0) {
                                 Text("\(item.temperature)°")
-                                    .fontWeight(.bold)
+                                    .font(.callout)
                                 
                                 Image(systemName: imageName)
                                     .renderingMode(.original)
                                     .frame(width: 25, height: 25)
                                     .font(.title3)
+                                
                                 Text(item.date)
+                                    .font(.caption)
                                     .fontWeight(.medium)
                             }
                             .padding(.top)
                             .padding(.horizontal, 10)
+                            .frame(width: 60)
                         }
                     }
                     
@@ -50,7 +53,7 @@ struct HourlyForecastTileView: View {
                     
                     HStack {
                         ForEach(hourlyTemperatures) { item in
-                            VStack(spacing: 0.0) {
+                            HStack(spacing: 2) {
                                 TileImageProgressView(
                                     height: 10,
                                     value: convertStringToCGFloat(precipitationString: item.chanceOfPrecipitation),
@@ -59,12 +62,11 @@ struct HourlyForecastTileView: View {
                                 )
                                 Text(item.chanceOfPrecipitation)
                                     .font(.caption2)
-                                
-                                Text(item.date)
-                                    .fontWeight(.medium)
-                                    .foregroundStyle(.clear)
+
                             }
-                            .padding(.horizontal, 10)
+                            .padding([.horizontal, .bottom], 10)
+                            .frame(width: 60)
+
                         }
                     }
                     
