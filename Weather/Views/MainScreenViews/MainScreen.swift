@@ -52,6 +52,10 @@ struct MainScreen: View {
             progresView
             
         }
+        .refreshable {
+            print("View Refreshed")
+            await getWeather()
+        }
         .redacted(reason: appStateManager.loading ? .placeholder : [])
         .animation(.default, value: appStateManager.weatherTab)
         .animation(.default, value: appStateManager.showSettingScreen)

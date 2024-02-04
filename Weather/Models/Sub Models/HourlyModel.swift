@@ -17,8 +17,8 @@ struct HourlyTemperatures: Identifiable {
 
     
     static let hourlyTempHolderData: [HourlyTemperatures] = [
-        HourlyTemperatures(temperature: "50", date: "12 AM", symbol: "sun.max", chanceOfPrecipitation: "0%"),
-        HourlyTemperatures(temperature: "70", date: "1 AM", symbol: "sun.max", chanceOfPrecipitation: "0%"),
+        HourlyTemperatures(temperature: "50", date: "12 AM", symbol: "sun.max", chanceOfPrecipitation: "100%"),
+        HourlyTemperatures(temperature: "70", date: "1 AM", symbol: "sun.max", chanceOfPrecipitation: "90%"),
         HourlyTemperatures(temperature: "50", date: "2 AM", symbol: "sun.max", chanceOfPrecipitation: "0%"),
         HourlyTemperatures(temperature: "80", date: "3 AM", symbol: "sun.max", chanceOfPrecipitation: "0%"),
         HourlyTemperatures(temperature: "40", date: "4 AM", symbol: "sun.max", chanceOfPrecipitation: "0%"),

@@ -44,7 +44,7 @@ struct HourlyForecastTileView: View {
                             }
                             .padding(.top)
                             .padding(.horizontal, 10)
-                            .frame(width: 60)
+                            .frame(width: 63)
                         }
                     }
                     
@@ -65,7 +65,7 @@ struct HourlyForecastTileView: View {
 
                             }
                             .padding([.horizontal, .bottom], 10)
-                            .frame(width: 60)
+                            .frame(width: 63)
 
                         }
                     }
