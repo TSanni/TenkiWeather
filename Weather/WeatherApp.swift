@@ -7,6 +7,9 @@
 
 
 
+//TODO: Add rain and snow effect 
+
+
 
 import SwiftUI
 import UIKit
@@ -22,9 +25,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct WeatherApp: App {
-    
+    @State private var savedDate = Date()
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
+    @Environment(\.scenePhase) var scenePhase
+
     @StateObject private var weatherViewModel = WeatherViewModel()
     @StateObject private var persistenceLocations = SavedLocationsPersistence()
     @StateObject private var locationManager = CoreLocationViewModel()
@@ -38,11 +43,72 @@ struct WeatherApp: App {
                     .environmentObject(persistenceLocations)
                     .environmentObject(locationManager)
                     .environmentObject(appStateManager)
-
-
-
             }
             .navigationViewStyle(.stack)
+            .task {
+                  if locationManager.authorizationStatus == .authorizedWhenInUse {
+                      await getWeather()
+                  }
+              }
+              .onChange(of: locationManager.authorizationStatus) { newValue in
+                  if newValue == .authorizedWhenInUse {
+                      Task {
+                          await getWeather()
+                      }
+                  }
+              }
+              .onChange(of: scenePhase) { newValue in
+                  //use this modifier to periodically update the weather data
+                  if newValue == .active {
+                      Task {
+                          if -savedDate.timeIntervalSinceNow > 60 * 10 {
+                              // 10 minutes have passed, refresh the data
+                              await getWeather()
+                              savedDate = Date()
+                          } else {
+                              // 10 minutes have NOT passed, do nothing
+                              return
+                          }
+                      }
+                  }
+              }
+
+
         }
+  
     }
+    
+    
+    
+    private func getWeather() async {
+        appStateManager.dataIsLoading()
+        
+        await locationManager.getLocalLocationName()
+        locationManager.searchedLocationName = locationManager.localLocationName
+        let timezone = locationManager.timezoneForCoordinateInput
+        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
+        let userLocationName = locationManager.localLocationName
+        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+        
+        appStateManager.setCurrentLocationName(name: userLocationName)
+        appStateManager.setCurrentLocationTimezone(timezone: timezone)
+        appStateManager.dataCompletedLoading()
+        
+        appStateManager.setSearchedLocationDictionary(
+            name: userLocationName,
+            latitude: locationManager.latitude,
+            longitude: locationManager.longitude,
+            timezone: timezone,
+            temperature: weatherViewModel.currentWeather.currentTemperature,
+            date: weatherViewModel.currentWeather.date,
+            symbol: weatherViewModel.currentWeather.symbol,
+            weatherCondition: weatherViewModel.currentWeather.weatherDescription.description
+        )
+        
+        appStateManager.scrollToTopAndChangeTabToToday()
+        
+        
+        persistenceLocations.saveData()
+    }
+
 }

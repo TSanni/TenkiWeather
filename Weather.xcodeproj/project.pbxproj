@@ -33,6 +33,13 @@
 		837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */; };
 		837D7DA92B6BF6AF0031B296 /* TileImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DA82B6BF6AF0031B296 /* TileImageProgressView.swift */; };
 		837D7DAB2B6D879F0031B296 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */; };
+		837D7DAD2B7138160031B296 /* snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 837D7DAC2B7138160031B296 /* snow.sks */; };
+		837D7DB02B7139150031B296 /* SnowScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DAF2B7139150031B296 /* SnowScene.swift */; };
+		837D7DB32B713C910031B296 /* rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = 837D7DB12B713C910031B296 /* rain.sks */; };
+		837D7DB42B713C910031B296 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 837D7DB22B713C910031B296 /* Assets.xcassets */; };
+		837D7DB62B713D230031B296 /* RainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DB52B713D230031B296 /* RainScene.swift */; };
+		837D7DB82B7154270031B296 /* WeatherParticleEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DB72B7154270031B296 /* WeatherParticleEffectView.swift */; };
+		837D7DBC2B72B0210031B296 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DBB2B72B0210031B296 /* Enums.swift */; };
 		838461812A4C9DDC000B8E86 /* SettingsScreenTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */; };
 		838461832A508E14000B8E86 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461822A508E13000B8E86 /* AppStateManager.swift */; };
 		838FAE0B2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */; };
@@ -101,6 +108,13 @@
 		837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastLineGraphView.swift; sourceTree = "<group>"; };
 		837D7DA82B6BF6AF0031B296 /* TileImageProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileImageProgressView.swift; sourceTree = "<group>"; };
 		837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		837D7DAC2B7138160031B296 /* snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = snow.sks; sourceTree = "<group>"; };
+		837D7DAF2B7139150031B296 /* SnowScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowScene.swift; sourceTree = "<group>"; };
+		837D7DB12B713C910031B296 /* rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = rain.sks; sourceTree = "<group>"; };
+		837D7DB22B713C910031B296 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		837D7DB52B713D230031B296 /* RainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainScene.swift; sourceTree = "<group>"; };
+		837D7DB72B7154270031B296 /* WeatherParticleEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherParticleEffectView.swift; sourceTree = "<group>"; };
+		837D7DBB2B72B0210031B296 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenTile.swift; sourceTree = "<group>"; };
 		838461822A508E13000B8E86 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastTileView.swift; sourceTree = "<group>"; };
@@ -208,6 +222,7 @@
 		83731A6B2A2FD91E00D481CA /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				837D7DB72B7154270031B296 /* WeatherParticleEffectView.swift */,
 				838FAE162B6084A200AAC0C1 /* Tile Views */,
 				837D7DA82B6BF6AF0031B296 /* TileImageProgressView.swift */,
 				837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */,
@@ -245,6 +260,18 @@
 				8313DE8B2B6289A10031C5E7 /* SavedLocationImageView.swift */,
 			);
 			path = SearchingScreenViews;
+			sourceTree = "<group>";
+		};
+		837D7DAE2B7139040031B296 /* SpriteKit */ = {
+			isa = PBXGroup;
+			children = (
+				837D7DAC2B7138160031B296 /* snow.sks */,
+				837D7DAF2B7139150031B296 /* SnowScene.swift */,
+				837D7DB12B713C910031B296 /* rain.sks */,
+				837D7DB52B713D230031B296 /* RainScene.swift */,
+				837D7DB22B713C910031B296 /* Assets.xcassets */,
+			);
+			path = SpriteKit;
 			sourceTree = "<group>";
 		};
 		838FAE162B6084A200AAC0C1 /* Tile Views */ = {
@@ -307,6 +334,7 @@
 				8351EDE52A64409F00B6EB87 /* ViewModifiers.swift */,
 				83C4FFF82A352E9B00DEF7F3 /* Constants.swift */,
 				8313DE902B63CD310031C5E7 /* Extenstions.swift */,
+				837D7DBB2B72B0210031B296 /* Enums.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -333,6 +361,7 @@
 		83E04FA22A22DF1B009720AB /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				837D7DAE2B7139040031B296 /* SpriteKit */,
 				839F32F72A3BD62C0048EF05 /* Info.plist */,
 				83E04FA32A22DF1B009720AB /* WeatherApp.swift */,
 				8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */,
@@ -459,6 +488,9 @@
 			files = (
 				8390BF9F2A9656F800E0B865 /* Launch Screen.storyboard in Resources */,
 				83E04FAB2A22DF1E009720AB /* Preview Assets.xcassets in Resources */,
+				837D7DB32B713C910031B296 /* rain.sks in Resources */,
+				837D7DAD2B7138160031B296 /* snow.sks in Resources */,
+				837D7DB42B713C910031B296 /* Assets.xcassets in Resources */,
 				83E04FA82A22DF1E009720AB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,10 +564,12 @@
 				83E04FB42A2472A5009720AB /* TomorrowScreen.swift in Sources */,
 				83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */,
 				83731A712A2FDAA700D481CA /* SearchingScreen.swift in Sources */,
+				837D7DB62B713D230031B296 /* RainScene.swift in Sources */,
 				8390BF942A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift in Sources */,
 				83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */,
 				83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */,
 				838FAE0D2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift in Sources */,
+				837D7DBC2B72B0210031B296 /* Enums.swift in Sources */,
 				83E04FB22A247295009720AB /* TodayScreen.swift in Sources */,
 				83E04FD62A2B29DF009720AB /* WindBarGraph.swift in Sources */,
 				837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */,
@@ -551,6 +585,7 @@
 				834E1F7A2A98D99000DB4DE5 /* WeatherAlertModel.swift in Sources */,
 				8351EDE62A64409F00B6EB87 /* ViewModifiers.swift in Sources */,
 				83641E902A2B8D7E00F3A21C /* SunsetSunriseView.swift in Sources */,
+				837D7DB02B7139150031B296 /* SnowScene.swift in Sources */,
 				830279E22A9A5CE100E3487D /* NetworkMonitor.swift in Sources */,
 				834E1F782A98C51800DB4DE5 /* WeatherAlertTileView.swift in Sources */,
 				83E04FC42A25655F009720AB /* SearchBar.swift in Sources */,
@@ -568,6 +603,7 @@
 				83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */,
 				83E04FD02A2A62A9009720AB /* CurrentDetailsView.swift in Sources */,
 				838FAE0F2B5EA82200AAC0C1 /* CurrentConditionsTile.swift in Sources */,
+				837D7DB82B7154270031B296 /* WeatherParticleEffectView.swift in Sources */,
 				8313DE942B63DB890031C5E7 /* TabViews.swift in Sources */,
 				8313DE7E2B6129FB0031C5E7 /* HumidityTileView.swift in Sources */,
 				837D7DA92B6BF6AF0031B296 /* TileImageProgressView.swift in Sources */,
@@ -717,13 +753,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -761,13 +797,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";

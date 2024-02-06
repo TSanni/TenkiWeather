@@ -8,21 +8,6 @@
 import Foundation
 import WeatherKit
 
-enum WeatherErrors: Error {
-    case failedToGetWeatherKitData
-}
-
-extension WeatherErrors: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-            case .failedToGetWeatherKitData:
-                return NSLocalizedString(
-                          "Check your network connection and try again.",
-                          comment: ""
-                      )
-        }
-    }
-}
 
 
 class WeatherManager {

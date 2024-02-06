@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SpriteKit
 
 
 struct K {
@@ -77,10 +78,35 @@ struct K {
         static let wind = "wind"
         static let sunHaze = "sun.haze"
         static let moonHaze = "moon.haze"
+        static let cloudHeavyRain = "cloud.heavyrain"
+        static let snow = "snow"
     }
     
-    
 
+    static func getScene(symbol: String) -> SKScene? {
+        switch symbol {
+        case K.Symbol.snowflake:
+            return SnowScene()
+        case K.Symbol.cloudSnow:
+            return SnowScene()
+        case "snow":
+            return SnowScene()
+        case K.Symbol.cloudRain:
+            return RainScene()
+        case K.Symbol.cloudSunRain:
+            return RainScene()
+        case K.Symbol.cloudBoltRain:
+            return RainScene()
+        case K.Symbol.cloudMoonRain:
+            return RainScene()
+        case K.Symbol.cloudDrizzle:
+            return RainScene()
+        case K.Symbol.cloudHeavyRain:
+            return RainScene()
+        default:
+            return nil
+        }
+    }
     
     static func getBackGroundColor(symbol: String) -> Color {
         switch symbol {
@@ -120,10 +146,20 @@ struct K {
             return Color(uiColor: K.Colors.haze)
         case K.Symbol.moonHaze:
             return Color(uiColor: K.Colors.haze)
+        case K.Symbol.cloudHeavyRain:
+            return Color(uiColor: K.Colors.cloudMoonRainColor)
+        case K.Symbol.cloudDrizzle:
+            return Color(uiColor: K.Colors.cloudSunRainColor)
+        case K.Symbol.snow:
+            return Color(uiColor: K.Colors.cloudSnow)
+            
+            
         default:
             return Color(uiColor: K.Colors.sunMaxColor)
         }
     }
+    
+    
     
     struct Colors {
         static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607837796, green: 0.9607847333, blue: 0.9822904468, alpha: 1))
@@ -144,7 +180,6 @@ struct K {
         static let cloudSnow = #colorLiteral(red: 0.2117647059, green: 0.3294117647, blue: 0.5254901961, alpha: 1)
                 
         static let precipitationBlue = Color(uiColor: #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1))
-//        static let precipitationBlue = #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1)
         
         
         static let cloudyBlue = #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1)

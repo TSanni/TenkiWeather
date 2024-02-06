@@ -8,6 +8,7 @@
 import Foundation
 import WeatherKit
 import SwiftUI
+import SpriteKit
 
 //MARK: - Main Model
 struct TomorrowWeatherModel: Identifiable {
@@ -30,6 +31,11 @@ struct TomorrowWeatherModel: Identifiable {
  
     var backgroundColor: Color {
         K.getBackGroundColor(symbol: tomorrowSymbol)
+    }
+    
+    var scene: SKScene? {
+        print("THE SYMBOL FOR TOMORROW SCENE: \(tomorrowSymbol)")
+        return  K.getScene(symbol: tomorrowSymbol)
     }
 
     

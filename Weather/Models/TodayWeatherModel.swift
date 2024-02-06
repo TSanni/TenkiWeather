@@ -8,6 +8,7 @@
 import Foundation
 import WeatherKit
 import SwiftUI
+import SpriteKit
 //MARK: - Main Model
 struct TodayWeatherModel: Identifiable {
     let id = UUID()
@@ -33,7 +34,11 @@ struct TodayWeatherModel: Identifiable {
         K.getBackGroundColor(symbol: symbol)
     }
     
-
+    var scene: SKScene? {
+        print("THE SYMBOL FOR SCENE: \(symbol)")
+        return  K.getScene(symbol: symbol)
+    }
+    
 
     
     /// Holder data for Today's weather

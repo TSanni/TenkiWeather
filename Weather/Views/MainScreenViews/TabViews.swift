@@ -16,33 +16,24 @@ struct TabViews: View {
             
             
             TodayScreen(currentWeather: weatherViewModel.currentWeather, weatherAlert: weatherViewModel.weatherAlert)
-                .tabItem {
-                    Label("Today", systemImage: "sun.min")
-                }
-                .edgesIgnoringSafeArea(.bottom)
                 .tag(WeatherTabs.today)
+                .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
                 .contentShape(Rectangle()).gesture(DragGesture())
             
             
             TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
-                .tabItem {
-                    Label("Tomorrow", systemImage: "snow")
-                }
-                .edgesIgnoringSafeArea(.bottom)
                 .tag(WeatherTabs.tomorrow)
+                .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
                 .contentShape(Rectangle()).gesture(DragGesture())
 
             
             MultiDayScreen(daily: weatherViewModel.dailyWeather)
-                .tabItem {
-                    Label("10 Days", systemImage: "cloud")
-                }
-                .edgesIgnoringSafeArea(.bottom)
                 .tag(WeatherTabs.multiDay)
+                .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
                 .contentShape(Rectangle()).gesture(DragGesture())

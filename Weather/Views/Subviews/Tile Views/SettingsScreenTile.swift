@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-enum TemperatureUnits: String, CaseIterable {
-    case fahrenheit = "Fahrenheit"
-    case celsius = "Celsius"
-    case kelvin = "Kelvin"
-}
-
-enum DistanceUnits: String, CaseIterable {
-    case miles = "Miles per hour"
-    case kilometer = "Kilometers per hour"
-    case meters = "Meters per second"
-}
 
 
 
@@ -33,13 +22,7 @@ struct SettingsScreenTile: View {
     
     @State private var alertTitle: Text = Text("")
     @State private var alertMessage: Text = Text("")
-    
-//    @State private var tempUnits2: TemperatureUnits = .fahrenheit
-    
-//    var tempUnits = ["Fahrenheit", "Celsius", "Kelvin"]
-//    var distances = ["Miles per hour", "Kilometers per hour", "Meters per second", "Knots"]
-    
-    
+
     
     var body: some View {
         
@@ -67,8 +50,8 @@ struct SettingsScreenTile: View {
                 List {
                     
                     Picker(selection: $temperatureUnit) {
-                        ForEach(TemperatureUnits.allCases, id: \.self) { i in
-                            Text(i.rawValue)
+                        ForEach(TemperatureUnits.allCases, id: \.self) { tempUnit in
+                            Text(tempUnit.rawValue)
                         }
                     } label: {
                         LabelView(title: "Temperature", iconSymbol: "thermometer")
@@ -78,8 +61,8 @@ struct SettingsScreenTile: View {
                     
                     
                     Picker(selection: $distanceUnit) {
-                        ForEach(DistanceUnits.allCases, id: \.self) { i in
-                            Text(i.rawValue)
+                        ForEach(DistanceUnits.allCases, id: \.self) { distanceUnit in
+                            Text(distanceUnit.rawValue)
                         }
                     } label: {
                         LabelView(title: "Distance", iconSymbol: "ruler")

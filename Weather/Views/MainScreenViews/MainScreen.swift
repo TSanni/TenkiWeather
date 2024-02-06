@@ -8,29 +8,20 @@
 import SwiftUI
 import WeatherKit
 import CoreLocation
+import SpriteKit
 
-
-// Main screens get environment objects. Lesser views get passed in data
 
 
 //MARK: - View
 struct MainScreen: View {
-    @Environment(\.scenePhase) var scenePhase
     
     
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
-    @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateManager: AppStateManager
-    
-    @State private var savedDate = Date()
-    
-    
-    
+
     var body: some View {
         ZStack {
-            
-            
+ 
             VStack(spacing: 0) {
                 SearchBar().onTapGesture { appStateManager.showSearchScreen = true }
                 
@@ -46,18 +37,13 @@ struct MainScreen: View {
             blurBackGround
             
             settingsTile
-                .transition(.move(edge: .trailing))
-
+                .transition(.offset(x: 1000))
             
             progresView
             
         }
-        .refreshable {
-            print("View Refreshed")
-            await getWeather()
-        }
         .redacted(reason: appStateManager.loading ? .placeholder : [])
-        .animation(.default, value: appStateManager.weatherTab)
+//        .animation(.default, value: appStateManager.weatherTab)
         .animation(.default, value: appStateManager.showSettingScreen)
         .fullScreenCover(isPresented: $appStateManager.showSearchScreen) {
             SearchingScreen()
@@ -76,32 +62,7 @@ struct MainScreen: View {
         } message: {
             Text(weatherViewModel.errorPublisher.errorMessage)
         }
-        .task {
-            if locationManager.authorizationStatus == .authorizedWhenInUse {
-                await getWeather()
-            }
-        }
-        .onChange(of: locationManager.authorizationStatus) { newValue in
-            if newValue == .authorizedWhenInUse {
-                Task {
-                    await getWeather()
-                }
-            }
-        }
-        .onChange(of: scenePhase) { newValue in
-            //use this modifier to periodically update the information
-            if newValue == .active {
-                Task {
-                    if -savedDate.timeIntervalSinceNow > 60 * 10 {
-                        print("10 minutes have passed")
-                        await getWeather()
-                        savedDate = Date()
-                    } else {
-                        print("10 minutes have NOT passed")
-                    }
-                }
-            }
-        }
+
     }
 }
 
@@ -110,36 +71,6 @@ struct MainScreen: View {
 
 //MARK: - Main View Extension
 extension MainScreen {
-    private func getWeather() async {
-        appStateManager.dataIsLoading()
-        
-        await locationManager.getLocalLocationName()
-        locationManager.searchedLocationName = locationManager.localLocationName
-        let timezone = locationManager.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-        let userLocationName = locationManager.localLocationName
-        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-        
-        appStateManager.setCurrentLocationName(name: userLocationName)
-        appStateManager.setCurrentLocationTimezone(timezone: timezone)
-        appStateManager.dataCompletedLoading()
-        
-        appStateManager.setSearchedLocationDictionary(
-            name: userLocationName,
-            latitude: locationManager.latitude,
-            longitude: locationManager.longitude,
-            timezone: timezone,
-            temperature: weatherViewModel.currentWeather.currentTemperature,
-            date: weatherViewModel.currentWeather.date,
-            symbol: weatherViewModel.currentWeather.symbol,
-            weatherCondition: weatherViewModel.currentWeather.weatherDescription.description
-        )
-        
-        appStateManager.scrollToTopAndChangeTabToToday()
-        
-        
-        persistenceLocations.saveData()
-    }
     
     private var getBarColor: Color {
         switch appStateManager.weatherTab {
@@ -193,8 +124,8 @@ struct MainScreen_Previews: PreviewProvider {
         MainScreen()
             .environmentObject(WeatherViewModel())
             .environmentObject(CoreLocationViewModel())
+//            .environmentObject(SavedLocationsPersistence())
             .environmentObject(AppStateManager())
-            .environmentObject(SavedLocationsPersistence())
     }
 }
 

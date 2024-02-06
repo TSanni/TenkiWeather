@@ -11,10 +11,7 @@ import CoreLocation
 
 
 
-enum GeocodingErrors: Error {
-    case reverseGeocodingError
-    case goecodingError
-}
+
 
 //TODO: Remove publishedError property
 

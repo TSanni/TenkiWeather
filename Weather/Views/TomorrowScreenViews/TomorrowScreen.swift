@@ -10,11 +10,9 @@ import SwiftUI
 
 //MARK: - TomorrowScreen View
 struct TomorrowScreen: View {
-    @EnvironmentObject var vm: WeatherViewModel
     @EnvironmentObject private var appStateManager: AppStateManager
     
     let tomorrowWeather: TomorrowWeatherModel
-//    let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     
     
@@ -26,6 +24,11 @@ struct TomorrowScreen: View {
                 ScrollViewReader { proxy in
                     ZStack {
                         tomorrowWeather.backgroundColor
+                        
+                        // Add possible snow or rain scenes with SpriteKit
+                        if let scene = tomorrowWeather.scene {
+                            WeatherParticleEffectView(sceneImport: scene)
+                        }
                         
                         VStack(alignment: .leading, spacing: 0.0) {
                             
@@ -100,8 +103,6 @@ struct TomorrowScreen: View {
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.tomorrowDataHolder)
-            .previewDevice("iPhone 11 Pro Max")
-            .environmentObject(WeatherViewModel())
             .environmentObject(AppStateManager())
     }
 }

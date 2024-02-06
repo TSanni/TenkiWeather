@@ -24,6 +24,12 @@ struct TodayScreen: View {
                 ScrollViewReader { proxy in
                     ZStack {
                         currentWeather.backgroundColor
+                        
+                        // Add possible snow or rain scenes with SpriteKit
+                        if let scene = currentWeather.scene {
+                            WeatherParticleEffectView(sceneImport: scene)
+                        }
+                        
                         VStack(alignment: .leading, spacing: 0.0) {
                             
                             
