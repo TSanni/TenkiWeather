@@ -15,9 +15,11 @@ import SpriteKit
 //MARK: - View
 struct MainScreen: View {
     
-    
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var appStateManager: AppStateManager
+    
+    @State var tabViews: WeatherTabs = .today
+    
 
     var body: some View {
         ZStack {
@@ -25,15 +27,16 @@ struct MainScreen: View {
             VStack(spacing: 0) {
                 SearchBar().onTapGesture { appStateManager.showSearchScreen = true }
                 
-                WeatherTabSelectionsView()
+                WeatherTabSelectionsView(tabViews: $tabViews)
                 
-                TabViews()
+                TabViews(tabViews: $tabViews)
                 
             }
-            .background(getBarColor.brightness(-0.1).ignoresSafeArea())
             .zIndex(0)
+            .background(getBarColor.brightness(-0.1).ignoresSafeArea())
             .disabled(appStateManager.showSettingScreen ? true : false)
-            
+            .animation(.default, value: tabViews)
+
             blurBackGround
             
             settingsTile
@@ -43,7 +46,6 @@ struct MainScreen: View {
             
         }
         .redacted(reason: appStateManager.loading ? .placeholder : [])
-//        .animation(.default, value: appStateManager.weatherTab)
         .animation(.default, value: appStateManager.showSettingScreen)
         .fullScreenCover(isPresented: $appStateManager.showSearchScreen) {
             SearchingScreen()
@@ -73,7 +75,7 @@ struct MainScreen: View {
 extension MainScreen {
     
     private var getBarColor: Color {
-        switch appStateManager.weatherTab {
+        switch tabViews {
         case .today:
             return weatherViewModel.currentWeather.backgroundColor
         case .tomorrow:
@@ -124,7 +126,6 @@ struct MainScreen_Previews: PreviewProvider {
         MainScreen()
             .environmentObject(WeatherViewModel())
             .environmentObject(CoreLocationViewModel())
-//            .environmentObject(SavedLocationsPersistence())
             .environmentObject(AppStateManager())
     }
 }

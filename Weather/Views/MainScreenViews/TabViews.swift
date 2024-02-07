@@ -10,9 +10,10 @@ import SwiftUI
 struct TabViews: View {
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var appStateManager: AppStateManager
-    
+    @Binding var tabViews: WeatherTabs
+
     var body: some View {
-        TabView(selection: $appStateManager.weatherTab) {
+        TabView(selection: $tabViews) {
             
             
             TodayScreen(currentWeather: weatherViewModel.currentWeather, weatherAlert: weatherViewModel.weatherAlert)
@@ -20,7 +21,7 @@ struct TabViews: View {
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
-                .contentShape(Rectangle()).gesture(DragGesture())
+//                .contentShape(Rectangle()).gesture(DragGesture())
             
             
             TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
@@ -28,7 +29,7 @@ struct TabViews: View {
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
-                .contentShape(Rectangle()).gesture(DragGesture())
+//                .contentShape(Rectangle()).gesture(DragGesture())
 
             
             MultiDayScreen(daily: weatherViewModel.dailyWeather)
@@ -36,7 +37,7 @@ struct TabViews: View {
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
-                .contentShape(Rectangle()).gesture(DragGesture())
+//                .contentShape(Rectangle()).gesture(DragGesture())
 
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -46,7 +47,7 @@ struct TabViews: View {
 }
 
 #Preview {
-    TabViews()
+    TabViews( tabViews: .constant(.today))
         .environmentObject(WeatherViewModel())
         .environmentObject(AppStateManager())
 }

@@ -46,7 +46,6 @@ struct HumidityTileView: View {
                     sfSymbol: "humidity.fill",
                     color: K.Colors.precipitationBlue
                 )
-//                .aspectRatio(1, contentMode: .fit)
 
             }
             

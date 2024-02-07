@@ -33,11 +33,6 @@ class AppStateManager: ObservableObject {
         K.LocationDictionaryKeys.weatherCondition: ""
     ]
     
-    func changeWeatherTab(tab: WeatherTabs) {
-        withAnimation {
-            weatherTab = tab
-        }
-    }
     
     ///Returns columns and tile size accounting for iPhone and iPad
     func getGridColumnAndSize(geo: GeometryProxy) -> [GridItem] {
