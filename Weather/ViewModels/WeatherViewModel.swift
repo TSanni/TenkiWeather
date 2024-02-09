@@ -55,14 +55,14 @@ class WeatherViewModel: ObservableObject {
             let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
-                let a = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+                let localWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
                 
                 await MainActor.run {
-                    localTemp = a.currentTemperature
-                    localsfSymbol = a.symbol
+                    localTemp = localWeather.currentTemperature
+                    localsfSymbol = localWeather.symbol
                     localName = name
-                    localConditions = a.weatherDescription.description
-                    print("TIME: \(a.date)")
+                    localConditions = localWeather.weatherDescription.description
+                    print("TIME: \(localWeather.date)")
                 }
             }
         } catch {

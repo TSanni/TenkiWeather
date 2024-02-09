@@ -126,6 +126,7 @@ class WeatherManager {
     
     
     
+    
     //MARK: - Get Tomorrow's Weather
     func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> TomorrowWeatherModel {
         let tomorrowWeather = tomorrowWeather[1]
@@ -340,7 +341,7 @@ extension WeatherManager {
     }
     
     
-    /// Takes a UnitPressure measurement and converts it to a readable format by removing floating numbers.
+    /// Takes a UnitPressure measurement and converts it to a readable format by limiting result to two floating numbers.
     /// Returns a String of that format
     private func getReadableMeasurementPressure(measurement: Measurement<UnitPressure>) -> String {
         return String(format: "%.2f", measurement.value) + " " + measurement.unit.symbol

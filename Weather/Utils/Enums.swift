@@ -10,8 +10,17 @@ import Foundation
 
 enum WeatherErrors: Error {
     case failedToGetWeatherKitData
+    
+    var errorDescription: String? {
+        switch self {
+            case .failedToGetWeatherKitData:
+                return NSLocalizedString(
+                          "Check your network connection and try again.",
+                          comment: ""
+                      )
+        }
+    }
 }
-
 
 enum WeatherTabs: Int, CaseIterable {
     case today = 0
@@ -28,18 +37,6 @@ enum WeatherTabs: Int, CaseIterable {
         case .multiDay:
             return "10 Days"
 
-        }
-    }
-}
-
-extension WeatherErrors: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-            case .failedToGetWeatherKitData:
-                return NSLocalizedString(
-                          "Check your network connection and try again.",
-                          comment: ""
-                      )
         }
     }
 }
