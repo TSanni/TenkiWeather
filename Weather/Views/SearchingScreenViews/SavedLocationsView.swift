@@ -34,9 +34,8 @@ struct SavedLocationsView: View {
                             appStateManager.dataIsLoading()
                             await getWeatherAndUpdateDictionary(item: item)
                             appStateManager.dataCompletedLoading()
-                            appStateManager.scrollToTopAndChangeTabToToday()
+                            appStateManager.performViewReset()
                             persistence.saveData()
-                            
                         }
                     }
             }

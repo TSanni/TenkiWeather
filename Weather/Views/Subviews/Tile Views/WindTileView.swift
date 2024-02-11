@@ -43,7 +43,7 @@ struct WindTileView: View {
                                 .padding(.horizontal, 10)
                         }
                     }
-                    .onChange(of: appStateManager.resetScrollToggle) { _ in
+                    .onChange(of: appStateManager.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
                     

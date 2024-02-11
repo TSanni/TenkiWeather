@@ -105,7 +105,7 @@ struct WeatherApp: App {
             weatherCondition: weatherViewModel.currentWeather.weatherDescription.description
         )
         
-        appStateManager.scrollToTopAndChangeTabToToday()
+        appStateManager.performViewReset()
         
         
         persistenceLocations.saveData()

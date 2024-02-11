@@ -10,7 +10,10 @@ import Foundation
 
 enum WeatherErrors: Error {
     case failedToGetWeatherKitData
-    
+}
+
+
+extension WeatherErrors: LocalizedError {
     var errorDescription: String? {
         switch self {
             case .failedToGetWeatherKitData:
@@ -47,6 +50,17 @@ enum TemperatureUnits: String, CaseIterable {
     case fahrenheit = "Fahrenheit"
     case celsius = "Celsius"
     case kelvin = "Kelvin"
+    
+    var title: String {
+        switch self {
+        case .fahrenheit:
+            return "Fahrenheit"
+        case .celsius:
+            return "Celsius"
+        case .kelvin:
+            return "Kelvin"
+        }
+    }
 }
 
 enum DistanceUnits: String, CaseIterable {

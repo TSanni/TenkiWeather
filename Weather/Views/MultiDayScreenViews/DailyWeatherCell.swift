@@ -42,7 +42,7 @@ struct DailyWeatherCell: View {
             .padding(.vertical, 10)
             .padding(.horizontal)
         }
-        .onChange(of: appStateManager.resetScrollToggle) { _ in
+        .onChange(of: appStateManager.resetViews) { _ in
             showRest = false
         }
     }

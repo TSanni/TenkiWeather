@@ -34,7 +34,7 @@ struct SearchingScreen: View {
                             await getWeatherAndUpdateDictionary()
                             persistenceLocations.saveData()
                             appStateManager.dataCompletedLoading()
-                            appStateManager.scrollToTopAndChangeTabToToday()
+                            appStateManager.performViewReset()
                             
                             
                         }
@@ -65,7 +65,7 @@ struct SearchingScreen: View {
                     
                     appStateManager.dataCompletedLoading()
                     appStateManager.showSearchScreen = false
-                    appStateManager.scrollToTopAndChangeTabToToday()
+                    appStateManager.performViewReset()
                 }
                 
             }
@@ -140,7 +140,7 @@ struct SearchingScreen: View {
                 await getWeatherAndUpdateDictionary()
                 persistenceLocations.saveData()
                 appStateManager.dataCompletedLoading()
-                appStateManager.scrollToTopAndChangeTabToToday()
+                appStateManager.performViewReset()
                 
                 
             }

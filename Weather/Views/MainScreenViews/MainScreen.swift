@@ -14,6 +14,7 @@ import SpriteKit
 
 //MARK: - View
 struct MainScreen: View {
+    @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var appStateManager: AppStateManager
@@ -36,6 +37,7 @@ struct MainScreen: View {
             .background(getBarColor.brightness(-0.1).ignoresSafeArea())
             .disabled(appStateManager.showSettingScreen ? true : false)
             .animation(.default, value: tabViews)
+
 
             blurBackGround
             
@@ -63,6 +65,9 @@ struct MainScreen: View {
             //            }
         } message: {
             Text(weatherViewModel.errorPublisher.errorMessage)
+        }
+        .onChange(of: appStateManager.resetViews) { _ in
+            tabViews = .today
         }
 
     }
@@ -101,7 +106,6 @@ extension MainScreen {
     private var settingsTile: some View {
         if appStateManager.showSettingScreen {
             SettingsScreenTile()
-                .settingsFrame()
                 .padding()
                 .zIndex(1)
         }

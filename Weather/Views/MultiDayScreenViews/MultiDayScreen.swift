@@ -61,7 +61,7 @@ struct MultiDayScreen: View {
                             CustomDivider()
                         }
                     }
-                    .onChange(of: appStateManager.resetScrollToggle) { _ in
+                    .onChange(of: appStateManager.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
 

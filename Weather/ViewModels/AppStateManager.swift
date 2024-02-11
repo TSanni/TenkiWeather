@@ -11,9 +11,8 @@ import SwiftUI
 class AppStateManager: ObservableObject {
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
-    @Published var resetScrollToggle: Bool = false
+    @Published var resetViews: Bool = false
     @Published var loading: Bool = false
-    @Published var weatherTab: WeatherTabs = .today
     
     @Published var currentLocationName: String = ""
     @Published var currentLocationTimezone: Int = 0
@@ -44,9 +43,8 @@ class AppStateManager: ObservableObject {
         }
     }
     
-    func scrollToTopAndChangeTabToToday() {
-        resetScrollToggle.toggle()
-        weatherTab = .today
+    func performViewReset() {
+        resetViews.toggle()
     }
     
     func setCurrentLocationName(name: String) {

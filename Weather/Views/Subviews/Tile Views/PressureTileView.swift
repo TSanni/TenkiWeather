@@ -56,4 +56,5 @@ struct PressureTileView: View {
 #Preview {
     PressureTileView(pressureDetails: DetailsModel.detailsDataHolder, backgroundColor: Color.brown)
         .frame(width: 250)
+        .environmentObject(AppStateManager())
 }
