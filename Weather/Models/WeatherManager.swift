@@ -100,21 +100,21 @@ class WeatherManager {
         
         /// Weather data for the day (includes current details, wind data, and sun data)
         let todaysWeather = TodayWeatherModel(
-            date: getReadableMainDate(date: current.date, timezoneOffset: timezoneOffset),
-            todayHigh: String(format: "%.0f", dailyWeather[0].highTemperature.converted(to: getUnitTemperature()).value),
-            todayLow: String(format: "%.0f", dailyWeather[0].lowTemperature.converted(to: getUnitTemperature()).value),
-            currentTemperature: String(format: "%.0f", current.temperature.converted(to: getUnitTemperature()).value),
-            feelsLikeTemperature: String(format: "%.0f", current.apparentTemperature.converted(to: getUnitTemperature()).value),
+            apparentTemperature: current.apparentTemperature, 
+            temperature: current.temperature, 
+            date: current.date,
+            highTemperature: dailyWeather[0].highTemperature,
+            lowTemperature: dailyWeather[0].lowTemperature,
             symbol: current.symbolName,
-            weatherDescription: current.condition,
-            chanceOfPrecipitation: dailyWeather[0].precipitationChance.formatted(.percent),
+            condition: current.condition,
+            precipitationChance: dailyWeather[0].precipitationChance,
             currentDetails: currentDetailsCardInfo,
             todayWind: windDetailsInfo,
             todayHourlyWind: hourlyWind,
             sunData: sunData,
             isDaylight: current.isDaylight,
             hourlyTemperatures: hourlyTemperatures,
-            temperatureUnit: current.temperature.converted(to: getUnitTemperature()).unit.symbol
+            timezeone: timezoneOffset
             
         )
         

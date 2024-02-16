@@ -98,54 +98,54 @@ struct SearchingScreen: View {
     
     
     //MARK: - Current Location
-    var currentLocation: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                
-                if locationManager.localLocationName == "" {
-                    Text("Tap to reload")
-                        .font(.headline)
-                    
-                } else {
-                    Text(locationManager.localLocationName)
-                        .font(.headline)
-                }
-                HStack {
-                    Image(systemName: "location.fill")
-                        .foregroundColor(.blue)
-                    Text("Your location")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-            }
-            
-            Spacer()
-            
-            HStack {
-                HStack(alignment: .top, spacing: 0.0) {
-                    Text(weatherViewModel.localTemp).font(.title)
-                    Text(weatherViewModel.currentWeather.temperatureUnit)
-                }
-                .foregroundColor(.secondary)
-                
-                Image(systemName: WeatherManager.shared.getImage(imageName: weatherViewModel.localsfSymbol))
-                    .renderingMode(.original)
-            }
-        }
-        .padding(.bottom)
-        .onTapGesture {
-            Task {
-                appStateManager.showSearchScreen = false
-                appStateManager.dataIsLoading()
-                await getWeatherAndUpdateDictionary()
-                persistenceLocations.saveData()
-                appStateManager.dataCompletedLoading()
-                appStateManager.performViewReset()
-                
-                
-            }
-        }
-    }
+//    var currentLocation: some View {
+//        HStack {
+//            VStack(alignment: .leading) {
+//                
+//                if locationManager.localLocationName == "" {
+//                    Text("Tap to reload")
+//                        .font(.headline)
+//                    
+//                } else {
+//                    Text(locationManager.localLocationName)
+//                        .font(.headline)
+//                }
+//                HStack {
+//                    Image(systemName: "location.fill")
+//                        .foregroundColor(.blue)
+//                    Text("Your location")
+//                        .font(.subheadline)
+//                        .foregroundColor(.secondary)
+//                }
+//            }
+//            
+//            Spacer()
+//            
+//            HStack {
+//                HStack(alignment: .top, spacing: 0.0) {
+//                    Text(weatherViewModel.localTemp).font(.title)
+//                    Text(weatherViewModel.currentWeather.temperatureUnit)
+//                }
+//                .foregroundColor(.secondary)
+//                
+//                Image(systemName: WeatherManager.shared.getImage(imageName: weatherViewModel.localsfSymbol))
+//                    .renderingMode(.original)
+//            }
+//        }
+//        .padding(.bottom)
+//        .onTapGesture {
+//            Task {
+//                appStateManager.showSearchScreen = false
+//                appStateManager.dataIsLoading()
+//                await getWeatherAndUpdateDictionary()
+//                persistenceLocations.saveData()
+//                appStateManager.dataCompletedLoading()
+//                appStateManager.performViewReset()
+//                
+//                
+//            }
+//        }
+//    }
     
     
     
@@ -182,7 +182,7 @@ struct SearchingScreen: View {
             longitude: coordinates.longitude,
             timezone: timezone,
             temperature: weatherViewModel.currentWeather.currentTemperature,
-            date: weatherViewModel.currentWeather.date,
+            date: weatherViewModel.currentWeather.readableDate,
             symbol: weatherViewModel.currentWeather.symbol,
             weatherCondition: weatherViewModel.currentWeather.weatherDescription.description
         )

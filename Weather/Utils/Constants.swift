@@ -52,6 +52,7 @@ struct K {
         static let twentyFourHoursInSeconds = 86400.0
         static let fifteenHours = 15
         static let twentyFourHours = 24
+        static let monthDayHourMinuteFormat = "MMM dd, h:mm a"
     }
     
     

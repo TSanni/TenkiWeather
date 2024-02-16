@@ -147,7 +147,7 @@ class SavedLocationsPersistence: ObservableObject {
             let todaysWeather = WeatherManager.shared.getTodayWeather(current: currentWeather.currentWeather, dailyWeather: currentWeather.dailyForecast, hourlyWeather: currentWeather.hourlyForecast, timezoneOffset: Int(entity.timezone))
           
 
-            entity.currentDate = todaysWeather.date
+            entity.currentDate = todaysWeather.readableDate
             entity.temperature = todaysWeather.currentTemperature
             entity.sfSymbol = todaysWeather.symbol
             entity.weatherCondition = todaysWeather.weatherDescription.description

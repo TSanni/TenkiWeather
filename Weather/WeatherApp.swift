@@ -100,9 +100,9 @@ struct WeatherApp: App {
             longitude: locationManager.longitude,
             timezone: timezone,
             temperature: weatherViewModel.currentWeather.currentTemperature,
-            date: weatherViewModel.currentWeather.date,
+            date: weatherViewModel.currentWeather.readableDate,
             symbol: weatherViewModel.currentWeather.symbol,
-            weatherCondition: weatherViewModel.currentWeather.weatherDescription.description
+            weatherCondition: weatherViewModel.currentWeather.weatherDescription
         )
         
         appStateManager.performViewReset()
