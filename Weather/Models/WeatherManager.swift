@@ -38,7 +38,7 @@ class WeatherManager {
         
         
         var hourlyWind: [WindData] = []
-        var hourlyTemperatures: [HourlyTemperatures] = []
+        var hourlyTemperatures: [HourlyModel] = []
         
         
         /// Weather data for Current details card
@@ -58,10 +58,9 @@ class WeatherManager {
         
         /// Weather data for wind
         let windDetailsInfo = WindData(
-            windSpeed: String(format: "%.0f", current.wind.speed.converted(to: getUnitSpeed()).value),
-            windDirection: current.wind.compassDirection,
-            time: nil,
-            speedUnit: current.wind.speed.converted(to: getUnitSpeed()).unit.symbol
+            speed: current.wind.speed,
+            compassDirection: current.wind.compassDirection,
+            time: nil
         )
         
         /// Weather data for sun events
@@ -78,21 +77,27 @@ class WeatherManager {
         
         /// 12 hour forecast data for the Wind and temperatures
         for i in 0..<K.Time.twentyFourHours {
-            hourlyWind.append(
-                WindData(
-                    windSpeed: String(format: "%.0f", hourlyWeatherStartingFromNow[i].wind.speed.converted(to: getUnitSpeed()).value),
-                    windDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
-                    time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset),
-                    speedUnit: hourlyWeatherStartingFromNow[i].wind.speed.converted(to: getUnitSpeed()).unit.symbol
-                )
+            
+            let windData =  WindData(
+                speed: hourlyWeatherStartingFromNow[i].wind.speed,
+                compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
+                time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
             )
             
+//            hourlyWind.append(
+//                WindData(
+//                    speed: hourlyWeatherStartingFromNow[i].wind.speed,
+//                    compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
+//                    time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
+//                )
+//            )
+            
             hourlyTemperatures.append(
-                HourlyTemperatures(
-                    temperature: String(format: "%.0f", hourlyWeatherStartingFromNow[i].temperature.converted(to: getUnitTemperature()).value),
-                    date: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset),
-                    symbol: hourlyWeatherStartingFromNow[i].symbolName,
-                    chanceOfPrecipitation: hourlyWeatherStartingFromNow[i].precipitationChance.formatted(.percent)
+                HourlyModel(
+                    temperature: hourlyWeatherStartingFromNow[i].temperature, wind: windData,
+                    date: hourlyWeatherStartingFromNow[i].date,
+                    precipitationChance: hourlyWeatherStartingFromNow[i].precipitationChance, symbol: hourlyWeatherStartingFromNow[i].symbolName,
+                    timezone: timezoneOffset
                 )
             )
         }
@@ -111,10 +116,9 @@ class WeatherManager {
             precipitationChance: dailyWeather[0].precipitationChance,
             currentDetails: currentDetailsCardInfo,
             todayWind: windDetailsInfo,
-            todayHourlyWind: hourlyWind,
             sunData: sunData,
             isDaylight: current.isDaylight,
-            hourlyTemperatures: hourlyTemperatures,
+            hourlyWeather: hourlyTemperatures,
             timezeone: timezoneOffset
             
         )
@@ -145,7 +149,7 @@ class WeatherManager {
         var tomorrowHourlyWind: [WindData] = []
         
         /// Will hold tomorrow's hourly temperatures
-        var tomorrowHourlyTemperatures: [HourlyTemperatures] = []
+        var tomorrowHourlyTemperatures: [HourlyModel] = []
 
         
         for hour in 0..<K.Time.twentyFourHours {
@@ -154,23 +158,33 @@ class WeatherManager {
         }
         
         for hour in 0..<K.Time.twentyFourHours {
-            tomorrowHourlyWind.append(WindData(
-                windSpeed: String(format: "%.0f", tomorrow12HourForecast[hour].wind.speed.converted(to: getUnitSpeed()).value),
-                windDirection: tomorrow12HourForecast[hour].wind.compassDirection,
-                time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset),
-                speedUnit: tomorrow12HourForecast[hour].wind.speed.converted(to: getUnitSpeed()).unit.symbol))
+            let windData = WindData(
+                speed: tomorrow12HourForecast[hour].wind.speed,
+                compassDirection: tomorrow12HourForecast[hour].wind.compassDirection,
+                time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)
+            )
+//            tomorrowHourlyWind.append(
+//                WindData(
+//                    speed: tomorrow12HourForecast[hour].wind.speed,
+//                    compassDirection: tomorrow12HourForecast[hour].wind.compassDirection,
+//                    time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)
+//                )
+//            )
             
             
-            tomorrowHourlyTemperatures.append(HourlyTemperatures(
-                temperature: String(format: "%.0f", tomorrow12HourForecast[hour].temperature.converted(to: getUnitTemperature()).value),
-                date: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset),
-                symbol: tomorrow12HourForecast[hour].symbolName,
-                chanceOfPrecipitation: tomorrow12HourForecast[hour].precipitationChance.formatted(.percent))
+            tomorrowHourlyTemperatures.append(
+                HourlyModel(
+                    temperature: tomorrow12HourForecast[hour].temperature, 
+                    wind: windData,
+                    date: tomorrow12HourForecast[hour].date,
+                    precipitationChance: tomorrow12HourForecast[hour].precipitationChance, symbol: tomorrow12HourForecast[hour].symbolName,
+                    timezone: timezoneOffset
+                )
             )
             
         }
         
-
+        
         
         let sunDetails = SunData(
             sunrise: tomorrowWeather.sun.sunrise,
@@ -195,10 +209,9 @@ class WeatherManager {
         )
         
         let tomorrowWind = WindData(
-            windSpeed: String(format: "%.0f", tomorrowWeather.wind.speed.converted(to: getUnitSpeed()).value),
-            windDirection: tomorrowWeather.wind.compassDirection,
-            time: nil,
-            speedUnit: tomorrowWeather.wind.speed.converted(to: getUnitSpeed()).unit.symbol
+            speed: tomorrowWeather.wind.speed,
+            compassDirection: tomorrowWeather.wind.compassDirection,
+            time: nil
         )
         
         let tomorrowsWeather = TomorrowWeatherModel(
@@ -218,7 +231,7 @@ class WeatherManager {
             precipitationAmount: tomorrowWeather.precipitationAmount,
             tomorrowDetails: tomorrowDetails,
             tomorrowHourlyWind: tomorrowHourlyWind,
-            hourlyTemperatures: tomorrowHourlyTemperatures,
+            hourlyWeather: tomorrowHourlyTemperatures,
             timezone: timezoneOffset
         )
         
@@ -237,10 +250,9 @@ class WeatherManager {
         for day in 0..<dailyWeather.count {
             
             let windDetails = WindData(
-                windSpeed: String(format: "%.0f", dailyWeather[day].wind.speed.converted(to: getUnitSpeed()).value),
-                windDirection: dailyWeather[day].wind.compassDirection,
-                time: nil,
-                speedUnit: dailyWeather[day].wind.speed.converted(to: getUnitSpeed()).unit.symbol
+                speed: dailyWeather[day].wind.speed,
+                compassDirection: dailyWeather[day].wind.compassDirection,
+                time: nil
             )
             
             let sunData = SunData(
@@ -314,8 +326,8 @@ class WeatherManager {
 extension WeatherManager {
     
     /// This functions returns an array of hourly weather data for the next fifteen hours.
-    private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyTemperatures] {
-        var fifteenHours: [HourlyTemperatures] = []
+    private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyModel] {
+        var fifteenHours: [HourlyModel] = []
         
         
         /// Gets all hourly forecasts starting with 7AM that day
@@ -327,12 +339,21 @@ extension WeatherManager {
 
         
         for i in 0..<K.Time.fifteenHours {
+            
+            let windData = WindData(
+                speed: nextDayWeatherHours[i].wind.speed,
+                compassDirection: nextDayWeatherHours[i].wind.compassDirection,
+                time: getReadableHourOnly(date: nextDayWeatherHours[i].date, timezoneOffset: timezoneOffset)
+            )
+            
             fifteenHours.append(
-                HourlyTemperatures(
-                    temperature: String(format: "%.0f", nextDayWeatherHours[i].temperature.converted(to: getUnitTemperature()).value),
-                    date: getReadableHourOnly(date: nextDayWeatherHours[i].date, timezoneOffset: timezoneOffset),
+                HourlyModel(
+                    temperature: nextDayWeatherHours[i].temperature, 
+                    wind: windData,
+                    date: nextDayWeatherHours[i].date,
+                    precipitationChance: nextDayWeatherHours[i].precipitationChance, 
                     symbol: nextDayWeatherHours[i].symbolName,
-                    chanceOfPrecipitation: nextDayWeatherHours[i].precipitationChance.formatted(.percent)
+                    timezone: timezoneOffset
                 )
             )
         }

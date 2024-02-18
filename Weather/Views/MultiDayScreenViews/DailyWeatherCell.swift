@@ -66,7 +66,7 @@ struct DailyWeatherCell: View {
                 Spacer()
                 
                 VStack(alignment: .leading, spacing: 5.0) {
-                    Text("\(daily.dailyWind.windDescriptionForMPH), \(daily.dailyWind.windSpeed) \(daily.dailyWind.speedUnit) \(daily.dailyWind.windDirection.abbreviation)")
+                    Text("\(daily.dailyWind.windDescription), \(daily.dailyWind.windSpeed) \(daily.dailyWind.speedUnit) \(daily.dailyWind.compassDirection.abbreviation)")
                     Text(daily.dailyUVIndex)
                     
                     if daily.dailyChanceOfPrecipitation != "0%" {
@@ -87,7 +87,7 @@ struct DailyWeatherCell: View {
                 HStack {
                     ForEach(daily.hourlyTemperatures) { hour in
                         VStack {
-                            Text("\(hour.temperature)°")
+                            Text("\(hour.hourTemperature)°")
                             Image(systemName: WeatherManager.shared.getImage(imageName: hour.symbol))
                                 .renderingMode(.original)
                                 .resizable()
@@ -96,7 +96,7 @@ struct DailyWeatherCell: View {
                                 .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
 
                             
-                            Text("\(hour.date)")
+                            Text(hour.readableDate)
                                 .font(.callout)
                                 .foregroundColor(.secondary)
                             
@@ -129,7 +129,7 @@ struct DailyWeatherCell: View {
         HStack {
             HStack {
                 if daily.dailyChanceOfPrecipitation != "0%" {
-                    Text("\(daily.dailyChanceOfPrecipitation)")
+                    Text(daily.dailyChanceOfPrecipitation)
                         .foregroundColor(.teal)
                         .lineLimit(1)
                 }

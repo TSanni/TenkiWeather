@@ -10,7 +10,7 @@ import Charts
 
 //MARK: - View
 struct WeatherGraphView: View {
-    let hourlyTemperatures: [HourlyTemperatures]
+    let hourlyTemperatures: [HourlyModel]
     let graphColor: Color
     let precipitationBlueColor = K.Colors.precipitationBlue
 
@@ -20,9 +20,9 @@ struct WeatherGraphView: View {
             
             //MARK: - Area Graph
             AreaMark(
-                x: .value("time", item.date),
+                x: .value("time", item.readableDate),
                 yStart: .value("start", getGraphStartingPoint()),
-                yEnd: .value("temp", Double(item.temperature) ?? 0)
+                yEnd: .value("temp", Double(item.hourTemperature) ?? 0)
             )
             // .interpolationMethod(.cardinal)
             .foregroundStyle(
@@ -37,28 +37,23 @@ struct WeatherGraphView: View {
 
             //MARK: - Line Graph
             LineMark(
-                x: .value("time", item.date),
-                y: .value("temp", Double(item.temperature) ?? 0)
+                x: .value("time", item.readableDate),
+                y: .value("temp", Double(item.hourTemperature) ?? 0)
             )
             .foregroundStyle(.white.opacity(0.2))
             .symbol(Circle())
-//            .annotation(position: .top) {
-//                Text("\(item.temperature)°")
-//                    .font(.footnote)
-//                    .foregroundColor(.white)
-//            }
             .lineStyle(StrokeStyle(lineWidth: 3))
 
 
             //MARK: - Bar graph
             BarMark(
-                x: .value("time", item.date),
+                x: .value("time", item.readableDate),
                 yStart: .value("start", getGraphStartingPoint()),
-                yEnd: .value("temp", Double(item.temperature) ?? 0)
+                yEnd: .value("temp", Double(item.hourTemperature) ?? 0)
             )
             .foregroundStyle(Color.clear)
             .annotation(position: .top) {
-                Text("\(item.temperature)°")
+                Text(item.hourTemperature + "°")
                     .font(.footnote)
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
@@ -89,7 +84,7 @@ struct WeatherGraphView: View {
                             .fontWeight(.light)
                             .foregroundColor(hourlyTemperatures[q.index].chanceOfPrecipitation == "0%" ? .clear : precipitationBlueColor)
                         /// hour
-                        Text("\(hourlyTemperatures[q.index].date)")
+                        Text(hourlyTemperatures[q.index].readableDate)
                             .font(.footnote)
                             .fontWeight(.semibold)
                             .fontWeight(.light)
@@ -111,7 +106,7 @@ struct WeatherGraphView: View {
         var allTemperatures: [Double] = []
         
         for i in 0..<hourlyTemperatures.count {
-            allTemperatures.append(Double(hourlyTemperatures[i].temperature) ?? 0)
+            allTemperatures.append(Double(hourlyTemperatures[i].hourTemperature) ?? 0)
         }
         
         return (allTemperatures.min() ?? 0) - 10
@@ -124,7 +119,7 @@ struct WeatherGraphView: View {
         var allTemperatures: [Double] = []
         
         for i in 0..<hourlyTemperatures.count {
-            allTemperatures.append(Double(hourlyTemperatures[i].temperature) ?? 0)
+            allTemperatures.append(Double(hourlyTemperatures[i].hourTemperature) ?? 0)
         }
         
         return (allTemperatures.max() ?? 0) + 10
@@ -139,7 +134,7 @@ struct WeatherGraphView_Previews: PreviewProvider {
             Color.mint
             ScrollView(.horizontal) {
                 
-                WeatherGraphView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData, graphColor: Color.blue)
+                WeatherGraphView(hourlyTemperatures: HourlyModel.hourlyTempHolderData, graphColor: Color.blue)
                     .previewDevice("iPhone 11 Pro Max")
                     .frame(width: UIScreen.main.bounds.width * 2)
                     .frame(height: 200)

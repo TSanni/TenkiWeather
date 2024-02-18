@@ -23,7 +23,7 @@ struct DailyWeatherModel: Identifiable {
     let dailyWind: WindData
     let dailyUVIndex: String
     let sunEvents: SunData
-    let hourlyTemperatures: [HourlyTemperatures]
+    let hourlyTemperatures: [HourlyModel]
 
     
     
@@ -39,7 +39,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -51,7 +51,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -63,7 +63,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -75,7 +75,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -87,7 +87,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -99,7 +99,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -111,7 +111,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -123,7 +123,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -135,7 +135,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
         
         DailyWeatherModel(
@@ -147,7 +147,7 @@ struct DailyWeatherModel: Identifiable {
             dailyHighTemp: "-",
             dailyWind: WindData.windDataHolder[0],
             dailyUVIndex: "-",
-            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
+            sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyModel.hourlyTempHolderData
         ),
     ]
 

@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct HourlyForecastLineGraphView: View {
-    let hourlyTemperatures: [HourlyTemperatures]
+    let hourlyTemperatures: [HourlyModel]
     
     var body: some View {
 
@@ -17,8 +17,8 @@ struct HourlyForecastLineGraphView: View {
             ForEach(hourlyTemperatures) { item in
                 //MARK: - Line Graph
                 LineMark(
-                    x: .value("time", item.date),
-                    y: .value("temp", Double(item.temperature) ?? 0)
+                    x: .value("time", item.readableDate),
+                    y: .value("temp", Double(item.hourTemperature) ?? 0)
                 )
                 .lineStyle(StrokeStyle(lineWidth: 1))
                 .symbol {
@@ -42,7 +42,7 @@ struct HourlyForecastLineGraphView: View {
         var allTemperatures: [Double] = []
         
         for i in 0..<hourlyTemperatures.count {
-            allTemperatures.append(Double(hourlyTemperatures[i].temperature) ?? 0)
+            allTemperatures.append(Double(hourlyTemperatures[i].hourTemperature) ?? 0)
         }
         
         return (allTemperatures.min() ?? 0)
@@ -54,7 +54,7 @@ struct HourlyForecastLineGraphView: View {
         var allTemperatures: [Double] = []
         
         for i in 0..<hourlyTemperatures.count {
-            allTemperatures.append(Double(hourlyTemperatures[i].temperature) ?? 0)
+            allTemperatures.append(Double(hourlyTemperatures[i].hourTemperature) ?? 0)
         }
         
         return (allTemperatures.max() ?? 0)
@@ -63,7 +63,7 @@ struct HourlyForecastLineGraphView: View {
 
 #Preview {
     ScrollView {
-        HourlyForecastLineGraphView(hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData)
+        HourlyForecastLineGraphView(hourlyTemperatures: HourlyModel.hourlyTempHolderData)
        
     }     
     .background {

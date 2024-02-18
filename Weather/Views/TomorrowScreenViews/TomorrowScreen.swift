@@ -42,7 +42,7 @@ struct TomorrowScreen: View {
                                     .fontWeight(.semibold)
                                     .foregroundStyle(appStateManager.blendColors(themeColor: tomorrowWeather.backgroundColor))
                                 
-                                HourlyForecastTileView(hourlyTemperatures: tomorrowWeather.hourlyTemperatures, color: tomorrowWeather.backgroundColor)
+                                HourlyForecastTileView(hourlyTemperatures: tomorrowWeather.hourlyWeather, color: tomorrowWeather.backgroundColor)
                                 
                                 
                                 Text("Tomorrow's Conditions")
@@ -79,7 +79,7 @@ struct TomorrowScreen: View {
                             
                             WindTileView(
                                 windData: tomorrowWeather.tomorrowWind,
-                                hourlyWindData: tomorrowWeather.tomorrowHourlyWind,
+                                hourlyWeather: tomorrowWeather.hourlyWeather,
                                 setTodayWeather: false,
                                 backgroundColor: tomorrowWeather.backgroundColor
                             )

@@ -30,7 +30,7 @@ struct TomorrowWeatherModel: Identifiable {
     
     let tomorrowDetails: DetailsModel
     let tomorrowHourlyWind: [WindData]
-    let hourlyTemperatures: [HourlyTemperatures]
+    let hourlyWeather: [HourlyModel]
     let timezone: Int
 
     
@@ -105,7 +105,7 @@ struct TomorrowWeatherModel: Identifiable {
         precipitationAmount: Measurement(value: 0.5, unit: .centimeters),
         tomorrowDetails: DetailsModel.detailsDataHolder,
         tomorrowHourlyWind: WindData.windDataHolder,
-        hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData,
+        hourlyWeather: HourlyModel.hourlyTempHolderData,
         timezone: 0
     )
 }

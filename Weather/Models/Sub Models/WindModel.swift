@@ -11,19 +11,18 @@ import SwiftUI
 
 //MARK: - Wind Data Model : Will be part of main model
 
-/// Consists of windSpeed, windDirection, time, windDescriptionForMPH, and readableWindDirection
+/// Consists of windSpeed, compassDirection, time, windDescription, and readableWindDirection
 struct WindData: Identifiable {
     let id = UUID()
-    let windSpeed: String
-    let windDirection: Wind.CompassDirection
+    let speed: Measurement<UnitSpeed>
+    let compassDirection: Wind.CompassDirection
     let time: String?
-    let speedUnit: String
     
     /// Computed property uses the wind speed and returns a string description
-    var windDescriptionForMPH: String {
+    var windDescription: String {
+        let speed = speed.converted(to: .milesPerHour)
         
-        if let numWindSpeed = Int(windSpeed) {
-            switch numWindSpeed {
+            switch speed.value {
                 case 1...3:
                     return "Light Air"
                 case 4...7:
@@ -51,15 +50,11 @@ struct WindData: Identifiable {
                 default:
                     return "Calm"
             }
-        } else {
-            return "Unable to get wind data"
         }
-    }
-    
     
     /// Computed property converts the enum wind directions to a readable string format
     var readableWindDirection: String {
-        switch windDirection {
+        switch compassDirection {
             case .north:
                 return "North"
             case .northNortheast:
@@ -95,14 +90,8 @@ struct WindData: Identifiable {
         }
     }
     
+    /// Computed property will update the color based on wind speed
     var windColor: Color {
-//        let light = #colorLiteral(red: 0.04400173575, green: 0.5181836486, blue: 0.9972603917, alpha: 1)
-//        let breeze = #colorLiteral(red: 0.1430673301, green: 0.6491933465, blue: 0.60500741, alpha: 1)
-//        let gale = #colorLiteral(red: 0.9978212714, green: 0.9978941083, blue: 0.5972678661, alpha: 1)
-//        let strongGale = #colorLiteral(red: 0.9998317361, green: 0.7493718266, blue: 0, alpha: 1)
-//        let storm = #colorLiteral(red: 1, green: 0.6042675376, blue: 0.395904392, alpha: 1)
-//        let violentStorm = #colorLiteral(red: 1, green: 0.400586307, blue: 0, alpha: 1)
-//        let hurricane = #colorLiteral(red: 0.8019552231, green: 0.195156306, blue: 0.004458193202, alpha: 1)
         
         let light = Color(uiColor: #colorLiteral(red: 0.08248766512, green: 0.2948074937, blue: 1, alpha: 1))
         let breeze = Color(uiColor: #colorLiteral(red: 0.2198026478, green: 0.6681205034, blue: 0.29497841, alpha: 1))
@@ -112,105 +101,73 @@ struct WindData: Identifiable {
         let violentStorm = Color.orange
         let hurricane = Color.red
         
-        
-        let unit = WeatherManager.shared.getUnitLength()
-        
-        if let numWindSpeed = Int(windSpeed) {
-           
-            
-            if unit == .miles { // Wind speed colors for miles
-                switch numWindSpeed {
-                    case 0...12://
-                        return light
-                    case 13...31:
-                        return breeze
-                    case 32...38:
-                        return gale
-                    case 39...54:
-                        return Color(uiColor: strongGale)
-                    case 55...63:
-                        return Color(uiColor: storm)
-                    case 64...72:
-                        return violentStorm
-                    case 73...500:
-                        return hurricane
-                    default:
-                        return light
-                }
-            } else if unit == .kilometers { // Wind speed colors for kilometers
-                switch numWindSpeed {
-                    case 0...19:
-                        return light
-                    case 20...50:
-                        return breeze
-                    case 51...61:
-                        return gale
-                    case 62...87:
-                        return Color(uiColor: strongGale)
-                    case 88...101:
-                        return Color(uiColor: storm)
-                    case 102...116:
-                        return violentStorm
-                    case 117...500:
-                        return hurricane
-                    default:
-                        return light
-                }
-            } else if unit == .meters { // Wind speed colors for meters
-                switch numWindSpeed {
-                    case 0...5://
-                        return light
-                    case 6...13://
-                        return breeze
-                    case 14...17://
-                        return gale
-                    case 18...24://
-                        return Color(uiColor: strongGale)
-                    case 25...28://
-                        return Color(uiColor: storm)
-                    case 29...32://
-                        return violentStorm
-                    case 33...500:
-                        return hurricane
-                    default:
-                        return light
-                }
-            } else { //Knots
-                switch numWindSpeed {
-                    case 0...10:
-                        return light
-                    case 6...27:
-                        return breeze
-                    case 14...33:
-                        return gale
-                    case 18...47:
-                        return Color(uiColor: strongGale)
-                    case 25...54:
-                        return Color(uiColor: storm)
-                    case 29...63:
-                        return violentStorm
-                    case 64...500:
-                        return hurricane
-                    default:
-                        return light
-                }
-
-
-            }
-        } else {
+        let speed = speed.converted(to: .milesPerHour)
+ 
+        switch speed.value {
+        case 0...12://
+            return light
+        case 13...31:
+            return breeze
+        case 32...38:
+            return gale
+        case 39...54:
+            return Color(uiColor: strongGale)
+        case 55...63:
+            return Color(uiColor: storm)
+        case 64...72:
+            return violentStorm
+        case 73...500:
+            return hurricane
+        default:
             return light
         }
+        
     }
     
+    var windSpeed: String {
+        let speed = speed.converted(to: getUnitSpeed())
+        let windSpeedValueOnly = convertNumberToZeroFloatingPoints(number: speed.value)
+        return windSpeedValueOnly
+    }
     
+    var speedUnit: String {
+        return speed.converted(to: getUnitSpeed()).unit.symbol
+    }
+
     /// Holder data for wind details
     static let windDataHolder: [WindData] = [
-        WindData(windSpeed: "10", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "1 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "31", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "2 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "38", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "3 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "54", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "4 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "63", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "5 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "72", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "6 AM", speedUnit: "m/s"),
-        WindData(windSpeed: "10", windDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "7 AM", speedUnit: "m/s"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "1 AM"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "2 AM"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "3 AM"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "4 AM"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "5 AM"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "6 AM"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "7 AM"),
     ]
+}
+
+// MARK: - Private Functions
+extension WindData {
+    
+    /// Takes a Double, removes floating point numbers, then converts to and returns a String
+    private func convertNumberToZeroFloatingPoints(number: Double) -> String {
+        let convertedStringNumber = String(format: "%.0f", number)
+        return convertedStringNumber
+    }
+    
+    private func getUnitSpeed() -> UnitSpeed {
+        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
+        
+        switch chosenUnitDistance {
+        case  K.DistanceUnits.mph:
+            return .milesPerHour
+        case K.DistanceUnits.kiloPerHour:
+            return .kilometersPerHour
+        case K.DistanceUnits.meterPerSecond:
+            return .metersPerSecond
+        default:
+            print("CAN'T DETERMINE UNIT SPEED")
+            return .milesPerHour
+        }
+    }
 }

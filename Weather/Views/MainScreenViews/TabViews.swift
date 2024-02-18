@@ -21,24 +21,18 @@ struct TabViews: View {
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
-//                .contentShape(Rectangle()).gesture(DragGesture())
-            
             
             TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
                 .tag(WeatherTabs.tomorrow)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
-//                .contentShape(Rectangle()).gesture(DragGesture())
-
             
             MultiDayScreen(daily: weatherViewModel.dailyWeather)
                 .tag(WeatherTabs.multiDay)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
-//                .contentShape(Rectangle()).gesture(DragGesture())
-
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .edgesIgnoringSafeArea(.bottom)

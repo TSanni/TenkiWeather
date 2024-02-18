@@ -13,10 +13,7 @@ struct TodayScreen: View {
     
     let currentWeather: TodayWeatherModel
     let weatherAlert: WeatherAlertModel?
-    
 
-    
-    
     var body: some View {
         GeometryReader { geo in
             
@@ -31,9 +28,6 @@ struct TodayScreen: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 0.0) {
-                            
-                            
-                            
                             ImmediateWeatherDetails(currentWeather: currentWeather)
                                 .id(0)
                             
@@ -47,10 +41,9 @@ struct TodayScreen: View {
                                 .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
                             
                             HourlyForecastTileView(
-                                hourlyTemperatures: currentWeather.hourlyTemperatures,
+                                hourlyTemperatures: currentWeather.hourlyWeather,
                                 color: currentWeather.backgroundColor
                             )
-                            
                             
                             Text("Current conditions")
                                 .padding(.horizontal)
@@ -58,7 +51,6 @@ struct TodayScreen: View {
                                 .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
                             
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
-                                
                                 HumidityTileView(
                                     humidityDetails: currentWeather.currentDetails,
                                     backgroundColor: currentWeather.backgroundColor
@@ -83,23 +75,19 @@ struct TodayScreen: View {
                             }
                             .padding()
                             
-                            
                             WindTileView(
                                 windData: currentWeather.todayWind,
-                                hourlyWindData: currentWeather.todayHourlyWind,
-                                setTodayWeather: true, 
+                                hourlyWeather: currentWeather.hourlyWeather,
+                                setTodayWeather: true,
                                 backgroundColor: currentWeather.backgroundColor
                             )
-                            
                             
                             Text("Sun Data")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
                             
-                            
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
-                                
                                 SunDataTile(
                                     sundata: currentWeather.sunData,
                                     backgroundColor: currentWeather.backgroundColor,

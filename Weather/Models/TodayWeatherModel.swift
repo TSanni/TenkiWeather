@@ -22,10 +22,10 @@ struct TodayWeatherModel: Identifiable {
     let precipitationChance: Double
     let currentDetails: DetailsModel
     let todayWind: WindData
-    let todayHourlyWind: [WindData]
+//    let todayHourlyWind: [WindData]
     let sunData: SunData
     let isDaylight: Bool
-    let hourlyTemperatures: [HourlyTemperatures]
+    let hourlyWeather: [HourlyModel]
     let timezeone: Int
     
     
@@ -41,10 +41,10 @@ struct TodayWeatherModel: Identifiable {
         precipitationChance: 0.5,
         currentDetails: DetailsModel.detailsDataHolder,
         todayWind: WindData.windDataHolder[0],
-        todayHourlyWind: WindData.windDataHolder,
+//        todayHourlyWind: WindData.windDataHolder,
         sunData: SunData.sunDataHolder,
         isDaylight: false,
-        hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData,
+        hourlyWeather: HourlyModel.hourlyTempHolderData,
         timezeone: 0
     )
     

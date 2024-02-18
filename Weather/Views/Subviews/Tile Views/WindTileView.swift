@@ -12,7 +12,7 @@ struct WindTileView: View {
     @EnvironmentObject var appStateManager: AppStateManager
     
     let windData: WindData
-    let hourlyWindData: [WindData]
+    let hourlyWeather: [HourlyModel]
     let setTodayWeather: Bool
     let backgroundColor: Color
     
@@ -36,9 +36,9 @@ struct WindTileView: View {
                     HStack {
                         EmptyView()
                             .id(0)
-                        ForEach(hourlyWindData) { datum in
+                        ForEach(hourlyWeather) { datum in
                             Image(systemName: "location.fill")
-                                .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: datum.windDirection) + 180))
+                                .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: datum.wind.compassDirection) + 180))
                                 .padding(.vertical)
                                 .padding(.horizontal, 10)
                         }
@@ -47,7 +47,7 @@ struct WindTileView: View {
                         proxy.scrollTo(0)
                     }
                     
-                    WindBarGraph(hourlyWind: hourlyWindData)
+                    WindBarGraph(hourlyWeather: hourlyWeather)
                         .frame(height: 100)
                 }
             }
@@ -79,7 +79,7 @@ struct WindTileView: View {
                 
                 VStack {
                     Image(systemName: "location.fill")
-                        .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.windDirection) + 180) )
+                        .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.compassDirection) + 180) )
                     Text(windData.speedUnit)
                 }
             }
@@ -87,7 +87,7 @@ struct WindTileView: View {
             
             
             VStack(alignment: .leading) {
-                Text(windData.windDescriptionForMPH)
+                Text(windData.windDescription)
                     .font(.largeTitle)
                     .fontWeight(.light)
                     .lineLimit(1)
@@ -103,7 +103,7 @@ struct WindTileView: View {
     
     var tomorrowData: some View {
         VStack(alignment: .leading, spacing: 5.0) {
-            Text(windData.windDescriptionForMPH)
+            Text(windData.windDescription)
                 .fontWeight(.light)
                 .font(.title)
             Text("Average of about \(windData.windSpeed) \(windData.speedUnit)")
@@ -119,7 +119,7 @@ struct WindView_Previews: PreviewProvider {
             GeometryReader { geo in
                 WindTileView(
                     windData: WindData.windDataHolder[0],
-                    hourlyWindData: WindData.windDataHolder,
+                    hourlyWeather: HourlyModel.hourlyTempHolderData,
                     setTodayWeather: true,
                     backgroundColor: Color(uiColor: K.Colors.haze)
                 )
