@@ -26,7 +26,7 @@ struct SunDataTile: View {
             Spacer()
             
             HStack {
-                Text(sundata.sunrise)
+                Text(sundata.sunriseTime)
                     .font(.largeTitle)
                     .bold()
                     .lineLimit(1)
@@ -65,7 +65,7 @@ struct SunDataTile: View {
             Spacer()
             
             HStack {
-                Text(sundata.sunset)
+                Text(sundata.sunsetTime)
                     .font(.largeTitle)
                     .bold()
                     .lineLimit(1)

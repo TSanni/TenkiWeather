@@ -66,11 +66,12 @@ class WeatherManager {
         
         /// Weather data for sun events
         let sunData = SunData(
-            sunrise: getReadableHourAndMinute(date: dailyWeather[0].sun.sunrise, timezoneOffset: timezoneOffset),
-            sunset: getReadableHourAndMinute(date: dailyWeather[0].sun.sunset, timezoneOffset: timezoneOffset),
-            dawn: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDawn, timezoneOffset: timezoneOffset),
-            solarNoon: getReadableHourAndMinute(date: dailyWeather[0].sun.solarNoon, timezoneOffset: timezoneOffset),
-            dusk: getReadableHourAndMinute(date: dailyWeather[0].sun.civilDusk, timezoneOffset: timezoneOffset)
+            sunrise: dailyWeather[0].sun.sunrise,
+            sunset: dailyWeather[0].sun.sunset,
+            civilDawn: dailyWeather[0].sun.civilDawn,
+            solarNoon: dailyWeather[0].sun.solarNoon,
+            civilDusk: dailyWeather[0].sun.civilDusk,
+            timezone: timezoneOffset
         )
         
         
@@ -172,11 +173,12 @@ class WeatherManager {
 
         
         let sunDetails = SunData(
-            sunrise: getReadableHourAndMinute(date: tomorrowWeather.sun.sunrise, timezoneOffset: timezoneOffset),
-            sunset: getReadableHourAndMinute(date: tomorrowWeather.sun.sunset, timezoneOffset: timezoneOffset),
-            dawn: getReadableHourAndMinute(date: tomorrowWeather.sun.civilDawn, timezoneOffset: timezoneOffset),
-            solarNoon: getReadableHourAndMinute(date: tomorrowWeather.sun.solarNoon, timezoneOffset: timezoneOffset),
-            dusk: getReadableHourAndMinute(date: tomorrowWeather.sun.civilDusk, timezoneOffset: timezoneOffset)
+            sunrise: tomorrowWeather.sun.sunrise,
+            sunset: tomorrowWeather.sun.sunset,
+            civilDawn: tomorrowWeather.sun.civilDawn,
+            solarNoon: tomorrowWeather.sun.solarNoon,
+            civilDusk: tomorrowWeather.sun.civilDusk,
+            timezone: timezoneOffset
         )
         
         let tomorrowDetails = DetailsModel(
@@ -220,22 +222,6 @@ class WeatherManager {
             timezone: timezoneOffset
         )
         
-//        let tomorrowsWeather = TomorrowWeatherModel(
-//            date: tomorrowWeather.date,
-//            highTemperature: tomorrowWeather.highTemperature, 
-//            lowTemperature: tomorrowWeather.lowTemperature,
-//            symbolName: tomorrowWeather.symbolName,
-//            tomorrowWeatherDescription: tomorrowWeather.condition,
-//            tomorrowChanceOfPrecipitation: tomorrowWeather.precipitationChance,
-//            tomorrowDetails: tomorrowDetails,
-//            tomorrowWind: tomorrowWind,
-//            tomorrowHourlyWind: tomorrowHourlyWind,
-//            hourlyTemperatures: tomorrowHourlyTemperatures,
-//            sunData: sunDetails,
-//            precipitation: tomorrowWeather.precipitation, 
-//            timezone: timezoneOffset
-//        )
-        
         return tomorrowsWeather
 
     }
@@ -258,11 +244,12 @@ class WeatherManager {
             )
             
             let sunData = SunData(
-                sunrise: getReadableHourAndMinute(date: dailyWeather[day].sun.sunrise, timezoneOffset: timezoneOffset),
-                sunset: getReadableHourAndMinute(date: dailyWeather[day].sun.sunset, timezoneOffset: timezoneOffset),
-                dawn: "",
-                solarNoon: "",
-                dusk: ""
+                sunrise: dailyWeather[day].sun.sunrise,
+                sunset: dailyWeather[day].sun.sunset,
+                civilDawn: dailyWeather[day].sun.civilDawn,
+                solarNoon: dailyWeather[day].sun.solarNoon,
+                civilDusk: dailyWeather[day].sun.civilDusk,
+                timezone: timezoneOffset
             )
             
             let hourlyTempsForDay = getHourlyWeatherForDay(day: dailyWeather[day], hours: hourlyWeather, timezoneOffset: timezoneOffset)

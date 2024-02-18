@@ -73,7 +73,7 @@ struct DailyWeatherCell: View {
                         Text(daily.dailyChanceOfPrecipitation)
                     }
                     
-                    Text("\(daily.sunEvents.sunrise), \(daily.sunEvents.sunset)")
+                    Text("\(daily.sunEvents.sunriseTime), \(daily.sunEvents.sunsetTime)")
                 }
                 .foregroundColor(.primary)
                 
