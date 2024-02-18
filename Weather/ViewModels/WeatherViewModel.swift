@@ -10,7 +10,7 @@ import WeatherKit
 
 class WeatherViewModel: ObservableObject {
     @Published var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
-    @Published var tomorrowWeather: TomorrowWeatherModel = TomorrowWeatherModel.tomorrowDataHolder
+    @Published var tomorrowWeather: TomorrowWeatherModel = TomorrowWeatherModel.placeholder
     @Published var dailyWeather: [DailyWeatherModel] = DailyWeatherModel.dailyDataHolder
     @Published var weatherAlert: WeatherAlertModel? = nil
     

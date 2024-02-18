@@ -200,19 +200,41 @@ class WeatherManager {
         )
         
         let tomorrowsWeather = TomorrowWeatherModel(
-            date: getDayOfWeekAndDate(date: tomorrowWeather.date, timezoneOffset: timezoneOffset),
-            tomorrowLow: String(format: "%.0f", tomorrowWeather.lowTemperature.converted(to: getUnitTemperature()).value),
-            tomorrowHigh: String(format: "%.0f", tomorrowWeather.highTemperature.converted(to: getUnitTemperature()).value),
-            tomorrowSymbol: tomorrowWeather.symbolName,
-            tomorrowWeatherDescription: tomorrowWeather.condition,
-            tomorrowChanceOfPrecipitation: tomorrowWeather.precipitationChance,
-            tomorrowDetails: tomorrowDetails,
+            highTemperature: tomorrowWeather.highTemperature,
+            lowTemperature: tomorrowWeather.lowTemperature,
+            precipitation: tomorrowWeather.precipitation,
+            precipitationChance: tomorrowWeather.precipitationChance,
+            snowfallAmount: tomorrowWeather.snowfallAmount,
+            moonEvents: nil,
+            sunData: sunDetails,
             tomorrowWind: tomorrowWind,
+            date: tomorrowWeather.date,
+            condition: tomorrowWeather.condition,
+            uvIndexValue: tomorrowWeather.uvIndex.value,
+            uvIndexCategory: tomorrowWeather.uvIndex.category,
+            symbolName: tomorrowWeather.symbolName,
+            precipitationAmount: tomorrowWeather.precipitationAmount,
+            tomorrowDetails: tomorrowDetails,
             tomorrowHourlyWind: tomorrowHourlyWind,
             hourlyTemperatures: tomorrowHourlyTemperatures,
-            sunData: sunDetails,
-            precipitation: tomorrowWeather.precipitation
+            timezone: timezoneOffset
         )
+        
+//        let tomorrowsWeather = TomorrowWeatherModel(
+//            date: tomorrowWeather.date,
+//            highTemperature: tomorrowWeather.highTemperature, 
+//            lowTemperature: tomorrowWeather.lowTemperature,
+//            symbolName: tomorrowWeather.symbolName,
+//            tomorrowWeatherDescription: tomorrowWeather.condition,
+//            tomorrowChanceOfPrecipitation: tomorrowWeather.precipitationChance,
+//            tomorrowDetails: tomorrowDetails,
+//            tomorrowWind: tomorrowWind,
+//            tomorrowHourlyWind: tomorrowHourlyWind,
+//            hourlyTemperatures: tomorrowHourlyTemperatures,
+//            sunData: sunDetails,
+//            precipitation: tomorrowWeather.precipitation, 
+//            timezone: timezoneOffset
+//        )
         
         return tomorrowsWeather
 

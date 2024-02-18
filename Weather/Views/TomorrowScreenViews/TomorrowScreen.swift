@@ -18,7 +18,6 @@ struct TomorrowScreen: View {
     
     var body: some View {
         GeometryReader { geo in
-            let tileSize = appStateManager.fortyFivePercentTileSize(geo: geo)
             
             ScrollView(.vertical, showsIndicators: false) {
                 ScrollViewReader { proxy in
@@ -102,7 +101,7 @@ struct TomorrowScreen: View {
 //MARK: - TomorrowScreen Preview
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.tomorrowDataHolder)
+        TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.placeholder)
             .environmentObject(AppStateManager())
     }
 }

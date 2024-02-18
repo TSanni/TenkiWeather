@@ -150,19 +150,6 @@ struct DailyWeatherModel: Identifiable {
             sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
         ),
     ]
-    
-//    static let dailyDataHolder = DailyWeatherModel(
-//        date: "-",
-//        dailyWeatherDescription: .clear,
-//        dailyChanceOfPrecipitation: "-",
-//        dailySymbol: "-",
-//        dailyLowTemp: "-",
-//        dailyHighTemp: "-",
-//        dailyWind: WindData.windDataHolder[0],
-//        dailyUVIndex: "-",
-//        sunEvents: SunData.sunDataHolder, hourlyTemperatures: HourlyTemperatures.hourlyTempHolderData
-//    )
-    
 
 }
 

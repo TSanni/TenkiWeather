@@ -13,12 +13,12 @@ struct TomorrowImmediateWeatherView: View {
 
     
     var body: some View {
-        let imageSymbol = appState.fillImageToPrepareForRendering(symbol: tomorrowWeather.tomorrowSymbol)
+        let imageSymbol = appState.fillImageToPrepareForRendering(symbol: tomorrowWeather.symbolName)
         let blendColor1 = appState.blendColors(themeColor: tomorrowWeather.backgroundColor)
         let blendColor2 = appState.blendColors2(themeColor: tomorrowWeather.backgroundColor)
         
         VStack(alignment: .leading) {
-            Text(tomorrowWeather.date)
+            Text(tomorrowWeather.readableDate)
                 .fontWeight(.semibold)
             
             HStack {
@@ -50,8 +50,8 @@ struct TomorrowImmediateWeatherView: View {
 
 #Preview {
     ZStack {
-        TomorrowWeatherModel.tomorrowDataHolder.backgroundColor
-        TomorrowImmediateWeatherView(tomorrowWeather: TomorrowWeatherModel.tomorrowDataHolder)
+        TomorrowWeatherModel.placeholder.backgroundColor
+        TomorrowImmediateWeatherView(tomorrowWeather: TomorrowWeatherModel.placeholder)
             .environmentObject(AppStateManager())
 
     }

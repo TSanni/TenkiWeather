@@ -22,7 +22,7 @@ struct PrecipitationTileView: View {
     
     
     var body: some View {
-        let precipitation = convertPrecipitationFromPercentToDouble(precipitation: precipitationDetails.tomorrowChanceOfPrecipitation)
+//        let precipitation = convertPrecipitationFromPercentToDouble(precipitation: precipitationDetails.tomorrowChanceOfPrecipitation)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "drop.fill")
@@ -37,7 +37,7 @@ struct PrecipitationTileView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 0.0) {
                     
-                    Text(precipitationDetails.tomorrowChanceOfPrecipitation.formatted(.percent))
+                    Text(precipitationDetails.tomorrowChanceOfPrecipitation)
                         .font(.largeTitle)
                         .bold()
                     
@@ -50,7 +50,7 @@ struct PrecipitationTileView: View {
                 
                 TileImageProgressView(
                     height: 50,
-                    value: precipitation,
+                    value: precipitationDetails.precipitationChance,
                     sfSymbol: "drop.fill",
                     color: K.Colors.precipitationBlue
                 )
@@ -60,7 +60,7 @@ struct PrecipitationTileView: View {
             
             Spacer()
             
-            Text("\(precipitationDetails.tomorrowChanceOfPrecipitation.formatted(.percent)) chance of precipitation.")
+            Text("\(precipitationDetails.tomorrowChanceOfPrecipitation) chance of precipitation.")
                 .font(.footnote)
 
             
@@ -72,7 +72,7 @@ struct PrecipitationTileView: View {
 
 #Preview {
     PrecipitationTileView(
-        precipitationDetails: TomorrowWeatherModel.tomorrowDataHolder,
+        precipitationDetails: TomorrowWeatherModel.placeholder,
         backgroundColor: Color(uiColor: K.Colors.haze)
     )
     .frame(width: 200)
