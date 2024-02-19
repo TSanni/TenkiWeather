@@ -21,8 +21,7 @@ struct TodayWeatherModel: Identifiable {
     let condition: WeatherCondition
     let precipitationChance: Double
     let currentDetails: DetailsModel
-    let todayWind: WindData
-//    let todayHourlyWind: [WindData]
+    let wind: WindData
     let sunData: SunData
     let isDaylight: Bool
     let hourlyWeather: [HourlyModel]
@@ -40,8 +39,7 @@ struct TodayWeatherModel: Identifiable {
         condition: .clear,
         precipitationChance: 0.5,
         currentDetails: DetailsModel.detailsDataHolder,
-        todayWind: WindData.windDataHolder[0],
-//        todayHourlyWind: WindData.windDataHolder,
+        wind: WindData.windDataHolder[0],
         sunData: SunData.sunDataHolder,
         isDaylight: false,
         hourlyWeather: HourlyModel.hourlyTempHolderData,
@@ -73,7 +71,7 @@ extension TodayWeatherModel {
     var currentTemperature: String {
         let temperature = temperature.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
-        return temperatureValueOnly
+        return temperatureValueOnly + "°"
     }
     
     var feelsLikeTemperature: String {

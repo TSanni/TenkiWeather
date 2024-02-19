@@ -76,7 +76,7 @@ struct TodayScreen: View {
                             .padding()
                             
                             WindTileView(
-                                windData: currentWeather.todayWind,
+                                windData: currentWeather.wind,
                                 hourlyWeather: currentWeather.hourlyWeather,
                                 setTodayWeather: true,
                                 backgroundColor: currentWeather.backgroundColor

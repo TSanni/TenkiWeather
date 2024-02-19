@@ -44,15 +44,12 @@ class WeatherManager {
         /// Weather data for Current details card
         let currentDetailsCardInfo = DetailsModel(
             humidity: current.humidity,
-            dewPoint: String(format: "%.0f", current.dewPoint.converted(to: getUnitTemperature()).value) + current.dewPoint.converted(to: getUnitTemperature()).unit.symbol,
-            pressure: getReadableMeasurementPressure(measurement: current.pressure.converted(to: .inchesOfMercury)),
-            uvIndexCategory: current.uvIndex.category,
+            dewPoint: current.dewPoint,
+            pressure: current.pressure,
+            pressureTrend: current.pressureTrend, uvIndexCategory: current.uvIndex.category,
             uvIndexValue: current.uvIndex.value,
-            visibility: getReadableMeasurementLengths(measurement: current.visibility.converted(to: getUnitLength())),
-            sunData: nil,
-            visibilityValue: current.visibility.value,
-            pressureTrend: current.pressureTrend,
-            pressureValue: current.pressure.converted(to: .inchesOfMercury).value
+            visibility: current.visibility,
+            sunData: nil
         )
                 
         
@@ -115,7 +112,7 @@ class WeatherManager {
             condition: current.condition,
             precipitationChance: dailyWeather[0].precipitationChance,
             currentDetails: currentDetailsCardInfo,
-            todayWind: windDetailsInfo,
+            wind: windDetailsInfo,
             sunData: sunData,
             isDaylight: current.isDaylight,
             hourlyWeather: hourlyTemperatures,
@@ -197,15 +194,12 @@ class WeatherManager {
         
         let tomorrowDetails = DetailsModel(
             humidity: 0,
-            dewPoint: nil,
-            pressure: nil,
-            uvIndexCategory: tomorrowWeather.uvIndex.category,
+            dewPoint: Measurement(value: 50, unit: .fahrenheit), // TODO: Will be removing the DetailsModel Struct eventually
+            pressure: Measurement(value: 20, unit: .inchesOfMercury), // TODO: Will be removing the DetailsModel Struct eventually
+            pressureTrend: PressureTrend.steady, uvIndexCategory: tomorrowWeather.uvIndex.category,
             uvIndexValue: tomorrowWeather.uvIndex.value,
-            visibility: "",
-            sunData: sunDetails,
-            visibilityValue: nil,
-            pressureTrend: nil,
-            pressureValue: 0
+            visibility: Measurement(value: 5000, unit: .meters), // TODO: Will be removing the DetailsModel Struct eventually
+            sunData: sunDetails // TODO: Will be removing the DetailsModel Struct eventually
         )
         
         let tomorrowWind = WindData(

@@ -20,7 +20,6 @@ struct HourlyModel: Identifiable {
     var hourTemperature: String {
         let temperature = temperature.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
-        print("TEMPERATURE VALUE: \(temperatureValueOnly)")
         return temperatureValueOnly
     }
     

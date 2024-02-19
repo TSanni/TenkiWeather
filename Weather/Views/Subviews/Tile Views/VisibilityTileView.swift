@@ -25,7 +25,7 @@ struct VisibilityTileView: View {
             
             VStack(alignment: .leading, spacing: 0.0) {
                 
-                Text(visibilityDetails.visibility ?? "")
+                Text(visibilityDetails.visibilityValue)
                     .font(.largeTitle)
                     .bold()
                 
