@@ -28,6 +28,8 @@ struct DetailsModel {
     var dewPointDescription: String {
         let dewPointTemperature = dewPoint.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: dewPointTemperature.value)
+        
+        print("**********************VALUE OF DEWPOINT DESCRIPTION: \(temperatureValueOnly)********************************************")
         return temperatureValueOnly + dewPointTemperature.unit.symbol
     }
     

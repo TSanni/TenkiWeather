@@ -12,7 +12,7 @@ import SwiftUI
 struct TomorrowScreen: View {
     @EnvironmentObject private var appStateManager: AppStateManager
     
-    let tomorrowWeather: TomorrowWeatherModel
+    let tomorrowWeather: DailyWeatherModel
     
     
     
@@ -53,7 +53,7 @@ struct TomorrowScreen: View {
                                 
                                 LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
                                     
-                                    UVIndexTileView(uvIndexDetails: tomorrowWeather.tomorrowDetails, backgroundColor: tomorrowWeather.backgroundColor)
+                                    UVIndexTileView(uvIndexDetails: tomorrowWeather.dayDetails, backgroundColor: tomorrowWeather.backgroundColor)
                                     
                                     PrecipitationTileView(
                                         precipitationDetails: tomorrowWeather,
@@ -101,7 +101,7 @@ struct TomorrowScreen: View {
 //MARK: - TomorrowScreen Preview
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TomorrowScreen(tomorrowWeather: TomorrowWeatherModel.placeholder)
+        TomorrowScreen(tomorrowWeather: DailyWeatherModel.placeholder)
             .environmentObject(AppStateManager())
     }
 }

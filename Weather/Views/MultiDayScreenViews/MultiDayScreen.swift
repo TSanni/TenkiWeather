@@ -29,7 +29,7 @@ struct MultiDayScreen: View {
                         // Getting the last item in the daily array
                         if daily.count == item+1 {
                             VStack {
-                                DailyWeatherCell(daily: daily[item], title: daily[item].date)
+                                DailyWeatherCell(daily: daily[item], title: daily[item].readableDate)
                                 HStack {
                                     Spacer()
                                     VStack(alignment: .trailing) {
@@ -57,7 +57,7 @@ struct MultiDayScreen: View {
                             }
                         } else {
                             
-                            DailyWeatherCell(daily: daily[item], title: daily[item].date)
+                            DailyWeatherCell(daily: daily[item], title: daily[item].readableDate)
                             CustomDivider()
                         }
                     }
@@ -84,7 +84,7 @@ struct MultiDayScreen: View {
 //MARK: - MultiDayScreen Preview
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
-            MultiDayScreen(daily: DailyWeatherModel.dailyDataHolder)
+        MultiDayScreen(daily: [DailyWeatherModel.placeholder])
                 .previewDevice("iPhone 11 Pro Max")
                 .environmentObject(AppStateManager())
     }

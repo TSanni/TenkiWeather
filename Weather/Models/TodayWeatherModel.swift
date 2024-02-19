@@ -77,6 +77,8 @@ extension TodayWeatherModel {
     var feelsLikeTemperature: String {
         let temperature = apparentTemperature.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+        print("**********************VALUE OF FEELSLIKE TEMP: \(temperatureValueOnly)********************************************")
+
         return temperatureValueOnly
     }
 

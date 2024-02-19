@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TomorrowImmediateWeatherView: View {
-    let tomorrowWeather: TomorrowWeatherModel
+    let tomorrowWeather: DailyWeatherModel
     @EnvironmentObject var appState: AppStateManager
 
     
@@ -23,12 +23,12 @@ struct TomorrowImmediateWeatherView: View {
             
             HStack {
                 HStack(spacing: 0.0) {
-                    Text("\(tomorrowWeather.tomorrowHigh)°")
+                    Text("\(tomorrowWeather.dayHigh)°")
                         .font(.system(size: 50, weight: .bold, design: .default))
                         .foregroundStyle(blendColor1)
 
 
-                    Text("/\(tomorrowWeather.tomorrowLow)°")
+                    Text("/\(tomorrowWeather.dayLow)°")
                         .font(.system(size: 50, weight: .bold, design: .default))
                         .foregroundStyle(blendColor2)
                 }
@@ -38,7 +38,7 @@ struct TomorrowImmediateWeatherView: View {
                     .font(.system(size: 45))
             }
             
-            Text(tomorrowWeather.tomorrowWeatherDescription.description)
+            Text(tomorrowWeather.dayWeatherDescription.description)
                 .font(.headline)
         }
         .foregroundStyle(blendColor1)
@@ -50,8 +50,8 @@ struct TomorrowImmediateWeatherView: View {
 
 #Preview {
     ZStack {
-        TomorrowWeatherModel.placeholder.backgroundColor
-        TomorrowImmediateWeatherView(tomorrowWeather: TomorrowWeatherModel.placeholder)
+        DailyWeatherModel.placeholder.backgroundColor
+        TomorrowImmediateWeatherView(tomorrowWeather: DailyWeatherModel.placeholder)
             .environmentObject(AppStateManager())
 
     }

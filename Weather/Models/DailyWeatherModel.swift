@@ -28,7 +28,7 @@ struct DailyWeatherModel: Identifiable {
     let symbolName: String
     let precipitationAmount: Measurement<UnitLength>
     
-    let tomorrowDetails: DetailsModel
+    let dayDetails: DetailsModel
 //    let tomorrowHourlyWind: [WindData] // delete
     let hourlyWeather: [HourlyModel]
     let timezone: Int
@@ -38,13 +38,13 @@ struct DailyWeatherModel: Identifiable {
         return getDayOfWeekAndDate(date: date, timezoneOffset: timezone)
     }
     
-    var tomorrowHigh: String {
+    var dayHigh: String {
         let temperature = highTemperature.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
         return temperatureValueOnly
     }
     
-    var tomorrowLow: String {
+    var dayLow: String {
         let temperature = lowTemperature.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
         return temperatureValueOnly
@@ -54,7 +54,7 @@ struct DailyWeatherModel: Identifiable {
         precipitation.description
     }
     
-    var tomorrowChanceOfPrecipitation: String {
+    var dayChanceOfPrecipitation: String {
         precipitationChance.formatted(.percent)
     }
     
@@ -62,7 +62,7 @@ struct DailyWeatherModel: Identifiable {
     //rainfallAmount
     //moon events
     
-    var tomorrowWeatherDescription: String {
+    var dayWeatherDescription: String {
         condition.description
     }
     
@@ -103,7 +103,7 @@ struct DailyWeatherModel: Identifiable {
         uvIndexCategory: .extreme,
         symbolName: "cloud.rain",
         precipitationAmount: Measurement(value: 0.5, unit: .centimeters),
-        tomorrowDetails: DetailsModel.detailsDataHolder,
+        dayDetails: DetailsModel.detailsDataHolder,
 //        tomorrowHourlyWind: WindData.windDataHolder,
         hourlyWeather: HourlyModel.hourlyTempHolderData,
         timezone: 0

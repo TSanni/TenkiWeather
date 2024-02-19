@@ -64,4 +64,6 @@ struct HumidityTileView: View {
 #Preview {
     HumidityTileView(humidityDetails: DetailsModel.detailsDataHolder, backgroundColor: Color(uiColor: K.Colors.haze))
         .frame(width: 200)
+        .environmentObject(AppStateManager())
+        
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PrecipitationTileView: View {
-    let precipitationDetails: TomorrowWeatherModel
+    let precipitationDetails: DailyWeatherModel
     let backgroundColor: Color
     
     
@@ -37,7 +37,7 @@ struct PrecipitationTileView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 0.0) {
                     
-                    Text(precipitationDetails.tomorrowChanceOfPrecipitation)
+                    Text(precipitationDetails.dayChanceOfPrecipitation)
                         .font(.largeTitle)
                         .bold()
                     
@@ -60,7 +60,7 @@ struct PrecipitationTileView: View {
             
             Spacer()
             
-            Text("\(precipitationDetails.tomorrowChanceOfPrecipitation) chance of precipitation.")
+            Text("\(precipitationDetails.dayChanceOfPrecipitation) chance of precipitation.")
                 .font(.footnote)
 
             
@@ -72,7 +72,7 @@ struct PrecipitationTileView: View {
 
 #Preview {
     PrecipitationTileView(
-        precipitationDetails: TomorrowWeatherModel.placeholder,
+        precipitationDetails: DailyWeatherModel.placeholder,
         backgroundColor: Color(uiColor: K.Colors.haze)
     )
     .frame(width: 200)

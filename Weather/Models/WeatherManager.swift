@@ -37,7 +37,6 @@ class WeatherManager {
         })
         
         
-        var hourlyWind: [WindData] = []
         var hourlyTemperatures: [HourlyModel] = []
         
         
@@ -93,7 +92,8 @@ class WeatherManager {
                 HourlyModel(
                     temperature: hourlyWeatherStartingFromNow[i].temperature, wind: windData,
                     date: hourlyWeatherStartingFromNow[i].date,
-                    precipitationChance: hourlyWeatherStartingFromNow[i].precipitationChance, symbol: hourlyWeatherStartingFromNow[i].symbolName,
+                    precipitationChance: hourlyWeatherStartingFromNow[i].precipitationChance, 
+                    symbol: hourlyWeatherStartingFromNow[i].symbolName,
                     timezone: timezoneOffset
                 )
             )
@@ -130,7 +130,7 @@ class WeatherManager {
     
     
     //MARK: - Get Tomorrow's Weather
-    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> TomorrowWeatherModel {
+    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> DailyWeatherModel {
         let tomorrowWeather = tomorrowWeather[1]
         
         /// Gets all hourly forecasts starting with 7AM tomorrow
@@ -208,7 +208,7 @@ class WeatherManager {
             time: nil
         )
         
-        let tomorrowsWeather = TomorrowWeatherModel(
+        let tomorrowsWeather = DailyWeatherModel(
             highTemperature: tomorrowWeather.highTemperature,
             lowTemperature: tomorrowWeather.lowTemperature,
             precipitation: tomorrowWeather.precipitation,
@@ -223,8 +223,8 @@ class WeatherManager {
             uvIndexCategory: tomorrowWeather.uvIndex.category,
             symbolName: tomorrowWeather.symbolName,
             precipitationAmount: tomorrowWeather.precipitationAmount,
-            tomorrowDetails: tomorrowDetails,
-            tomorrowHourlyWind: tomorrowHourlyWind,
+            dayDetails: tomorrowDetails,
+//            tomorrowHourlyWind: tomorrowHourlyWind,
             hourlyWeather: tomorrowHourlyTemperatures,
             timezone: timezoneOffset
         )
@@ -243,12 +243,6 @@ class WeatherManager {
 
         for day in 0..<dailyWeather.count {
             
-            let windDetails = WindData(
-                speed: dailyWeather[day].wind.speed,
-                compassDirection: dailyWeather[day].wind.compassDirection,
-                time: nil
-            )
-            
             let sunData = SunData(
                 sunrise: dailyWeather[day].sun.sunrise,
                 sunset: dailyWeather[day].sun.sunset,
@@ -257,24 +251,65 @@ class WeatherManager {
                 civilDusk: dailyWeather[day].sun.civilDusk,
                 timezone: timezoneOffset
             )
+            let details = DetailsModel(
+                humidity: 0,
+                dewPoint: Measurement(value: 0, unit: .celsius),
+                pressure: Measurement(value: 0, unit: .bars),
+                pressureTrend: PressureTrend.steady,
+                uvIndexCategory: .extreme,
+                uvIndexValue: 11,
+                visibility: Measurement(value: 0, unit: .centimeters),
+                sunData: sunData
+            )
+            
+            let windDetails = WindData(
+                speed: dailyWeather[day].wind.speed,
+                compassDirection: dailyWeather[day].wind.compassDirection,
+                time: nil
+            )
+
             
             let hourlyTempsForDay = getHourlyWeatherForDay(day: dailyWeather[day], hours: hourlyWeather, timezoneOffset: timezoneOffset)
             
-
+            
             daily.append(
                 DailyWeatherModel(
-                    date: getDayOfWeekAndDate(date: dailyWeather[day].date, timezoneOffset: timezoneOffset),
-                    dailyWeatherDescription: dailyWeather[day].condition,
-                    dailyChanceOfPrecipitation: dailyWeather[day].precipitationChance.formatted(.percent),
-                    dailySymbol: dailyWeather[day].symbolName,
-                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.converted(to: getUnitTemperature()).value),
-                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.converted(to: getUnitTemperature()).value),
-                    dailyWind: windDetails,
-                    dailyUVIndex: dailyWeather[day].uvIndex.category.description + ", " + dailyWeather[day].uvIndex.value.description,
-                    sunEvents: sunData,
-                    hourlyTemperatures: hourlyTempsForDay
+                    highTemperature: dailyWeather[day].highTemperature,
+                    lowTemperature: dailyWeather[day].lowTemperature,
+                    precipitation: dailyWeather[day].precipitation,
+                    precipitationChance: dailyWeather[day].precipitationChance,
+                    snowfallAmount: dailyWeather[day].snowfallAmount,
+                    moonEvents: dailyWeather[day].moon,
+                    sunData: sunData,
+                    tomorrowWind: windDetails,
+                    date: dailyWeather[day].date,
+                    condition: dailyWeather[day].condition,
+                    uvIndexValue: dailyWeather[day].uvIndex.value,
+                    uvIndexCategory: dailyWeather[day].uvIndex.category,
+                    symbolName: dailyWeather[day].symbolName,
+                    precipitationAmount: dailyWeather[day].precipitationAmount,
+                    dayDetails: details,
+//                    tomorrowHourlyWind: <#T##[WindData]#>, //delete
+                    hourlyWeather: hourlyTempsForDay,
+                    timezone: timezoneOffset
                 )
             )
+            
+
+//            daily.append(
+//                DailyWeatherModel(
+//                    date: getDayOfWeekAndDate(date: dailyWeather[day].date, timezoneOffset: timezoneOffset),
+//                    dailyWeatherDescription: dailyWeather[day].condition,
+//                    dailyChanceOfPrecipitation: dailyWeather[day].precipitationChance.formatted(.percent),
+//                    dailySymbol: dailyWeather[day].symbolName,
+//                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.converted(to: getUnitTemperature()).value),
+//                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.converted(to: getUnitTemperature()).value),
+//                    dailyWind: windDetails,
+//                    dailyUVIndex: dailyWeather[day].uvIndex.category.description + ", " + dailyWeather[day].uvIndex.value.description,
+//                    sunEvents: sunData,
+//                    hourlyTemperatures: hourlyTempsForDay
+//                )
+//            )
         }
 
         return daily

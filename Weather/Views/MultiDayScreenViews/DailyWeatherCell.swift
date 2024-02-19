@@ -56,7 +56,7 @@ struct DailyWeatherCell: View {
                     Text("Wind")
                     Text("UV index")
                     
-                    if daily.dailyChanceOfPrecipitation != "0%" {
+                    if daily.dayChanceOfPrecipitation != "0%" {
                         Text("Chance of rain")
                     }
                     Text("Sunrise/sunset")
@@ -66,14 +66,14 @@ struct DailyWeatherCell: View {
                 Spacer()
                 
                 VStack(alignment: .leading, spacing: 5.0) {
-                    Text("\(daily.dailyWind.windDescription), \(daily.dailyWind.windSpeed) \(daily.dailyWind.speedUnit) \(daily.dailyWind.compassDirection.abbreviation)")
-                    Text(daily.dailyUVIndex)
+                    Text("\(daily.tomorrowWind.windDescription), \(daily.tomorrowWind.windSpeed) \(daily.tomorrowWind.speedUnit) \(daily.tomorrowWind.compassDirection.abbreviation)")
+                    Text(daily.uvIndexCategoryType + "," + daily.uvIndexNumber)
                     
-                    if daily.dailyChanceOfPrecipitation != "0%" {
-                        Text(daily.dailyChanceOfPrecipitation)
+                    if daily.dayChanceOfPrecipitation != "0%" {
+                        Text(daily.dayChanceOfPrecipitation)
                     }
                     
-                    Text("\(daily.sunEvents.sunriseTime), \(daily.sunEvents.sunsetTime)")
+                    Text("\(daily.sunData.sunriseTime), \(daily.sunData.sunsetTime)")
                 }
                 .foregroundColor(.primary)
                 
@@ -85,7 +85,7 @@ struct DailyWeatherCell: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(daily.hourlyTemperatures) { hour in
+                    ForEach(daily.hourlyWeather) { hour in
                         VStack {
                             Text("\(hour.hourTemperature)°")
                             Image(systemName: WeatherManager.shared.getImage(imageName: hour.symbol))
@@ -119,7 +119,7 @@ struct DailyWeatherCell: View {
             
             
             
-            Text(daily.dailyWeatherDescription.description)
+            Text(daily.dayWeatherDescription)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -128,12 +128,12 @@ struct DailyWeatherCell: View {
     private var dayItemRightSide: some View {
         HStack {
             HStack {
-                if daily.dailyChanceOfPrecipitation != "0%" {
-                    Text(daily.dailyChanceOfPrecipitation)
+                if daily.dayChanceOfPrecipitation != "0%" {
+                    Text(daily.dayChanceOfPrecipitation)
                         .foregroundColor(.teal)
                         .lineLimit(1)
                 }
-                Image(systemName: WeatherManager.shared.getImage(imageName: daily.dailySymbol))
+                Image(systemName: WeatherManager.shared.getImage(imageName: daily.symbolName))
                     .renderingMode(.original)
                     .resizable()
                     .scaledToFit()
@@ -143,10 +143,10 @@ struct DailyWeatherCell: View {
             }
             
             VStack {
-                Text("\(daily.dailyHighTemp)°")
+                Text("\(daily.dayHigh)°")
                     .foregroundColor(.primary)
                 
-                Text("\(daily.dailyLowTemp)°")
+                Text("\(daily.dayLow)°")
                     .foregroundColor(.secondary)
             }
         }
@@ -157,8 +157,7 @@ struct DailyWeatherCell: View {
 
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
-        DailyWeatherCell(daily: DailyWeatherModel.dailyDataHolder[0], title: nil)
-            .previewDevice("iPhone 11 Pro Max")
+        DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: nil)
             .environmentObject(AppStateManager())
     }
 }

@@ -54,8 +54,7 @@
 		83B5ADC52A310FAB00C3C2F6 /* TodayWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5ADC42A310FAB00C3C2F6 /* TodayWeatherModel.swift */; };
 		83B760912A6710FF007075E2 /* FullScreenWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760902A6710FF007075E2 /* FullScreenWebView.swift */; };
 		83B760932A67119C007075E2 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760922A67119C007075E2 /* LabelView.swift */; };
-		83C4FFF12A34005F00DEF7F3 /* TomorrowWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */; };
-		83C4FFF72A34BFC000DEF7F3 /* DailyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */; };
+		83C4FFF12A34005F00DEF7F3 /* DailyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF02A34005F00DEF7F3 /* DailyWeatherModel.swift */; };
 		83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF82A352E9B00DEF7F3 /* Constants.swift */; };
 		83DA72E42A41414200C50C86 /* SavedLocations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E22A41414200C50C86 /* SavedLocations.xcdatamodeld */; };
 		83DA72E62A41655400C50C86 /* SavedLocationsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */; };
@@ -127,8 +126,7 @@
 		83B5ADC42A310FAB00C3C2F6 /* TodayWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherModel.swift; sourceTree = "<group>"; };
 		83B760902A6710FF007075E2 /* FullScreenWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenWebView.swift; sourceTree = "<group>"; };
 		83B760922A67119C007075E2 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
-		83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherModel.swift; sourceTree = "<group>"; };
-		83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherModel.swift; sourceTree = "<group>"; };
+		83C4FFF02A34005F00DEF7F3 /* DailyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherModel.swift; sourceTree = "<group>"; };
 		83C4FFF82A352E9B00DEF7F3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		83DA72E32A41414200C50C86 /* SavedLocations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedLocations.xcdatamodel; sourceTree = "<group>"; };
 		83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsPersistence.swift; sourceTree = "<group>"; };
@@ -280,8 +278,7 @@
 			children = (
 				83DA72E72A419C7C00C50C86 /* WeatherManager.swift */,
 				83B5ADC42A310FAB00C3C2F6 /* TodayWeatherModel.swift */,
-				83C4FFF02A34005F00DEF7F3 /* TomorrowWeatherModel.swift */,
-				83C4FFF62A34BFC000DEF7F3 /* DailyWeatherModel.swift */,
+				83C4FFF02A34005F00DEF7F3 /* DailyWeatherModel.swift */,
 				83DA72E22A41414200C50C86 /* SavedLocations.xcdatamodeld */,
 				839F32F32A3919D70048EF05 /* Sub Models */,
 			);
@@ -540,7 +537,7 @@
 				8313DE8E2B62CCD10031C5E7 /* CurrentLocationView.swift in Sources */,
 				83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */,
 				838461812A4C9DDC000B8E86 /* SettingsScreenTile.swift in Sources */,
-				83C4FFF12A34005F00DEF7F3 /* TomorrowWeatherModel.swift in Sources */,
+				83C4FFF12A34005F00DEF7F3 /* DailyWeatherModel.swift in Sources */,
 				8313DE842B61617A0031C5E7 /* VisibilityTileView.swift in Sources */,
 				83E04FC22A255FBC009720AB /* MainScreen.swift in Sources */,
 				83731A6A2A2FC2E400D481CA /* DailyWeatherCell.swift in Sources */,
@@ -560,7 +557,6 @@
 				83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */,
 				839F32EB2A39186C0048EF05 /* WindModel.swift in Sources */,
 				838461832A508E14000B8E86 /* AppStateManager.swift in Sources */,
-				83C4FFF72A34BFC000DEF7F3 /* DailyWeatherModel.swift in Sources */,
 				8390BF962A9356CE00E0B865 /* TermsAndConditionsView.swift in Sources */,
 				83B5ADC52A310FAB00C3C2F6 /* TodayWeatherModel.swift in Sources */,
 				8313DE8C2B6289A10031C5E7 /* SavedLocationImageView.swift in Sources */,
@@ -739,7 +735,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.1;
+				MARKETING_VERSION = 4.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -783,7 +779,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.1;
+				MARKETING_VERSION = 4.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -22,7 +22,7 @@ struct SavedLocationCell: View {
                     
                     HStack(alignment: .top, spacing: 0.0) {
                         Text(location.temperature ?? "")
-                        Text("° • ")
+                        Text(" • ")
                         Text(location.weatherCondition ?? "")
                     }
                     .font(.subheadline)
