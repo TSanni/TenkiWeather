@@ -49,7 +49,6 @@ struct HourlyModel: Identifiable {
         case   K.TemperatureUnits.kelvin:
             return .kelvin
         default:
-            print("CAN'T DETERMINE UNIT TEMPERATURE")
             return .fahrenheit
         }
     }

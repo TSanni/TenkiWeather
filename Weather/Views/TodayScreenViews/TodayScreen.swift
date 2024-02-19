@@ -124,13 +124,3 @@ struct TodayScreen_Previews: PreviewProvider {
             .environmentObject(WeatherViewModel())
     }
 }
-//#Preview {
-//    TodayScreen(currentWeather: TodayWeatherModel.holderData, weatherAlert: nil)
-//                .environmentObject(AppStateManager())
-//                .environmentObject(WeatherViewModel())
-//}
-
-
-
-
-

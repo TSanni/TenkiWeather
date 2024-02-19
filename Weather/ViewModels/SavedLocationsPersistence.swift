@@ -22,16 +22,13 @@ class SavedLocationsPersistence: ObservableObject {
                 return
             }
         }
-        print(" \n SavedLocationsPersistence initialized!! \n")
         fetchLocations()
         container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
 
         
     }
 
-    func fetchLocations() {
-        print(" \n fetchLocations method called! \n")
-        
+    func fetchLocations() {        
         let request = NSFetchRequest<LocationEntity>(entityName: "LocationEntity")
         request.sortDescriptors = [NSSortDescriptor(key: "timeAdded", ascending: false)]
         Task {

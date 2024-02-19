@@ -29,7 +29,6 @@ struct SearchBar: View {
                     .scaledToFit()
                     .frame(width: 30, height: 30)
                     .onTapGesture {
-                        print("Settings tapped!")
                             appStateManager.showSettingScreen = true
                     }
             

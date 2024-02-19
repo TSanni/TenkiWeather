@@ -51,10 +51,6 @@ struct PlacesViewControllerBridge: UIViewControllerRepresentable {
         
         func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace)
         {
-            print("Place name: \(place.name ?? "Default Place")")
-            print("Place ID: \(place.placeID ?? "Default PlaceID")")
-            print("Place attributions: \(String(describing: place.attributions))")
-            print("Coordinates: \(place.coordinate)")
             viewController.dismiss(animated: true)
             self.placesViewControllerBridge.onPlaceSelected(place)
         }
@@ -65,7 +61,6 @@ struct PlacesViewControllerBridge: UIViewControllerRepresentable {
         }
         
         func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-            print("Place prediction window cancelled")
             viewController.dismiss(animated: true)
         }
         
@@ -120,9 +115,7 @@ struct CustomTextFieldStyle: TextFieldStyle {
 struct PlacesViewControllerBridgeExampleView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            
             PlacesViewControllerBridgeExampleView()
-                .previewDevice("iPhone 11 Pro Max")
         }
         
     }

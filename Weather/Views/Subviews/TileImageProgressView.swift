@@ -29,7 +29,7 @@ struct TileImageProgressView: View {
                     GeometryReader { geo in
                         Path { path in
                             DispatchQueue.main.async {
-                                print("1 frame size = \(geo.size)")
+                               // print("1 frame size = \(geo.size)")
                                 secondRectangleWidth = geo.size.width
                             }
 
@@ -44,7 +44,7 @@ struct TileImageProgressView: View {
                 .background {
                     GeometryReader { geo in
                         Path { path in
-                            print("2 frame size = \(geo.size)")
+                          //  print("2 frame size = \(geo.size)")
                         }
                     }
                 }

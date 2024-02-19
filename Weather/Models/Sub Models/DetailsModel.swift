@@ -29,7 +29,6 @@ struct DetailsModel {
         let dewPointTemperature = dewPoint.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: dewPointTemperature.value)
         
-        print("**********************VALUE OF DEWPOINT DESCRIPTION: \(temperatureValueOnly)********************************************")
         return temperatureValueOnly + dewPointTemperature.unit.symbol
     }
     
@@ -151,7 +150,6 @@ extension DetailsModel {
         case K.DistanceUnits.meterPerSecond:
             return .metersPerSecond
         default:
-            print("CAN'T DETERMINE UNIT SPEED")
             return .milesPerHour
         }
     }
@@ -167,7 +165,6 @@ extension DetailsModel {
            case .metersPerSecond:
                return .meters
            default:
-               print("Unable to get unit length")
                return .miles
        }
    }
@@ -196,7 +193,6 @@ extension DetailsModel {
         case   K.TemperatureUnits.kelvin:
             return .kelvin
         default:
-            print("CAN'T DETERMINE UNIT TEMPERATURE")
             return .fahrenheit
         }
     }

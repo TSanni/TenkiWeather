@@ -51,7 +51,7 @@ struct HumidityTileView: View {
             
             Spacer()
             
-            Text("The dew point is \(humidityDetails.dewPointDescription) right now.")
+            Text("The dew point is " + humidityDetails.dewPointDescription + " right now.")
                 .font(.footnote)
 
             

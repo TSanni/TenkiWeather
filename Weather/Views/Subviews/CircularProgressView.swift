@@ -43,9 +43,7 @@ struct CircularProgressView: View {
     func convertPressureToCircleTrim() -> Double {
 //        var circleTrim = (0.8 * pressure) / maxPressure
         var circleTrim: Double = 0
-        
-        print("CIRCLE TRIM: \(circleTrim)")
-        
+                
         if pressure < 29.4 {
             circleTrim = 0.1
         }

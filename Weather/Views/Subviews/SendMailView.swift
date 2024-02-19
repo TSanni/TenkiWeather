@@ -28,7 +28,7 @@ struct SendMailView: View {
          .disabled(!MailView.canSendMail)
          .sheet(isPresented: $showMailView) {
              MailView(data: $mailData) { result in
-                 print(result)
+                 
              }
          }
      }

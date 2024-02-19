@@ -80,17 +80,11 @@ class WeatherManager {
                 time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
             )
             
-//            hourlyWind.append(
-//                WindData(
-//                    speed: hourlyWeatherStartingFromNow[i].wind.speed,
-//                    compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
-//                    time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
-//                )
-//            )
             
             hourlyTemperatures.append(
                 HourlyModel(
-                    temperature: hourlyWeatherStartingFromNow[i].temperature, wind: windData,
+                    temperature: hourlyWeatherStartingFromNow[i].temperature, 
+                    wind: windData,
                     date: hourlyWeatherStartingFromNow[i].date,
                     precipitationChance: hourlyWeatherStartingFromNow[i].precipitationChance, 
                     symbol: hourlyWeatherStartingFromNow[i].symbolName,
@@ -469,7 +463,6 @@ extension WeatherManager {
             case .metersPerSecond:
                 return .meters
             default:
-                print("Unable to get unit length")
                 return .miles
         }
     }
@@ -486,7 +479,6 @@ extension WeatherManager {
         case   K.TemperatureUnits.kelvin:
             return .kelvin
         default:
-            print("CAN'T DETERMINE UNIT TEMPERATURE")
             return .fahrenheit
         }
         
@@ -505,7 +497,6 @@ extension WeatherManager {
         case K.DistanceUnits.meterPerSecond:
             return .metersPerSecond
         default:
-            print("CAN'T DETERMINE UNIT SPEED")
             return .milesPerHour
         }
     }

@@ -29,7 +29,6 @@ struct DailyWeatherModel: Identifiable {
     let precipitationAmount: Measurement<UnitLength>
     
     let dayDetails: DetailsModel
-//    let tomorrowHourlyWind: [WindData] // delete
     let hourlyWeather: [HourlyModel]
     let timezone: Int
 
@@ -82,7 +81,6 @@ struct DailyWeatherModel: Identifiable {
     }
     
     var scene: SKScene? {
-        print("THE SYMBOL FOR TOMORROW SCENE: \(symbolName)")
         return  K.getScene(symbol: symbolName)
     }
     
@@ -142,7 +140,6 @@ extension DailyWeatherModel {
         case   K.TemperatureUnits.kelvin:
             return .kelvin
         default:
-            print("CAN'T DETERMINE UNIT TEMPERATURE")
             return .fahrenheit
         }
     }

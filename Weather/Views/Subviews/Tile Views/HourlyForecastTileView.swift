@@ -30,7 +30,7 @@ struct HourlyForecastTileView: View {
                             let imageName = appStateManager.fillImageToPrepareForRendering(symbol: item.symbol)
                             
                             VStack(spacing: 7.0) {
-                                Text("\(item.hourTemperature)°")
+                                Text(item.hourTemperature + "°")
                                     .font(.callout)
                                 
                                 Image(systemName: imageName)

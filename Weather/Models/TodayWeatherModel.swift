@@ -77,7 +77,6 @@ extension TodayWeatherModel {
     var feelsLikeTemperature: String {
         let temperature = apparentTemperature.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
-        print("**********************VALUE OF FEELSLIKE TEMP: \(temperatureValueOnly)********************************************")
 
         return temperatureValueOnly
     }
@@ -95,7 +94,6 @@ extension TodayWeatherModel {
     }
     
     var scene: SKScene? {
-        print("THE SYMBOL FOR SCENE: \(symbol)")
         return  K.getScene(symbol: symbol)
     }
 }
@@ -121,7 +119,6 @@ extension TodayWeatherModel {
         case   K.TemperatureUnits.kelvin:
             return .kelvin
         default:
-            print("CAN'T DETERMINE UNIT TEMPERATURE")
             return .fahrenheit
         }
     }

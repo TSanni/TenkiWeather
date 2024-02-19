@@ -91,6 +91,7 @@ struct WindData: Identifiable {
     }
     
     /// Computed property will update the color based on wind speed
+    // TODO: Colors not updating properly based on unit and value
     var windColor: Color {
         
         let light = Color(uiColor: #colorLiteral(red: 0.08248766512, green: 0.2948074937, blue: 1, alpha: 1))
@@ -166,7 +167,6 @@ extension WindData {
         case K.DistanceUnits.meterPerSecond:
             return .metersPerSecond
         default:
-            print("CAN'T DETERMINE UNIT SPEED")
             return .milesPerHour
         }
     }

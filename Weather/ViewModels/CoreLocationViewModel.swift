@@ -39,8 +39,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     
     //MARK: - Location
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print(manager.authorizationStatus.rawValue)
-        print("locationManagerDidChangeAuthorization delegate called ")
+        print("Location manager authorization status raw value: \(manager.authorizationStatus.rawValue)" )
         
         switch manager.authorizationStatus {
             case .authorizedWhenInUse:  // Location services are available.
@@ -74,7 +73,6 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         // Insert code to handle location updates
         if locations.last != nil {
             manager.stopUpdatingLocation()
-            print("Latitude: \(latitude) and longitude: \(longitude)")
         }
     }
     
@@ -117,11 +115,6 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         let timezone = place.timeZone?.secondsFromGMT()
         
         self.timezoneForCoordinateInput = timezone ?? 0
-
-        print("CITY NAME: \(String(describing: cityName))")
-        print("STATE: \(String(describing: state))")
-        print("COUNTRY: \(String(describing: country))")
-        
         
         if let placeFromGoogle = placeFromGoogle {
             if Int(placeFromGoogle) == nil { /// user submits name, not zipcode
@@ -132,9 +125,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
             }
         } else {
             return combinationOfNames(cityName: cityName, state: state, country: country)
-        }
-
-    
+        }    
     }
     
     
