@@ -48,24 +48,24 @@ class SavedLocationsPersistence: ObservableObject {
     func addLocation(locationDictionary: [String: Any])  {
         
 
-        guard let time = locationDictionary["timezone"] as? Int else {
+        guard let time = locationDictionary[K.LocationDictionaryKeys.timezone] as? Int else {
             print("COULD NOT CONVERT")
             return
         }
         
         let newLocation = LocationEntity(context: container.viewContext)
         
-        newLocation.name = locationDictionary["name"] as? String
-        newLocation.latitude = locationDictionary["latitude"] as? Double ?? 0
-        newLocation.longitude = locationDictionary["longitude"] as? Double ?? 0
+        newLocation.name = locationDictionary[K.LocationDictionaryKeys.name] as? String
+        newLocation.latitude = locationDictionary[K.LocationDictionaryKeys.latitude] as? Double ?? 0
+        newLocation.longitude = locationDictionary[K.LocationDictionaryKeys.longitude] as? Double ?? 0
         newLocation.timeAdded = Date.now
         newLocation.timezone = Double(time)
         
         
-        newLocation.temperature = locationDictionary["temperature"] as? String
-        newLocation.currentDate = locationDictionary["date"] as? String
-        newLocation.sfSymbol = locationDictionary["symbol"] as? String
-        newLocation.weatherCondition = locationDictionary["weatherCondition"] as? String
+        newLocation.temperature = locationDictionary[K.LocationDictionaryKeys.temperature] as? String
+        newLocation.currentDate = locationDictionary[K.LocationDictionaryKeys.date] as? String
+        newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeys.symbol] as? String
+        newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeys.weatherCondition] as? String
         
         
         Task {

@@ -28,7 +28,7 @@ struct CurrentLocationView: View {
 
                     VStack(alignment: .leading) {
                         locationName
-                        Text(localWeather.currentTemperature + " • " + localWeather.weatherDescription)
+                        Text(localWeather.currentTemperature + "° • " + localWeather.weatherDescription)
                     }
                 }
       
