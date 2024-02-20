@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct HumidityTileView: View {
-    let todayWeather: TodayWeatherModel
+    let humidity: Double
+    let humidityPercentage: String
+    let dewPointDescription: String
     let backgroundColor: Color
-    
-    
+
     ///The humidity passed in is a value 0-1 representing a percentage.
     ///This function multiplies that value by 100 to get a regular number
     ///Ex) 0.2 will return 20
@@ -21,7 +22,7 @@ struct HumidityTileView: View {
     }
     
     var body: some View {
-        let humidity = convertHumidityFromPercentToDouble(humidity: todayWeather.humidity)
+        let humidity = convertHumidityFromPercentToDouble(humidity: humidity)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "humidity.fill")
@@ -30,11 +31,10 @@ struct HumidityTileView: View {
             }
             .foregroundStyle(.secondary)
 
-            
             Spacer()
             
             HStack {
-                Text(todayWeather.humidityPercentage)
+                Text(humidityPercentage)
                     .font(.largeTitle)
                     .bold()
                 
@@ -51,7 +51,7 @@ struct HumidityTileView: View {
             
             Spacer()
             
-            Text("The dew point is " + todayWeather.dewPointDescription + " right now.")
+            Text("The dew point is " + dewPointDescription + " right now.")
                 .font(.footnote)
 
             
@@ -63,7 +63,9 @@ struct HumidityTileView: View {
 
 #Preview {
     HumidityTileView(
-        todayWeather: TodayWeatherModel.holderData,
+        humidity: 0.5,
+        humidityPercentage: "50%",
+        dewPointDescription: "",
         backgroundColor: Color(uiColor: K.Colors.haze)
     )
     .frame(width: 200)

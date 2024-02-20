@@ -52,7 +52,9 @@ struct TodayScreen: View {
                             
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
                                 HumidityTileView(
-                                    todayWeather: currentWeather,
+                                    humidity: currentWeather.humidity,
+                                    humidityPercentage: currentWeather.humidityPercentage,
+                                    dewPointDescription: currentWeather.dewPointDescription,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
 
