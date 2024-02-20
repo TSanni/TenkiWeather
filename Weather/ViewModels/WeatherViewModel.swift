@@ -59,7 +59,7 @@ class WeatherViewModel: ObservableObject {
                 
                 await MainActor.run {
                     localTemp = localWeather.currentTemperature
-                    localsfSymbol = localWeather.symbol
+                    localsfSymbol = localWeather.symbolName
                     localName = name
                     localConditions = localWeather.weatherDescription.description
                 }

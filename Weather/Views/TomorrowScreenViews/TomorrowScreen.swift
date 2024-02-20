@@ -12,7 +12,7 @@ import SwiftUI
 struct TomorrowScreen: View {
     @EnvironmentObject private var appStateManager: AppStateManager
     
-    let tomorrowWeather: DailyWeatherModel
+    let dailyWeather: DailyWeatherModel
     
     
     
@@ -22,17 +22,17 @@ struct TomorrowScreen: View {
             ScrollView(.vertical, showsIndicators: false) {
                 ScrollViewReader { proxy in
                     ZStack {
-                        tomorrowWeather.backgroundColor
+                        dailyWeather.backgroundColor
                         
                         // Add possible snow or rain scenes with SpriteKit
-                        if let scene = tomorrowWeather.scene {
+                        if let scene = dailyWeather.scene {
                             WeatherParticleEffectView(sceneImport: scene)
                         }
                         
                         VStack(alignment: .leading, spacing: 0.0) {
                             
                             VStack(alignment: .leading, spacing: 0.0) {
-                                TomorrowImmediateWeatherView(tomorrowWeather: tomorrowWeather)
+                                TomorrowImmediateWeatherView(tomorrowWeather: dailyWeather)
                                     .padding(.bottom)
                                     .id(0)
 
@@ -40,36 +40,41 @@ struct TomorrowScreen: View {
                                 Text("Hourly forecast")
                                     .padding(.horizontal)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(appStateManager.blendColors(themeColor: tomorrowWeather.backgroundColor))
+                                    .foregroundStyle(appStateManager.blendColors(themeColor: dailyWeather.backgroundColor))
                                 
-                                HourlyForecastTileView(hourlyTemperatures: tomorrowWeather.hourlyWeather, color: tomorrowWeather.backgroundColor)
+                                HourlyForecastTileView(hourlyTemperatures: dailyWeather.hourlyWeather, color: dailyWeather.backgroundColor)
                                 
                                 
                                 Text("Tomorrow's Conditions")
                                     .padding(.horizontal)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(appStateManager.blendColors(themeColor: tomorrowWeather.backgroundColor))
+                                    .foregroundStyle(appStateManager.blendColors(themeColor: dailyWeather.backgroundColor))
 
                                 
-                                LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
-                                    
-                                    UVIndexTileView(uvIndexDetails: tomorrowWeather.dayDetails, backgroundColor: tomorrowWeather.backgroundColor)
-                                    
-                                    PrecipitationTileView(
-                                        precipitationDetails: tomorrowWeather,
-                                        backgroundColor: tomorrowWeather.backgroundColor
+                                LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {                                    
+                                    UVIndexTileView(
+                                        uvIndexNumberDescription: dailyWeather.uvIndexNumberDescription,
+                                        uvIndexCategoryDescription: dailyWeather.uvIndexCategoryDescription,
+                                        uvIndexValue: dailyWeather.uvIndexValue,
+                                        uvIndexColor: dailyWeather.uvIndexColor,
+                                        uvIndexActionRecommendation: dailyWeather.uvIndexActionRecommendation,
+                                        backgroundColor: dailyWeather.backgroundColor
                                     )
                                     
+                                    PrecipitationTileView(
+                                        precipitationDetails: dailyWeather,
+                                        backgroundColor: dailyWeather.backgroundColor
+                                    )
                                     
                                     SunDataTile(
-                                        sundata: tomorrowWeather.sunData,
-                                        backgroundColor: tomorrowWeather.backgroundColor,
+                                        sundata: dailyWeather.sun,
+                                        backgroundColor: dailyWeather.backgroundColor,
                                         isSunrise: true
                                     )
                                     
                                     SunDataTile(
-                                        sundata: tomorrowWeather.sunData, 
-                                        backgroundColor: tomorrowWeather.backgroundColor, 
+                                        sundata: dailyWeather.sun, 
+                                        backgroundColor: dailyWeather.backgroundColor, 
                                         isSunrise: false
                                     )
                                 }
@@ -78,10 +83,10 @@ struct TomorrowScreen: View {
                             }
                             
                             WindTileView(
-                                windData: tomorrowWeather.tomorrowWind,
-                                hourlyWeather: tomorrowWeather.hourlyWeather,
+                                windData: dailyWeather.wind,
+                                hourlyWeather: dailyWeather.hourlyWeather,
                                 setTodayWeather: false,
-                                backgroundColor: tomorrowWeather.backgroundColor
+                                backgroundColor: dailyWeather.backgroundColor
                             )
                             
                         }
@@ -101,7 +106,7 @@ struct TomorrowScreen: View {
 //MARK: - TomorrowScreen Preview
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TomorrowScreen(tomorrowWeather: DailyWeatherModel.placeholder)
+        TomorrowScreen(dailyWeather: DailyWeatherModel.placeholder)
             .environmentObject(AppStateManager())
     }
 }

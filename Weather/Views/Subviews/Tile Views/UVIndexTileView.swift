@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct UVIndexTileView: View {
-    let uvIndexDetails: DetailsModel
+    let uvIndexNumberDescription: String
+    let uvIndexCategoryDescription: String
+    let uvIndexValue: Int
+    let uvIndexColor: Color
+    let uvIndexActionRecommendation: String
     let backgroundColor: Color
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -24,10 +29,10 @@ struct UVIndexTileView: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(uvIndexDetails.uvIndexValueDescription)
+                    Text(uvIndexNumberDescription)
                         .font(.largeTitle)
                         .bold()
-                    Text(uvIndexDetails.uvIndexCategoryDescription)
+                    Text(uvIndexCategoryDescription)
                         .bold()
                 }
                 
@@ -35,28 +40,32 @@ struct UVIndexTileView: View {
                 
                 TileImageProgressView(
                     height: 50,
-                    value: CGFloat(uvIndexDetails.uvIndexValue),
+                    value: CGFloat(uvIndexValue),
                     sfSymbol: "seal.fill",
-                    color: uvIndexDetails.uvIndexColor,
+                    color: uvIndexColor,
                     maxValue: 11
                 )
-//                .aspectRatio(1, contentMode: .fit)
 
             }
        
                 Spacer()
                 
-                Text(uvIndexDetails.uvIndexActionRecommendation)
+                Text(uvIndexActionRecommendation)
                     .font(.footnote)
                       
         }
         .cardTileModifier(backgroundColor: backgroundColor)
-        
     }
 }
 
 
 #Preview {
-    UVIndexTileView(uvIndexDetails: DetailsModel.detailsDataHolder, backgroundColor: Color(uiColor: K.Colors.haze))
+    UVIndexTileView(
+        uvIndexNumberDescription: "",
+        uvIndexCategoryDescription: "",
+        uvIndexValue: 9, uvIndexColor: .red,
+        uvIndexActionRecommendation: "",
+        backgroundColor: .red
+    )
         .frame(width: 200)
 }

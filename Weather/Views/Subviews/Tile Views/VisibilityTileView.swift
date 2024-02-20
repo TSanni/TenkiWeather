@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VisibilityTileView: View {
-    let visibilityDetails: DetailsModel
+    let visibilityDetails: TodayWeatherModel
     let backgroundColor: Color
     
     var body: some View {
@@ -46,7 +46,7 @@ struct VisibilityTileView: View {
 
 #Preview {
     VisibilityTileView(
-        visibilityDetails: DetailsModel.detailsDataHolder,
+        visibilityDetails: TodayWeatherModel.holderData,
         backgroundColor: Color(uiColor: K.Colors.haze)
     )
     .frame(width: 250)

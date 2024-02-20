@@ -22,7 +22,7 @@ struct TabViews: View {
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateManager)
             
-            TomorrowScreen(tomorrowWeather: weatherViewModel.tomorrowWeather)
+            TomorrowScreen(dailyWeather: weatherViewModel.tomorrowWeather)
                 .tag(WeatherTabs.tomorrow)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)

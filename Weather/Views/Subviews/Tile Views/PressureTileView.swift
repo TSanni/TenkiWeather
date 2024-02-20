@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PressureTileView: View {
-    let pressureDetails: DetailsModel
+    let pressureDetails: TodayWeatherModel
     let backgroundColor: Color
     
     
@@ -54,7 +54,7 @@ struct PressureTileView: View {
 }
 
 #Preview {
-    PressureTileView(pressureDetails: DetailsModel.detailsDataHolder, backgroundColor: Color.brown)
+    PressureTileView(pressureDetails: TodayWeatherModel.holderData, backgroundColor: Color.brown)
         .frame(width: 250)
         .environmentObject(AppStateManager())
 }

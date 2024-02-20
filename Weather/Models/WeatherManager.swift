@@ -12,10 +12,8 @@ import WeatherKit
 
 class WeatherManager {
     static let shared = WeatherManager()
-    
-
+  
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
-        
         do {
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
             return weather
@@ -36,22 +34,8 @@ class WeatherManager {
             return hourlyWeatherItem.date.timeIntervalSinceNow >= -3600
         })
         
-        
         var hourlyTemperatures: [HourlyModel] = []
-        
-        
-        /// Weather data for Current details card
-        let currentDetailsCardInfo = DetailsModel(
-            humidity: current.humidity,
-            dewPoint: current.dewPoint,
-            pressure: current.pressure,
-            pressureTrend: current.pressureTrend, uvIndexCategory: current.uvIndex.category,
-            uvIndexValue: current.uvIndex.value,
-            visibility: current.visibility,
-            sunData: nil
-        )
                 
-        
         /// Weather data for wind
         let windDetailsInfo = WindData(
             speed: current.wind.speed,
@@ -69,8 +53,6 @@ class WeatherManager {
             timezone: timezoneOffset
         )
         
-        
-        
         /// 12 hour forecast data for the Wind and temperatures
         for i in 0..<K.Time.twentyFourHours {
             
@@ -79,7 +61,6 @@ class WeatherManager {
                 compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
                 time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
             )
-            
             
             hourlyTemperatures.append(
                 HourlyModel(
@@ -93,35 +74,33 @@ class WeatherManager {
             )
         }
         
-        
-        
         /// Weather data for the day (includes current details, wind data, and sun data)
         let todaysWeather = TodayWeatherModel(
             apparentTemperature: current.apparentTemperature, 
-            temperature: current.temperature, 
+            dewPoint: current.dewPoint, 
+            humidity: current.humidity,
+            temperature: current.temperature,
+            pressure: current.pressure,
+            pressureTrend: current.pressureTrend,
+            wind: windDetailsInfo, 
+            condition: current.condition,
             date: current.date,
+            isDaylight: current.isDaylight, 
+            uvIndexCategory: current.uvIndex.category,
+            uvIndexValue: current.uvIndex.value, 
+            visibility: current.visibility,
+            symbolName: current.symbolName,
             highTemperature: dailyWeather[0].highTemperature,
             lowTemperature: dailyWeather[0].lowTemperature,
-            symbol: current.symbolName,
-            condition: current.condition,
             precipitationChance: dailyWeather[0].precipitationChance,
-            currentDetails: currentDetailsCardInfo,
-            wind: windDetailsInfo,
             sunData: sunData,
-            isDaylight: current.isDaylight,
             hourlyWeather: hourlyTemperatures,
             timezeone: timezoneOffset
-            
         )
-        
 
         return todaysWeather
-        
                 
     }
-    
-    
-    
     
     //MARK: - Get Tomorrow's Weather
     func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> DailyWeatherModel {
@@ -135,9 +114,6 @@ class WeatherManager {
         
         /// Will hold tomorrow's hourly forecasts for the next 12 hours starting with 7AM
         var tomorrow12HourForecast: [HourWeather] = []
-        
-        /// Will hold tomorrow's hourly wind data for the next 12 hours starting with 7AM
-        var tomorrowHourlyWind: [WindData] = []
         
         /// Will hold tomorrow's hourly temperatures
         var tomorrowHourlyTemperatures: [HourlyModel] = []
@@ -154,14 +130,6 @@ class WeatherManager {
                 compassDirection: tomorrow12HourForecast[hour].wind.compassDirection,
                 time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)
             )
-//            tomorrowHourlyWind.append(
-//                WindData(
-//                    speed: tomorrow12HourForecast[hour].wind.speed,
-//                    compassDirection: tomorrow12HourForecast[hour].wind.compassDirection,
-//                    time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)
-//                )
-//            )
-            
             
             tomorrowHourlyTemperatures.append(
                 HourlyModel(
@@ -174,9 +142,7 @@ class WeatherManager {
             )
             
         }
-        
-        
-        
+
         let sunDetails = SunData(
             sunrise: tomorrowWeather.sun.sunrise,
             sunset: tomorrowWeather.sun.sunset,
@@ -184,16 +150,6 @@ class WeatherManager {
             solarNoon: tomorrowWeather.sun.solarNoon,
             civilDusk: tomorrowWeather.sun.civilDusk,
             timezone: timezoneOffset
-        )
-        
-        let tomorrowDetails = DetailsModel(
-            humidity: 0,
-            dewPoint: Measurement(value: 50, unit: .fahrenheit), // TODO: Will be removing the DetailsModel Struct eventually
-            pressure: Measurement(value: 20, unit: .inchesOfMercury), // TODO: Will be removing the DetailsModel Struct eventually
-            pressureTrend: PressureTrend.steady, uvIndexCategory: tomorrowWeather.uvIndex.category,
-            uvIndexValue: tomorrowWeather.uvIndex.value,
-            visibility: Measurement(value: 5000, unit: .meters), // TODO: Will be removing the DetailsModel Struct eventually
-            sunData: sunDetails // TODO: Will be removing the DetailsModel Struct eventually
         )
         
         let tomorrowWind = WindData(
@@ -208,17 +164,15 @@ class WeatherManager {
             precipitation: tomorrowWeather.precipitation,
             precipitationChance: tomorrowWeather.precipitationChance,
             snowfallAmount: tomorrowWeather.snowfallAmount,
-            moonEvents: nil,
-            sunData: sunDetails,
-            tomorrowWind: tomorrowWind,
+            moon: nil,
+            sun: sunDetails,
+            wind: tomorrowWind,
             date: tomorrowWeather.date,
             condition: tomorrowWeather.condition,
             uvIndexValue: tomorrowWeather.uvIndex.value,
             uvIndexCategory: tomorrowWeather.uvIndex.category,
             symbolName: tomorrowWeather.symbolName,
             precipitationAmount: tomorrowWeather.precipitationAmount,
-            dayDetails: tomorrowDetails,
-//            tomorrowHourlyWind: tomorrowHourlyWind,
             hourlyWeather: tomorrowHourlyTemperatures,
             timezone: timezoneOffset
         )
@@ -233,8 +187,6 @@ class WeatherManager {
 
         var daily: [DailyWeatherModel] = []
 
-
-
         for day in 0..<dailyWeather.count {
             
             let sunData = SunData(
@@ -245,26 +197,14 @@ class WeatherManager {
                 civilDusk: dailyWeather[day].sun.civilDusk,
                 timezone: timezoneOffset
             )
-            let details = DetailsModel(
-                humidity: 0,
-                dewPoint: Measurement(value: 0, unit: .celsius),
-                pressure: Measurement(value: 0, unit: .bars),
-                pressureTrend: PressureTrend.steady,
-                uvIndexCategory: .extreme,
-                uvIndexValue: 11,
-                visibility: Measurement(value: 0, unit: .centimeters),
-                sunData: sunData
-            )
             
             let windDetails = WindData(
                 speed: dailyWeather[day].wind.speed,
                 compassDirection: dailyWeather[day].wind.compassDirection,
                 time: nil
             )
-
             
             let hourlyTempsForDay = getHourlyWeatherForDay(day: dailyWeather[day], hours: hourlyWeather, timezoneOffset: timezoneOffset)
-            
             
             daily.append(
                 DailyWeatherModel(
@@ -273,37 +213,20 @@ class WeatherManager {
                     precipitation: dailyWeather[day].precipitation,
                     precipitationChance: dailyWeather[day].precipitationChance,
                     snowfallAmount: dailyWeather[day].snowfallAmount,
-                    moonEvents: dailyWeather[day].moon,
-                    sunData: sunData,
-                    tomorrowWind: windDetails,
+                    moon: dailyWeather[day].moon,
+                    sun: sunData,
+                    wind: windDetails,
                     date: dailyWeather[day].date,
                     condition: dailyWeather[day].condition,
                     uvIndexValue: dailyWeather[day].uvIndex.value,
                     uvIndexCategory: dailyWeather[day].uvIndex.category,
                     symbolName: dailyWeather[day].symbolName,
                     precipitationAmount: dailyWeather[day].precipitationAmount,
-                    dayDetails: details,
-//                    tomorrowHourlyWind: <#T##[WindData]#>, //delete
                     hourlyWeather: hourlyTempsForDay,
                     timezone: timezoneOffset
                 )
             )
             
-
-//            daily.append(
-//                DailyWeatherModel(
-//                    date: getDayOfWeekAndDate(date: dailyWeather[day].date, timezoneOffset: timezoneOffset),
-//                    dailyWeatherDescription: dailyWeather[day].condition,
-//                    dailyChanceOfPrecipitation: dailyWeather[day].precipitationChance.formatted(.percent),
-//                    dailySymbol: dailyWeather[day].symbolName,
-//                    dailyLowTemp: String(format: "%.0f", dailyWeather[day].lowTemperature.converted(to: getUnitTemperature()).value),
-//                    dailyHighTemp: String(format: "%.0f", dailyWeather[day].highTemperature.converted(to: getUnitTemperature()).value),
-//                    dailyWind: windDetails,
-//                    dailyUVIndex: dailyWeather[day].uvIndex.category.description + ", " + dailyWeather[day].uvIndex.value.description,
-//                    sunEvents: sunData,
-//                    hourlyTemperatures: hourlyTempsForDay
-//                )
-//            )
         }
 
         return daily
@@ -383,14 +306,12 @@ extension WeatherManager {
         
         return fifteenHours
         
-        
     }
 
     /// Takes a UnitLength measurement and converts it to a readable format by removing floating point numbers.
     /// Returns a String of that format
     private func getReadableMeasurementLengths(measurement: Measurement<UnitLength>) -> String {
         return String(format: "%.0f", measurement.value) + " " + measurement.unit.symbol
-        
     }
     
     
@@ -398,7 +319,6 @@ extension WeatherManager {
     /// Returns a String of that format
     private func getReadableMeasurementPressure(measurement: Measurement<UnitPressure>) -> String {
         return String(format: "%.2f", measurement.value) + " " + measurement.unit.symbol
-        
     }
      
     
@@ -481,8 +401,6 @@ extension WeatherManager {
         default:
             return .fahrenheit
         }
-        
-
     }
     
     
@@ -549,9 +467,7 @@ extension WeatherManager {
                 return zero - 112.5
         }
     }
-    
-    
-    
+        
     /// Manually checks for SF Symbols that do not have the fill option and returns that image without .fill added.
     /// Otherwise, .fill is added to the end of the symbol name
     //TODO: Add more sf symbols
@@ -565,7 +481,6 @@ extension WeatherManager {
                 return imageName
             case "snow":
                 return imageName
-                
             default:
                 return imageName + ".fill"
         }

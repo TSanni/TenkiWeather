@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HumidityTileView: View {
-    let humidityDetails: DetailsModel
+    let todayWeather: TodayWeatherModel
     let backgroundColor: Color
     
     
@@ -21,7 +21,7 @@ struct HumidityTileView: View {
     }
     
     var body: some View {
-        let humidity = convertHumidityFromPercentToDouble(humidity: humidityDetails.humidity)
+        let humidity = convertHumidityFromPercentToDouble(humidity: todayWeather.humidity)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "humidity.fill")
@@ -34,7 +34,7 @@ struct HumidityTileView: View {
             Spacer()
             
             HStack {
-                Text(humidityDetails.humidityPercentage)
+                Text(todayWeather.humidityPercentage)
                     .font(.largeTitle)
                     .bold()
                 
@@ -51,7 +51,7 @@ struct HumidityTileView: View {
             
             Spacer()
             
-            Text("The dew point is " + humidityDetails.dewPointDescription + " right now.")
+            Text("The dew point is " + todayWeather.dewPointDescription + " right now.")
                 .font(.footnote)
 
             
@@ -62,8 +62,11 @@ struct HumidityTileView: View {
 }
 
 #Preview {
-    HumidityTileView(humidityDetails: DetailsModel.detailsDataHolder, backgroundColor: Color(uiColor: K.Colors.haze))
-        .frame(width: 200)
-        .environmentObject(AppStateManager())
-        
+    HumidityTileView(
+        todayWeather: TodayWeatherModel.holderData,
+        backgroundColor: Color(uiColor: K.Colors.haze)
+    )
+    .frame(width: 200)
+    .environmentObject(AppStateManager())
+    
 }

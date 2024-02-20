@@ -146,7 +146,7 @@ class SavedLocationsPersistence: ObservableObject {
 
             entity.currentDate = todaysWeather.readableDate
             entity.temperature = todaysWeather.currentTemperature
-            entity.sfSymbol = todaysWeather.symbol
+            entity.sfSymbol = todaysWeather.symbolName
             entity.weatherCondition = todaysWeather.weatherDescription.description
             
             return entity

@@ -52,22 +52,27 @@ struct TodayScreen: View {
                             
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
                                 HumidityTileView(
-                                    humidityDetails: currentWeather.currentDetails,
+                                    todayWeather: currentWeather,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
-                                
+
                                 UVIndexTileView(
-                                    uvIndexDetails: currentWeather.currentDetails,
+                                    uvIndexNumberDescription: currentWeather.uvIndexNumberDescription,
+                                    uvIndexCategoryDescription: currentWeather.uvIndexCategoryDescription,
+                                    uvIndexValue: currentWeather.uvIndexValue,
+                                    uvIndexColor: currentWeather.uvIndexColor,
+                                    uvIndexActionRecommendation: currentWeather.uvIndexActionRecommendation,
                                     backgroundColor: currentWeather.backgroundColor
+
                                 )
                                 
                                 VisibilityTileView(
-                                    visibilityDetails: currentWeather.currentDetails,
+                                    visibilityDetails: currentWeather,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
                                 PressureTileView(
-                                    pressureDetails: currentWeather.currentDetails,
+                                    pressureDetails: currentWeather,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                             }

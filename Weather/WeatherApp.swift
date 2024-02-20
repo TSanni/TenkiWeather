@@ -101,7 +101,7 @@ struct WeatherApp: App {
             timezone: timezone,
             temperature: weatherViewModel.currentWeather.currentTemperature,
             date: weatherViewModel.currentWeather.readableDate,
-            symbol: weatherViewModel.currentWeather.symbol,
+            symbol: weatherViewModel.currentWeather.symbolName,
             weatherCondition: weatherViewModel.currentWeather.weatherDescription
         )
         

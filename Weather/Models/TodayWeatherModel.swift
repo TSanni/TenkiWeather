@@ -13,17 +13,23 @@ import SpriteKit
 struct TodayWeatherModel: Identifiable {
     let id = UUID()
     let apparentTemperature: Measurement<UnitTemperature>
+    let dewPoint: Measurement<UnitTemperature>
+    let humidity: Double
     let temperature: Measurement<UnitTemperature>
+    let pressure: Measurement<UnitPressure>
+    let pressureTrend: PressureTrend
+    let wind: WindData
+    let condition: WeatherCondition
     let date: Date
+    let isDaylight: Bool
+    let uvIndexCategory: UVIndex.ExposureCategory
+    let uvIndexValue: Int
+    let visibility: Measurement<UnitLength>
+    let symbolName: String
     let highTemperature: Measurement<UnitTemperature>
     let lowTemperature: Measurement<UnitTemperature>
-    let symbol: String
-    let condition: WeatherCondition
     let precipitationChance: Double
-    let currentDetails: DetailsModel
-    let wind: WindData
     let sunData: SunData
-    let isDaylight: Bool
     let hourlyWeather: [HourlyModel]
     let timezeone: Int
     
@@ -31,17 +37,22 @@ struct TodayWeatherModel: Identifiable {
     /// Holder data for Today's weather
     static let holderData = TodayWeatherModel(
         apparentTemperature:  Measurement(value: 50, unit: .fahrenheit), 
-        temperature: Measurement(value: 50, unit: .fahrenheit), 
-        date: Date.now,
+        dewPoint: Measurement(value: 50, unit: .fahrenheit), 
+        humidity: 0.5,
+        temperature: Measurement(value: 50, unit: .fahrenheit),
+        pressure: Measurement(value: 20, unit: .inchesOfMercury),
+        pressureTrend: .rising,
+        wind: WindData.windDataHolder[0], 
+        condition: .clear, date: Date.now,
+        isDaylight: false, 
+        uvIndexCategory: .extreme,
+        uvIndexValue: 10, 
+        visibility: Measurement(value: 5000, unit: .meters),
+        symbolName: "sun.max", 
         highTemperature: Measurement(value: 50, unit: .fahrenheit),
         lowTemperature: Measurement(value: 50, unit: .fahrenheit),
-        symbol: "sun.max",
-        condition: .clear,
         precipitationChance: 0.5,
-        currentDetails: DetailsModel.detailsDataHolder,
-        wind: WindData.windDataHolder[0],
         sunData: SunData.sunDataHolder,
-        isDaylight: false,
         hourlyWeather: HourlyModel.hourlyTempHolderData,
         timezeone: 0
     )
@@ -51,9 +62,125 @@ struct TodayWeatherModel: Identifiable {
 
 // MARK: - Computed Properties
 extension TodayWeatherModel {
+    var feelsLikeTemperature: String {
+        let temperature = apparentTemperature.converted(to: getUnitTemperature())
+        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+
+        return temperatureValueOnly
+    }
+
+    var dewPointDescription: String {
+        let dewPointTemperature = dewPoint.converted(to: getUnitTemperature())
+        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: dewPointTemperature.value)
+        
+        return temperatureValueOnly + dewPointTemperature.unit.symbol
+    }
+    
+    var humidityPercentage: String {
+        humidity.formatted(.percent)
+    }
+    
+    var currentTemperature: String {
+        let temperature = temperature.converted(to: getUnitTemperature())
+        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+        return temperatureValueOnly + "°"
+    }
+    
+    var pressureString: String {
+        let pressure = pressure.converted(to: .inchesOfMercury)
+        let value = convertNumberToTwoFloatingPoints(number: pressure.value)
+        let symbol = pressure.unit.symbol
+        return value + "\n" + symbol
+    }
+        
+    var pressureValue: Double {
+        let pressure = pressure.converted(to: .inchesOfMercury)
+        let value = pressure.value
+        return value
+    }
+    
+    var pressureDescription: String {
+        switch pressureTrend {
+        case .rising:
+            return "The pressure is rising."
+        case .falling:
+            return "The pressure is falling."
+        case .steady:
+            return "The pressure is not changing."
+        default:
+            return "No pressure data"
+        }
+    }
+    
+    var weatherDescription: String {
+        return condition.description
+    }
     
     var readableDate: String {
         return getReadableMainDate(date: date, timezoneOffset: timezeone)
+    }
+    
+    var uvIndexNumberDescription: String {
+        uvIndexValue.description
+    }
+    
+    var uvIndexCategoryDescription: String {
+        uvIndexCategory.description
+    }
+        
+    var uvIndexActionRecommendation: String {
+        switch uvIndexCategory {
+        case .low:
+            return "Minimal sun protection needed."
+        case .moderate:
+            return "Use Sun Protection."
+        case .high:
+            return "Extra sun protection needed."
+        case .veryHigh:
+            return "Extra sun protection needed."
+        case .extreme:
+            return "Extra sun protection needed."
+        }
+    }
+    
+    var uvIndexColor: Color {
+        switch uvIndexCategory {
+        case .low:
+            return Color.green
+        case .moderate:
+            return Color.orange
+        case .high:
+            return Color.red
+        case .veryHigh:
+            return Color.red
+        case .extreme:
+            return Color.red
+        }
+    }
+    
+    var visibilityValue: String {
+        let unit = getUnitLength()
+        let visibility = visibility.converted(to: unit)
+        let formattedVisibilityValue = convertNumberToZeroFloatingPoints(number: visibility.value)
+        let symbol = visibility.unit.symbol
+        return formattedVisibilityValue + symbol
+    }
+
+    var visiblityDescription: String {
+        let visibilityValue = visibility.converted(to: .meters).value
+        
+        switch visibilityValue {
+        case 0...926:
+            return "Very poor visibility."
+        case 927...3704:
+            return "Weather conditions are affecting visibility."
+        case 3705...9260:
+            return "Weather conditions are affecting visibility."
+        case 9261...500000:
+            return "Perfectly clear view."
+        default:
+            return "Unable to determine visibility."
+        }
     }
     
     var todayHigh: String {
@@ -68,33 +195,16 @@ extension TodayWeatherModel {
         return temperatureValueOnly
     }
     
-    var currentTemperature: String {
-        let temperature = temperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
-        return temperatureValueOnly + "°"
-    }
-    
-    var feelsLikeTemperature: String {
-        let temperature = apparentTemperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
-
-        return temperatureValueOnly
-    }
-
-    var weatherDescription: String {
-        return condition.description
-    }
-    
     var chanceOfPrecipitation: String {
         return precipitationChance.formatted(.percent)
     }
     
     var backgroundColor: Color {
-        K.getBackGroundColor(symbol: symbol)
+        K.getBackGroundColor(symbol: symbolName)
     }
     
     var scene: SKScene? {
-        return  K.getScene(symbol: symbol)
+        return  K.getScene(symbol: symbolName)
     }
 }
 
@@ -132,5 +242,41 @@ extension TodayWeatherModel {
         
         let readableDate = dateFormatter.string(from: date)
         return readableDate
+    }
+    
+    /// Takes a Double, removes floating point numbers, then converts to and returns a String
+    private func convertNumberToTwoFloatingPoints(number: Double) -> String {
+        let convertedStringNumber = String(format: "%.2f", number)
+        return convertedStringNumber
+    }
+    
+    private func getUnitLength() -> UnitLength {
+       let unitSpeed = getUnitSpeed()
+       
+       switch unitSpeed {
+           case .milesPerHour:
+               return .miles
+           case .kilometersPerHour:
+               return .kilometers
+           case .metersPerSecond:
+               return .meters
+           default:
+               return .miles
+       }
+   }
+    
+    private func getUnitSpeed() -> UnitSpeed {
+        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
+        
+        switch chosenUnitDistance {
+        case  K.DistanceUnits.mph:
+            return .milesPerHour
+        case K.DistanceUnits.kiloPerHour:
+            return .kilometersPerHour
+        case K.DistanceUnits.meterPerSecond:
+            return .metersPerSecond
+        default:
+            return .milesPerHour
+        }
     }
 }

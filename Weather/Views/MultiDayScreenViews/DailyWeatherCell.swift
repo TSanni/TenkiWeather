@@ -66,14 +66,14 @@ struct DailyWeatherCell: View {
                 Spacer()
                 
                 VStack(alignment: .leading, spacing: 5.0) {
-                    Text("\(daily.tomorrowWind.windDescription), \(daily.tomorrowWind.windSpeed) \(daily.tomorrowWind.speedUnit) \(daily.tomorrowWind.compassDirection.abbreviation)")
-                    Text(daily.uvIndexCategoryType + "," + daily.uvIndexNumber)
+                    Text("\(daily.wind.windDescription), \(daily.wind.windSpeed) \(daily.wind.speedUnit) \(daily.wind.compassDirection.abbreviation)")
+                    Text(daily.uvIndexCategoryDescription + "," + daily.uvIndexNumberDescription)
                     
                     if daily.dayChanceOfPrecipitation != "0%" {
                         Text(daily.dayChanceOfPrecipitation)
                     }
                     
-                    Text("\(daily.sunData.sunriseTime), \(daily.sunData.sunsetTime)")
+                    Text("\(daily.sun.sunriseTime), \(daily.sun.sunsetTime)")
                 }
                 .foregroundColor(.primary)
                 
