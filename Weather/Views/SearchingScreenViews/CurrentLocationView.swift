@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CurrentLocationView: View {
     @EnvironmentObject var locationManager: CoreLocationViewModel
-    @EnvironmentObject var weatherViewModel: WeatherViewModel
 
+    let localWeather: TodayWeatherModel
 
     var body: some View {
         HStack {
@@ -24,11 +24,11 @@ struct CurrentLocationView: View {
                 
                 
                 HStack {
-                    SavedLocationImageView(imageName: weatherViewModel.localsfSymbol)
-                    
+                    SavedLocationImageView(imageName: localWeather.symbolName)
+
                     VStack(alignment: .leading) {
                         locationName
-                        Text(weatherViewModel.localTemp + " • " + weatherViewModel.localConditions)
+                        Text(localWeather.currentTemperature + " • " + localWeather.weatherDescription)
                     }
                 }
       
@@ -54,7 +54,7 @@ struct CurrentLocationView: View {
 }
 
 #Preview {
-    CurrentLocationView()
+    CurrentLocationView(localWeather: TodayWeatherModel.holderData)
         .environmentObject(CoreLocationViewModel())
         .environmentObject(WeatherViewModel())
 }

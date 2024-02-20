@@ -18,6 +18,18 @@ struct WindData: Identifiable {
     let compassDirection: Wind.CompassDirection
     let time: String?
     
+    var windSpeed: String {
+        let speed = speed.converted(to: getUnitSpeed())
+        let windSpeedValueOnly = convertNumberToZeroFloatingPoints(number: speed.value)
+        return windSpeedValueOnly
+    }
+    
+    var windSpeedNumber: Double {
+        let speed = speed.converted(to: getUnitSpeed()).value
+        let speedWithZeroFloatingPoints = convertNumberToZeroFloatingPoints(number: speed)
+        return Double(speedWithZeroFloatingPoints) ?? 0
+    }
+    
     /// Computed property uses the wind speed and returns a string description
     var windDescription: String {
         let speed = speed.converted(to: .milesPerHour)
@@ -125,12 +137,7 @@ struct WindData: Identifiable {
         
     }
     
-    var windSpeed: String {
-        let speed = speed.converted(to: getUnitSpeed())
-        let windSpeedValueOnly = convertNumberToZeroFloatingPoints(number: speed.value)
-        return windSpeedValueOnly
-    }
-    
+
     var speedUnit: String {
         return speed.converted(to: getUnitSpeed()).unit.symbol
     }

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct VisibilityTileView: View {
-    let visibilityDetails: TodayWeatherModel
+    let visibilityValue: String
+    let visiblityDescription: String
     let backgroundColor: Color
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -25,7 +26,7 @@ struct VisibilityTileView: View {
             
             VStack(alignment: .leading, spacing: 0.0) {
                 
-                Text(visibilityDetails.visibilityValue)
+                Text(visibilityValue)
                     .font(.largeTitle)
                     .bold()
                 
@@ -34,7 +35,7 @@ struct VisibilityTileView: View {
             
             Spacer()
             
-            Text(visibilityDetails.visiblityDescription)
+            Text(visiblityDescription)
                 .font(.footnote)
             
             
@@ -46,7 +47,8 @@ struct VisibilityTileView: View {
 
 #Preview {
     VisibilityTileView(
-        visibilityDetails: TodayWeatherModel.holderData,
+        visibilityValue: "",
+        visiblityDescription: "",
         backgroundColor: Color(uiColor: K.Colors.haze)
     )
     .frame(width: 250)

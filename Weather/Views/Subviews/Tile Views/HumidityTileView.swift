@@ -46,7 +46,6 @@ struct HumidityTileView: View {
                     sfSymbol: "humidity.fill",
                     color: K.Colors.precipitationBlue
                 )
-
             }
             
             Spacer()
@@ -54,7 +53,6 @@ struct HumidityTileView: View {
             Text("The dew point is " + dewPointDescription + " right now.")
                 .font(.footnote)
 
-            
         }
         .cardTileModifier(backgroundColor: backgroundColor)
 

@@ -83,7 +83,7 @@ extension TodayWeatherModel {
     var currentTemperature: String {
         let temperature = temperature.converted(to: getUnitTemperature())
         let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
-        return temperatureValueOnly + "°"
+        return temperatureValueOnly
     }
     
     var pressureString: String {

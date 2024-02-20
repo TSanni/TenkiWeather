@@ -65,11 +65,11 @@ struct TodayScreen: View {
                                     uvIndexColor: currentWeather.uvIndexColor,
                                     uvIndexActionRecommendation: currentWeather.uvIndexActionRecommendation,
                                     backgroundColor: currentWeather.backgroundColor
-
                                 )
                                 
                                 VisibilityTileView(
-                                    visibilityDetails: currentWeather,
+                                    visibilityValue: currentWeather.visibilityValue,
+                                    visiblityDescription: currentWeather.visiblityDescription,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 

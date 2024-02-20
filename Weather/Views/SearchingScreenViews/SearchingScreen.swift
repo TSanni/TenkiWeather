@@ -24,7 +24,7 @@ struct SearchingScreen: View {
             CustomDivider()
             
             VStack {
-                CurrentLocationView()
+                CurrentLocationView(localWeather: weatherViewModel.localWeather)
                     .padding(.bottom)
                     .padding(.bottom)
                     .onTapGesture {

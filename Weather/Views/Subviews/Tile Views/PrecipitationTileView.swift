@@ -15,14 +15,14 @@ struct PrecipitationTileView: View {
     ///The humidity passed in is a value 0-1 representing a percentage.
     ///This function multiplies that value by 100 to get a regular number
     ///Ex) 0.2 will return 20
-    func convertPrecipitationFromPercentToDouble(precipitation: Double) -> Double {
+    func convertPrecipitationFromPercentToDouble(precipitation: Double) -> CGFloat {
         let newPrecipitation = precipitation * 100
         return newPrecipitation
     }
     
     
     var body: some View {
-//        let precipitation = convertPrecipitationFromPercentToDouble(precipitation: precipitationDetails.tomorrowChanceOfPrecipitation)
+        let precipitation = convertPrecipitationFromPercentToDouble(precipitation: precipitationDetails.precipitationChance)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "drop.fill")
@@ -50,7 +50,7 @@ struct PrecipitationTileView: View {
                 
                 TileImageProgressView(
                     height: 50,
-                    value: precipitationDetails.precipitationChance,
+                    value: precipitation,
                     sfSymbol: "drop.fill",
                     color: K.Colors.precipitationBlue
                 )
@@ -76,4 +76,5 @@ struct PrecipitationTileView: View {
         backgroundColor: Color(uiColor: K.Colors.haze)
     )
     .frame(width: 200)
+    .environmentObject(AppStateManager())
 }

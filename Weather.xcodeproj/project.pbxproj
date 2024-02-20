@@ -70,7 +70,6 @@
 		83E04FC42A25655F009720AB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FC32A25655F009720AB /* SearchBar.swift */; };
 		83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FC92A25BE35009720AB /* WeatherGraphView.swift */; };
 		83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD32A2B2892009720AB /* WindTileView.swift */; };
-		83E04FD62A2B29DF009720AB /* WindBarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD52A2B29DE009720AB /* WindBarGraph.swift */; };
 		83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */; };
 		C19D9DA1ACABA4B0AC8CD510 /* Pods_Tenki_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */; };
 /* End PBXBuildFile section */
@@ -142,7 +141,6 @@
 		83E04FC32A25655F009720AB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		83E04FC92A25BE35009720AB /* WeatherGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherGraphView.swift; sourceTree = "<group>"; };
 		83E04FD32A2B2892009720AB /* WindTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindTileView.swift; sourceTree = "<group>"; };
-		83E04FD52A2B29DE009720AB /* WindBarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindBarGraph.swift; sourceTree = "<group>"; };
 		83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
 		A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenki Weather.debug.xcconfig"; path = "Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tenki_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,7 +192,6 @@
 			children = (
 				83E04FC92A25BE35009720AB /* WeatherGraphView.swift */,
 				837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */,
-				83E04FD52A2B29DE009720AB /* WindBarGraph.swift */,
 			);
 			path = Graphs;
 			sourceTree = "<group>";
@@ -548,7 +545,6 @@
 				838FAE0D2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift in Sources */,
 				837D7DBC2B72B0210031B296 /* Enums.swift in Sources */,
 				83E04FB22A247295009720AB /* TodayScreen.swift in Sources */,
-				83E04FD62A2B29DF009720AB /* WindBarGraph.swift in Sources */,
 				837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */,
 				83DA72E82A419C7C00C50C86 /* WeatherManager.swift in Sources */,
 				83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */,

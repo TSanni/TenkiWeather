@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct WindTileView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -31,24 +32,45 @@ struct WindTileView: View {
             }
             
             ScrollView(.horizontal, showsIndicators: false) {
-                
                 ScrollViewReader { proxy in
                     HStack {
                         EmptyView()
                             .id(0)
-                        ForEach(hourlyWeather) { datum in
-                            Image(systemName: "location.fill")
-                                .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: datum.wind.compassDirection) + 180))
-                                .padding(.vertical)
-                                .padding(.horizontal, 10)
+                        ForEach(hourlyWeather) { hour in
+                            VStack {
+                                Image(systemName: "location.fill")
+                                    .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: hour.wind.compassDirection) + 180))
+                                    .padding(.vertical)
+                                    .padding(.horizontal, 10)
+                            }
                         }
                     }
                     .onChange(of: appStateManager.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
                     
-                    WindBarGraph(hourlyWeather: hourlyWeather)
-                        .frame(height: 100)
+                    //MARK: - Bar Graph with wind data
+                    Chart(hourlyWeather) { hour in
+                        BarMark(
+                            x: .value("time", hour.readableDate),
+                            y: .value("windSpeed", hour.windTruth.windSpeedNumber)
+                        )
+                        .foregroundStyle(hour.wind.windColor)
+                        .annotation(position: .top) {
+                            Text(hour.wind.windSpeed)
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .chartYScale(domain: 0...(getLargestValue()))
+                    .chartYAxis(.hidden)
+                    .chartXAxis {
+                        AxisMarks(position: .bottom) { q in
+                            AxisValueLabel {
+                                Text(hourlyWeather[q.index].readableDate)
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -66,9 +88,7 @@ struct WindTileView: View {
         .padding()
         
     }
-    
-    
-    
+
     var todayData: some View {
         HStack(spacing: 30.0) {
             HStack {
@@ -110,8 +130,24 @@ struct WindTileView: View {
                 .font(.subheadline)
         }
     }
+    
+    /// This function accesses the hourlyWeather array and returns the largest wind speed value
+    private func getLargestValue() -> Double {
+        var highest: Double = 0
+        
+        for i in 0..<hourlyWeather.count {
+            if let windSpeed = Double(hourlyWeather[i].wind.windSpeed) {
+                if windSpeed > highest {
+                    highest = windSpeed
+                }
+            }
+        }
+        
+        return highest
+    }
 }
 
+// MARK: - Preview
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {

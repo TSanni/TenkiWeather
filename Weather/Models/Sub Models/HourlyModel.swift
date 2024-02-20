@@ -23,6 +23,10 @@ struct HourlyModel: Identifiable {
         return temperatureValueOnly
     }
     
+    var windTruth: WindData {
+        WindData(speed: wind.speed, compassDirection: wind.compassDirection, time: nil)
+    }
+    
     var readableDate: String {
         getReadableHourOnly(date: date, timezoneOffset: timezone)
     }

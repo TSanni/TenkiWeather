@@ -27,7 +27,7 @@ struct ImmediateWeatherDetails: View {
             
             HStack {
                 HStack {
-                    Text(currentWeather.currentTemperature)
+                    Text(currentWeather.currentTemperature + "°")
                         .font(.system(size: 85, weight: .bold, design: .default))
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
