@@ -99,10 +99,10 @@ struct SearchingScreen: View {
         locationManager.searchedLocationName = userLocationName
         
         appStateManager.setCurrentLocationName(name: userLocationName)
-        appStateManager.searchedLocationDictionary["name"] = locationManager.searchedLocationName
-        appStateManager.searchedLocationDictionary["latitude"] = locationManager.latitude
-        appStateManager.searchedLocationDictionary["longitude"] = locationManager.longitude
-        appStateManager.searchedLocationDictionary["timezone"] = timezone
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = locationManager.latitude
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = locationManager.longitude
+        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = timezone
     }
     
     

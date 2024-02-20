@@ -21,7 +21,7 @@ struct SavedLocationCell: View {
                         .font(.headline)
                     
                     HStack(alignment: .top, spacing: 0.0) {
-                        Text(location.temperature ?? "")
+                        Text((location.temperature ?? "") + "°")
                         Text(" • ")
                         Text(location.weatherCondition ?? "")
                     }
@@ -29,7 +29,6 @@ struct SavedLocationCell: View {
                 }
                 
                 Spacer()
-                
             }
         }
         .foregroundStyle(.white)
