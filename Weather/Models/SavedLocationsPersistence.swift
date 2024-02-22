@@ -12,6 +12,7 @@ class SavedLocationsPersistence: ObservableObject {
     static let shared = SavedLocationsPersistence()
 
     let container: NSPersistentContainer
+    let weatherManager = WeatherManager.shared
     
     @Published var savedLocations: [LocationEntity] = []
     
@@ -64,10 +65,10 @@ class SavedLocationsPersistence: ObservableObject {
         newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeys.symbol] as? String
         newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeys.weatherCondition] as? String
         newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeys.unitTemperature] as? UnitTemperature
-        print("****************************** VALUE OF UNIT TEMPERATURE IN DICTIONARY: \(locationDictionary[K.LocationDictionaryKeys.unitTemperature]) ****************************************")
-
-        
-        print("****************************** VALUE OF UNIT TEMPERATURE IN CORE DATA: \(newLocation.unitTemperature) ****************************************")
+//        print("****************************** VALUE OF UNIT TEMPERATURE IN DICTIONARY: \(locationDictionary[K.LocationDictionaryKeys.unitTemperature]) ****************************************")
+//
+//        
+//        print("****************************** VALUE OF UNIT TEMPERATURE IN CORE DATA: \(newLocation.unitTemperature) ****************************************")
         
         Task {
             try await fetchWeatherPlacesWithTaskGroup()
@@ -128,10 +129,10 @@ class SavedLocationsPersistence: ObservableObject {
     
     private func fetchCurrentWeather(entity: LocationEntity) async throws -> LocationEntity {
         
-        let weather = try await WeatherManager.shared.getWeather(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
+        let weather = try await weatherManager.getWeather(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
 
         if let currentWeather = weather {
-            let todaysWeather = WeatherManager.shared.getTodayWeather(
+            let todaysWeather = await weatherManager.getTodayWeather(
                 current: currentWeather.currentWeather,
                 dailyWeather: currentWeather.dailyForecast,
                 hourlyWeather: currentWeather.hourlyForecast,

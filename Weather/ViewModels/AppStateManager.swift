@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class AppStateManager: ObservableObject {
+@MainActor class AppStateManager: ObservableObject {
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
     @Published var resetViews: Bool = false
@@ -16,7 +16,6 @@ class AppStateManager: ObservableObject {
     
     @Published var currentLocationName: String = ""
     @Published var currentLocationTimezone: Int = 0
-
     
     // This property's only purpose is to add data to CoreData.
     // You can find it's data being saved to CoreData in the SettingScreenTile View
@@ -33,6 +32,7 @@ class AppStateManager: ObservableObject {
     ]
     
     static let shared  = AppStateManager()
+    let weatherManager = WeatherManager.shared
     
     private init() { }
     
@@ -120,7 +120,7 @@ class AppStateManager: ObservableObject {
     }
     
     func fillImageToPrepareForRendering(symbol: String) -> String {
-        let filledInSymbol = WeatherManager.shared.getImage(imageName: symbol)
+        let filledInSymbol = weatherManager.getImage(imageName: symbol)
         return filledInSymbol
     }
     

@@ -29,7 +29,7 @@ struct SearchingScreen: View {
                     .padding(.bottom)
                     .onTapGesture {
                         Task {
-                            appStateManager.showSearchScreen = false
+                            appStateManager.toggleShowSearchScreen()
                             appStateManager.dataIsLoading()
                             await getWeatherAndUpdateDictionary()
                             persistenceLocations.saveData()
@@ -62,7 +62,7 @@ struct SearchingScreen: View {
                     persistenceLocations.saveData()
                     
                     appStateManager.dataCompletedLoading()
-                    appStateManager.showSearchScreen = false
+                    appStateManager.toggleShowSearchScreen()
                     appStateManager.performViewReset()
                 }
                 
@@ -74,7 +74,7 @@ struct SearchingScreen: View {
     var textFieldAndBackButton: some View {
         HStack {
             Button {
-                appStateManager.showSearchScreen = false
+                appStateManager.toggleShowSearchScreen()
             } label: {
                 Image(systemName: "arrow.left")
                     .contentShape(Rectangle())
@@ -84,7 +84,9 @@ struct SearchingScreen: View {
             Text("Search for a location")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .onTapGesture {
-                    showGoogleSearchScreen = true
+                    DispatchQueue.main.async {
+                        showGoogleSearchScreen = true
+                    }
                 }
         }
     }

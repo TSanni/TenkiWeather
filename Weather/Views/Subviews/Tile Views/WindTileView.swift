@@ -16,6 +16,7 @@ struct WindTileView: View {
     let hourlyWeather: [HourlyModel]
     let setTodayWeather: Bool
     let backgroundColor: Color
+    let weatherManager = WeatherManager.shared
     
     var body: some View {
         let color = appStateManager.blendColorWithTwentyPercentWhite(themeColor: backgroundColor)
@@ -39,7 +40,7 @@ struct WindTileView: View {
                         ForEach(hourlyWeather) { hour in
                             VStack {
                                 Image(systemName: "location.fill")
-                                    .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: hour.wind.compassDirection) + 180))
+                                    .rotationEffect(.degrees(weatherManager.getRotation(direction: hour.wind.compassDirection) + 180))
                                     .padding(.vertical)
                                     .padding(.horizontal, 10)
                             }
@@ -99,7 +100,7 @@ struct WindTileView: View {
                 
                 VStack {
                     Image(systemName: "location.fill")
-                        .rotationEffect(.degrees(WeatherManager.shared.getRotation(direction: windData.compassDirection) + 180) )
+                        .rotationEffect(.degrees(weatherManager.getRotation(direction: windData.compassDirection) + 180) )
                     Text(windData.speedUnit)
                 }
             }

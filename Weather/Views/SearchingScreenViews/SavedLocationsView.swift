@@ -30,7 +30,7 @@ struct SavedLocationsView: View {
                     .padding(.top)
                     .onTapGesture {
                         Task {
-                            appStateManager.showSearchScreen = false
+                            appStateManager.toggleShowSearchScreen()
                             appStateManager.dataIsLoading()
                             await getWeatherAndUpdateDictionary(item: item)
                             appStateManager.dataCompletedLoading()

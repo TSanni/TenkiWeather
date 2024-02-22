@@ -13,6 +13,7 @@ struct WeatherGraphView: View {
     let hourlyTemperatures: [HourlyModel]
     let graphColor: Color
     let precipitationBlueColor = K.Colors.precipitationBlue
+    let weatherManager = WeatherManager.shared
 
     var body: some View {
 
@@ -71,7 +72,7 @@ struct WeatherGraphView: View {
                 AxisValueLabel {
                     VStack(spacing: 0) {
                         /// weather icon
-                        Image(systemName: WeatherManager.shared.getImage(imageName: hourlyTemperatures[q.index].symbol))
+                        Image(systemName: weatherManager.getImage(imageName: hourlyTemperatures[q.index].symbol))
                             .renderingMode(.original)
                             .font(.title2)
                             .frame(width: 30, height: 30)
@@ -135,7 +136,6 @@ struct WeatherGraphView_Previews: PreviewProvider {
             ScrollView(.horizontal) {
                 
                 WeatherGraphView(hourlyTemperatures: HourlyModel.hourlyTempHolderData, graphColor: Color.blue)
-                    .previewDevice("iPhone 11 Pro Max")
                     .frame(width: UIScreen.main.bounds.width * 2)
                     .frame(height: 200)
             }

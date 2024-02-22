@@ -10,7 +10,7 @@ import WeatherKit
 
 
 
-class WeatherManager {
+actor WeatherManager {
     static let shared = WeatherManager()
   
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
@@ -427,7 +427,7 @@ extension WeatherManager {
 
     /// Takes a CompassDirection and returns a Double which indicates the angle the current compass direction.
     /// One use can be to properly set rotation effects on views
-    func getRotation(direction: Wind.CompassDirection) -> Double {
+   nonisolated func getRotation(direction: Wind.CompassDirection) -> Double {
         // starting pointing east. Subtract 90 to point north
         // Think of this as 0 on a pie chart
         let zero: Double = 45
@@ -471,7 +471,7 @@ extension WeatherManager {
     /// Manually checks for SF Symbols that do not have the fill option and returns that image without .fill added.
     /// Otherwise, .fill is added to the end of the symbol name
     //TODO: Add more sf symbols
-    func getImage(imageName: String) -> String {
+   nonisolated func getImage(imageName: String) -> String {
         switch imageName {
             case "wind":
                 return imageName

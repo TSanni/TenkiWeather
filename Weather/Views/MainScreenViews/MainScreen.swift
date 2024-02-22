@@ -28,9 +28,7 @@ struct MainScreen: View {
             VStack(spacing: 0) {
                 SearchBar()
                     .onTapGesture {
-                        DispatchQueue.main.async {
-                            appStateManager.toggleShowSearchScreen()
-                        }
+                        appStateManager.toggleShowSearchScreen()
                     }
                 
                 WeatherTabSelectionsView(tabViews: $tabViews)

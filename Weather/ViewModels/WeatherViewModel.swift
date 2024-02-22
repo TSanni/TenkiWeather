@@ -19,6 +19,8 @@ class WeatherViewModel: ObservableObject {
     
     static let shared = WeatherViewModel()
     
+    let weatherManager = WeatherManager.shared
+    
     let locationManager = CoreLocationViewModel.shared
     let appStateModel = AppStateManager.shared
     
@@ -31,8 +33,7 @@ class WeatherViewModel: ObservableObject {
         
         await getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         
-        
-        appStateModel.setSearchedLocationDictionary(
+        await appStateModel.setSearchedLocationDictionary(
             name: locationManager.searchedLocationName,
             latitude: coordinates.latitude,
             longitude: coordinates.longitude,
@@ -63,14 +64,23 @@ class WeatherViewModel: ObservableObject {
     
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         do {
-            let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
+            let weather = try await weatherManager.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
+                
+                let currentWeather = await weatherManager.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+                
+                let tomorrowWeather = await weatherManager.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: timezone)
+
+                let dailyWeather = await weatherManager.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+                
+                let weatherAlert = await weatherManager.getWeatherAlert(optionalWeatherAlert: weather.weatherAlerts)
+
                 await MainActor.run {
-                    self.currentWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
-                    self.tomorrowWeather = WeatherManager.shared.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: timezone)
-                    self.dailyWeather = WeatherManager.shared.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
-                    self.weatherAlert = WeatherManager.shared.getWeatherAlert(optionalWeatherAlert: weather.weatherAlerts)
+                    self.currentWeather = currentWeather
+                    self.tomorrowWeather = tomorrowWeather
+                    self.dailyWeather = dailyWeather
+                    self.weatherAlert = weatherAlert
                 }
             }    
         } catch {
@@ -83,11 +93,12 @@ class WeatherViewModel: ObservableObject {
 
     func getLocalWeather(latitude: Double, longitude: Double, name: String, timezone: Int) async {
         do {
-            let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
+            let weather = try await weatherManager.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
+                let localWeather = await weatherManager.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
                 await MainActor.run {
-                    self.localWeather = WeatherManager.shared.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+                    self.localWeather = localWeather
                 }
             }
         } catch {
