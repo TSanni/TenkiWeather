@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
+
+
+struct HeaderViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .fontWeight(.bold)
+            .multilineTextAlignment(.leading)
+            .padding()
+    }
+}

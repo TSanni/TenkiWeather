@@ -7,11 +7,9 @@
 
 import Foundation
 
-
 enum WeatherErrors: Error {
     case failedToGetWeatherKitData
 }
-
 
 extension WeatherErrors: LocalizedError {
     var errorDescription: String? {
@@ -30,7 +28,6 @@ enum WeatherTabs: Int, CaseIterable {
     case tomorrow
     case multiDay
     
-    
     var title: String {
         switch self {
         case .today:
@@ -43,8 +40,6 @@ enum WeatherTabs: Int, CaseIterable {
         }
     }
 }
-
-
 
 enum TemperatureUnits: String, CaseIterable {
     case fahrenheit = "Fahrenheit"
@@ -68,7 +63,6 @@ enum DistanceUnits: String, CaseIterable {
     case kilometer = "Kilometers per hour"
     case meters = "Meters per second"
 }
-
 
 
 enum GeocodingErrors: Error {

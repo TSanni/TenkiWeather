@@ -6,3 +6,18 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct SettingsListBackgroundViewModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    
+    func body(content: Content) -> some View {
+        let darkTheme = K.Colors.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: 10))
+        let lightTheme = K.Colors.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: 10))
+        
+        content
+            .listRowBackground(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))
+            .listRowSeparator(.hidden)
+        
+    }
+}

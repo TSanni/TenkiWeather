@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct SubHeaderViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title)
+            .fontWeight(.bold)
+            .padding()
+    }
+}
