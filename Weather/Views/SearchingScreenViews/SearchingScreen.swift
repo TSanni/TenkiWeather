@@ -148,9 +148,9 @@ struct SearchingScreen: View {
 struct SearchingView_Previews: PreviewProvider {
     static var previews: some View {
         SearchingScreen()
-            .environmentObject(WeatherViewModel())
-            .environmentObject(CoreLocationViewModel())
-            .environmentObject(AppStateManager())
+            .environmentObject(WeatherViewModel.shared)
+            .environmentObject(CoreLocationViewModel.shared)
+            .environmentObject(AppStateManager.shared)
             .environmentObject(SavedLocationsPersistence.shared)
     }
 }

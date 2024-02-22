@@ -110,6 +110,6 @@ func convertStringToCGFloat(precipitationString: String) -> CGFloat {
             hourlyTemperatures: HourlyModel.hourlyTempHolderData,
             color: Color(uiColor: K.Colors.haze)
         )
-        .environmentObject(AppStateManager())
+        .environmentObject(AppStateManager.shared)
     }
 }

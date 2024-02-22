@@ -16,6 +16,10 @@ class WeatherViewModel: ObservableObject {
     @Published var localWeather: TodayWeatherModel = TodayWeatherModel.holderData
     @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
     
+    static let shared = WeatherViewModel()
+    
+    private init() { }
+    
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         do {
             let weather = try await WeatherManager.shared.getWeather(latitude: latitude, longitude: longitude, timezone: timezone)
@@ -51,4 +55,7 @@ class WeatherViewModel: ObservableObject {
             }
         }
     }
+    
+    
+
 }

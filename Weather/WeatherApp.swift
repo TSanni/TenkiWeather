@@ -30,10 +30,10 @@ struct WeatherApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) var scenePhase
 
-    @StateObject private var weatherViewModel = WeatherViewModel()
+    @StateObject private var weatherViewModel = WeatherViewModel.shared
     @StateObject private var persistenceLocations = SavedLocationsPersistence.shared
-    @StateObject private var locationManager = CoreLocationViewModel()
-    @StateObject private var appStateManager = AppStateManager()
+    @StateObject private var locationManager = CoreLocationViewModel.shared
+    @StateObject private var appStateManager = AppStateManager.shared
     
     var body: some Scene {
         WindowGroup {

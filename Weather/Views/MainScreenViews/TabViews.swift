@@ -42,6 +42,6 @@ struct TabViews: View {
 
 #Preview {
     TabViews( tabViews: .constant(.today))
-        .environmentObject(WeatherViewModel())
-        .environmentObject(AppStateManager())
+        .environmentObject(WeatherViewModel.shared)
+        .environmentObject(AppStateManager.shared)
 }

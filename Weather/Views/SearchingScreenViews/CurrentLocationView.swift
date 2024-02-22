@@ -55,6 +55,6 @@ struct CurrentLocationView: View {
 
 #Preview {
     CurrentLocationView(localWeather: TodayWeatherModel.holderData)
-        .environmentObject(CoreLocationViewModel())
-        .environmentObject(WeatherViewModel())
+        .environmentObject(CoreLocationViewModel.shared)
+        .environmentObject(WeatherViewModel.shared)
 }

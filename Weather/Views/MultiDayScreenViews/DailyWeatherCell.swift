@@ -158,6 +158,6 @@ struct DailyWeatherCell: View {
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
         DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: nil)
-            .environmentObject(AppStateManager())
+            .environmentObject(AppStateManager.shared)
     }
 }

@@ -64,7 +64,7 @@ struct ImmediateWeatherDetails: View {
     ZStack {
         TodayWeatherModel.holderData.backgroundColor
         ImmediateWeatherDetails(currentWeather: TodayWeatherModel.holderData)
-            .environmentObject(AppStateManager())
+            .environmentObject(AppStateManager.shared)
     }
 }
 

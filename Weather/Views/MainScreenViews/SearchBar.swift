@@ -53,8 +53,8 @@ struct SearchBar_Previews: PreviewProvider {
         ZStack {
             Color.indigo
             SearchBar()
-                .environmentObject(CoreLocationViewModel())
-                .environmentObject(AppStateManager())
+                .environmentObject(CoreLocationViewModel.shared)
+                .environmentObject(AppStateManager.shared)
 
         }
         

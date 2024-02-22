@@ -32,6 +32,10 @@ class AppStateManager: ObservableObject {
         K.LocationDictionaryKeys.weatherCondition: ""
     ]
     
+    static let shared  = AppStateManager()
+    
+    private init() { }
+    
     
     ///Returns columns and tile size accounting for iPhone and iPad
     func getGridColumnAndSize(geo: GeometryProxy) -> [GridItem] {

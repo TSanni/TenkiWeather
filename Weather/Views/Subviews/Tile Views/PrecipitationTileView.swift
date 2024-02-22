@@ -76,5 +76,5 @@ struct PrecipitationTileView: View {
         backgroundColor: Color(uiColor: K.Colors.haze)
     )
     .frame(width: 200)
-    .environmentObject(AppStateManager())
+    .environmentObject(AppStateManager.shared)
 }

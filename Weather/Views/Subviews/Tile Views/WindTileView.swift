@@ -159,7 +159,7 @@ struct WindView_Previews: PreviewProvider {
                     setTodayWeather: true,
                     backgroundColor: Color(uiColor: K.Colors.haze)
                 )
-                .environmentObject(AppStateManager())
+                .environmentObject(AppStateManager.shared)
                 
             }
         }

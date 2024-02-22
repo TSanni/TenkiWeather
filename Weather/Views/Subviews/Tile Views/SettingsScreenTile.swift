@@ -173,7 +173,7 @@ struct SettingsScreenTile: View {
     ZStack {
         Color.gray.ignoresSafeArea()
         SettingsScreenTile()
-            .environmentObject(AppStateManager())
+            .environmentObject(AppStateManager.shared)
             .environmentObject(SavedLocationsPersistence.shared)
     }
 }

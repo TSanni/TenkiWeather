@@ -127,7 +127,7 @@ struct TodayScreen: View {
 struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
         TodayScreen(currentWeather: TodayWeatherModel.holderData, weatherAlert: nil)
-            .environmentObject(AppStateManager())
-            .environmentObject(WeatherViewModel())
+            .environmentObject(AppStateManager.shared)
+            .environmentObject(WeatherViewModel.shared)
     }
 }

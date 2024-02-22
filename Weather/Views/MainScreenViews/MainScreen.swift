@@ -128,9 +128,9 @@ extension MainScreen {
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
-            .environmentObject(WeatherViewModel())
-            .environmentObject(CoreLocationViewModel())
-            .environmentObject(AppStateManager())
+            .environmentObject(WeatherViewModel.shared)
+            .environmentObject(CoreLocationViewModel.shared)
+            .environmentObject(AppStateManager.shared)
     }
 }
 

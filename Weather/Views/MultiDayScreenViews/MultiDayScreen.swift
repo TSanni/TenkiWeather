@@ -86,7 +86,7 @@ struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
         MultiDayScreen(daily: [DailyWeatherModel.placeholder])
                 .previewDevice("iPhone 11 Pro Max")
-                .environmentObject(AppStateManager())
+                .environmentObject(AppStateManager.shared)
     }
 }
  

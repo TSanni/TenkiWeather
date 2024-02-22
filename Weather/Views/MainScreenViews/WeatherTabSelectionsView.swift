@@ -51,7 +51,7 @@ struct WeatherTabSelectionsView: View {
 struct WeatherTabSelectionsView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherTabSelectionsView(tabViews: .constant(.today))
-            .environmentObject(AppStateManager())
+            .environmentObject(AppStateManager.shared)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.red)
     }

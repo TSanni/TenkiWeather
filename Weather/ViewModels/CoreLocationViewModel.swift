@@ -22,6 +22,8 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var searchedLocationName: String = ""
     @Published var localLocationName: String = ""
     
+    static let shared = CoreLocationViewModel()
+    
     var locationManager = CLLocationManager()
     var geocoder = CLGeocoder()
     
@@ -32,7 +34,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         locationManager.location?.coordinate.longitude ?? 0.0
     }
     
-    override init() {
+    override private init() {
         super.init()
         locationManager.delegate = self
     }
