@@ -65,7 +65,6 @@ class SavedLocationsPersistence: ObservableObject {
             try await fetchWeatherPlacesWithTaskGroup()
             saveData()
         }
-        
     }
     
 //    func updatePlace(entity: LocationEntity) {
@@ -74,6 +73,12 @@ class SavedLocationsPersistence: ObservableObject {
 //        entity.name = newName
 //        saveData()
 //    }
+    
+    func updatePlace(entity: [LocationEntity]) {
+        
+        
+        saveData()
+    }
     
     func deletePlace(indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
@@ -95,7 +100,6 @@ class SavedLocationsPersistence: ObservableObject {
             print("Error saving. \(error)")
         }
     }
-    
     
     func fetchWeatherPlacesWithTaskGroup() async throws   {
         
