@@ -42,25 +42,9 @@ struct SavedLocationCell: View {
         print("the unit temp: \(oldTempUnit)")
         let oldTempToMeasurement = Measurement(value: oldTempToDouble, unit: oldTempUnit)
         
-        let newTemp = oldTempToMeasurement.converted(to: getUnitTemperature())
+        let newTemp = oldTempToMeasurement.converted(to: Helper.getUnitTemperature())
         let removeFloatingPointsFromNewTemp = String(format: "%.0f", newTemp.value)
         return removeFloatingPointsFromNewTemp
-    }
-    
-    /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
-    private func getUnitTemperature() -> UnitTemperature {
-        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
-        
-        switch savedUnitTemperature {
-        case K.TemperatureUnits.fahrenheit:
-            return .fahrenheit
-        case K.TemperatureUnits.celsius:
-            return .celsius
-        case   K.TemperatureUnits.kelvin:
-            return .kelvin
-        default:
-            return .fahrenheit
-        }
     }
 }
 

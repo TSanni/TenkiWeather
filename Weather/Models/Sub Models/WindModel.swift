@@ -19,14 +19,14 @@ struct WindData: Identifiable {
     let time: String?
     
     var windSpeed: String {
-        let speed = speed.converted(to: getUnitSpeed())
-        let windSpeedValueOnly = convertNumberToZeroFloatingPoints(number: speed.value)
+        let speed = speed.converted(to: Helper.getUnitSpeed())
+        let windSpeedValueOnly = Helper.convertNumberToZeroFloatingPoints(number: speed.value)
         return windSpeedValueOnly
     }
     
     var windSpeedNumber: Double {
-        let speed = speed.converted(to: getUnitSpeed()).value
-        let speedWithZeroFloatingPoints = convertNumberToZeroFloatingPoints(number: speed)
+        let speed = speed.converted(to: Helper.getUnitSpeed()).value
+        let speedWithZeroFloatingPoints = Helper.convertNumberToZeroFloatingPoints(number: speed)
         return Double(speedWithZeroFloatingPoints) ?? 0
     }
     
@@ -134,12 +134,10 @@ struct WindData: Identifiable {
         default:
             return light
         }
-        
     }
-    
 
     var speedUnit: String {
-        return speed.converted(to: getUnitSpeed()).unit.symbol
+        return speed.converted(to: Helper.getUnitSpeed()).unit.symbol
     }
 
     /// Holder data for wind details
@@ -152,29 +150,4 @@ struct WindData: Identifiable {
         WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "6 AM"),
         WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "7 AM"),
     ]
-}
-
-// MARK: - Private Functions
-extension WindData {
-    
-    /// Takes a Double, removes floating point numbers, then converts to and returns a String
-    private func convertNumberToZeroFloatingPoints(number: Double) -> String {
-        let convertedStringNumber = String(format: "%.0f", number)
-        return convertedStringNumber
-    }
-    
-    private func getUnitSpeed() -> UnitSpeed {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
-        
-        switch chosenUnitDistance {
-        case  K.DistanceUnits.mph:
-            return .milesPerHour
-        case K.DistanceUnits.kiloPerHour:
-            return .kilometersPerHour
-        case K.DistanceUnits.meterPerSecond:
-            return .metersPerSecond
-        default:
-            return .milesPerHour
-        }
-    }
 }

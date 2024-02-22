@@ -36,19 +36,19 @@ struct TodayWeatherModel: Identifiable {
     
     /// Holder data for Today's weather
     static let holderData = TodayWeatherModel(
-        apparentTemperature:  Measurement(value: 50, unit: .fahrenheit), 
-        dewPoint: Measurement(value: 50, unit: .fahrenheit), 
+        apparentTemperature:  Measurement(value: 50, unit: .fahrenheit),
+        dewPoint: Measurement(value: 50, unit: .fahrenheit),
         humidity: 0.5,
         temperature: Measurement(value: 50, unit: .fahrenheit),
         pressure: Measurement(value: 20, unit: .inchesOfMercury),
         pressureTrend: .rising,
-        wind: WindData.windDataHolder[0], 
+        wind: WindData.windDataHolder[0],
         condition: .clear, date: Date.now,
-        isDaylight: false, 
+        isDaylight: false,
         uvIndexCategory: .extreme,
-        uvIndexValue: 10, 
+        uvIndexValue: 10,
         visibility: Measurement(value: 5000, unit: .meters),
-        symbolName: "sun.max", 
+        symbolName: "sun.max",
         highTemperature: Measurement(value: 50, unit: .fahrenheit),
         lowTemperature: Measurement(value: 50, unit: .fahrenheit),
         precipitationChance: 0.5,
@@ -63,15 +63,15 @@ struct TodayWeatherModel: Identifiable {
 // MARK: - Computed Properties
 extension TodayWeatherModel {
     var feelsLikeTemperature: String {
-        let temperature = apparentTemperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
-
+        let temperature = apparentTemperature.converted(to: Helper.getUnitTemperature())
+        let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
+        
         return temperatureValueOnly
     }
-
+    
     var dewPointDescription: String {
-        let dewPointTemperature = dewPoint.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: dewPointTemperature.value)
+        let dewPointTemperature = dewPoint.converted(to: Helper.getUnitTemperature())
+        let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: dewPointTemperature.value)
         
         return temperatureValueOnly + dewPointTemperature.unit.symbol
     }
@@ -81,18 +81,18 @@ extension TodayWeatherModel {
     }
     
     var currentTemperature: String {
-        let temperature = temperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+        let temperature = temperature.converted(to: Helper.getUnitTemperature())
+        let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
         return temperatureValueOnly
     }
     
     var pressureString: String {
         let pressure = pressure.converted(to: .inchesOfMercury)
-        let value = convertNumberToTwoFloatingPoints(number: pressure.value)
+        let value = Helper.convertNumberToTwoFloatingPoints(number: pressure.value)
         let symbol = pressure.unit.symbol
         return value + "\n" + symbol
     }
-        
+    
     var pressureValue: Double {
         let pressure = pressure.converted(to: .inchesOfMercury)
         let value = pressure.value
@@ -117,7 +117,7 @@ extension TodayWeatherModel {
     }
     
     var readableDate: String {
-        return getReadableMainDate(date: date, timezoneOffset: timezeone)
+        return Helper.getReadableMainDate(date: date, timezoneOffset: timezeone)
     }
     
     var uvIndexNumberDescription: String {
@@ -127,7 +127,7 @@ extension TodayWeatherModel {
     var uvIndexCategoryDescription: String {
         uvIndexCategory.description
     }
-        
+    
     var uvIndexActionRecommendation: String {
         switch uvIndexCategory {
         case .low:
@@ -159,13 +159,13 @@ extension TodayWeatherModel {
     }
     
     var visibilityValue: String {
-        let unit = getUnitLength()
+        let unit = Helper.getUnitLength()
         let visibility = visibility.converted(to: unit)
-        let formattedVisibilityValue = convertNumberToZeroFloatingPoints(number: visibility.value)
+        let formattedVisibilityValue = Helper.convertNumberToZeroFloatingPoints(number: visibility.value)
         let symbol = visibility.unit.symbol
         return formattedVisibilityValue + symbol
     }
-
+    
     var visiblityDescription: String {
         let visibilityValue = visibility.converted(to: .meters).value
         
@@ -184,14 +184,14 @@ extension TodayWeatherModel {
     }
     
     var todayHigh: String {
-        let temperature = highTemperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+        let temperature = highTemperature.converted(to: Helper.getUnitTemperature())
+        let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
         return temperatureValueOnly
     }
     
     var todayLow: String {
-        let temperature = lowTemperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+        let temperature = lowTemperature.converted(to: Helper.getUnitTemperature())
+        let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
         return temperatureValueOnly
     }
     
@@ -208,75 +208,3 @@ extension TodayWeatherModel {
     }
 }
 
-//MARK: Private functions
-extension TodayWeatherModel {
-    
-    /// Takes a Double, removes floating point numbers, then converts to and returns a String
-    private func convertNumberToZeroFloatingPoints(number: Double) -> String {
-        let convertedStringNumber = String(format: "%.0f", number)
-        return convertedStringNumber
-    }
-    
-    /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
-    private func getUnitTemperature() -> UnitTemperature {
-        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
-        
-        switch savedUnitTemperature {
-        case K.TemperatureUnits.fahrenheit:
-            return .fahrenheit
-        case K.TemperatureUnits.celsius:
-            return .celsius
-        case   K.TemperatureUnits.kelvin:
-            return .kelvin
-        default:
-            return .fahrenheit
-        }
-    }
-    
-    /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: July 7, 10:08 PM
-    private func getReadableMainDate(date: Date, timezoneOffset: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = K.Time.monthDayHourMinuteFormat
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
-        let readableDate = dateFormatter.string(from: date)
-        return readableDate
-    }
-    
-    /// Takes a Double, removes floating point numbers, then converts to and returns a String
-    private func convertNumberToTwoFloatingPoints(number: Double) -> String {
-        let convertedStringNumber = String(format: "%.2f", number)
-        return convertedStringNumber
-    }
-    
-    private func getUnitLength() -> UnitLength {
-       let unitSpeed = getUnitSpeed()
-       
-       switch unitSpeed {
-           case .milesPerHour:
-               return .miles
-           case .kilometersPerHour:
-               return .kilometers
-           case .metersPerSecond:
-               return .meters
-           default:
-               return .miles
-       }
-   }
-    
-    private func getUnitSpeed() -> UnitSpeed {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
-        
-        switch chosenUnitDistance {
-        case  K.DistanceUnits.mph:
-            return .milesPerHour
-        case K.DistanceUnits.kiloPerHour:
-            return .kilometersPerHour
-        case K.DistanceUnits.meterPerSecond:
-            return .metersPerSecond
-        default:
-            return .milesPerHour
-        }
-    }
-}

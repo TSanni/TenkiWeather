@@ -59,7 +59,7 @@ actor WeatherManager {
             let windData =  WindData(
                 speed: hourlyWeatherStartingFromNow[i].wind.speed,
                 compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
-                time: getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
+                time: Helper.getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
             )
             
             hourlyTemperatures.append(
@@ -128,7 +128,7 @@ actor WeatherManager {
             let windData = WindData(
                 speed: tomorrow12HourForecast[hour].wind.speed,
                 compassDirection: tomorrow12HourForecast[hour].wind.compassDirection,
-                time: getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)
+                time: Helper.getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)
             )
             
             tomorrowHourlyTemperatures.append(
@@ -289,7 +289,7 @@ extension WeatherManager {
             let windData = WindData(
                 speed: nextDayWeatherHours[i].wind.speed,
                 compassDirection: nextDayWeatherHours[i].wind.compassDirection,
-                time: getReadableHourOnly(date: nextDayWeatherHours[i].date, timezoneOffset: timezoneOffset)
+                time: Helper.getReadableHourOnly(date: nextDayWeatherHours[i].date, timezoneOffset: timezoneOffset)
             )
             
             fifteenHours.append(
@@ -306,117 +306,6 @@ extension WeatherManager {
         
         return fifteenHours
         
-    }
-
-    /// Takes a UnitLength measurement and converts it to a readable format by removing floating point numbers.
-    /// Returns a String of that format
-    private func getReadableMeasurementLengths(measurement: Measurement<UnitLength>) -> String {
-        return String(format: "%.0f", measurement.value) + " " + measurement.unit.symbol
-    }
-    
-    
-    /// Takes a UnitPressure measurement and converts it to a readable format by limiting result to two floating numbers.
-    /// Returns a String of that format
-    private func getReadableMeasurementPressure(measurement: Measurement<UnitPressure>) -> String {
-        return String(format: "%.2f", measurement.value) + " " + measurement.unit.symbol
-    }
-     
-    
-    /// This function takes a date and returns a string with readable date data.
-    /// Ex: 7 AM
-    private func getReadableHourOnly(date: Date, timezoneOffset: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h a"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
-        let readableHour = dateFormatter.string(from: date)
-        return readableHour
-    }
-    
-    /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: 12:07 PM
-    private func getReadableHourAndMinute(date: Date?, timezoneOffset: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        if let date = date {
-            let readableHourAndMinute = dateFormatter.string(from: date)
-            return readableHourAndMinute
-        } else {
-            return "-"
-        }
-    }
-    
-    
-    /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: July 7, 10:08 PM
-    private func getReadableMainDate(date: Date, timezoneOffset: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, h:mm a"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
-        let readableDate = dateFormatter.string(from: date)
-        return readableDate
-    }
-    
-
-    /// This functions accepts a date and returns a string of that date in a readable format
-    /// Ex: Tuesday, July 7
-    private func getDayOfWeekAndDate(date: Date, timezoneOffset: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, MMM d"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
-        let readableDate = dateFormatter.string(from: date)
-        return readableDate
-    }
-    
-    
-     func getUnitLength() -> UnitLength {
-        let unitSpeed = getUnitSpeed()
-        
-        switch unitSpeed {
-            case .milesPerHour:
-                return .miles
-            case .kilometersPerHour:
-                return .kilometers
-            case .metersPerSecond:
-                return .meters
-            default:
-                return .miles
-        }
-    }
-    
-    
-    private func getUnitTemperature() -> UnitTemperature {
-        let chosenUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
-        
-        switch chosenUnitTemperature {
-        case K.TemperatureUnits.fahrenheit:
-            return .fahrenheit
-        case K.TemperatureUnits.celsius:
-            return .celsius
-        case   K.TemperatureUnits.kelvin:
-            return .kelvin
-        default:
-            return .fahrenheit
-        }
-    }
-    
-    
-    private func getUnitSpeed() -> UnitSpeed {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
-        
-        switch chosenUnitDistance {
-        case  K.DistanceUnits.mph:
-            return .milesPerHour
-        case K.DistanceUnits.kiloPerHour:
-            return .kilometersPerHour
-        case K.DistanceUnits.meterPerSecond:
-            return .metersPerSecond
-        default:
-            return .milesPerHour
-        }
     }
 }
 

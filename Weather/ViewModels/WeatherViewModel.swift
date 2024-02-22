@@ -42,24 +42,8 @@ class WeatherViewModel: ObservableObject {
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: getUnitTemperature()
+            unitTemperature: Helper.getUnitTemperature()
         )
-    }
-    
-    /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
-    private func getUnitTemperature() -> UnitTemperature {
-        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
-        
-        switch savedUnitTemperature {
-        case K.TemperatureUnits.fahrenheit:
-            return .fahrenheit
-        case K.TemperatureUnits.celsius:
-            return .celsius
-        case   K.TemperatureUnits.kelvin:
-            return .kelvin
-        default:
-            return .fahrenheit
-        }
     }
     
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {

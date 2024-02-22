@@ -31,14 +31,14 @@ struct DailyWeatherModel: Identifiable {
     let timezone: Int
 
     var dayHigh: String {
-        let temperature = highTemperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+        let temperature = highTemperature.converted(to: Helper.getUnitTemperature())
+        let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
         return temperatureValueOnly
     }
     
     var dayLow: String {
-        let temperature = lowTemperature.converted(to: getUnitTemperature())
-        let temperatureValueOnly = convertNumberToZeroFloatingPoints(number: temperature.value)
+        let temperature = lowTemperature.converted(to: Helper.getUnitTemperature())
+        let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
         return temperatureValueOnly
     }
     
@@ -55,7 +55,7 @@ struct DailyWeatherModel: Identifiable {
     //moon events
     
     var readableDate: String {
-        return getDayOfWeekAndDate(date: date, timezoneOffset: timezone)
+        return Helper.getDayOfWeekAndDate(date: date, timezoneOffset: timezone)
     }
     
     var dayWeatherDescription: String {
@@ -126,46 +126,8 @@ struct DailyWeatherModel: Identifiable {
         uvIndexCategory: .extreme,
         symbolName: "cloud.rain",
         precipitationAmount: Measurement(value: 0.5, unit: .centimeters),
-//        dayDetails: DetailsModel.detailsDataHolder,
-//        tomorrowHourlyWind: WindData.windDataHolder,
         hourlyWeather: HourlyModel.hourlyTempHolderData,
         timezone: 0
     )
 }
 
-
-extension DailyWeatherModel {
-    
-    /// Takes a Double, removes floating point numbers, then converts to and returns a String
-    private func convertNumberToZeroFloatingPoints(number: Double) -> String {
-        let convertedStringNumber = String(format: "%.0f", number)
-        return convertedStringNumber
-    }
-    
-    /// This functions accepts a date and returns a string of that date in a readable format
-    /// Ex: Tuesday, July 7
-    private func getDayOfWeekAndDate(date: Date, timezoneOffset: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, MMM d"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
-        let readableDate = dateFormatter.string(from: date)
-        return readableDate
-    }
-    
-    /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
-    private func getUnitTemperature() -> UnitTemperature {
-        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
-        
-        switch savedUnitTemperature {
-        case K.TemperatureUnits.fahrenheit:
-            return .fahrenheit
-        case K.TemperatureUnits.celsius:
-            return .celsius
-        case   K.TemperatureUnits.kelvin:
-            return .kelvin
-        default:
-            return .fahrenheit
-        }
-    }
-}
