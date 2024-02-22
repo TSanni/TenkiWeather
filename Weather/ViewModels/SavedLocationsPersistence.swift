@@ -9,12 +9,13 @@ import Foundation
 import CoreData
 
 class SavedLocationsPersistence: ObservableObject {
-    
-    let container: NSPersistentContainer
+    static let shared = SavedLocationsPersistence()
 
+    let container: NSPersistentContainer
+    
     @Published var savedLocations: [LocationEntity] = []
     
-    init() {
+    private init() {
         container = NSPersistentContainer(name: "SavedLocations")
         container.loadPersistentStores { description, error in
             if let error = error {
@@ -24,8 +25,6 @@ class SavedLocationsPersistence: ObservableObject {
         }
         fetchLocations()
         container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-
-        
     }
 
     func fetchLocations() {        
@@ -41,12 +40,9 @@ class SavedLocationsPersistence: ObservableObject {
                 print("Error fetching. \(error)")
             }
         }
-
     }
     
-    
     func addLocation(locationDictionary: [String: Any])  {
-        
 
         guard let time = locationDictionary[K.LocationDictionaryKeys.timezone] as? Int else {
             print("COULD NOT CONVERT")
@@ -60,13 +56,10 @@ class SavedLocationsPersistence: ObservableObject {
         newLocation.longitude = locationDictionary[K.LocationDictionaryKeys.longitude] as? Double ?? 0
         newLocation.timeAdded = Date.now
         newLocation.timezone = Double(time)
-        
-        
         newLocation.temperature = locationDictionary[K.LocationDictionaryKeys.temperature] as? String
         newLocation.currentDate = locationDictionary[K.LocationDictionaryKeys.date] as? String
         newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeys.symbol] as? String
         newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeys.weatherCondition] as? String
-        
         
         Task {
             try await fetchWeatherPlacesWithTaskGroup()
@@ -96,7 +89,6 @@ class SavedLocationsPersistence: ObservableObject {
                 fetchLocations()
             }
             
-            
             try container.viewContext.save()
 
         } catch let error {
@@ -112,9 +104,7 @@ class SavedLocationsPersistence: ObservableObject {
 
             for location in savedLocations {
                 group.addTask {
-
                     try? await self.fetchCurrentWeather(entity: location)
-
                 }
             }
 
@@ -128,22 +118,18 @@ class SavedLocationsPersistence: ObservableObject {
         }
     }
     
-    
-    
-    
-    
-    
     private func fetchCurrentWeather(entity: LocationEntity) async throws -> LocationEntity {
-        
         
         let weather = try await WeatherManager.shared.getWeather(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
 
-
-
         if let currentWeather = weather {
-            let todaysWeather = WeatherManager.shared.getTodayWeather(current: currentWeather.currentWeather, dailyWeather: currentWeather.dailyForecast, hourlyWeather: currentWeather.hourlyForecast, timezoneOffset: Int(entity.timezone))
+            let todaysWeather = WeatherManager.shared.getTodayWeather(
+                current: currentWeather.currentWeather,
+                dailyWeather: currentWeather.dailyForecast,
+                hourlyWeather: currentWeather.hourlyForecast,
+                timezoneOffset: Int(entity.timezone)
+            )
           
-
             entity.currentDate = todaysWeather.readableDate
             entity.temperature = todaysWeather.currentTemperature
             entity.sfSymbol = todaysWeather.symbolName
@@ -153,7 +139,5 @@ class SavedLocationsPersistence: ObservableObject {
         } else {
             throw URLError(.badURL)
         }
-
     }
-    
 }

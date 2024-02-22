@@ -174,6 +174,6 @@ struct SettingsScreenTile: View {
         Color.gray.ignoresSafeArea()
         SettingsScreenTile()
             .environmentObject(AppStateManager())
-            .environmentObject(SavedLocationsPersistence())
+            .environmentObject(SavedLocationsPersistence.shared)
     }
 }

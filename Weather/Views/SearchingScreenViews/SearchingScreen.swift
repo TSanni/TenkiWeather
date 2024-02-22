@@ -134,6 +134,6 @@ struct SearchingView_Previews: PreviewProvider {
             .environmentObject(WeatherViewModel())
             .environmentObject(CoreLocationViewModel())
             .environmentObject(AppStateManager())
-            .environmentObject(SavedLocationsPersistence())
+            .environmentObject(SavedLocationsPersistence.shared)
     }
 }

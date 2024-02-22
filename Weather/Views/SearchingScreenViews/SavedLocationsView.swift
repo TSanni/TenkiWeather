@@ -73,7 +73,7 @@ struct SavedLocationsView: View {
 struct SavedLocationsView_Previews: PreviewProvider {
     static var previews: some View {
         SavedLocationsView()
-            .environmentObject(SavedLocationsPersistence())
+            .environmentObject(SavedLocationsPersistence.shared)
         
     }
 }

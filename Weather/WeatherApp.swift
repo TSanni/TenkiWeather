@@ -31,7 +31,7 @@ struct WeatherApp: App {
     @Environment(\.scenePhase) var scenePhase
 
     @StateObject private var weatherViewModel = WeatherViewModel()
-    @StateObject private var persistenceLocations = SavedLocationsPersistence()
+    @StateObject private var persistenceLocations = SavedLocationsPersistence.shared
     @StateObject private var locationManager = CoreLocationViewModel()
     @StateObject private var appStateManager = AppStateManager()
     
