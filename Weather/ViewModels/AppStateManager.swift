@@ -36,6 +36,11 @@ class AppStateManager: ObservableObject {
     
     private init() { }
     
+    func toggleShowSearchScreen() {
+        DispatchQueue.main.async {
+            self.showSearchScreen.toggle()
+        }
+    }
     
     ///Returns columns and tile size accounting for iPhone and iPad
     func getGridColumnAndSize(geo: GeometryProxy) -> [GridItem] {

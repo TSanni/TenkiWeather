@@ -7,6 +7,7 @@
 
 import Foundation
 import WeatherKit
+import GooglePlaces
 
 class WeatherViewModel: ObservableObject {
     @Published var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
@@ -18,7 +19,47 @@ class WeatherViewModel: ObservableObject {
     
     static let shared = WeatherViewModel()
     
+    let locationManager = CoreLocationViewModel.shared
+    let appStateModel = AppStateManager.shared
+    
     private init() { }
+    
+    func getWeatherWithGoogleData(place: GMSPlace) async {
+        let coordinates = place.coordinate
+        await locationManager.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
+        let timezone = locationManager.timezoneForCoordinateInput
+        
+        await getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
+        
+        
+        appStateModel.setSearchedLocationDictionary(
+            name: locationManager.searchedLocationName,
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude,
+            timezone: timezone,
+            temperature: currentWeather.currentTemperature,
+            date: currentWeather.readableDate,
+            symbol: currentWeather.symbolName,
+            weatherCondition: currentWeather.weatherDescription.description,
+            unitTemperature: getUnitTemperature()
+        )
+    }
+    
+    /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
+    private func getUnitTemperature() -> UnitTemperature {
+        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
+        
+        switch savedUnitTemperature {
+        case K.TemperatureUnits.fahrenheit:
+            return .fahrenheit
+        case K.TemperatureUnits.celsius:
+            return .celsius
+        case   K.TemperatureUnits.kelvin:
+            return .kelvin
+        default:
+            return .fahrenheit
+        }
+    }
     
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         do {
