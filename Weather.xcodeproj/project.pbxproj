@@ -35,7 +35,6 @@
 		837D7DAD2B7138160031B296 /* snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 837D7DAC2B7138160031B296 /* snow.sks */; };
 		837D7DB02B7139150031B296 /* SnowScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DAF2B7139150031B296 /* SnowScene.swift */; };
 		837D7DB32B713C910031B296 /* rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = 837D7DB12B713C910031B296 /* rain.sks */; };
-		837D7DB42B713C910031B296 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 837D7DB22B713C910031B296 /* Assets.xcassets */; };
 		837D7DB62B713D230031B296 /* RainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DB52B713D230031B296 /* RainScene.swift */; };
 		837D7DB82B7154270031B296 /* WeatherParticleEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DB72B7154270031B296 /* WeatherParticleEffectView.swift */; };
 		837D7DBC2B72B0210031B296 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DBB2B72B0210031B296 /* Enums.swift */; };
@@ -71,6 +70,7 @@
 		83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FC92A25BE35009720AB /* WeatherGraphView.swift */; };
 		83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD32A2B2892009720AB /* WindTileView.swift */; };
 		83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */; };
+		83FD51F52B86F03E008F875B /* UnitTemperatureTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD51F42B86F03E008F875B /* UnitTemperatureTransformer.swift */; };
 		C19D9DA1ACABA4B0AC8CD510 /* Pods_Tenki_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,7 +104,6 @@
 		837D7DAC2B7138160031B296 /* snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = snow.sks; sourceTree = "<group>"; };
 		837D7DAF2B7139150031B296 /* SnowScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowScene.swift; sourceTree = "<group>"; };
 		837D7DB12B713C910031B296 /* rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = rain.sks; sourceTree = "<group>"; };
-		837D7DB22B713C910031B296 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		837D7DB52B713D230031B296 /* RainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainScene.swift; sourceTree = "<group>"; };
 		837D7DB72B7154270031B296 /* WeatherParticleEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherParticleEffectView.swift; sourceTree = "<group>"; };
 		837D7DBB2B72B0210031B296 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 		83E04FC92A25BE35009720AB /* WeatherGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherGraphView.swift; sourceTree = "<group>"; };
 		83E04FD32A2B2892009720AB /* WindTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindTileView.swift; sourceTree = "<group>"; };
 		83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
+		83FD51F42B86F03E008F875B /* UnitTemperatureTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTemperatureTransformer.swift; sourceTree = "<group>"; };
 		A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenki Weather.debug.xcconfig"; path = "Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tenki_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -246,7 +246,6 @@
 				837D7DAF2B7139150031B296 /* SnowScene.swift */,
 				837D7DB12B713C910031B296 /* rain.sks */,
 				837D7DB52B713D230031B296 /* RainScene.swift */,
-				837D7DB22B713C910031B296 /* Assets.xcassets */,
 			);
 			path = SpriteKit;
 			sourceTree = "<group>";
@@ -274,6 +273,8 @@
 				83DA72E72A419C7C00C50C86 /* WeatherManager.swift */,
 				83B5ADC42A310FAB00C3C2F6 /* TodayWeatherModel.swift */,
 				83C4FFF02A34005F00DEF7F3 /* DailyWeatherModel.swift */,
+				83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */,
+				83FD51F42B86F03E008F875B /* UnitTemperatureTransformer.swift */,
 				83DA72E22A41414200C50C86 /* SavedLocations.xcdatamodeld */,
 				839F32F32A3919D70048EF05 /* Sub Models */,
 			);
@@ -295,7 +296,6 @@
 			isa = PBXGroup;
 			children = (
 				83DA72E92A419F9400C50C86 /* WeatherViewModel.swift */,
-				83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */,
 				83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */,
 				838461822A508E13000B8E86 /* AppStateManager.swift */,
 				830279E12A9A5CE100E3487D /* NetworkMonitor.swift */,
@@ -464,7 +464,6 @@
 				83E04FAB2A22DF1E009720AB /* Preview Assets.xcassets in Resources */,
 				837D7DB32B713C910031B296 /* rain.sks in Resources */,
 				837D7DAD2B7138160031B296 /* snow.sks in Resources */,
-				837D7DB42B713C910031B296 /* Assets.xcassets in Resources */,
 				83E04FA82A22DF1E009720AB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,6 +573,7 @@
 				837D7DB82B7154270031B296 /* WeatherParticleEffectView.swift in Sources */,
 				8313DE942B63DB890031C5E7 /* TabViews.swift in Sources */,
 				8313DE7E2B6129FB0031C5E7 /* HumidityTileView.swift in Sources */,
+				83FD51F52B86F03E008F875B /* UnitTemperatureTransformer.swift in Sources */,
 				837D7DA92B6BF6AF0031B296 /* TileImageProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

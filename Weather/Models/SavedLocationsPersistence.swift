@@ -16,6 +16,9 @@ class SavedLocationsPersistence: ObservableObject {
     @Published var savedLocations: [LocationEntity] = []
     
     private init() {
+        
+        ValueTransformer.setValueTransformer(UnitTemperatureTransformer(), forName: NSValueTransformerName("UnitTemperatureTransformer"))
+        
         container = NSPersistentContainer(name: "SavedLocations")
         container.loadPersistentStores { description, error in
             if let error = error {
@@ -60,6 +63,11 @@ class SavedLocationsPersistence: ObservableObject {
         newLocation.currentDate = locationDictionary[K.LocationDictionaryKeys.date] as? String
         newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeys.symbol] as? String
         newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeys.weatherCondition] as? String
+        newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeys.unitTemperature] as? UnitTemperature
+        print("****************************** VALUE OF UNIT TEMPERATURE IN DICTIONARY: \(locationDictionary[K.LocationDictionaryKeys.unitTemperature]) ****************************************")
+
+        
+        print("****************************** VALUE OF UNIT TEMPERATURE IN CORE DATA: \(newLocation.unitTemperature) ****************************************")
         
         Task {
             try await fetchWeatherPlacesWithTaskGroup()
@@ -134,10 +142,27 @@ class SavedLocationsPersistence: ObservableObject {
             entity.temperature = todaysWeather.currentTemperature
             entity.sfSymbol = todaysWeather.symbolName
             entity.weatherCondition = todaysWeather.weatherDescription.description
+            entity.unitTemperature = getUnitTemperature()
             
             return entity
         } else {
             throw URLError(.badURL)
+        }
+    }
+    
+    /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
+    private func getUnitTemperature() -> UnitTemperature {
+        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
+        
+        switch savedUnitTemperature {
+        case K.TemperatureUnits.fahrenheit:
+            return .fahrenheit
+        case K.TemperatureUnits.celsius:
+            return .celsius
+        case   K.TemperatureUnits.kelvin:
+            return .kelvin
+        default:
+            return .fahrenheit
         }
     }
 }

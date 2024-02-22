@@ -21,7 +21,7 @@ struct SavedLocationCell: View {
                         .font(.headline)
                     
                     HStack(alignment: .top, spacing: 0.0) {
-                        Text((location.temperature ?? "") + "°")
+                        Text((newTemp) + "°")
                         Text(" • ")
                         Text(location.weatherCondition ?? "")
                     }
@@ -32,6 +32,35 @@ struct SavedLocationCell: View {
             }
         }
         .foregroundStyle(.white)
+    }
+    
+    
+    var newTemp: String {
+        let oldTemp = location.temperature ?? "0"
+        let oldTempToDouble = Double(oldTemp) ?? 0
+        let oldTempUnit = location.unitTemperature ?? .fahrenheit
+        print("the unit temp: \(oldTempUnit)")
+        let oldTempToMeasurement = Measurement(value: oldTempToDouble, unit: oldTempUnit)
+        
+        let newTemp = oldTempToMeasurement.converted(to: getUnitTemperature())
+        let removeFloatingPointsFromNewTemp = String(format: "%.0f", newTemp.value)
+        return removeFloatingPointsFromNewTemp
+    }
+    
+    /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
+    private func getUnitTemperature() -> UnitTemperature {
+        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
+        
+        switch savedUnitTemperature {
+        case K.TemperatureUnits.fahrenheit:
+            return .fahrenheit
+        case K.TemperatureUnits.celsius:
+            return .celsius
+        case   K.TemperatureUnits.kelvin:
+            return .kelvin
+        default:
+            return .fahrenheit
+        }
     }
 }
 

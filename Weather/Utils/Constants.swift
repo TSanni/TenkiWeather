@@ -32,6 +32,7 @@ struct K {
         static let date = "date"
         static let symbol = "symbol"
         static let weatherCondition = "weatherCondition"
+        static let unitTemperature = "unitTemperature"
     }
     
     struct TemperatureUnits {

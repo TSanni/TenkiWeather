@@ -56,7 +56,7 @@ class AppStateManager: ObservableObject {
     }
     
     
-    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String) {
+    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature) {
         
         searchedLocationDictionary[K.LocationDictionaryKeys.name] = name
         searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = latitude
@@ -66,6 +66,7 @@ class AppStateManager: ObservableObject {
         searchedLocationDictionary[K.LocationDictionaryKeys.date] = date
         searchedLocationDictionary[K.LocationDictionaryKeys.symbol] = symbol
         searchedLocationDictionary[K.LocationDictionaryKeys.weatherCondition] = weatherCondition
+        searchedLocationDictionary[K.LocationDictionaryKeys.unitTemperature] = unitTemperature
     }
     
     func dataIsLoading() {
