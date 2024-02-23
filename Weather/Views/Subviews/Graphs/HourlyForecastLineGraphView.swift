@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct HourlyForecastLineGraphView: View {
-    let hourlyTemperatures: [HourlyModel]
+    let hourlyTemperatures: [HourlyWeatherModel]
     
     var body: some View {
 
@@ -63,7 +63,7 @@ struct HourlyForecastLineGraphView: View {
 
 #Preview {
     ScrollView {
-        HourlyForecastLineGraphView(hourlyTemperatures: HourlyModel.hourlyTempHolderData)
+        HourlyForecastLineGraphView(hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData)
        
     }     
     .background {

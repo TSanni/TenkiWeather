@@ -34,13 +34,12 @@ actor WeatherManager {
             return hourlyWeatherItem.date.timeIntervalSinceNow >= -3600
         })
         
-        var hourlyTemperatures: [HourlyModel] = []
+        var hourlyTemperatures: [HourlyWeatherModel] = []
                 
         /// Weather data for wind
         let windDetailsInfo = WindData(
             speed: current.wind.speed,
-            compassDirection: current.wind.compassDirection,
-            time: nil
+            compassDirection: current.wind.compassDirection
         )
         
         /// Weather data for sun events
@@ -58,12 +57,11 @@ actor WeatherManager {
             
             let windData =  WindData(
                 speed: hourlyWeatherStartingFromNow[i].wind.speed,
-                compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection,
-                time: Helper.getReadableHourOnly(date: hourlyWeatherStartingFromNow[i].date, timezoneOffset: timezoneOffset)
+                compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection
             )
             
             hourlyTemperatures.append(
-                HourlyModel(
+                HourlyWeatherModel(
                     temperature: hourlyWeatherStartingFromNow[i].temperature, 
                     wind: windData,
                     date: hourlyWeatherStartingFromNow[i].date,
@@ -104,44 +102,10 @@ actor WeatherManager {
     
     //MARK: - Get Tomorrow's Weather
     func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> DailyWeatherModel {
+        /// Tomorrow's date
         let tomorrowWeather = tomorrowWeather[1]
         
-        /// Gets all hourly forecasts starting with 7AM tomorrow
-        let nextDayWeatherHours = hours.filter({ hourWeather in
-            /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
-            return hourWeather.date >= tomorrowWeather.date.advanced(by: 25200)
-        })
-        
-        /// Will hold tomorrow's hourly forecasts for the next 12 hours starting with 7AM
-        var tomorrow12HourForecast: [HourWeather] = []
-        
-        /// Will hold tomorrow's hourly temperatures
-        var tomorrowHourlyTemperatures: [HourlyModel] = []
-
-        
-        for hour in 0..<K.Time.twentyFourHours {
-            tomorrow12HourForecast.append(nextDayWeatherHours[hour])
-            
-        }
-        
-        for hour in 0..<K.Time.twentyFourHours {
-            let windData = WindData(
-                speed: tomorrow12HourForecast[hour].wind.speed,
-                compassDirection: tomorrow12HourForecast[hour].wind.compassDirection,
-                time: Helper.getReadableHourOnly(date: tomorrow12HourForecast[hour].date, timezoneOffset: timezoneOffset)
-            )
-            
-            tomorrowHourlyTemperatures.append(
-                HourlyModel(
-                    temperature: tomorrow12HourForecast[hour].temperature, 
-                    wind: windData,
-                    date: tomorrow12HourForecast[hour].date,
-                    precipitationChance: tomorrow12HourForecast[hour].precipitationChance, symbol: tomorrow12HourForecast[hour].symbolName,
-                    timezone: timezoneOffset
-                )
-            )
-            
-        }
+        let hourlyWeatherForTomorrow = getHourlyWeatherForDay(day: tomorrowWeather, hours: hours, timezoneOffset: timezoneOffset)
 
         let sunDetails = SunData(
             sunrise: tomorrowWeather.sun.sunrise,
@@ -152,10 +116,9 @@ actor WeatherManager {
             timezone: timezoneOffset
         )
         
-        let tomorrowWind = WindData(
+        let tomorrowsWindData = WindData(
             speed: tomorrowWeather.wind.speed,
-            compassDirection: tomorrowWeather.wind.compassDirection,
-            time: nil
+            compassDirection: tomorrowWeather.wind.compassDirection
         )
         
         let tomorrowsWeather = DailyWeatherModel(
@@ -166,14 +129,14 @@ actor WeatherManager {
             snowfallAmount: tomorrowWeather.snowfallAmount,
             moon: nil,
             sun: sunDetails,
-            wind: tomorrowWind,
+            wind: tomorrowsWindData,
             date: tomorrowWeather.date,
             condition: tomorrowWeather.condition,
             uvIndexValue: tomorrowWeather.uvIndex.value,
             uvIndexCategory: tomorrowWeather.uvIndex.category,
             symbolName: tomorrowWeather.symbolName,
             precipitationAmount: tomorrowWeather.precipitationAmount,
-            hourlyWeather: tomorrowHourlyTemperatures,
+            hourlyWeather: hourlyWeatherForTomorrow,
             timezone: timezoneOffset
         )
         
@@ -200,8 +163,7 @@ actor WeatherManager {
             
             let windDetails = WindData(
                 speed: dailyWeather[day].wind.speed,
-                compassDirection: dailyWeather[day].wind.compassDirection,
-                time: nil
+                compassDirection: dailyWeather[day].wind.compassDirection
             )
             
             let hourlyTempsForDay = getHourlyWeatherForDay(day: dailyWeather[day], hours: hourlyWeather, timezoneOffset: timezoneOffset)
@@ -272,8 +234,8 @@ actor WeatherManager {
 extension WeatherManager {
     
     /// This functions returns an array of hourly weather data for the next fifteen hours.
-    private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyModel] {
-        var fifteenHours: [HourlyModel] = []
+    private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyWeatherModel] {
+        var twentyfourHours: [HourlyWeatherModel] = []
         
         
         /// Gets all hourly forecasts starting with 7AM that day
@@ -284,16 +246,15 @@ extension WeatherManager {
         
 
         
-        for i in 0..<K.Time.fifteenHours {
+        for i in 0..<K.Time.twentyFourHours {
             
             let windData = WindData(
                 speed: nextDayWeatherHours[i].wind.speed,
-                compassDirection: nextDayWeatherHours[i].wind.compassDirection,
-                time: Helper.getReadableHourOnly(date: nextDayWeatherHours[i].date, timezoneOffset: timezoneOffset)
+                compassDirection: nextDayWeatherHours[i].wind.compassDirection
             )
             
-            fifteenHours.append(
-                HourlyModel(
+            twentyfourHours.append(
+                HourlyWeatherModel(
                     temperature: nextDayWeatherHours[i].temperature, 
                     wind: windData,
                     date: nextDayWeatherHours[i].date,
@@ -304,7 +265,7 @@ extension WeatherManager {
             )
         }
         
-        return fifteenHours
+        return twentyfourHours
         
     }
 }

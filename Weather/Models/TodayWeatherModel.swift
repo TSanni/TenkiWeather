@@ -30,7 +30,7 @@ struct TodayWeatherModel: Identifiable {
     let lowTemperature: Measurement<UnitTemperature>
     let precipitationChance: Double
     let sunData: SunData
-    let hourlyWeather: [HourlyModel]
+    let hourlyWeather: [HourlyWeatherModel]
     let timezeone: Int
     
     
@@ -53,7 +53,7 @@ struct TodayWeatherModel: Identifiable {
         lowTemperature: Measurement(value: 50, unit: .fahrenheit),
         precipitationChance: 0.5,
         sunData: SunData.sunDataHolder,
-        hourlyWeather: HourlyModel.hourlyTempHolderData,
+        hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
         timezeone: 0
     )
     

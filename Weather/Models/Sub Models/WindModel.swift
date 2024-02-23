@@ -16,7 +16,6 @@ struct WindData: Identifiable {
     let id = UUID()
     let speed: Measurement<UnitSpeed>
     let compassDirection: Wind.CompassDirection
-    let time: String?
     
     var windSpeed: String {
         let speed = speed.converted(to: Helper.getUnitSpeed())
@@ -142,12 +141,12 @@ struct WindData: Identifiable {
 
     /// Holder data for wind details
     static let windDataHolder: [WindData] = [
-        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "1 AM"),
-        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "2 AM"),
-        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "3 AM"),
-        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "4 AM"),
-        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "5 AM"),
-        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "6 AM"),
-        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north, time: "7 AM"),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
+        WindData(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
     ]
 }

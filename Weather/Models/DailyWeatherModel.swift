@@ -27,7 +27,7 @@ struct DailyWeatherModel: Identifiable {
     let uvIndexCategory: UVIndex.ExposureCategory
     let symbolName: String
     let precipitationAmount: Measurement<UnitLength>
-    let hourlyWeather: [HourlyModel]
+    let hourlyWeather: [HourlyWeatherModel]
     let timezone: Int
 
     var dayHigh: String {
@@ -126,7 +126,7 @@ struct DailyWeatherModel: Identifiable {
         uvIndexCategory: .extreme,
         symbolName: "cloud.rain",
         precipitationAmount: Measurement(value: 0.5, unit: .centimeters),
-        hourlyWeather: HourlyModel.hourlyTempHolderData,
+        hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
         timezone: 0
     )
 }

@@ -12,7 +12,7 @@ import SwiftUI
 
 struct HourlyForecastTileView: View {
     @EnvironmentObject var appStateManager: AppStateManager
-    let hourlyTemperatures: [HourlyModel]
+    let hourlyTemperatures: [HourlyWeatherModel]
     let color: Color
 
     var body: some View {
@@ -107,7 +107,7 @@ func convertStringToCGFloat(precipitationString: String) -> CGFloat {
     ZStack {
         Color(uiColor: K.Colors.haze).brightness(0.1)
         HourlyForecastTileView(
-            hourlyTemperatures: HourlyModel.hourlyTempHolderData,
+            hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData,
             color: Color(uiColor: K.Colors.haze)
         )
         .environmentObject(AppStateManager.shared)

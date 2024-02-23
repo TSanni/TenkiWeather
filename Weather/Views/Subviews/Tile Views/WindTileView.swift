@@ -13,7 +13,7 @@ struct WindTileView: View {
     @EnvironmentObject var appStateManager: AppStateManager
     
     let windData: WindData
-    let hourlyWeather: [HourlyModel]
+    let hourlyWeather: [HourlyWeatherModel]
     let setTodayWeather: Bool
     let backgroundColor: Color
     let weatherManager = WeatherManager.shared
@@ -156,7 +156,7 @@ struct WindView_Previews: PreviewProvider {
             GeometryReader { geo in
                 WindTileView(
                     windData: WindData.windDataHolder[0],
-                    hourlyWeather: HourlyModel.hourlyTempHolderData,
+                    hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
                     setTodayWeather: true,
                     backgroundColor: Color(uiColor: K.Colors.haze)
                 )

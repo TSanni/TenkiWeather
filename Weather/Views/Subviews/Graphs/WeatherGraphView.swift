@@ -10,7 +10,7 @@ import Charts
 
 //MARK: - View
 struct WeatherGraphView: View {
-    let hourlyTemperatures: [HourlyModel]
+    let hourlyTemperatures: [HourlyWeatherModel]
     let graphColor: Color
     let precipitationBlueColor = K.Colors.precipitationBlue
     let weatherManager = WeatherManager.shared
@@ -135,7 +135,7 @@ struct WeatherGraphView_Previews: PreviewProvider {
             Color.mint
             ScrollView(.horizontal) {
                 
-                WeatherGraphView(hourlyTemperatures: HourlyModel.hourlyTempHolderData, graphColor: Color.blue)
+                WeatherGraphView(hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData, graphColor: Color.blue)
                     .frame(width: UIScreen.main.bounds.width * 2)
                     .frame(height: 200)
             }
