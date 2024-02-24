@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CurrentLocationView: View {
     @EnvironmentObject var locationManager: CoreLocationViewModel
-
     let localWeather: TodayWeatherModel
 
     var body: some View {
@@ -31,15 +30,12 @@ struct CurrentLocationView: View {
                         Text(localWeather.currentTemperature + "° • " + localWeather.weatherDescription)
                     }
                 }
-      
             }
             
             Spacer()
         }
     }
-    
-    
-    
+  
     var locationName: some View {
         
         if locationManager.localLocationName == "" {

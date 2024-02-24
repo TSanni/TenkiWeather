@@ -13,8 +13,27 @@ struct TodayScreen: View {
     
     let currentWeather: TodayWeatherModel
     let weatherAlert: WeatherAlertModel?
+    
+    ///The humidity passed in is a value 0-1 representing a percentage.
+    ///This function multiplies that value by 100 to get a regular number
+    ///Ex) 0.2 will return 20
+    func convertHumidityFromPercentToDouble(humidity: Double) -> Double {
+        let newHumidity = humidity * 100
+        return newHumidity
+    }
 
     var body: some View {
+        let humidity = convertHumidityFromPercentToDouble(humidity: currentWeather.humidity)
+        
+        let humidityProgress = TileImageProgressView(
+            height: 50,
+            value: humidity,
+            sfSymbol: "humidity.fill",
+            color: K.Colors.precipitationBlue
+        )
+        
+        let uvIndexProgress = TileImageProgressView(height: 50, value: CGFloat(currentWeather.uvIndexValue), sfSymbol: "seal.fill" , color: currentWeather.uvIndexColor, maxValue: 11)
+        
         GeometryReader { geo in
             
             ScrollView(.vertical ,showsIndicators: false) {
@@ -22,7 +41,6 @@ struct TodayScreen: View {
                     ZStack {
                         currentWeather.backgroundColor
                         
-                        // Add possible snow or rain scenes with SpriteKit
                         if let scene = currentWeather.scene {
                             WeatherParticleEffectView(sceneImport: scene)
                         }
@@ -51,21 +69,25 @@ struct TodayScreen: View {
                                 .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
                             
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
-                                HumidityTileView(
-                                    humidity: currentWeather.humidity,
-                                    humidityPercentage: currentWeather.humidityPercentage,
-                                    dewPointDescription: currentWeather.dewPointDescription,
+                                
+                                TileView(
+                                    imageHeader: "humidity.fill",
+                                    title: "Humidity",
+                                    value: currentWeather.humidityPercentage,
+                                    valueDescription: nil,
+                                    dynamicImage: humidityProgress,
+                                    footer: currentWeather.dewPointDescription,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
-
-                                UVIndexTileView(
-                                    uvIndexNumberDescription: currentWeather.uvIndexNumberDescription,
-                                    uvIndexCategoryDescription: currentWeather.uvIndexCategoryDescription,
-                                    uvIndexValue: currentWeather.uvIndexValue,
-                                    uvIndexColor: currentWeather.uvIndexColor,
-                                    uvIndexActionRecommendation: currentWeather.uvIndexActionRecommendation,
-                                    backgroundColor: currentWeather.backgroundColor
-                                )
+                                
+                                TileView(
+                                    imageHeader: "sun.max",
+                                    title: "UV Index",
+                                    value: String(currentWeather.uvIndexValue),
+                                    valueDescription: currentWeather.uvIndexCategoryDescription,
+                                    dynamicImage: uvIndexProgress,
+                                    footer: currentWeather.uvIndexActionRecommendation,
+                                    backgroundColor: currentWeather.backgroundColor)
                                 
                                 VisibilityTileView(
                                     visibilityValue: currentWeather.visibilityValue,

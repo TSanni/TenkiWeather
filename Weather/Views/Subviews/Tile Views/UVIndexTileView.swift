@@ -67,5 +67,6 @@ struct UVIndexTileView: View {
         uvIndexActionRecommendation: "",
         backgroundColor: .red
     )
-        .frame(width: 200)
+    .frame(width: 200)
+    .environmentObject(AppStateManager.shared)
 }

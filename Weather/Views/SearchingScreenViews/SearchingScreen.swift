@@ -29,12 +29,8 @@ struct SearchingScreen: View {
                     .padding(.bottom)
                     .onTapGesture {
                         Task {
-                            appStateManager.toggleShowSearchScreen()
-                            appStateManager.dataIsLoading()
-                            await getWeatherAndUpdateDictionary()
+                            await weatherViewModel.getWeatherAndUpdateDictionaryFromLocation()
                             persistenceLocations.saveData()
-                            appStateManager.dataCompletedLoading()
-                            appStateManager.performViewReset()
                         }
                     }
                 
@@ -56,14 +52,8 @@ struct SearchingScreen: View {
         .sheet(isPresented: $showGoogleSearchScreen) {
             PlacesViewControllerBridge { place in
                 Task {
-                    appStateManager.dataIsLoading()
-                    
                     await weatherViewModel.getWeatherWithGoogleData(place: place)
                     persistenceLocations.saveData()
-                    
-                    appStateManager.dataCompletedLoading()
-                    appStateManager.toggleShowSearchScreen()
-                    appStateManager.performViewReset()
                 }
                 
             }
@@ -89,22 +79,6 @@ struct SearchingScreen: View {
                     }
                 }
         }
-    }
-    
-    private func getWeatherAndUpdateDictionary() async {
-        
-        await locationManager.getLocalLocationName()
-        let timezone = locationManager.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-        let userLocationName = locationManager.localLocationName
-        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-        locationManager.searchedLocationName = userLocationName
-        
-        appStateManager.setCurrentLocationName(name: userLocationName)
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = locationManager.latitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = locationManager.longitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = timezone
     }
 }
 

@@ -73,7 +73,9 @@ extension TodayWeatherModel {
         let dewPointTemperature = dewPoint.converted(to: Helper.getUnitTemperature())
         let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: dewPointTemperature.value)
         
-        return temperatureValueOnly + dewPointTemperature.unit.symbol
+        let description = "The dew point is " + temperatureValueOnly + dewPointTemperature.unit.symbol + " right now"
+        return description
+//        return temperatureValueOnly + dewPointTemperature.unit.symbol
     }
     
     var humidityPercentage: String {

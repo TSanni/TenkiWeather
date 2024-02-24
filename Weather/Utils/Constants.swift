@@ -115,9 +115,9 @@ struct K {
         case K.Symbol.sunMax:
             return Color(uiColor: K.Colors.sunMaxColor)
         case K.Symbol.moon:
-            return Color(uiColor: K.Colors.moonAndStarsColor)
+            return Color.indigo
         case K.Symbol.moonStars:
-            return Color(uiColor: K.Colors.moonAndStarsColor)
+            return Color.indigo
         case K.Symbol.cloudSun:
             return Color(uiColor: K.Colors.cloudSunColor)
         case K.Symbol.cloudMoon:

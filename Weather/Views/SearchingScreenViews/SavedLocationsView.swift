@@ -13,8 +13,6 @@ struct SavedLocationsView: View {
     @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateManager: AppStateManager
 
-    
-
     var body: some View {
         List {
             if persistence.savedLocations.count == 0 {
@@ -30,50 +28,23 @@ struct SavedLocationsView: View {
                     .padding(.top)
                     .onTapGesture {
                         Task {
-                            appStateManager.toggleShowSearchScreen()
-                            appStateManager.dataIsLoading()
-                            await getWeatherAndUpdateDictionary(item: item)
-                            appStateManager.dataCompletedLoading()
-                            appStateManager.performViewReset()
+                            await weatherViewModel.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
                             persistence.saveData()
                         }
                     }
             }
             .onDelete(perform: persistence.deletePlace(indexSet:))
-
-            
-
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .scrollDismissesKeyboard(.immediately)
     }
-    
-    
-    private func getWeatherAndUpdateDictionary(item: LocationEntity) async {
-        await locationManager.getLocalLocationName()
-        await locationManager.getSearchedLocationName(lat: item.latitude, lon: item.longitude, nameFromGoogle: nil)
-        await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
-        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: locationManager.localLocationName, timezone: appStateManager.currentLocationTimezone)
-        
-
-        locationManager.searchedLocationName = item.name!
-        
-        
-        
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = item.longitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = item.latitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = item.timezone
-    }
-
 }
 
 struct SavedLocationsView_Previews: PreviewProvider {
     static var previews: some View {
         SavedLocationsView()
             .environmentObject(SavedLocationsPersistence.shared)
-        
     }
 }

@@ -64,19 +64,13 @@ struct MultiDayScreen: View {
                     .onChange(of: appStateManager.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
-
-
                 }
                 .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
-                
-
             }
         }
         .fullScreenCover(isPresented: $showWebView) {
             FullScreenWebView(url: "https://weatherkit.apple.com/legal-attribution.html")
-
         }
-        
     }
 }
 
@@ -85,7 +79,6 @@ struct MultiDayScreen: View {
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
         MultiDayScreen(daily: [DailyWeatherModel.placeholder])
-                .previewDevice("iPhone 11 Pro Max")
                 .environmentObject(AppStateManager.shared)
     }
 }

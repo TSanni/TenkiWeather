@@ -9,21 +9,11 @@ import Foundation
 import WeatherKit
 
 
-protocol WeatherServiceProtocol {
-    func getWeather(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather?
-    
-    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> TodayWeatherModel
-    
-    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> [DailyWeatherModel]
-    
-    func getWeatherAlert(optionalWeatherAlert: [WeatherAlert]?) -> WeatherAlertModel?
-}
 
-
-actor WeatherManager: WeatherServiceProtocol {
+actor WeatherManager {
     static let shared = WeatherManager()
   
-    func getWeather(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
+    func getWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
         do {
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
             return weather

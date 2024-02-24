@@ -14,6 +14,12 @@ class Helper {
         return convertedStringNumber
     }
     
+    /// Takes a Double, removes floating point numbers, then converts to and returns a String
+    static func convertNumberToTwoFloatingPoints(number: Double) -> String {
+        let convertedStringNumber = String(format: "%.2f", number)
+        return convertedStringNumber
+    }
+    
     /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
     static func getUnitTemperature() -> UnitTemperature {
         let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
@@ -63,12 +69,7 @@ class Helper {
         return readableDate
     }
     
-    /// Takes a Double, removes floating point numbers, then converts to and returns a String
-    static func convertNumberToTwoFloatingPoints(number: Double) -> String {
-        let convertedStringNumber = String(format: "%.2f", number)
-        return convertedStringNumber
-    }
-    
+    /// Returns a UnitLength based on stored value of UnitSpeed in UserDefaults
     static func getUnitLength() -> UnitLength {
        let unitSpeed = getUnitSpeed()
        
@@ -84,6 +85,7 @@ class Helper {
        }
    }
     
+    /// Checks UserDefaults and returns a UnitSpeed based on stored value
     static func getUnitSpeed() -> UnitSpeed {
         let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
         

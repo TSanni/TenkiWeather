@@ -129,7 +129,7 @@ class SavedLocationsPersistence: ObservableObject {
     
     private func fetchCurrentWeather(entity: LocationEntity) async throws -> LocationEntity {
         
-        let weather = try await weatherManager.getWeather(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
+        let weather = try await weatherManager.getWeatherFromWeatherKit(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
 
         if let currentWeather = weather {
             let todaysWeather = await weatherManager.getTodayWeather(
