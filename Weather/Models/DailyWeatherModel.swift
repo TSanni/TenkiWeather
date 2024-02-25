@@ -47,7 +47,7 @@ struct DailyWeatherModel: Identifiable {
     }
     
     var dayChanceOfPrecipitation: String {
-        precipitationChance.formatted(.percent)
+        return precipitationChance.formatted(.percent) + " chance of precipitation"
     }
     
     //snowfallAmount

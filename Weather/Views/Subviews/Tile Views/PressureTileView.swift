@@ -44,7 +44,7 @@ struct PressureTileView: View {
             Spacer()
             
             Text(pressureDetails.pressureDescription)
-                .font(.footnote)
+                .font(.subheadline)
             
             
         }

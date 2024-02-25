@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		830279E22A9A5CE100E3487D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830279E12A9A5CE100E3487D /* NetworkMonitor.swift */; };
 		8313DE7E2B6129FB0031C5E7 /* HumidityTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE7D2B6129FB0031C5E7 /* HumidityTileView.swift */; };
-		8313DE822B6146570031C5E7 /* UVIndexTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE812B6146570031C5E7 /* UVIndexTileView.swift */; };
-		8313DE842B61617A0031C5E7 /* VisibilityTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE832B61617A0031C5E7 /* VisibilityTileView.swift */; };
 		8313DE862B61A20D0031C5E7 /* PressureTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE852B61A20D0031C5E7 /* PressureTileView.swift */; };
 		8313DE882B61B69C0031C5E7 /* TomorrowImmediateWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE872B61B69C0031C5E7 /* TomorrowImmediateWeatherView.swift */; };
 		8313DE8A2B62699A0031C5E7 /* PrecipitationTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */; };
@@ -41,7 +39,6 @@
 		838461832A508E14000B8E86 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838461822A508E13000B8E86 /* AppStateManager.swift */; };
 		838FAE0B2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */; };
 		838FAE0D2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE0C2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift */; };
-		838FAE152B5FE49C00AAC0C1 /* SunDataTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE142B5FE49C00AAC0C1 /* SunDataTile.swift */; };
 		8390BF942A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */; };
 		8390BF962A9356CE00E0B865 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */; };
 		8390BF9F2A9656F800E0B865 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */; };
@@ -86,8 +83,6 @@
 		451B1D756BE94706A02B180F /* Pods-Tenki Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenki Weather.release.xcconfig"; path = "Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather.release.xcconfig"; sourceTree = "<group>"; };
 		830279E12A9A5CE100E3487D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		8313DE7D2B6129FB0031C5E7 /* HumidityTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityTileView.swift; sourceTree = "<group>"; };
-		8313DE812B6146570031C5E7 /* UVIndexTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexTileView.swift; sourceTree = "<group>"; };
-		8313DE832B61617A0031C5E7 /* VisibilityTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityTileView.swift; sourceTree = "<group>"; };
 		8313DE852B61A20D0031C5E7 /* PressureTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureTileView.swift; sourceTree = "<group>"; };
 		8313DE872B61B69C0031C5E7 /* TomorrowImmediateWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowImmediateWeatherView.swift; sourceTree = "<group>"; };
 		8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipitationTileView.swift; sourceTree = "<group>"; };
@@ -118,7 +113,6 @@
 		838461822A508E13000B8E86 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastTileView.swift; sourceTree = "<group>"; };
 		838FAE0C2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateWeatherDetails.swift; sourceTree = "<group>"; };
-		838FAE142B5FE49C00AAC0C1 /* SunDataTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunDataTile.swift; sourceTree = "<group>"; };
 		8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewControllerBridge.swift; sourceTree = "<group>"; };
 		8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -273,13 +267,10 @@
 				838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */,
 				8313DE7D2B6129FB0031C5E7 /* HumidityTileView.swift */,
 				836FD0D62B89322300B25BA9 /* TileView.swift */,
-				8313DE812B6146570031C5E7 /* UVIndexTileView.swift */,
-				8313DE832B61617A0031C5E7 /* VisibilityTileView.swift */,
-				8313DE852B61A20D0031C5E7 /* PressureTileView.swift */,
 				83E04FD32A2B2892009720AB /* WindTileView.swift */,
-				838FAE142B5FE49C00AAC0C1 /* SunDataTile.swift */,
-				8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */,
+				8313DE852B61A20D0031C5E7 /* PressureTileView.swift */,
 				838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */,
+				8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */,
 			);
 			path = "Tile Views";
 			sourceTree = "<group>";
@@ -556,7 +547,6 @@
 				83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */,
 				838461812A4C9DDC000B8E86 /* SettingsScreenTile.swift in Sources */,
 				83C4FFF12A34005F00DEF7F3 /* DailyWeatherModel.swift in Sources */,
-				8313DE842B61617A0031C5E7 /* VisibilityTileView.swift in Sources */,
 				83E04FC22A255FBC009720AB /* MainScreen.swift in Sources */,
 				83731A6A2A2FC2E400D481CA /* DailyWeatherCell.swift in Sources */,
 				83FD51F92B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift in Sources */,
@@ -597,9 +587,7 @@
 				83DA72E62A41655400C50C86 /* SavedLocationsPersistence.swift in Sources */,
 				83B760932A67119C007075E2 /* LabelView.swift in Sources */,
 				834811602A58EAFB008EB616 /* WebView.swift in Sources */,
-				8313DE822B6146570031C5E7 /* UVIndexTileView.swift in Sources */,
 				83FD51FD2B87B6C4008F875B /* HeaderViewModifier+ViewModifier.swift in Sources */,
-				838FAE152B5FE49C00AAC0C1 /* SunDataTile.swift in Sources */,
 				83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */,
 				837D7DB82B7154270031B296 /* WeatherParticleEffectView.swift in Sources */,
 				8313DE942B63DB890031C5E7 /* TabViews.swift in Sources */,

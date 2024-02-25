@@ -21,22 +21,15 @@ struct SettingsScreenTile: View {
 
     @State private var alertTitle: Text = Text("")
     @State private var alertMessage: Text = Text("")
-    
 
-    
-    
-    
     var body: some View {
 
-        
         VStack(alignment: .leading) {
-            
             header
             
             listContent
             
             footer
-            
         }
         .settingsFrame(colorScheme: colorScheme)
         .alert(isPresented: $locationSaved) {

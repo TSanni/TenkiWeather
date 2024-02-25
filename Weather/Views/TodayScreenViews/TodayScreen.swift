@@ -76,6 +76,7 @@ struct TodayScreen: View {
                                     value: currentWeather.humidityPercentage,
                                     valueDescription: nil,
                                     dynamicImage: humidityProgress,
+                                    staticImageName: nil,
                                     footer: currentWeather.dewPointDescription,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
@@ -86,12 +87,19 @@ struct TodayScreen: View {
                                     value: String(currentWeather.uvIndexValue),
                                     valueDescription: currentWeather.uvIndexCategoryDescription,
                                     dynamicImage: uvIndexProgress,
+                                    staticImageName: nil,
                                     footer: currentWeather.uvIndexActionRecommendation,
-                                    backgroundColor: currentWeather.backgroundColor)
+                                    backgroundColor: currentWeather.backgroundColor
+                                )
                                 
-                                VisibilityTileView(
-                                    visibilityValue: currentWeather.visibilityValue,
-                                    visiblityDescription: currentWeather.visiblityDescription,
+                                TileView(
+                                    imageHeader: "eye.fill",
+                                    title: "Visibility",
+                                    value: currentWeather.visibilityValue,
+                                    valueDescription: nil,
+                                    dynamicImage: nil, 
+                                    staticImageName: nil,
+                                    footer: currentWeather.visiblityDescription,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
@@ -115,16 +123,27 @@ struct TodayScreen: View {
                                 .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
                             
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
-                                SunDataTile(
-                                    sundata: currentWeather.sunData,
-                                    backgroundColor: currentWeather.backgroundColor,
-                                    isSunrise: true
+                                
+                                TileView(
+                                    imageHeader: "sunrise",
+                                    title: "Sunrise",
+                                    value: currentWeather.sunData.sunriseTime,
+                                    valueDescription: nil,
+                                    dynamicImage: nil, 
+                                    staticImageName: "sunrise.fill",
+                                    footer: "Dawn: " + currentWeather.sunData.dawn,
+                                    backgroundColor: currentWeather.backgroundColor
                                 )
                                 
-                                SunDataTile(
-                                    sundata: currentWeather.sunData,
-                                    backgroundColor: currentWeather.backgroundColor,
-                                    isSunrise: false
+                                TileView(
+                                    imageHeader: "sunset",
+                                    title: "Sunset",
+                                    value: currentWeather.sunData.sunsetTime,
+                                    valueDescription: nil,
+                                    dynamicImage: nil,
+                                    staticImageName: "sunset.fill",
+                                    footer: "Dusk: " + currentWeather.sunData.dawn,
+                                    backgroundColor: currentWeather.backgroundColor
                                 )
                             }
                             .padding()

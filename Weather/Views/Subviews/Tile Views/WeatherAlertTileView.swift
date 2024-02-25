@@ -59,7 +59,6 @@ struct WeatherAlertView_Previews: PreviewProvider {
         
         let holder = WeatherAlertModel(detailsURL: URL(string: "https://www.google.com")!, region: "Fort Bend", severity: .severe, source: "National Weather Service", summary: "Excessive heat warning")
         WeatherAlertTileView(weatherAlert: holder)
-            .previewDevice("iPhone 11 Pro Max")
     }
 }
 

@@ -17,6 +17,11 @@ struct TomorrowScreen: View {
     
     
     var body: some View {
+        let uvIndexProgress = TileImageProgressView(height: 50, value: CGFloat(dailyWeather.uvIndexValue), sfSymbol: "seal.fill" , color: dailyWeather.uvIndexColor, maxValue: 11)
+
+        let precipitationProgress = TileImageProgressView(height: 50, value: CGFloat(dailyWeather.precipitationChance * 100), sfSymbol: "drop.fill" , color: K.Colors.precipitationBlue)
+
+        
         GeometryReader { geo in
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -51,32 +56,51 @@ struct TomorrowScreen: View {
                                     .foregroundStyle(appStateManager.blendColors(themeColor: dailyWeather.backgroundColor))
 
                                 
-                                LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {                                    
-                                    UVIndexTileView(
-                                        uvIndexNumberDescription: dailyWeather.uvIndexNumberDescription,
-                                        uvIndexCategoryDescription: dailyWeather.uvIndexCategoryDescription,
-                                        uvIndexValue: dailyWeather.uvIndexValue,
-                                        uvIndexColor: dailyWeather.uvIndexColor,
-                                        uvIndexActionRecommendation: dailyWeather.uvIndexActionRecommendation,
+                                LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) { 
+                                    TileView(
+                                        imageHeader: "sun.max",
+                                        title: "UV Index",
+                                        value: String(dailyWeather.uvIndexValue),
+                                        valueDescription: dailyWeather.uvIndexCategoryDescription,
+                                        dynamicImage: uvIndexProgress,
+                                        staticImageName: nil,
+                                        footer: dailyWeather.uvIndexActionRecommendation,
                                         backgroundColor: dailyWeather.backgroundColor
                                     )
                                     
-                                    PrecipitationTileView(
-                                        precipitationDetails: dailyWeather,
+                                    TileView(
+                                        imageHeader: "drop.fill",
+                                        title: "Precipitation",
+                                        value: String(dailyWeather.precipitationChance.formatted(.percent)),
+                                        valueDescription: dailyWeather.precipitationType.capitalized,
+                                        dynamicImage: precipitationProgress,
+                                        staticImageName: nil,
+                                        footer: dailyWeather.dayChanceOfPrecipitation,
                                         backgroundColor: dailyWeather.backgroundColor
                                     )
                                     
-                                    SunDataTile(
-                                        sundata: dailyWeather.sun,
-                                        backgroundColor: dailyWeather.backgroundColor,
-                                        isSunrise: true
+                                    TileView(
+                                        imageHeader: "sunrise",
+                                        title: "Sunrise",
+                                        value: dailyWeather.sun.sunriseTime,
+                                        valueDescription: nil,
+                                        dynamicImage: nil,
+                                        staticImageName: "sunrise.fill",
+                                        footer: "Dawn: " + dailyWeather.sun.dawn,
+                                        backgroundColor: dailyWeather.backgroundColor
                                     )
                                     
-                                    SunDataTile(
-                                        sundata: dailyWeather.sun, 
-                                        backgroundColor: dailyWeather.backgroundColor, 
-                                        isSunrise: false
+                                    TileView(
+                                        imageHeader: "sunset",
+                                        title: "Sunset",
+                                        value: dailyWeather.sun.sunsetTime,
+                                        valueDescription: nil,
+                                        dynamicImage: nil,
+                                        staticImageName: "sunset.fill",
+                                        footer: "Dusk: " + dailyWeather.sun.dawn,
+                                        backgroundColor: dailyWeather.backgroundColor
                                     )
+
                                 }
                                 .padding()
                                 
@@ -88,7 +112,6 @@ struct TomorrowScreen: View {
                                 setTodayWeather: false,
                                 backgroundColor: dailyWeather.backgroundColor
                             )
-                            
                         }
                     }
                     .onChange(of: appStateManager.resetViews) { _ in
