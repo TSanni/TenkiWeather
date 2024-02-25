@@ -30,6 +30,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     var latitude: CLLocationDegrees {
         locationManager.location?.coordinate.latitude ?? 0.0
     }
+    
     var longitude: CLLocationDegrees {
         locationManager.location?.coordinate.longitude ?? 0.0
     }
@@ -81,8 +82,24 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error from didFailWithError delegate method: \(error.localizedDescription)")
     }
+  
+    func getLocalLocationName() async {
+        let location = await getNameFromCoordinates(latitude: latitude, longitude: longitude)
+        
+        await MainActor.run(body: {
+            self.localLocationName = location
+        })
+    }
     
-    
+    func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, nameFromGoogle: String?) async {
+        //self.searchedLocationName
+        
+        let searched = await getNameFromCoordinates(latitude: lat, longitude: lon, nameFromGoogleAPI: nameFromGoogle)
+        
+        await MainActor.run(body: {
+            self.searchedLocationName = searched
+        })
+    }
     
     private func combinationOfNames(cityName: String?, state: String?, country: String?) -> String {
         /// Going through possible combinations of optionals existing
@@ -108,7 +125,6 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         
     }
     
-    
     private func getLocationName(place: CLPlacemark, placeFromGoogle: String? = nil) -> String {
         
         let cityName = place.locality
@@ -127,26 +143,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
             }
         } else {
             return combinationOfNames(cityName: cityName, state: state, country: country)
-        }    
-    }
-    
-    
-    func getLocalLocationName() async {
-        let location = await getNameFromCoordinates(latitude: latitude, longitude: longitude)
-        
-        await MainActor.run(body: {
-            self.localLocationName = location
-        })
-    }
-    
-    func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, nameFromGoogle: String?) async {
-        //self.searchedLocationName
-        
-        let searched = await getNameFromCoordinates(latitude: lat, longitude: lon, nameFromGoogleAPI: nameFromGoogle)
-        
-        await MainActor.run(body: {
-            self.searchedLocationName = searched
-        })
+        }
     }
     
     //MARK: - Geocoding
