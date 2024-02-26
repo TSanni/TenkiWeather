@@ -29,7 +29,7 @@ struct SearchingScreen: View {
                     .padding(.bottom)
                     .onTapGesture {
                         Task {
-                            await weatherViewModel.getWeatherAndUpdateDictionaryFromLocation()
+                            await appStateManager.getWeatherAndUpdateDictionaryFromLocation()
                             persistenceLocations.saveData()
                         }
                     }
@@ -52,7 +52,7 @@ struct SearchingScreen: View {
         .sheet(isPresented: $showGoogleSearchScreen) {
             PlacesViewControllerBridge { place in
                 Task {
-                    await weatherViewModel.getWeatherWithGoogleData(place: place)
+                    await appStateManager.getWeatherWithGoogleData(place: place, currentWeather: weatherViewModel.currentWeather)
                     persistenceLocations.saveData()
                 }
                 

@@ -12,19 +12,19 @@ import SpriteKit
 // MARK: - Main Model
 struct TodayWeatherModel: Identifiable {
     let id = UUID()
-    let apparentTemperature: Measurement<UnitTemperature>
-    let dewPoint: Measurement<UnitTemperature>
-    let humidity: Double
-    let temperature: Measurement<UnitTemperature>
-    let pressure: Measurement<UnitPressure>
-    let pressureTrend: PressureTrend
+    let apparentTemperature: Measurement<UnitTemperature> //
+    let dewPoint: Measurement<UnitTemperature> //
+    let humidity: Double //
+    let temperature: Measurement<UnitTemperature> //
+    let pressure: Measurement<UnitPressure> //
+    let pressureTrend: PressureTrend //
     let wind: WindData
     let condition: WeatherCondition
     let date: Date
     let isDaylight: Bool
     let uvIndexCategory: UVIndex.ExposureCategory
     let uvIndexValue: Int
-    let visibility: Measurement<UnitLength>
+    let visibility: Measurement<UnitLength> //
     let symbolName: String
     let highTemperature: Measurement<UnitTemperature>
     let lowTemperature: Measurement<UnitTemperature>
@@ -122,10 +122,6 @@ extension TodayWeatherModel {
         return Helper.getReadableMainDate(date: date, timezoneOffset: timezeone)
     }
     
-    var uvIndexNumberDescription: String {
-        uvIndexValue.description
-    }
-    
     var uvIndexCategoryDescription: String {
         uvIndexCategory.description
     }
@@ -165,7 +161,7 @@ extension TodayWeatherModel {
         let visibility = visibility.converted(to: unit)
         let formattedVisibilityValue = Helper.convertNumberToZeroFloatingPoints(number: visibility.value)
         let symbol = visibility.unit.symbol
-        return formattedVisibilityValue + symbol
+        return formattedVisibilityValue + " " + symbol
     }
     
     var visiblityDescription: String {

@@ -69,6 +69,20 @@ class Helper {
         return readableDate
     }
     
+    /// This function accepts a date and returns a string of that date in a readable format
+    ///  Ex: 12:07 PM
+    static func getReadableHourAndMinute(date: Date?, timezoneOffset: Int) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
+        if let date = date {
+            let readableHourAndMinute = dateFormatter.string(from: date)
+            return readableHourAndMinute
+        } else {
+            return "-"
+        }
+    }
+    
     /// Returns a UnitLength based on stored value of UnitSpeed in UserDefaults
     static func getUnitLength() -> UnitLength {
        let unitSpeed = getUnitSpeed()

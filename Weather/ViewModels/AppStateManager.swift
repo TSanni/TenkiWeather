@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import GooglePlaces
 
 @MainActor class AppStateManager: ObservableObject {
     @Published var showSearchScreen: Bool = false
@@ -33,6 +34,10 @@ import SwiftUI
     
     static let shared  = AppStateManager()
     let weatherManager = WeatherManager.shared
+    let locationManager = CoreLocationViewModel.shared
+    let weatherViewModel = WeatherViewModel.shared
+    let persistence = SavedLocationsPersistence.shared
+
     
     private init() { }
     
@@ -122,6 +127,73 @@ import SwiftUI
     func fillImageToPrepareForRendering(symbol: String) -> String {
         let filledInSymbol = weatherManager.getImage(imageName: symbol)
         return filledInSymbol
+    }
+    
+    
+    func getWeatherAndUpdateDictionaryFromSavedLocation(item: LocationEntity) async {
+        toggleShowSearchScreen()
+        dataIsLoading()
+        await locationManager.getLocalLocationName()
+        await locationManager.getSearchedLocationName(lat: item.latitude, lon: item.longitude, nameFromGoogle: nil)
+        await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
+        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: locationManager.localLocationName, timezone: currentLocationTimezone)
+        
+        locationManager.searchedLocationName = item.name!
+
+        searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
+        searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = item.longitude
+        searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = item.latitude
+        searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = item.timezone
+        
+        dataCompletedLoading()
+        performViewReset()
+    }
+    
+    
+    func getWeatherAndUpdateDictionaryFromLocation() async {
+        toggleShowSearchScreen()
+        dataIsLoading()
+        await locationManager.getLocalLocationName()
+        let timezone = locationManager.timezoneForCoordinateInput
+        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
+        let userLocationName = locationManager.localLocationName
+        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+        locationManager.searchedLocationName = userLocationName
+        
+        setCurrentLocationName(name: userLocationName)
+        searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
+        searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = locationManager.latitude
+        searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = locationManager.longitude
+        searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = timezone
+        
+        
+        dataCompletedLoading()
+        performViewReset()
+    }
+    
+    func getWeatherWithGoogleData(place: GMSPlace, currentWeather: TodayWeatherModel) async {
+        
+        dataIsLoading()
+        let coordinates = place.coordinate
+        await locationManager.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
+        let timezone = locationManager.timezoneForCoordinateInput
+        await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
+        
+        setSearchedLocationDictionary(
+            name: locationManager.searchedLocationName,
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude,
+            timezone: timezone,
+            temperature: currentWeather.currentTemperature,
+            date: currentWeather.readableDate,
+            symbol: currentWeather.symbolName,
+            weatherCondition: currentWeather.weatherDescription.description,
+            unitTemperature: Helper.getUnitTemperature()
+        )
+        
+        dataCompletedLoading()
+        toggleShowSearchScreen()
+        performViewReset()
     }
     
 }

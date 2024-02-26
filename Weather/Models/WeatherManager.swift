@@ -245,8 +245,8 @@ extension WeatherManager {
         })
         
 
-        
-        for i in 0..<K.Time.twentyFourHours {
+        //TODO: Add error handling to catch when the there aren't enough hours
+        for i in 0..<K.Time.fifteenHours {
             
             let windData = WindData(
                 speed: nextDayWeatherHours[i].wind.speed,

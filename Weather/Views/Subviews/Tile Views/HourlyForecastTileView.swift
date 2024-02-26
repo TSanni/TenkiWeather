@@ -55,8 +55,8 @@ struct HourlyForecastTileView: View {
                         ForEach(hourlyTemperatures) { item in
                             HStack(spacing: 2) {
                                 TileImageProgressView(
-                                    height: 10,
-                                    value: convertStringToCGFloat(precipitationString: item.chanceOfPrecipitation),
+                                    height: 10, 
+                                    imageHeight: convertStringToCGFloat(precipitationString: item.chanceOfPrecipitation),
                                     sfSymbol: "drop.fill",
                                     color: K.Colors.precipitationBlue
                                 )

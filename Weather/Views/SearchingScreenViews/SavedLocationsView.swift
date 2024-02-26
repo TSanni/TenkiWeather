@@ -28,7 +28,7 @@ struct SavedLocationsView: View {
                     .padding(.top)
                     .onTapGesture {
                         Task {
-                            await weatherViewModel.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
+                            await appStateManager.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
                             persistence.saveData()
                         }
                     }

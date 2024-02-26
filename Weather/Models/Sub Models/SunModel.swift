@@ -17,42 +17,38 @@ struct SunData {
     let timezone: Int
     
     var sunriseTime: String {
-        getReadableHourAndMinute(date: sunrise, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: sunrise, timezoneOffset: timezone)
     }
     
     var sunsetTime: String {
-        getReadableHourAndMinute(date: sunset, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: sunset, timezoneOffset: timezone)
     }
     
     var dawn: String {
-        getReadableHourAndMinute(date: civilDawn, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: civilDawn, timezoneOffset: timezone)
     }
     
     var solarNoonTime: String {
-        getReadableHourAndMinute(date: solarNoon, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: solarNoon, timezoneOffset: timezone)
     }
     
     var dusk: String {
-        getReadableHourAndMinute(date: civilDusk, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: civilDusk, timezoneOffset: timezone)
+    }
+    
+    var duskDescription: String {
+        return "Dusk: \(Helper.getReadableHourAndMinute(date: civilDusk, timezoneOffset: timezone))"
+    }
+    
+    var dawnDescription: String {
+        return "Dawn: \(Helper.getReadableHourAndMinute(date: civilDawn, timezoneOffset: timezone))"
     }
     
     
     
     
     
-    /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: 12:07 PM
-    private func getReadableHourAndMinute(date: Date?, timezoneOffset: Int) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        if let date = date {
-            let readableHourAndMinute = dateFormatter.string(from: date)
-            return readableHourAndMinute
-        } else {
-            return "-"
-        }
-    }
+
     
     
     /// Holder data for Sun data

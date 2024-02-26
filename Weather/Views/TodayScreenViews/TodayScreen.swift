@@ -22,18 +22,7 @@ struct TodayScreen: View {
         return newHumidity
     }
 
-    var body: some View {
-        let humidity = convertHumidityFromPercentToDouble(humidity: currentWeather.humidity)
-        
-        let humidityProgress = TileImageProgressView(
-            height: 50,
-            value: humidity,
-            sfSymbol: "humidity.fill",
-            color: K.Colors.precipitationBlue
-        )
-        
-        let uvIndexProgress = TileImageProgressView(height: 50, value: CGFloat(currentWeather.uvIndexValue), sfSymbol: "seal.fill" , color: currentWeather.uvIndexColor, maxValue: 11)
-        
+    var body: some View {        
         GeometryReader { geo in
             
             ScrollView(.vertical ,showsIndicators: false) {
@@ -70,36 +59,24 @@ struct TodayScreen: View {
                             
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
                                 
-                                TileView(
-                                    imageHeader: "humidity.fill",
-                                    title: "Humidity",
-                                    value: currentWeather.humidityPercentage,
-                                    valueDescription: nil,
-                                    dynamicImage: humidityProgress,
-                                    staticImageName: nil,
-                                    footer: currentWeather.dewPointDescription,
+                                HumidityTileView(
+                                    humidity: currentWeather.humidity,
+                                    humidityPercentage: currentWeather.humidityPercentage,
+                                    dewPointDescription: currentWeather.dewPointDescription, 
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
-                                TileView(
-                                    imageHeader: "sun.max",
-                                    title: "UV Index",
-                                    value: String(currentWeather.uvIndexValue),
-                                    valueDescription: currentWeather.uvIndexCategoryDescription,
-                                    dynamicImage: uvIndexProgress,
-                                    staticImageName: nil,
-                                    footer: currentWeather.uvIndexActionRecommendation,
+                                UVIndexTileView(
+                                    uvIndexCategoryDescription: currentWeather.uvIndexCategoryDescription,
+                                    uvIndexValue: currentWeather.uvIndexValue,
+                                    uvIndexColor: currentWeather.uvIndexColor,
+                                    uvIndexActionRecommendation: currentWeather.uvIndexActionRecommendation,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
-                                TileView(
-                                    imageHeader: "eye.fill",
-                                    title: "Visibility",
-                                    value: currentWeather.visibilityValue,
-                                    valueDescription: nil,
-                                    dynamicImage: nil, 
-                                    staticImageName: nil,
-                                    footer: currentWeather.visiblityDescription,
+                                VisibilityTileView(
+                                    visibilityValue: currentWeather.visibilityValue,
+                                    visiblityDescription: currentWeather.visiblityDescription,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
@@ -124,26 +101,16 @@ struct TodayScreen: View {
                             
                             LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
                                 
-                                TileView(
-                                    imageHeader: "sunrise",
-                                    title: "Sunrise",
-                                    value: currentWeather.sunData.sunriseTime,
-                                    valueDescription: nil,
-                                    dynamicImage: nil, 
-                                    staticImageName: "sunrise.fill",
-                                    footer: "Dawn: " + currentWeather.sunData.dawn,
-                                    backgroundColor: currentWeather.backgroundColor
+                                SunDataTile(
+                                    sundata: currentWeather.sunData,
+                                    backgroundColor: currentWeather.backgroundColor,
+                                    isSunrise: true
                                 )
                                 
-                                TileView(
-                                    imageHeader: "sunset",
-                                    title: "Sunset",
-                                    value: currentWeather.sunData.sunsetTime,
-                                    valueDescription: nil,
-                                    dynamicImage: nil,
-                                    staticImageName: "sunset.fill",
-                                    footer: "Dusk: " + currentWeather.sunData.dawn,
-                                    backgroundColor: currentWeather.backgroundColor
+                                SunDataTile(
+                                    sundata: currentWeather.sunData,
+                                    backgroundColor: currentWeather.backgroundColor,
+                                    isSunrise: false
                                 )
                             }
                             .padding()

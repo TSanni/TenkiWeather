@@ -115,7 +115,7 @@ struct DailyWeatherModel: Identifiable {
         highTemperature: Measurement(value: 50, unit: .fahrenheit),
         lowTemperature: Measurement(value: 50, unit: .fahrenheit),
         precipitation: Precipitation.hail,
-        precipitationChance: 0.5,
+        precipitationChance: 0.3,
         snowfallAmount:  Measurement(value: 0.5, unit: .centimeters),
         moon: nil,
         sun: SunData.sunDataHolder,

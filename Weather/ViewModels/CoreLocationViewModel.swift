@@ -25,6 +25,7 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     static let shared = CoreLocationViewModel()
     
     var locationManager = CLLocationManager()
+    
     var geocoder = CLGeocoder()
     
     var latitude: CLLocationDegrees {

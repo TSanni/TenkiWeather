@@ -10,7 +10,7 @@ import WeatherKit
 import GooglePlaces
 
 
-@MainActor class WeatherViewModel: ObservableObject {
+class WeatherViewModel: ObservableObject {
     @Published var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
     @Published var tomorrowWeather: DailyWeatherModel = DailyWeatherModel.placeholder
     @Published var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.placeholder]
@@ -21,8 +21,6 @@ import GooglePlaces
     static let shared = WeatherViewModel()
     
     let weatherManager = WeatherManager.shared
-    let locationManager = CoreLocationViewModel.shared
-    let appStateManager = AppStateManager.shared
     
     private init() { }
     
@@ -72,69 +70,8 @@ import GooglePlaces
         }
     }
 
-    func getWeatherAndUpdateDictionaryFromSavedLocation(item: LocationEntity) async {
-        appStateManager.toggleShowSearchScreen()
-        appStateManager.dataIsLoading()
-        await locationManager.getLocalLocationName()
-        await locationManager.getSearchedLocationName(lat: item.latitude, lon: item.longitude, nameFromGoogle: nil)
-        await getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
-        await getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: locationManager.localLocationName, timezone: appStateManager.currentLocationTimezone)
-        
-        locationManager.searchedLocationName = item.name!
 
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = item.longitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = item.latitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = item.timezone
-        
-        appStateManager.dataCompletedLoading()
-        appStateManager.performViewReset()
-    }
     
-    func getWeatherAndUpdateDictionaryFromLocation() async {
-        appStateManager.toggleShowSearchScreen()
-        appStateManager.dataIsLoading()
-        await locationManager.getLocalLocationName()
-        let timezone = locationManager.timezoneForCoordinateInput
-        await getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-        let userLocationName = locationManager.localLocationName
-        await getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-        locationManager.searchedLocationName = userLocationName
-        
-        appStateManager.setCurrentLocationName(name: userLocationName)
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = locationManager.latitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = locationManager.longitude
-        appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = timezone
-        
-        
-        appStateManager.dataCompletedLoading()
-        appStateManager.performViewReset()
-    }
-    
-    func getWeatherWithGoogleData(place: GMSPlace) async {
-        
-        appStateManager.dataIsLoading()
-        let coordinates = place.coordinate
-        await locationManager.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
-        let timezone = locationManager.timezoneForCoordinateInput
-        await getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
-        
-        appStateManager.setSearchedLocationDictionary(
-            name: locationManager.searchedLocationName,
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude,
-            timezone: timezone,
-            temperature: currentWeather.currentTemperature,
-            date: currentWeather.readableDate,
-            symbol: currentWeather.symbolName,
-            weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: Helper.getUnitTemperature()
-        )
-        
-        appStateManager.dataCompletedLoading()
-        appStateManager.toggleShowSearchScreen()
-        appStateManager.performViewReset()
-    }
+
 
 }

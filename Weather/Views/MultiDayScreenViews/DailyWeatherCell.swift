@@ -129,8 +129,8 @@ struct DailyWeatherCell: View {
     private var dayItemRightSide: some View {
         HStack {
             HStack {
-                if daily.dayChanceOfPrecipitation != "0%" {
-                    Text(daily.dayChanceOfPrecipitation)
+                if daily.precipitationChance != 0 {
+                    Text(daily.precipitationChance.formatted(.percent))
                         .foregroundColor(.teal)
                         .lineLimit(1)
                 }
