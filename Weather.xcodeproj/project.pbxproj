@@ -269,14 +269,14 @@
 			children = (
 				834E1F772A98C51800DB4DE5 /* WeatherAlertTileView.swift */,
 				838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */,
-				83E04FD32A2B2892009720AB /* WindTileView.swift */,
-				8313DE852B61A20D0031C5E7 /* PressureTileView.swift */,
-				838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */,
-				8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */,
 				833837FA2B8D00E7001858C7 /* HumidityTileView.swift */,
-				833837F92B8D00E7001858C7 /* SunDataTile.swift */,
 				833837FC2B8D00E7001858C7 /* UVIndexTileView.swift */,
 				833837FB2B8D00E7001858C7 /* VisibilityTileView.swift */,
+				8313DE852B61A20D0031C5E7 /* PressureTileView.swift */,
+				8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */,
+				833837F92B8D00E7001858C7 /* SunDataTile.swift */,
+				83E04FD32A2B2892009720AB /* WindTileView.swift */,
+				838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */,
 			);
 			path = "Tile Views";
 			sourceTree = "<group>";

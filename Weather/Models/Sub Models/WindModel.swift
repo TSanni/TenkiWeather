@@ -9,8 +9,6 @@ import Foundation
 import WeatherKit
 import SwiftUI
 
-//MARK: - Wind Data Model : Will be part of main model
-
 /// Consists of windSpeed, compassDirection, time, windDescription, and readableWindDirection
 struct WindData: Identifiable {
     let id = UUID()
@@ -102,7 +100,6 @@ struct WindData: Identifiable {
     }
     
     /// Computed property will update the color based on wind speed
-    // TODO: Colors not updating properly based on unit and value
     var windColor: Color {
         
         let light = Color(uiColor: #colorLiteral(red: 0.08248766512, green: 0.2948074937, blue: 1, alpha: 1))
@@ -116,22 +113,22 @@ struct WindData: Identifiable {
         let speed = speed.converted(to: .milesPerHour)
  
         switch speed.value {
-        case 0...12://
+        case 0..<13.5:
             return light
-        case 13...31:
+        case 13.5..<32.5:
             return breeze
-        case 32...38:
+        case 32.5..<39.5:
             return gale
-        case 39...54:
+        case 39.5..<55.5:
             return Color(uiColor: strongGale)
-        case 55...63:
+        case 55.5..<64.5:
             return Color(uiColor: storm)
-        case 64...72:
+        case 64.5..<73.5:
             return violentStorm
-        case 73...500:
+        case 73.5...:
             return hurricane
         default:
-            return light
+            return Color.black
         }
     }
 

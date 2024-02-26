@@ -12,24 +12,12 @@ struct PrecipitationTileView: View {
     let precipitationDescription: String
     let backgroundColor: Color
     
-    
-    ///The humidity passed in is a value 0-1 representing a percentage.
-    ///This function multiplies that value by 100 to get a regular number
-    ///Ex) 0.2 will return 20
-    func convertPrecipitationFromPercentToDouble(precipitation: Double) -> CGFloat {
-        let newPrecipitation = precipitation * 100
-        return newPrecipitation
-    }
-    
-    
     var body: some View {
-//        let precipitation = convertPrecipitationFromPercentToDouble(precipitation: precipiation)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "drop.fill")
                 Text("Precipitation")
                 Spacer()
-                
             }
             .foregroundStyle(.secondary)
             
@@ -58,17 +46,13 @@ struct PrecipitationTileView: View {
                 .aspectRatio(1, contentMode: .fit)
             }
             
-            
             Spacer()
             
-            Text(precipiation.formatted(.percent) + " chance of precipitation")
-                .font(.footnote)
-
-            
+            Text(precipiation.formatted(.percent) + " chance of precipitation.")
+                .font(.subheadline)
         }
         .cardTileModifier(backgroundColor: backgroundColor)
     }
-
 }
 
 #Preview {
