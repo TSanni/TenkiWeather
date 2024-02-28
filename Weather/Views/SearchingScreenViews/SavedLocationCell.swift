@@ -13,6 +13,7 @@ struct SavedLocationCell: View {
     var body: some View {
         ZStack {
             Color.teal.opacity(0.000001)
+            
             HStack {
                 SavedLocationImageView(imageName: location.sfSymbol ?? "")
                 
@@ -28,6 +29,11 @@ struct SavedLocationCell: View {
                     .font(.subheadline)
                 }
                 
+                if location.weatherAlert {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.red)
+                }
+                
                 Spacer()
             }
         }
@@ -39,12 +45,10 @@ struct SavedLocationCell: View {
         let oldTemp = location.temperature ?? "0"
         let oldTempToDouble = Double(oldTemp) ?? 0
         let oldTempUnit = location.unitTemperature ?? .fahrenheit
-        print("the unit temp: \(oldTempUnit)")
         let oldTempToMeasurement = Measurement(value: oldTempToDouble, unit: oldTempUnit)
-        
         let newTemp = oldTempToMeasurement.converted(to: Helper.getUnitTemperature())
-        let removeFloatingPointsFromNewTemp = String(format: "%.0f", newTemp.value)
-        return removeFloatingPointsFromNewTemp
+        let newTempWithNoFloatingNumbers = String(format: "%.0f", newTemp.value)
+        return newTempWithNoFloatingNumbers
     }
 }
 

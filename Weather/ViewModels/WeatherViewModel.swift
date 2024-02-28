@@ -58,7 +58,13 @@ class WeatherViewModel: ObservableObject {
             let weather = try await weatherManager.getWeatherFromWeatherKit(latitude: latitude, longitude: longitude, timezone: timezone)
             
             if let weather = weather {
-                let localWeather = await weatherManager.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+                let localWeather = await weatherManager.getTodayWeather(
+                    current: weather.currentWeather,
+                    dailyWeather: weather.dailyForecast,
+                    hourlyWeather: weather.hourlyForecast,
+                    timezoneOffset: timezone
+                )
+                
                 await MainActor.run {
                     self.localWeather = localWeather
                 }

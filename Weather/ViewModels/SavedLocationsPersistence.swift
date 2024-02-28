@@ -64,11 +64,7 @@ class SavedLocationsPersistence: ObservableObject {
         newLocation.currentDate = locationDictionary[K.LocationDictionaryKeys.date] as? String
         newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeys.symbol] as? String
         newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeys.weatherCondition] as? String
-        newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeys.unitTemperature] as? UnitTemperature
-//        print("****************************** VALUE OF UNIT TEMPERATURE IN DICTIONARY: \(locationDictionary[K.LocationDictionaryKeys.unitTemperature]) ****************************************")
-//
-//        
-//        print("****************************** VALUE OF UNIT TEMPERATURE IN CORE DATA: \(newLocation.unitTemperature) ****************************************")
+        newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeys.unitTemperature] as? UnitTemperature 
         
         Task {
             try await fetchWeatherPlacesWithTaskGroup()
@@ -138,6 +134,8 @@ class SavedLocationsPersistence: ObservableObject {
                 hourlyWeather: currentWeather.hourlyForecast,
                 timezoneOffset: Int(entity.timezone)
             )
+            
+            let possibleWeatherAlerts = await weatherManager.getWeatherAlert(optionalWeatherAlert: currentWeather.weatherAlerts)
           
             entity.currentDate = todaysWeather.readableDate
             entity.temperature = todaysWeather.currentTemperature
@@ -145,10 +143,15 @@ class SavedLocationsPersistence: ObservableObject {
             entity.weatherCondition = todaysWeather.weatherDescription.description
             entity.unitTemperature = Helper.getUnitTemperature()
             
+            if possibleWeatherAlerts != nil {
+                entity.weatherAlert = true
+            } else {
+                entity.weatherAlert = false
+            }
+            
             return entity
         } else {
             throw URLError(.badURL)
         }
     }
-     
 }

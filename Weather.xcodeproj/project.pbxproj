@@ -308,9 +308,9 @@
 		83DA72DA2A3FC12800C50C86 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				838461822A508E13000B8E86 /* AppStateManager.swift */,
 				83DA72E92A419F9400C50C86 /* WeatherViewModel.swift */,
 				83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */,
-				838461822A508E13000B8E86 /* AppStateManager.swift */,
 				83DA72E52A41655400C50C86 /* SavedLocationsPersistence.swift */,
 				830279E12A9A5CE100E3487D /* NetworkMonitor.swift */,
 			);

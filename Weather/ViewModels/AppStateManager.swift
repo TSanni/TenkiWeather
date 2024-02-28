@@ -37,9 +37,15 @@ import GooglePlaces
     let locationManager = CoreLocationViewModel.shared
     let weatherViewModel = WeatherViewModel.shared
     let persistence = SavedLocationsPersistence.shared
-
+    let network = NetworkMonitor.shared
     
-    private init() { }
+    private init() {
+        Task {
+            let serviceGood = await network.networkIsReachable()
+            print(serviceGood)
+            print("********************************THE NETWORK IS FINE********************************")
+        }
+    }
     
     func toggleShowSearchScreen() {
         DispatchQueue.main.async {

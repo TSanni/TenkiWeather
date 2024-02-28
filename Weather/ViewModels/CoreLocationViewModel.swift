@@ -156,13 +156,9 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                 
                 if let place = places?.first {
                     let locationName = self?.getLocationName(place: place, placeFromGoogle: nameFromGoogleAPI)
-//                    self?.getLocationName(place: place, placeFromGoogle: nameFromGoogleAPI)
-                    
                     continuation.resume(returning: locationName ?? "")
-//                    continuation.resume()
                 } else {
                     self?.publishedError = .reverseGeocodingError
-//                    continuation.resume()
                     continuation.resume(returning: "")
                 }
             }
