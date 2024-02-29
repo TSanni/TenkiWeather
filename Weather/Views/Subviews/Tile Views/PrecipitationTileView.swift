@@ -41,7 +41,7 @@ struct PrecipitationTileView: View {
                     height: 50, 
                     imageHeight: precipiation * 100,
                     sfSymbol: "drop.fill",
-                    color: K.Colors.precipitationBlue
+                    color: K.ColorsConstants.precipitationBlue
                 )
                 .aspectRatio(1, contentMode: .fit)
             }

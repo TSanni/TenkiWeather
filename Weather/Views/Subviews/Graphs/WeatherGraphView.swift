@@ -12,7 +12,7 @@ import Charts
 struct WeatherGraphView: View {
     let hourlyTemperatures: [HourlyWeatherModel]
     let graphColor: Color
-    let precipitationBlueColor = K.Colors.precipitationBlue
+    let precipitationBlueColor = K.ColorsConstants.precipitationBlue
     let weatherManager = WeatherManager.shared
 
     var body: some View {

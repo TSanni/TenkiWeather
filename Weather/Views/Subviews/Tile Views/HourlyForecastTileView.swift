@@ -58,7 +58,7 @@ struct HourlyForecastTileView: View {
                                     height: 10, 
                                     imageHeight: convertStringToCGFloat(precipitationString: item.chanceOfPrecipitation),
                                     sfSymbol: "drop.fill",
-                                    color: K.Colors.precipitationBlue
+                                    color: K.ColorsConstants.precipitationBlue
                                 )
                                 Text(item.chanceOfPrecipitation)
                                     .font(.caption2)
@@ -105,10 +105,10 @@ func convertStringToCGFloat(precipitationString: String) -> CGFloat {
 
 #Preview {
     ZStack {
-        Color(uiColor: K.Colors.haze).brightness(0.1)
+        Color(uiColor: K.ColorsConstants.haze).brightness(0.1)
         HourlyForecastTileView(
             hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData,
-            color: Color(uiColor: K.Colors.haze)
+            color: Color(uiColor: K.ColorsConstants.haze)
         )
         .environmentObject(AppStateManager.shared)
     }

@@ -25,11 +25,11 @@ class Helper {
         let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
         
         switch savedUnitTemperature {
-        case K.TemperatureUnits.fahrenheit:
+        case K.TemperatureUnitsConstants.fahrenheit:
             return .fahrenheit
-        case K.TemperatureUnits.celsius:
+        case K.TemperatureUnitsConstants.celsius:
             return .celsius
-        case   K.TemperatureUnits.kelvin:
+        case   K.TemperatureUnitsConstants.kelvin:
             return .kelvin
         default:
             return .fahrenheit
@@ -40,7 +40,7 @@ class Helper {
     ///  Ex: July 7, 10:08 PM
     static func getReadableMainDate(date: Date, timezoneOffset: Int) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = K.Time.monthDayHourMinuteFormat
+        dateFormatter.dateFormat = K.TimeConstants.monthDayHourMinuteFormat
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
         
         let readableDate = dateFormatter.string(from: date)
@@ -104,11 +104,11 @@ class Helper {
         let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
         
         switch chosenUnitDistance {
-        case  K.DistanceUnits.mph:
+        case  K.DistanceUnitsConstants.mph:
             return .milesPerHour
-        case K.DistanceUnits.kiloPerHour:
+        case K.DistanceUnitsConstants.kiloPerHour:
             return .kilometersPerHour
-        case K.DistanceUnits.meterPerSecond:
+        case K.DistanceUnitsConstants.meterPerSecond:
             return .metersPerSecond
         default:
             return .milesPerHour

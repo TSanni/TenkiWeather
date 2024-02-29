@@ -64,8 +64,8 @@ struct SettingsScreenTile: View {
     }
     
     var listContent: some View {
-        let darkTheme = K.Colors.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
-        let lightTheme = K.Colors.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
+        let darkTheme = K.ColorsConstants.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
+        let lightTheme = K.ColorsConstants.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
         
       return VStack {
             
@@ -102,7 +102,7 @@ struct SettingsScreenTile: View {
                         Spacer()
                         
                         VStack {
-                            Text("\(appStateManager.searchedLocationDictionary[K.LocationDictionaryKeys.name] as? String ?? "")")
+                            Text("\(appStateManager.searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] as? String ?? "")")
                                 .foregroundStyle(.green)
                             
                             Text("Click to save this location")

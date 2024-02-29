@@ -18,13 +18,13 @@ struct MainScreen: View {
     
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var networkManager: NetworkMonitor
     
     @State var tabViews: WeatherTabs = .today
     
 
     var body: some View {
         ZStack {
- 
             VStack(spacing: 0) {
                 SearchBar()
                     .onTapGesture {
@@ -32,9 +32,16 @@ struct MainScreen: View {
                     }
                 
                 WeatherTabSelectionsView(tabViews: $tabViews)
-                
+                                
                 TabViews(tabViews: $tabViews)
                 
+                if !networkManager.isConnected {
+                    HStack {
+                        Image(systemName: "wifi.slash")
+                        Text("No Internet Connection")
+                    }
+                    .foregroundStyle(.white)
+                }
             }
             .zIndex(0)
             .background(getBarColor.brightness(-0.1).ignoresSafeArea())
@@ -89,7 +96,7 @@ extension MainScreen {
         case .tomorrow:
             return weatherViewModel.tomorrowWeather.backgroundColor
         case .multiDay:
-            return Color(uiColor: K.Colors.tenDayBarColor)
+            return Color(uiColor: K.ColorsConstants.tenDayBarColor)
         }
     }
     
@@ -134,6 +141,7 @@ struct MainScreen_Previews: PreviewProvider {
             .environmentObject(WeatherViewModel.shared)
             .environmentObject(CoreLocationViewModel.shared)
             .environmentObject(AppStateManager.shared)
+            .environmentObject(NetworkMonitor())
     }
 }
 

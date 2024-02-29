@@ -27,7 +27,7 @@ struct FullScreenWebView: View {
 
             WebView(urlString: url)
         }
-        .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+        .background(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
 
     }
 

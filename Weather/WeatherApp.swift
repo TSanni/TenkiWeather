@@ -34,6 +34,7 @@ struct WeatherApp: App {
     @StateObject private var persistenceLocations = SavedLocationsPersistence.shared
     @StateObject private var locationManager = CoreLocationViewModel.shared
     @StateObject private var appStateManager = AppStateManager.shared
+    @StateObject private var networkManager = NetworkMonitor()
     
     var body: some Scene {
         WindowGroup {
@@ -43,17 +44,18 @@ struct WeatherApp: App {
                     .environmentObject(persistenceLocations)
                     .environmentObject(locationManager)
                     .environmentObject(appStateManager)
+                    .environmentObject(networkManager)
             }
             .navigationViewStyle(.stack)
             .task {
                   if locationManager.authorizationStatus == .authorizedWhenInUse {
-                      await getWeather()
+                      await appStateManager.getWeather()
                   }
               }
               .onChange(of: locationManager.authorizationStatus) { newValue in
                   if newValue == .authorizedWhenInUse {
                       Task {
-                          await getWeather()
+                          await appStateManager.getWeather()
                       }
                   }
               }
@@ -63,7 +65,7 @@ struct WeatherApp: App {
                       Task {
                           if -savedDate.timeIntervalSinceNow > 60 * 10 {
                               // 10 minutes have passed, refresh the data
-                              await getWeather()
+                              await appStateManager.getWeather()
                               savedDate = Date()
                           } else {
                               // 10 minutes have NOT passed, do nothing
@@ -72,44 +74,6 @@ struct WeatherApp: App {
                       }
                   }
               }
-
-
         }
-  
     }
-    
-    
-    
-    private func getWeather() async {
-        appStateManager.dataIsLoading()
-        
-        await locationManager.getLocalLocationName()
-        locationManager.searchedLocationName = locationManager.localLocationName
-        let timezone = locationManager.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-        let userLocationName = locationManager.localLocationName
-        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-        
-        appStateManager.setCurrentLocationName(name: userLocationName)
-        appStateManager.setCurrentLocationTimezone(timezone: timezone)
-        appStateManager.dataCompletedLoading()
-        
-        appStateManager.setSearchedLocationDictionary(
-            name: userLocationName,
-            latitude: locationManager.latitude,
-            longitude: locationManager.longitude,
-            timezone: timezone,
-            temperature: weatherViewModel.currentWeather.currentTemperature,
-            date: weatherViewModel.currentWeather.readableDate,
-            symbol: weatherViewModel.currentWeather.symbolName,
-            weatherCondition: weatherViewModel.currentWeather.weatherDescription, 
-            unitTemperature: Helper.getUnitTemperature()
-        )
-        
-        appStateManager.performViewReset()
-        
-        
-        persistenceLocations.saveData()
-    }
-
 }

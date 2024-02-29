@@ -53,7 +53,7 @@ actor WeatherManager {
         )
         
         /// 12 hour forecast data for the Wind and temperatures
-        for i in 0..<K.Time.twentyFourHours {
+        for i in 0..<K.TimeConstants.twentyFourHours {
             
             let windData =  WindData(
                 speed: hourlyWeatherStartingFromNow[i].wind.speed,
@@ -241,12 +241,12 @@ extension WeatherManager {
         /// Gets all hourly forecasts starting with 7AM that day
         let nextDayWeatherHours = hours.filter({ hourWeather in
             /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
-            return hourWeather.date >= day.date.advanced(by: K.Time.sevenHoursInSeconds)
+            return hourWeather.date >= day.date.advanced(by: K.TimeConstants.sevenHoursInSeconds)
         })
         
 
         //TODO: Add error handling to catch when the there aren't enough hours
-        for i in 0..<K.Time.fifteenHours {
+        for i in 0..<K.TimeConstants.fifteenHours {
             
             let windData = WindData(
                 speed: nextDayWeatherHours[i].wind.speed,

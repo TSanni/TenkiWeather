@@ -65,7 +65,7 @@ struct MultiDayScreen: View {
                         proxy.scrollTo(0)
                     }
                 }
-                .background(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+                .background(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
             }
         }
         .fullScreenCover(isPresented: $showWebView) {

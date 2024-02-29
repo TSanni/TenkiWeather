@@ -39,7 +39,7 @@ struct SearchBar: View {
             .background {
                 ZStack {
                     RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 1).fill(Color.white).frame(height: 50)
-                    RoundedRectangle(cornerRadius: 5).fill(colorScheme == .light ? K.Colors.goodLightTheme : K.Colors.goodDarkTheme)
+                    RoundedRectangle(cornerRadius: 5).fill(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
                         .frame(height: 50)
                 }
             }

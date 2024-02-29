@@ -22,14 +22,14 @@ import GooglePlaces
     // You can find it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
     @Published var searchedLocationDictionary: [String: Any] = [
-        K.LocationDictionaryKeys.name: "",
-        K.LocationDictionaryKeys.latitude: 0,
-        K.LocationDictionaryKeys.longitude: 0,
-        K.LocationDictionaryKeys.timezone: 0.0,
-        K.LocationDictionaryKeys.temperature: "",
-        K.LocationDictionaryKeys.date: "",
-        K.LocationDictionaryKeys.symbol: "",
-        K.LocationDictionaryKeys.weatherCondition: ""
+        K.LocationDictionaryKeysConstants.name: "",
+        K.LocationDictionaryKeysConstants.latitude: 0,
+        K.LocationDictionaryKeysConstants.longitude: 0,
+        K.LocationDictionaryKeysConstants.timezone: 0.0,
+        K.LocationDictionaryKeysConstants.temperature: "",
+        K.LocationDictionaryKeysConstants.date: "",
+        K.LocationDictionaryKeysConstants.symbol: "",
+        K.LocationDictionaryKeysConstants.weatherCondition: ""
     ]
     
     static let shared  = AppStateManager()
@@ -37,15 +37,9 @@ import GooglePlaces
     let locationManager = CoreLocationViewModel.shared
     let weatherViewModel = WeatherViewModel.shared
     let persistence = SavedLocationsPersistence.shared
-    let network = NetworkMonitor.shared
+
     
-    private init() {
-        Task {
-            let serviceGood = await network.networkIsReachable()
-            print(serviceGood)
-            print("********************************THE NETWORK IS FINE********************************")
-        }
-    }
+    private init() { }
     
     func toggleShowSearchScreen() {
         DispatchQueue.main.async {
@@ -78,15 +72,15 @@ import GooglePlaces
     
     func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature) {
         
-        searchedLocationDictionary[K.LocationDictionaryKeys.name] = name
-        searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = latitude
-        searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = longitude
-        searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = timezone
-        searchedLocationDictionary[K.LocationDictionaryKeys.temperature] = temperature
-        searchedLocationDictionary[K.LocationDictionaryKeys.date] = date
-        searchedLocationDictionary[K.LocationDictionaryKeys.symbol] = symbol
-        searchedLocationDictionary[K.LocationDictionaryKeys.weatherCondition] = weatherCondition
-        searchedLocationDictionary[K.LocationDictionaryKeys.unitTemperature] = unitTemperature
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = name
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = latitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = longitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = timezone
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.temperature] = temperature
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.date] = date
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.symbol] = symbol
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.weatherCondition] = weatherCondition
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.unitTemperature] = unitTemperature
     }
     
     func dataIsLoading() {
@@ -135,7 +129,6 @@ import GooglePlaces
         return filledInSymbol
     }
     
-    
     func getWeatherAndUpdateDictionaryFromSavedLocation(item: LocationEntity) async {
         toggleShowSearchScreen()
         dataIsLoading()
@@ -146,15 +139,14 @@ import GooglePlaces
         
         locationManager.searchedLocationName = item.name!
 
-        searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
-        searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = item.longitude
-        searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = item.latitude
-        searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = item.timezone
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationManager.searchedLocationName
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = item.longitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = item.latitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = item.timezone
         
         dataCompletedLoading()
         performViewReset()
     }
-    
     
     func getWeatherAndUpdateDictionaryFromLocation() async {
         toggleShowSearchScreen()
@@ -167,10 +159,10 @@ import GooglePlaces
         locationManager.searchedLocationName = userLocationName
         
         setCurrentLocationName(name: userLocationName)
-        searchedLocationDictionary[K.LocationDictionaryKeys.name] = locationManager.searchedLocationName
-        searchedLocationDictionary[K.LocationDictionaryKeys.latitude] = locationManager.latitude
-        searchedLocationDictionary[K.LocationDictionaryKeys.longitude] = locationManager.longitude
-        searchedLocationDictionary[K.LocationDictionaryKeys.timezone] = timezone
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationManager.searchedLocationName
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = locationManager.latitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = locationManager.longitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = timezone
         
         
         dataCompletedLoading()
@@ -200,6 +192,37 @@ import GooglePlaces
         dataCompletedLoading()
         toggleShowSearchScreen()
         performViewReset()
+    }
+    
+    func getWeather() async {
+        dataIsLoading()
+        
+        await locationManager.getLocalLocationName()
+        locationManager.searchedLocationName = locationManager.localLocationName
+        let timezone = locationManager.timezoneForCoordinateInput
+        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
+        let userLocationName = locationManager.localLocationName
+        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+        
+        setCurrentLocationName(name: userLocationName)
+        setCurrentLocationTimezone(timezone: timezone)
+        dataCompletedLoading()
+        
+        setSearchedLocationDictionary(
+            name: userLocationName,
+            latitude: locationManager.latitude,
+            longitude: locationManager.longitude,
+            timezone: timezone,
+            temperature: weatherViewModel.currentWeather.currentTemperature,
+            date: weatherViewModel.currentWeather.readableDate,
+            symbol: weatherViewModel.currentWeather.symbolName,
+            weatherCondition: weatherViewModel.currentWeather.weatherDescription,
+            unitTemperature: Helper.getUnitTemperature()
+        )
+        
+        performViewReset()
+
+        persistence.saveData()
     }
     
 }
