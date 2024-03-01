@@ -11,7 +11,6 @@ import SwiftUI
 struct WeatherTabSelectionsView: View {
     
     @Namespace var namespace
-    @EnvironmentObject var appStateManager: AppStateManager
     @Binding var tabViews: WeatherTabs
     
     var body: some View {
@@ -51,7 +50,7 @@ struct WeatherTabSelectionsView: View {
 struct WeatherTabSelectionsView_Previews: PreviewProvider {
     static var previews: some View {
         WeatherTabSelectionsView(tabViews: .constant(.today))
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(AppStateViewModel.shared)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.red)
     }

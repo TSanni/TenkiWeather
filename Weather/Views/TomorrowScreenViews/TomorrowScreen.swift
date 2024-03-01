@@ -10,7 +10,7 @@ import SwiftUI
 
 //MARK: - TomorrowScreen View
 struct TomorrowScreen: View {
-    @EnvironmentObject private var appStateManager: AppStateManager
+    @EnvironmentObject private var appStateViewModel: AppStateViewModel
     
     let dailyWeather: DailyWeatherModel
  
@@ -38,7 +38,7 @@ struct TomorrowScreen: View {
                                 Text("Hourly forecast")
                                     .padding(.horizontal)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(appStateManager.blendColors(themeColor: dailyWeather.backgroundColor))
+                                    .foregroundStyle(appStateViewModel.blendColors(themeColor: dailyWeather.backgroundColor))
                                 
                                 HourlyForecastTileView(hourlyTemperatures: dailyWeather.hourlyWeather, color: dailyWeather.backgroundColor)
                                 
@@ -46,10 +46,10 @@ struct TomorrowScreen: View {
                                 Text("Tomorrow's Conditions")
                                     .padding(.horizontal)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(appStateManager.blendColors(themeColor: dailyWeather.backgroundColor))
+                                    .foregroundStyle(appStateViewModel.blendColors(themeColor: dailyWeather.backgroundColor))
 
                                 
-                                LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) { 
+                                LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) { 
                                     UVIndexTileView(
                                         uvIndexCategoryDescription: dailyWeather.uvIndexCategoryDescription,
                                         uvIndexValue: dailyWeather.uvIndexValue,
@@ -90,7 +90,7 @@ struct TomorrowScreen: View {
                             )
                         }
                     }
-                    .onChange(of: appStateManager.resetViews) { _ in
+                    .onChange(of: appStateViewModel.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
                 }
@@ -106,7 +106,7 @@ struct TomorrowScreen: View {
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen(dailyWeather: DailyWeatherModel.placeholder)
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(AppStateViewModel.shared)
     }
 }
 

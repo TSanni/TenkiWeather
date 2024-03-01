@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum Errors: Error {
+    case failedToGetWeatherFromWeatherKit
+    case failedToGetWeatherForWeatherViewModel
+    case failedToGetLocalWeatherWithWeatherKit
+    
+}
+
 enum WeatherErrors: Error {
     case failedToGetWeatherKitData
 }
@@ -21,6 +28,11 @@ extension WeatherErrors: LocalizedError {
                       )
         }
     }
+}
+
+enum GeocodingErrors: Error {
+    case reverseGeocodingError
+    case goecodingError
 }
 
 enum WeatherTabs: Int, CaseIterable {
@@ -62,10 +74,4 @@ enum DistanceUnits: String, CaseIterable {
     case miles = "Miles per hour"
     case kilometer = "Kilometers per hour"
     case meters = "Meters per second"
-}
-
-
-enum GeocodingErrors: Error {
-    case reverseGeocodingError
-    case goecodingError
 }

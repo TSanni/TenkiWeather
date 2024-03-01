@@ -10,7 +10,7 @@ import Charts
 
 struct WindTileView: View {
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     
     let windData: WindData
     let hourlyWeather: [HourlyWeatherModel]
@@ -19,7 +19,7 @@ struct WindTileView: View {
     let weatherViewModel = WeatherViewModel.shared
     
     var body: some View {
-        let color = appStateManager.blendColorWithTwentyPercentWhite(themeColor: backgroundColor)
+        let color = appStateViewModel.blendColorWithTwentyPercentWhite(themeColor: backgroundColor)
 
         VStack(alignment: .leading) {
             Text("Wind")
@@ -46,7 +46,7 @@ struct WindTileView: View {
                             }
                         }
                     }
-                    .onChange(of: appStateManager.resetViews) { _ in
+                    .onChange(of: appStateViewModel.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
                     
@@ -160,7 +160,7 @@ struct WindView_Previews: PreviewProvider {
                     setTodayWeather: true,
                     backgroundColor: Color(uiColor: K.ColorsConstants.haze)
                 )
-                .environmentObject(AppStateManager.shared)
+                .environmentObject(AppStateViewModel.shared)
                 
             }
         }

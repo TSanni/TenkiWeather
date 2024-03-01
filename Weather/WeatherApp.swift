@@ -31,9 +31,9 @@ struct WeatherApp: App {
     @Environment(\.scenePhase) var scenePhase
 
     @StateObject private var weatherViewModel = WeatherViewModel.shared
-    @StateObject private var persistenceLocations = SavedLocationsPersistence.shared
-    @StateObject private var locationManager = CoreLocationViewModel.shared
-    @StateObject private var appStateManager = AppStateManager.shared
+    @StateObject private var persistenceLocations = SavedLocationsPersistenceViewModel.shared
+    @StateObject private var locationViewModel = CoreLocationViewModel.shared
+    @StateObject private var appStateViewModel = AppStateViewModel.shared
     @StateObject private var networkManager = NetworkMonitor()
     
     var body: some Scene {
@@ -42,20 +42,20 @@ struct WeatherApp: App {
                 MainScreen()
                     .environmentObject(weatherViewModel)
                     .environmentObject(persistenceLocations)
-                    .environmentObject(locationManager)
-                    .environmentObject(appStateManager)
+                    .environmentObject(locationViewModel)
+                    .environmentObject(appStateViewModel)
                     .environmentObject(networkManager)
             }
             .navigationViewStyle(.stack)
             .task {
-                  if locationManager.authorizationStatus == .authorizedWhenInUse {
-                      await appStateManager.getWeather()
+                  if locationViewModel.authorizationStatus == .authorizedWhenInUse {
+                      await appStateViewModel.getWeather()
                   }
               }
-              .onChange(of: locationManager.authorizationStatus) { newValue in
+              .onChange(of: locationViewModel.authorizationStatus) { newValue in
                   if newValue == .authorizedWhenInUse {
                       Task {
-                          await appStateManager.getWeather()
+                          await appStateViewModel.getWeather()
                       }
                   }
               }
@@ -65,7 +65,7 @@ struct WeatherApp: App {
                       Task {
                           if -savedDate.timeIntervalSinceNow > 60 * 10 {
                               // 10 minutes have passed, refresh the data
-                              await appStateManager.getWeather()
+                              await appStateViewModel.getWeather()
                               savedDate = Date()
                           } else {
                               // 10 minutes have NOT passed, do nothing

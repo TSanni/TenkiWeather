@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
     var body: some View {
         
@@ -29,7 +29,7 @@ struct SearchBar: View {
                     .scaledToFit()
                     .frame(width: 30, height: 30)
                     .onTapGesture {
-                            appStateManager.showSettingScreen = true
+                            appStateViewModel.showSettingScreen = true
                     }
             
 
@@ -54,7 +54,7 @@ struct SearchBar_Previews: PreviewProvider {
             Color.indigo
             SearchBar()
                 .environmentObject(CoreLocationViewModel.shared)
-                .environmentObject(AppStateManager.shared)
+                .environmentObject(AppStateViewModel.shared)
 
         }
         

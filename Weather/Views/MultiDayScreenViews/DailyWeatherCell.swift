@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DailyWeatherCell: View {
-    @EnvironmentObject private var appStateManager: AppStateManager
+    @EnvironmentObject private var appStateViewModel: AppStateViewModel
     @State private var showRest: Bool = false
     let weatherViewModel = WeatherViewModel.shared
     let daily: DailyWeatherModel
@@ -43,7 +43,7 @@ struct DailyWeatherCell: View {
             .padding(.vertical, 10)
             .padding(.horizontal)
         }
-        .onChange(of: appStateManager.resetViews) { _ in
+        .onChange(of: appStateViewModel.resetViews) { _ in
             showRest = false
         }
     }
@@ -159,6 +159,6 @@ struct DailyWeatherCell: View {
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
         DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: nil)
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(AppStateViewModel.shared)
     }
 }

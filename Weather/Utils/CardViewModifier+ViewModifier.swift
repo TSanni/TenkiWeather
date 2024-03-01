@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CardViewModifier: ViewModifier {
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     
     let backgroundColor: Color
     
@@ -22,7 +22,7 @@ struct CardViewModifier: ViewModifier {
                     RoundedRectangle(cornerRadius: K.tileCornerRadius)
                         .stroke(lineWidth: 0.5)
                         .fill(.white)
-                    RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(appStateManager.blendColorWithTwentyPercentWhite(themeColor: backgroundColor))
+                    RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(appStateViewModel.blendColorWithTwentyPercentWhite(themeColor: backgroundColor))
                 }
             }
             .aspectRatio(1, contentMode: .fit)

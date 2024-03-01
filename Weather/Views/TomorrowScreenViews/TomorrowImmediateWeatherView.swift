@@ -9,13 +9,13 @@ import SwiftUI
 
 struct TomorrowImmediateWeatherView: View {
     let tomorrowWeather: DailyWeatherModel
-    @EnvironmentObject var appState: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
 
     
     var body: some View {
-        let imageSymbol = appState.fillImageToPrepareForRendering(symbol: tomorrowWeather.symbolName)
-        let blendColor1 = appState.blendColors(themeColor: tomorrowWeather.backgroundColor)
-        let blendColor2 = appState.blendColors2(themeColor: tomorrowWeather.backgroundColor)
+        let imageSymbol = appStateViewModel.fillImageToPrepareForRendering(symbol: tomorrowWeather.symbolName)
+        let blendColor1 = appStateViewModel.blendColors(themeColor: tomorrowWeather.backgroundColor)
+        let blendColor2 = appStateViewModel.blendColors2(themeColor: tomorrowWeather.backgroundColor)
         
         VStack(alignment: .leading) {
             Text(tomorrowWeather.readableDate)
@@ -52,7 +52,7 @@ struct TomorrowImmediateWeatherView: View {
     ZStack {
         DailyWeatherModel.placeholder.backgroundColor
         TomorrowImmediateWeatherView(tomorrowWeather: DailyWeatherModel.placeholder)
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(AppStateViewModel.shared)
 
     }
 }

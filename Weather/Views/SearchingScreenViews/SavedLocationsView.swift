@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SavedLocationsView: View {
-    @EnvironmentObject var persistence: SavedLocationsPersistence
+    @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
 
     var body: some View {
         List {
@@ -28,7 +28,7 @@ struct SavedLocationsView: View {
                     .padding(.top)
                     .onTapGesture {
                         Task {
-                            await appStateManager.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
+                            await appStateViewModel.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
                             persistence.saveData()
                         }
                     }
@@ -45,6 +45,6 @@ struct SavedLocationsView: View {
 struct SavedLocationsView_Previews: PreviewProvider {
     static var previews: some View {
         SavedLocationsView()
-            .environmentObject(SavedLocationsPersistence.shared)
+            .environmentObject(SavedLocationsPersistenceViewModel.shared)
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TabViews: View {
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     @Binding var tabViews: WeatherTabs
 
     var body: some View {
@@ -20,19 +20,19 @@ struct TabViews: View {
                 .tag(WeatherTabs.today)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
-                .environmentObject(appStateManager)
+                .environmentObject(appStateViewModel)
             
             TomorrowScreen(dailyWeather: weatherViewModel.tomorrowWeather)
                 .tag(WeatherTabs.tomorrow)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
-                .environmentObject(appStateManager)
+                .environmentObject(appStateViewModel)
             
             MultiDayScreen(daily: weatherViewModel.dailyWeather)
                 .tag(WeatherTabs.multiDay)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(weatherViewModel)
-                .environmentObject(appStateManager)
+                .environmentObject(appStateViewModel)
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .edgesIgnoringSafeArea(.bottom)
@@ -43,5 +43,5 @@ struct TabViews: View {
 #Preview {
     TabViews( tabViews: .constant(.today))
         .environmentObject(WeatherViewModel.shared)
-        .environmentObject(AppStateManager.shared)
+        .environmentObject(AppStateViewModel.shared)
 }

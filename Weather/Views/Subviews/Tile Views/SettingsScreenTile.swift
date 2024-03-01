@@ -13,8 +13,8 @@ struct SettingsScreenTile: View {
     @Environment(\.colorScheme) var colorScheme
     @AppStorage(K.UserDefaultKeys.unitTemperatureKey) var temperatureUnit: TemperatureUnits = .fahrenheit
     @AppStorage(K.UserDefaultKeys.unitDistanceKey) var distanceUnit: DistanceUnits = .miles
-    @EnvironmentObject var appStateManager: AppStateManager
-    @EnvironmentObject var persistence: SavedLocationsPersistence
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
+    @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
     @State private var locationSaved: Bool = false
     @State private var showPrivacyWebsite = false
     @State private var showTermsAndConditionsWebsite = false
@@ -49,7 +49,7 @@ struct SettingsScreenTile: View {
     var header: some View {
         HStack {
             Button {
-                appStateManager.showSettingScreen = false
+                appStateViewModel.showSettingScreen = false
             } label: {
                 Image(systemName: "xmark")
             }
@@ -102,7 +102,7 @@ struct SettingsScreenTile: View {
                         Spacer()
                         
                         VStack {
-                            Text("\(appStateManager.searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] as? String ?? "")")
+                            Text("\(appStateViewModel.searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] as? String ?? "")")
                                 .foregroundStyle(.green)
                             
                             Text("Click to save this location")
@@ -154,7 +154,7 @@ struct SettingsScreenTile: View {
         } else {
             alertTitle = Text("Saved")
             alertMessage =  Text("Location saved to favorites")
-            persistence.addLocation(locationDictionary: appStateManager.searchedLocationDictionary)
+            persistence.addLocation(locationDictionary: appStateViewModel.searchedLocationDictionary)
         }
         
         locationSaved.toggle()
@@ -166,7 +166,7 @@ struct SettingsScreenTile: View {
     ZStack {
         Color.gray.ignoresSafeArea()
         SettingsScreenTile()
-            .environmentObject(AppStateManager.shared)
-            .environmentObject(SavedLocationsPersistence.shared)
+            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(SavedLocationsPersistenceViewModel.shared)
     }
 }

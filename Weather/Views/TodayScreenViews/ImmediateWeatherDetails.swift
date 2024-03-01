@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ImmediateWeatherDetails: View {
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     
     let currentWeather: TodayWeatherModel
 
     
     var body: some View {
-        let imageSymbol = appStateManager.fillImageToPrepareForRendering(symbol: currentWeather.symbolName)
-        let blendColor1 = appStateManager.blendColors(themeColor: currentWeather.backgroundColor)
-        let blendColor2 = appStateManager.blendColors2(themeColor: currentWeather.backgroundColor)
+        let imageSymbol = appStateViewModel.fillImageToPrepareForRendering(symbol: currentWeather.symbolName)
+        let blendColor1 = appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor)
+        let blendColor2 = appStateViewModel.blendColors2(themeColor: currentWeather.backgroundColor)
 
         
         
@@ -64,7 +64,7 @@ struct ImmediateWeatherDetails: View {
     ZStack {
         TodayWeatherModel.holderData.backgroundColor
         ImmediateWeatherDetails(currentWeather: TodayWeatherModel.holderData)
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(AppStateViewModel.shared)
     }
 }
 

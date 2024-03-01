@@ -9,7 +9,7 @@ import SwiftUI
 
 //MARK: - Today Screen View
 struct TodayScreen: View {
-    @EnvironmentObject private var appStateManager: AppStateManager
+    @EnvironmentObject private var appStateViewModel: AppStateViewModel
     
     let currentWeather: TodayWeatherModel
     let weatherAlert: WeatherAlertModel?
@@ -45,7 +45,7 @@ struct TodayScreen: View {
                             Text("Hourly forecast")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
+                                .foregroundStyle(appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor))
                             
                             HourlyForecastTileView(
                                 hourlyTemperatures: currentWeather.hourlyWeather,
@@ -55,9 +55,9 @@ struct TodayScreen: View {
                             Text("Current conditions")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
+                                .foregroundStyle(appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor))
                             
-                            LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
+                            LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
                                 
                                 HumidityTileView(
                                     humidity: currentWeather.humidity,
@@ -97,9 +97,9 @@ struct TodayScreen: View {
                             Text("Sun Data")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(appStateManager.blendColors(themeColor: currentWeather.backgroundColor))
+                                .foregroundStyle(appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor))
                             
-                            LazyVGrid(columns: appStateManager.getGridColumnAndSize(geo: geo)) {
+                            LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
                                 
                                 SunDataTile(
                                     sundata: currentWeather.sunData,
@@ -117,7 +117,7 @@ struct TodayScreen: View {
                             .padding(.bottom)
                         }
                     }
-                    .onChange(of: appStateManager.resetViews) { _ in
+                    .onChange(of: appStateViewModel.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
                 }
@@ -135,7 +135,7 @@ struct TodayScreen: View {
 struct TodayScreen_Previews: PreviewProvider {
     static var previews: some View {
         TodayScreen(currentWeather: TodayWeatherModel.holderData, weatherAlert: nil)
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(AppStateViewModel.shared)
             .environmentObject(WeatherViewModel.shared)
     }
 }

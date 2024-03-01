@@ -34,9 +34,9 @@ import GooglePlaces
     
     static let shared  = AppStateViewModel()
     let weatherManager = WeatherManager.shared
-    let locationManager = CoreLocationViewModel.shared
+    let locationViewModel = CoreLocationViewModel.shared
     let weatherViewModel = WeatherViewModel.shared
-    let persistence = SavedLocationsPersistence.shared
+    let persistence = SavedLocationsPersistenceViewModel.shared
 
     
     private init() { }
@@ -132,14 +132,14 @@ import GooglePlaces
     func getWeatherAndUpdateDictionaryFromSavedLocation(item: LocationEntity) async {
         toggleShowSearchScreen()
         dataIsLoading()
-        await locationManager.getLocalLocationName()
-        await locationManager.getSearchedLocationName(lat: item.latitude, lon: item.longitude, nameFromGoogle: nil)
-        await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationManager.timezoneForCoordinateInput)
-        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: locationManager.localLocationName, timezone: currentLocationTimezone)
+        await locationViewModel.getLocalLocationName()
+        await locationViewModel.getSearchedLocationName(lat: item.latitude, lon: item.longitude, nameFromGoogle: nil)
+        await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationViewModel.timezoneForCoordinateInput)
+        await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: locationViewModel.localLocationName, timezone: currentLocationTimezone)
         
-        locationManager.searchedLocationName = item.name!
+        locationViewModel.searchedLocationName = item.name!
 
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationManager.searchedLocationName
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationViewModel.searchedLocationName
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = item.longitude
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = item.latitude
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = item.timezone
@@ -151,17 +151,17 @@ import GooglePlaces
     func getWeatherAndUpdateDictionaryFromLocation() async {
         toggleShowSearchScreen()
         dataIsLoading()
-        await locationManager.getLocalLocationName()
-        let timezone = locationManager.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-        let userLocationName = locationManager.localLocationName
-        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
-        locationManager.searchedLocationName = userLocationName
+        await locationViewModel.getLocalLocationName()
+        let timezone = locationViewModel.timezoneForCoordinateInput
+        await weatherViewModel.getWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezone: timezone)
+        let userLocationName = locationViewModel.localLocationName
+        await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezone: timezone)
+        locationViewModel.searchedLocationName = userLocationName
         
         setCurrentLocationName(name: userLocationName)
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationManager.searchedLocationName
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = locationManager.latitude
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = locationManager.longitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationViewModel.searchedLocationName
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = locationViewModel.latitude
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = locationViewModel.longitude
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = timezone
         
         
@@ -173,12 +173,12 @@ import GooglePlaces
         
         dataIsLoading()
         let coordinates = place.coordinate
-        await locationManager.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
-        let timezone = locationManager.timezoneForCoordinateInput
+        await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
+        let timezone = locationViewModel.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         
         setSearchedLocationDictionary(
-            name: locationManager.searchedLocationName,
+            name: locationViewModel.searchedLocationName,
             latitude: coordinates.latitude,
             longitude: coordinates.longitude,
             timezone: timezone,
@@ -197,12 +197,12 @@ import GooglePlaces
     func getWeather() async {
         dataIsLoading()
         
-        await locationManager.getLocalLocationName()
-        locationManager.searchedLocationName = locationManager.localLocationName
-        let timezone = locationManager.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, timezone: timezone)
-        let userLocationName = locationManager.localLocationName
-        await weatherViewModel.getLocalWeather(latitude: locationManager.latitude, longitude: locationManager.longitude, name: userLocationName, timezone: timezone)
+        await locationViewModel.getLocalLocationName()
+        locationViewModel.searchedLocationName = locationViewModel.localLocationName
+        let timezone = locationViewModel.timezoneForCoordinateInput
+        await weatherViewModel.getWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezone: timezone)
+        let userLocationName = locationViewModel.localLocationName
+        await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezone: timezone)
         
         setCurrentLocationName(name: userLocationName)
         setCurrentLocationTimezone(timezone: timezone)
@@ -210,8 +210,8 @@ import GooglePlaces
         
         setSearchedLocationDictionary(
             name: userLocationName,
-            latitude: locationManager.latitude,
-            longitude: locationManager.longitude,
+            latitude: locationViewModel.latitude,
+            longitude: locationViewModel.longitude,
             timezone: timezone,
             temperature: weatherViewModel.currentWeather.currentTemperature,
             date: weatherViewModel.currentWeather.readableDate,

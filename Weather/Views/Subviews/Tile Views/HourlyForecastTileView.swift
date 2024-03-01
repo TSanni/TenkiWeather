@@ -11,12 +11,12 @@ import SwiftUI
 
 
 struct HourlyForecastTileView: View {
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     let hourlyTemperatures: [HourlyWeatherModel]
     let color: Color
 
     var body: some View {
-        let color = appStateManager.blendColorWithTwentyPercentWhite(themeColor: color)
+        let color = appStateViewModel.blendColorWithTwentyPercentWhite(themeColor: color)
         
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { proxy in
@@ -27,7 +27,7 @@ struct HourlyForecastTileView: View {
                         EmptyView()
                             .id(0)
                         ForEach(hourlyTemperatures) { item in
-                            let imageName = appStateManager.fillImageToPrepareForRendering(symbol: item.symbol)
+                            let imageName = appStateViewModel.fillImageToPrepareForRendering(symbol: item.symbol)
                             
                             VStack(spacing: 7.0) {
                                 Text(item.hourTemperature + "°")
@@ -71,7 +71,7 @@ struct HourlyForecastTileView: View {
                     }
                     
                 }
-                .onChange(of: appStateManager.resetViews) { _ in
+                .onChange(of: appStateViewModel.resetViews) { _ in
                     proxy.scrollTo(0)
                 }
             }
@@ -110,6 +110,6 @@ func convertStringToCGFloat(precipitationString: String) -> CGFloat {
             hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData,
             color: Color(uiColor: K.ColorsConstants.haze)
         )
-        .environmentObject(AppStateManager.shared)
+        .environmentObject(AppStateViewModel.shared)
     }
 }

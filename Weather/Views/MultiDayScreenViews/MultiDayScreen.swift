@@ -11,7 +11,7 @@ import SwiftUI
 struct MultiDayScreen: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject private var appStateManager: AppStateManager
+    @EnvironmentObject private var appStateViewModel: AppStateViewModel
 
     @State private var showWebView = false
     let daily: [DailyWeatherModel]
@@ -61,7 +61,7 @@ struct MultiDayScreen: View {
                             CustomDivider()
                         }
                     }
-                    .onChange(of: appStateManager.resetViews) { _ in
+                    .onChange(of: appStateViewModel.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
                 }
@@ -79,7 +79,7 @@ struct MultiDayScreen: View {
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
         MultiDayScreen(daily: [DailyWeatherModel.placeholder])
-                .environmentObject(AppStateManager.shared)
+                .environmentObject(AppStateViewModel.shared)
     }
 }
  

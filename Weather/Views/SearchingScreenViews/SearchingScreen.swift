@@ -11,10 +11,10 @@ import GooglePlaces
 struct SearchingScreen: View {
     @State private var showGoogleSearchScreen: Bool = false
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var persistenceLocations: SavedLocationsPersistence
+    @EnvironmentObject var persistenceLocations: SavedLocationsPersistenceViewModel
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     
     //MARK: - Main View
     var body: some View {
@@ -29,7 +29,7 @@ struct SearchingScreen: View {
                     .padding(.bottom)
                     .onTapGesture {
                         Task {
-                            await appStateManager.getWeatherAndUpdateDictionaryFromLocation()
+                            await appStateViewModel.getWeatherAndUpdateDictionaryFromLocation()
                             persistenceLocations.saveData()
                         }
                     }
@@ -52,7 +52,7 @@ struct SearchingScreen: View {
         .sheet(isPresented: $showGoogleSearchScreen) {
             PlacesViewControllerBridge { place in
                 Task {
-                    await appStateManager.getWeatherWithGoogleData(place: place, currentWeather: weatherViewModel.currentWeather)
+                    await appStateViewModel.getWeatherWithGoogleData(place: place, currentWeather: weatherViewModel.currentWeather)
                     persistenceLocations.saveData()
                 }
                 
@@ -64,7 +64,7 @@ struct SearchingScreen: View {
     var textFieldAndBackButton: some View {
         HStack {
             Button {
-                appStateManager.toggleShowSearchScreen()
+                appStateViewModel.toggleShowSearchScreen()
             } label: {
                 Image(systemName: "arrow.left")
                     .contentShape(Rectangle())
@@ -88,7 +88,7 @@ struct SearchingView_Previews: PreviewProvider {
         SearchingScreen()
             .environmentObject(WeatherViewModel.shared)
             .environmentObject(CoreLocationViewModel.shared)
-            .environmentObject(AppStateManager.shared)
-            .environmentObject(SavedLocationsPersistence.shared)
+            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(SavedLocationsPersistenceViewModel.shared)
     }
 }

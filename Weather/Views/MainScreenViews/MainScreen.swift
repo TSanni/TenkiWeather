@@ -17,7 +17,7 @@ struct MainScreen: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var appStateManager: AppStateManager
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var networkManager: NetworkMonitor
     
     @State var tabViews: WeatherTabs = .today
@@ -28,7 +28,7 @@ struct MainScreen: View {
             VStack(spacing: 0) {
                 SearchBar()
                     .onTapGesture {
-                        appStateManager.toggleShowSearchScreen()
+                        appStateViewModel.toggleShowSearchScreen()
                     }
                 
                 WeatherTabSelectionsView(tabViews: $tabViews)
@@ -45,7 +45,7 @@ struct MainScreen: View {
             }
             .zIndex(0)
             .background(getBarColor.brightness(-0.1).ignoresSafeArea())
-            .disabled(appStateManager.showSettingScreen ? true : false)
+            .disabled(appStateViewModel.showSettingScreen ? true : false)
             .animation(.default, value: tabViews)
 
 
@@ -57,9 +57,9 @@ struct MainScreen: View {
             progresView
             
         }
-        .redacted(reason: appStateManager.loading ? .placeholder : [])
-        .animation(.default, value: appStateManager.showSettingScreen)
-        .fullScreenCover(isPresented: $appStateManager.showSearchScreen) {
+        .redacted(reason: appStateViewModel.loading ? .placeholder : [])
+        .animation(.default, value: appStateViewModel.showSettingScreen)
+        .fullScreenCover(isPresented: $appStateViewModel.showSearchScreen) {
             SearchingScreen()
             
         }
@@ -76,7 +76,7 @@ struct MainScreen: View {
         } message: {
             Text(weatherViewModel.errorPublisher.errorMessage)
         }
-        .onChange(of: appStateManager.resetViews) { _ in
+        .onChange(of: appStateViewModel.resetViews) { _ in
             tabViews = .today
         }
 
@@ -102,10 +102,10 @@ extension MainScreen {
     
     private var blurBackGround: some View {
         Group {
-            if appStateManager.showSettingScreen {
+            if appStateViewModel.showSettingScreen {
                 Color.black.ignoresSafeArea().opacity(0.5)
                     .onTapGesture {
-                            appStateManager.showSettingScreen = false
+                            appStateViewModel.showSettingScreen = false
                     }
             }
         }
@@ -114,7 +114,7 @@ extension MainScreen {
     
     @ViewBuilder
     private var settingsTile: some View {
-        if appStateManager.showSettingScreen {
+        if appStateViewModel.showSettingScreen {
             SettingsScreenTile()
                 .padding()
                 .zIndex(1)
@@ -124,7 +124,7 @@ extension MainScreen {
     
     @ViewBuilder
     private var progresView: some View {
-        if appStateManager.loading {
+        if appStateViewModel.loading {
             ProgressView()
         }
     }
@@ -140,7 +140,7 @@ struct MainScreen_Previews: PreviewProvider {
         MainScreen()
             .environmentObject(WeatherViewModel.shared)
             .environmentObject(CoreLocationViewModel.shared)
-            .environmentObject(AppStateManager.shared)
+            .environmentObject(AppStateViewModel.shared)
             .environmentObject(NetworkMonitor())
     }
 }
