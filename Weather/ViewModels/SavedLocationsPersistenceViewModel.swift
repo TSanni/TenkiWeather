@@ -1,5 +1,5 @@
 //
-//  SavedLocationsPersistence.swift
+//  SavedLocationsPersistenceViewModel.swift
 //  Weather
 //
 //  Created by Tomas Sanni on 6/19/23.
@@ -8,8 +8,8 @@
 import Foundation
 import CoreData
 
-class SavedLocationsPersistence: ObservableObject {
-    static let shared = SavedLocationsPersistence()
+class SavedLocationsPersistenceViewModel: ObservableObject {
+    static let shared = SavedLocationsPersistenceViewModel()
 
     let container: NSPersistentContainer
     let weatherManager = WeatherManager.shared

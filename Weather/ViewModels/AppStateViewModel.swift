@@ -1,5 +1,5 @@
 //
-//  AppStateManager.swift
+//  AppStateViewModel.swift
 //  Weather
 //
 //  Created by Tomas Sanni on 7/1/23.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import GooglePlaces
 
-@MainActor class AppStateManager: ObservableObject {
+@MainActor class AppStateViewModel: ObservableObject {
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
     @Published var resetViews: Bool = false
@@ -32,7 +32,7 @@ import GooglePlaces
         K.LocationDictionaryKeysConstants.weatherCondition: ""
     ]
     
-    static let shared  = AppStateManager()
+    static let shared  = AppStateViewModel()
     let weatherManager = WeatherManager.shared
     let locationManager = CoreLocationViewModel.shared
     let weatherViewModel = WeatherViewModel.shared
