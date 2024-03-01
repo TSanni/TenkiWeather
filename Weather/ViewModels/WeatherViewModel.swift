@@ -75,9 +75,4 @@ class WeatherViewModel: ObservableObject {
             }
         }
     }
-
-
-    
-
-
 }

@@ -60,7 +60,8 @@ struct TomorrowScreen: View {
                                     
                                     PrecipitationTileView(
                                         precipiation: dailyWeather.precipitationChance,
-                                        precipitationDescription: dailyWeather.precipitationType,
+                                        precipitationDescription: dailyWeather.precipitationType, 
+                                        precipitationFooter: dailyWeather.dayChanceOfPrecipitation,
                                         backgroundColor: dailyWeather.backgroundColor
                                     )
                                     

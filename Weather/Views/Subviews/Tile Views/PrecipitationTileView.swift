@@ -10,6 +10,7 @@ import SwiftUI
 struct PrecipitationTileView: View {
     let precipiation: Double
     let precipitationDescription: String
+    let precipitationFooter: String
     let backgroundColor: Color
     
     var body: some View {
@@ -48,7 +49,7 @@ struct PrecipitationTileView: View {
             
             Spacer()
             
-            Text(precipiation.formatted(.percent) + " chance of precipitation.")
+            Text(precipitationFooter)
                 .font(.subheadline)
         }
         .cardTileModifier(backgroundColor: backgroundColor)
@@ -58,7 +59,8 @@ struct PrecipitationTileView: View {
 #Preview {
     PrecipitationTileView(
         precipiation: 0.5,
-        precipitationDescription: "",
+        precipitationDescription: "Hail", 
+        precipitationFooter: "200% Chance of precipitation",
         backgroundColor: .red
     )
     .frame(width: 200)
