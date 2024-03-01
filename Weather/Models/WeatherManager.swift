@@ -22,9 +22,7 @@ actor WeatherManager {
             throw WeatherErrors.failedToGetWeatherKitData
         }
     }
-    
-    
-    
+
     //MARK: - Get the Current Weather
     // add a parameter here that takes UnitTemperature type
     func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> TodayWeatherModel {
@@ -97,7 +95,6 @@ actor WeatherManager {
         )
 
         return todaysWeather
-                
     }
     
     //MARK: - Get Tomorrow's Weather
@@ -141,9 +138,7 @@ actor WeatherManager {
         )
         
         return tomorrowsWeather
-
     }
-
     
     //MARK: - Get the Daily Weather
     func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> [DailyWeatherModel] {
@@ -188,12 +183,10 @@ actor WeatherManager {
                     timezone: timezoneOffset
                 )
             )
-            
         }
 
         return daily
     }
-
     
     //MARK: - Get Optional Weather Alert
     func getWeatherAlert(optionalWeatherAlert: [WeatherAlert]?) -> WeatherAlertModel? {
@@ -222,11 +215,7 @@ actor WeatherManager {
         } else { /// if the optionalWeatherAlert passed in is NIL
             return nil
         }
-        
-        
     }
-
-
 }
 
 
@@ -237,14 +226,12 @@ extension WeatherManager {
     private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyWeatherModel] {
         var twentyfourHours: [HourlyWeatherModel] = []
         
-        
         /// Gets all hourly forecasts starting with 7AM that day
         let nextDayWeatherHours = hours.filter({ hourWeather in
             /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
             return hourWeather.date >= day.date.advanced(by: K.TimeConstants.sevenHoursInSeconds)
         })
         
-
         //TODO: Add error handling to catch when the there aren't enough hours
         for i in 0..<K.TimeConstants.fifteenHours {
             
@@ -266,73 +253,5 @@ extension WeatherManager {
         }
         
         return twentyfourHours
-        
-    }
-}
-
-
-
-//MARK: - Public functions
-extension WeatherManager {
-
-    /// Takes a CompassDirection and returns a Double which indicates the angle the current compass direction.
-    /// One use can be to properly set rotation effects on views
-   nonisolated func getRotation(direction: Wind.CompassDirection) -> Double {
-        // starting pointing east. Subtract 90 to point north
-        // Think of this as 0 on a pie chart
-        let zero: Double = 45
-
-        switch direction {
-            case .north:
-                return zero - 90
-            case .northNortheast:
-                return zero - 67.5
-            case .northeast:
-                return zero - 45
-            case .eastNortheast:
-                return zero - 22.5
-            case .east:
-                return zero
-            case .eastSoutheast:
-                return zero + 22.5
-            case .southeast:
-                return zero + 45
-            case .southSoutheast:
-                return zero + 67.5
-            case .south:
-                return zero + 90
-            case .southSouthwest:
-                return zero + 112.5
-            case .southwest:
-                return zero + 135
-            case .westSouthwest:
-                return zero + 157.5
-            case .west:
-                return zero - 180
-            case .westNorthwest:
-                return zero - 157.5
-            case .northwest:
-                return zero - 135
-            case .northNorthwest:
-                return zero - 112.5
-        }
-    }
-        
-    /// Manually checks for SF Symbols that do not have the fill option and returns that image without .fill added.
-    /// Otherwise, .fill is added to the end of the symbol name
-    //TODO: Add more sf symbols
-   nonisolated func getImage(imageName: String) -> String {
-        switch imageName {
-            case "wind":
-                return imageName
-            case "snowflake":
-                return imageName
-            case "tornado":
-                return imageName
-            case "snow":
-                return imageName
-            default:
-                return imageName + ".fill"
-        }
     }
 }

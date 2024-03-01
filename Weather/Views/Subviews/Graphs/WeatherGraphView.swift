@@ -13,7 +13,7 @@ struct WeatherGraphView: View {
     let hourlyTemperatures: [HourlyWeatherModel]
     let graphColor: Color
     let precipitationBlueColor = K.ColorsConstants.precipitationBlue
-    let weatherManager = WeatherManager.shared
+    let weatherViewModel = WeatherViewModel.shared
 
     var body: some View {
 
@@ -72,7 +72,7 @@ struct WeatherGraphView: View {
                 AxisValueLabel {
                     VStack(spacing: 0) {
                         /// weather icon
-                        Image(systemName: weatherManager.getImage(imageName: hourlyTemperatures[q.index].symbol))
+                        Image(systemName: weatherViewModel.getImage(imageName: hourlyTemperatures[q.index].symbol))
                             .renderingMode(.original)
                             .font(.title2)
                             .frame(width: 30, height: 30)
