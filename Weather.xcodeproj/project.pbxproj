@@ -14,10 +14,6 @@
 		8313DE8C2B6289A10031C5E7 /* SavedLocationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE8B2B6289A10031C5E7 /* SavedLocationImageView.swift */; };
 		8313DE8E2B62CCD10031C5E7 /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE8D2B62CCD10031C5E7 /* CurrentLocationView.swift */; };
 		8313DE942B63DB890031C5E7 /* TabViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8313DE932B63DB890031C5E7 /* TabViews.swift */; };
-		833837FD2B8D00E7001858C7 /* SunDataTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833837F92B8D00E7001858C7 /* SunDataTile.swift */; };
-		833837FE2B8D00E7001858C7 /* HumidityTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833837FA2B8D00E7001858C7 /* HumidityTileView.swift */; };
-		833837FF2B8D00E7001858C7 /* VisibilityTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833837FB2B8D00E7001858C7 /* VisibilityTileView.swift */; };
-		833838002B8D00E7001858C7 /* UVIndexTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833837FC2B8D00E7001858C7 /* UVIndexTileView.swift */; };
 		833838022B8D016A001858C7 /* TileImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833838012B8D016A001858C7 /* TileImageProgressView.swift */; };
 		834811602A58EAFB008EB616 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8348115F2A58EAFB008EB616 /* WebView.swift */; };
 		834E1F782A98C51800DB4DE5 /* WeatherAlertTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834E1F772A98C51800DB4DE5 /* WeatherAlertTileView.swift */; };
@@ -68,6 +64,10 @@
 		83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FC92A25BE35009720AB /* WeatherGraphView.swift */; };
 		83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD32A2B2892009720AB /* WindTileView.swift */; };
 		83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */; };
+		83EB28312B9769C700CFC390 /* HumidityTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EB28302B9769C700CFC390 /* HumidityTileView.swift */; };
+		83EB28332B976A4700CFC390 /* UVIndexTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EB28322B976A4700CFC390 /* UVIndexTileView.swift */; };
+		83EB28352B976A5500CFC390 /* VisibilityTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EB28342B976A5500CFC390 /* VisibilityTileView.swift */; };
+		83EB28372B976A6000CFC390 /* SunDataTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EB28362B976A6000CFC390 /* SunDataTile.swift */; };
 		83FD51F52B86F03E008F875B /* UnitTemperatureTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD51F42B86F03E008F875B /* UnitTemperatureTransformer.swift */; };
 		83FD51F72B87B56B008F875B /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD51F62B87B56B008F875B /* UIColor+extension.swift */; };
 		83FD51F92B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD51F82B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift */; };
@@ -91,10 +91,6 @@
 		8313DE8D2B62CCD10031C5E7 /* CurrentLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 		8313DE932B63DB890031C5E7 /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
 		83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tenki Weather.entitlements"; sourceTree = "<group>"; };
-		833837F92B8D00E7001858C7 /* SunDataTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SunDataTile.swift; path = "../../../../../../../Downloads/Tiles/Tile Views/SunDataTile.swift"; sourceTree = "<group>"; };
-		833837FA2B8D00E7001858C7 /* HumidityTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HumidityTileView.swift; path = "../../../../../../../Downloads/Tiles/Tile Views/HumidityTileView.swift"; sourceTree = "<group>"; };
-		833837FB2B8D00E7001858C7 /* VisibilityTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VisibilityTileView.swift; path = "../../../../../../../Downloads/Tiles/Tile Views/VisibilityTileView.swift"; sourceTree = "<group>"; };
-		833837FC2B8D00E7001858C7 /* UVIndexTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UVIndexTileView.swift; path = "../../../../../../../Downloads/Tiles/Tile Views/UVIndexTileView.swift"; sourceTree = "<group>"; };
 		833838012B8D016A001858C7 /* TileImageProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileImageProgressView.swift; path = ../../../../../../Downloads/Tiles/TileImageProgressView.swift; sourceTree = "<group>"; };
 		8348115F2A58EAFB008EB616 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		834E1F772A98C51800DB4DE5 /* WeatherAlertTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlertTileView.swift; sourceTree = "<group>"; };
@@ -146,6 +142,10 @@
 		83E04FC92A25BE35009720AB /* WeatherGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherGraphView.swift; sourceTree = "<group>"; };
 		83E04FD32A2B2892009720AB /* WindTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindTileView.swift; sourceTree = "<group>"; };
 		83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
+		83EB28302B9769C700CFC390 /* HumidityTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityTileView.swift; sourceTree = "<group>"; };
+		83EB28322B976A4700CFC390 /* UVIndexTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexTileView.swift; sourceTree = "<group>"; };
+		83EB28342B976A5500CFC390 /* VisibilityTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityTileView.swift; sourceTree = "<group>"; };
+		83EB28362B976A6000CFC390 /* SunDataTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunDataTile.swift; sourceTree = "<group>"; };
 		83FD51F42B86F03E008F875B /* UnitTemperatureTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTemperatureTransformer.swift; sourceTree = "<group>"; };
 		83FD51F62B87B56B008F875B /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		83FD51F82B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewFrameViewModifier+ViewModifier.swift"; sourceTree = "<group>"; };
@@ -269,14 +269,14 @@
 			children = (
 				834E1F772A98C51800DB4DE5 /* WeatherAlertTileView.swift */,
 				838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */,
-				833837FA2B8D00E7001858C7 /* HumidityTileView.swift */,
-				833837FC2B8D00E7001858C7 /* UVIndexTileView.swift */,
-				833837FB2B8D00E7001858C7 /* VisibilityTileView.swift */,
 				8313DE852B61A20D0031C5E7 /* PressureTileView.swift */,
 				8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */,
-				833837F92B8D00E7001858C7 /* SunDataTile.swift */,
 				83E04FD32A2B2892009720AB /* WindTileView.swift */,
 				838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */,
+				83EB28302B9769C700CFC390 /* HumidityTileView.swift */,
+				83EB28322B976A4700CFC390 /* UVIndexTileView.swift */,
+				83EB28342B976A5500CFC390 /* VisibilityTileView.swift */,
+				83EB28362B976A6000CFC390 /* SunDataTile.swift */,
 			);
 			path = "Tile Views";
 			sourceTree = "<group>";
@@ -539,22 +539,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				83FD52012B87BA71008F875B /* CustomNavBackButton+ViewModifier.swift in Sources */,
+				83EB28332B976A4700CFC390 /* UVIndexTileView.swift in Sources */,
 				838FAE0B2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift in Sources */,
 				839F32F02A39198C0048EF05 /* HourlyWeatherModel.swift in Sources */,
+				83EB28352B976A5500CFC390 /* VisibilityTileView.swift in Sources */,
 				8313DE8A2B62699A0031C5E7 /* PrecipitationTileView.swift in Sources */,
 				83DA72EA2A419F9400C50C86 /* WeatherViewModel.swift in Sources */,
 				83FD52052B87BAD1008F875B /* View+extension.swift in Sources */,
 				83DA72E42A41414200C50C86 /* SavedLocations.xcdatamodeld in Sources */,
 				83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */,
-				833837FF2B8D00E7001858C7 /* VisibilityTileView.swift in Sources */,
 				835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */,
 				839F32EE2A3919510048EF05 /* SunModel.swift in Sources */,
 				8313DE882B61B69C0031C5E7 /* TomorrowImmediateWeatherView.swift in Sources */,
 				8313DE8E2B62CCD10031C5E7 /* CurrentLocationView.swift in Sources */,
-				833838002B8D00E7001858C7 /* UVIndexTileView.swift in Sources */,
 				83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */,
 				838461812A4C9DDC000B8E86 /* SettingsScreenTile.swift in Sources */,
 				83C4FFF12A34005F00DEF7F3 /* DailyWeatherModel.swift in Sources */,
+				83EB28312B9769C700CFC390 /* HumidityTileView.swift in Sources */,
 				83E04FC22A255FBC009720AB /* MainScreen.swift in Sources */,
 				83731A6A2A2FC2E400D481CA /* DailyWeatherCell.swift in Sources */,
 				83FD51F92B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift in Sources */,
@@ -582,7 +583,6 @@
 				83FD51F72B87B56B008F875B /* UIColor+extension.swift in Sources */,
 				837D7DB02B7139150031B296 /* SnowScene.swift in Sources */,
 				83FD51FB2B87B66E008F875B /* SettingsListBackgroundViewModifier+ViewModifier.swift in Sources */,
-				833837FD2B8D00E7001858C7 /* SunDataTile.swift in Sources */,
 				830279E22A9A5CE100E3487D /* NetworkMonitor.swift in Sources */,
 				834E1F782A98C51800DB4DE5 /* WeatherAlertTileView.swift in Sources */,
 				83E04FC42A25655F009720AB /* SearchBar.swift in Sources */,
@@ -595,9 +595,9 @@
 				83FD51FF2B87BA3E008F875B /* SubHeaderViewModifier+ViewModifier.swift in Sources */,
 				83DA72E62A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift in Sources */,
 				83B760932A67119C007075E2 /* LabelView.swift in Sources */,
+				83EB28372B976A6000CFC390 /* SunDataTile.swift in Sources */,
 				834811602A58EAFB008EB616 /* WebView.swift in Sources */,
 				83FD51FD2B87B6C4008F875B /* HeaderViewModifier+ViewModifier.swift in Sources */,
-				833837FE2B8D00E7001858C7 /* HumidityTileView.swift in Sources */,
 				83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */,
 				837D7DB82B7154270031B296 /* WeatherParticleEffectView.swift in Sources */,
 				8313DE942B63DB890031C5E7 /* TabViews.swift in Sources */,

@@ -13,14 +13,6 @@ struct TodayScreen: View {
     
     let currentWeather: TodayWeatherModel
     let weatherAlert: WeatherAlertModel?
-    
-    ///The humidity passed in is a value 0-1 representing a percentage.
-    ///This function multiplies that value by 100 to get a regular number
-    ///Ex) 0.2 will return 20
-    func convertHumidityFromPercentToDouble(humidity: Double) -> Double {
-        let newHumidity = humidity * 100
-        return newHumidity
-    }
 
     var body: some View {        
         GeometryReader { geo in
@@ -58,17 +50,15 @@ struct TodayScreen: View {
                                 .foregroundStyle(appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor))
                             
                             LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
-                                
                                 HumidityTileView(
                                     humidity: currentWeather.humidity,
-                                    humidityPercentage: currentWeather.humidityPercentage,
-                                    dewPointDescription: currentWeather.dewPointDescription, 
+                                    dewPointDescription: currentWeather.dewPointDescription,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
                                 UVIndexTileView(
-                                    uvIndexCategoryDescription: currentWeather.uvIndexCategoryDescription,
-                                    uvIndexValue: currentWeather.uvIndexValue,
+                                    uvIndexNumber: currentWeather.uvIndexValue,
+                                    uvIndexDescription: currentWeather.uvIndexCategoryDescription,
                                     uvIndexColor: currentWeather.uvIndexColor,
                                     uvIndexActionRecommendation: currentWeather.uvIndexActionRecommendation,
                                     backgroundColor: currentWeather.backgroundColor
@@ -80,6 +70,7 @@ struct TodayScreen: View {
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
+
                                 PressureTileView(
                                     pressureDetails: currentWeather,
                                     backgroundColor: currentWeather.backgroundColor

@@ -55,8 +55,8 @@ struct HourlyForecastTileView: View {
                         ForEach(hourlyTemperatures) { item in
                             HStack(spacing: 2) {
                                 TileImageProgressView(
-                                    height: 10, 
-                                    imageHeight: convertStringToCGFloat(precipitationString: item.chanceOfPrecipitation),
+                                    height: 10,
+                                    value: item.precipitationChance * 100,
                                     sfSymbol: "drop.fill",
                                     color: K.ColorsConstants.precipitationBlue
                                 )
@@ -93,15 +93,7 @@ struct HourlyForecastTileView: View {
 }
 
 
-func convertStringToCGFloat(precipitationString: String) -> CGFloat {
-    let removePercent = precipitationString.dropLast()
-    if let converted = Double(removePercent) {
-        return converted
-    } else {
-        return 50
-    }
-    
-}
+
 
 #Preview {
     ZStack {

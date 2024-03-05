@@ -49,10 +49,10 @@ struct TomorrowScreen: View {
                                     .foregroundStyle(appStateViewModel.blendColors(themeColor: dailyWeather.backgroundColor))
 
                                 
-                                LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) { 
+                                LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
                                     UVIndexTileView(
-                                        uvIndexCategoryDescription: dailyWeather.uvIndexCategoryDescription,
-                                        uvIndexValue: dailyWeather.uvIndexValue,
+                                        uvIndexNumber: dailyWeather.uvIndexValue,
+                                        uvIndexDescription: dailyWeather.uvIndexCategoryDescription,
                                         uvIndexColor: dailyWeather.uvIndexColor,
                                         uvIndexActionRecommendation: dailyWeather.uvIndexActionRecommendation,
                                         backgroundColor: dailyWeather.backgroundColor
@@ -76,10 +76,8 @@ struct TomorrowScreen: View {
                                         backgroundColor: dailyWeather.backgroundColor,
                                         isSunrise: false
                                     )
-
                                 }
                                 .padding()
-                                
                             }
                             
                             WindTileView(

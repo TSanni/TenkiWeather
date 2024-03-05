@@ -39,6 +39,8 @@ struct HourlyWeatherModel: Identifiable {
         HourlyWeatherModel(temperature: Measurement(value: 50, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date.now, precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
         HourlyWeatherModel(temperature: Measurement(value: 50, unit: .fahrenheit), wind: WindData.windDataHolder[1], date: Date.now, precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
 
+        HourlyWeatherModel(temperature: Measurement(value: 50, unit: .fahrenheit), wind: WindData.windDataHolder[1], date: Date.now, precipitationChance: 0, symbol: "sun.max", timezone: 0),
+
     ]
 }
 
