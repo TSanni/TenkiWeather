@@ -69,7 +69,7 @@ struct MultiDayScreen: View {
             }
         }
         .fullScreenCover(isPresented: $showWebView) {
-            FullScreenWebView(url: "https://weatherkit.apple.com/legal-attribution.html")
+            FullScreenWebView(url: K.legalAttributionURL)
         }
     }
 }

@@ -193,10 +193,6 @@ extension TodayWeatherModel {
         return temperatureValueOnly
     }
     
-    var chanceOfPrecipitation: String {
-        return precipitationChance.formatted(.percent)
-    }
-    
     var backgroundColor: Color {
         K.getBackGroundColor(symbol: symbolName)
     }

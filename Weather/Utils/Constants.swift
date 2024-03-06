@@ -14,6 +14,7 @@ struct K {
     static let googleApiKey = Bundle.main.object(forInfoDictionaryKey: "googlePlacesApiKey") as! String
     static let privacyPolicyURL = "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621"
     static let tileCornerRadius: CGFloat = 20
+    static let legalAttributionURL = "https://weatherkit.apple.com/legal-attribution.html"
 
     struct UserDefaultKeys {
         static let unitTemperatureKey = "UnitTemperature"
