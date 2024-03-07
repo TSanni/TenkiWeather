@@ -16,7 +16,7 @@ struct HourlyForecastTileView: View {
     let color: Color
 
     var body: some View {
-        let color = appStateViewModel.blendColorWithTwentyPercentWhite(themeColor: color)
+        let color = appStateViewModel.blendColorWith20PercentWhite(themeColor: color)
         
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { proxy in

@@ -15,8 +15,8 @@ struct ImmediateWeatherDetails: View {
     
     var body: some View {
         let imageSymbol = appStateViewModel.fillImageToPrepareForRendering(symbol: currentWeather.symbolName)
-        let blendColor1 = appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor)
-        let blendColor2 = appStateViewModel.blendColors2(themeColor: currentWeather.backgroundColor)
+        let blendColor1 = appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor)
+        let blendColor2 = appStateViewModel.mixColorWith60PercentWhite(themeColor: currentWeather.backgroundColor)
 
         
         

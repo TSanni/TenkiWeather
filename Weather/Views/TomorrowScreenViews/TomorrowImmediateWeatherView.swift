@@ -14,8 +14,8 @@ struct TomorrowImmediateWeatherView: View {
     
     var body: some View {
         let imageSymbol = appStateViewModel.fillImageToPrepareForRendering(symbol: tomorrowWeather.symbolName)
-        let blendColor1 = appStateViewModel.blendColors(themeColor: tomorrowWeather.backgroundColor)
-        let blendColor2 = appStateViewModel.blendColors2(themeColor: tomorrowWeather.backgroundColor)
+        let blendColor1 = appStateViewModel.mixColorWith70PercentWhite(themeColor: tomorrowWeather.backgroundColor)
+        let blendColor2 = appStateViewModel.mixColorWith60PercentWhite(themeColor: tomorrowWeather.backgroundColor)
         
         VStack(alignment: .leading) {
             Text(tomorrowWeather.readableDate)

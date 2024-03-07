@@ -19,7 +19,7 @@ struct WindTileView: View {
     let weatherViewModel = WeatherViewModel.shared
     
     var body: some View {
-        let color = appStateViewModel.blendColorWithTwentyPercentWhite(themeColor: backgroundColor)
+        let color = appStateViewModel.blendColorWith20PercentWhite(themeColor: backgroundColor)
 
         VStack(alignment: .leading) {
             Text("Wind")

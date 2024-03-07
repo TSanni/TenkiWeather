@@ -22,7 +22,7 @@ struct CardViewModifier: ViewModifier {
                     RoundedRectangle(cornerRadius: K.tileCornerRadius)
                         .stroke(lineWidth: 0.5)
                         .fill(.white)
-                    RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(appStateViewModel.blendColorWithTwentyPercentWhite(themeColor: backgroundColor))
+                    RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(appStateViewModel.blendColorWith20PercentWhite(themeColor: backgroundColor))
                 }
             }
             .aspectRatio(1, contentMode: .fit)

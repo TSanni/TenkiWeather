@@ -38,7 +38,7 @@ struct TomorrowScreen: View {
                                 Text("Hourly forecast")
                                     .padding(.horizontal)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(appStateViewModel.blendColors(themeColor: dailyWeather.backgroundColor))
+                                    .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: dailyWeather.backgroundColor))
                                 
                                 HourlyForecastTileView(hourlyTemperatures: dailyWeather.hourlyWeather, color: dailyWeather.backgroundColor)
                                 
@@ -46,7 +46,7 @@ struct TomorrowScreen: View {
                                 Text("Tomorrow's Conditions")
                                     .padding(.horizontal)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(appStateViewModel.blendColors(themeColor: dailyWeather.backgroundColor))
+                                    .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: dailyWeather.backgroundColor))
 
                                 
                                 LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {

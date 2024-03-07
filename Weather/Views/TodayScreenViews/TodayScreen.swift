@@ -37,7 +37,7 @@ struct TodayScreen: View {
                             Text("Hourly forecast")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor))
+                                .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
                             
                             HourlyForecastTileView(
                                 hourlyTemperatures: currentWeather.hourlyWeather,
@@ -47,7 +47,7 @@ struct TodayScreen: View {
                             Text("Current conditions")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor))
+                                .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
                             
                             LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
                                 HumidityTileView(
@@ -88,7 +88,7 @@ struct TodayScreen: View {
                             Text("Sun Data")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(appStateViewModel.blendColors(themeColor: currentWeather.backgroundColor))
+                                .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
                             
                             LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
                                 

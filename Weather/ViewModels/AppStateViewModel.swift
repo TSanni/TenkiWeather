@@ -14,7 +14,6 @@ import GooglePlaces
     @Published var showSettingScreen: Bool = false
     @Published var resetViews: Bool = false
     @Published var loading: Bool = false
-    
     @Published var currentLocationName: String = ""
     @Published var currentLocationTimezone: Int = 0
     
@@ -37,7 +36,6 @@ import GooglePlaces
     let locationViewModel = CoreLocationViewModel.shared
     let weatherViewModel = WeatherViewModel.shared
     let persistence = SavedLocationsPersistenceViewModel.shared
-
     
     private init() { }
     
@@ -69,7 +67,6 @@ import GooglePlaces
         currentLocationTimezone = timezone
     }
     
-    
     func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature) {
         
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = name
@@ -95,29 +92,28 @@ import GooglePlaces
         return geo.size.width * 0.45
     }
     
-    
-    func blendColors(themeColor: Color) -> Color {
+    func mixColorWith70PercentWhite(themeColor: Color) -> Color {
         let themeColor = UIColor(themeColor)
         let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.7, color2: themeColor, intensity2: 0.3))
         
         return blendedColor
     }
     
-    func blendColors2(themeColor: Color) -> Color {
+    func mixColorWith60PercentWhite(themeColor: Color) -> Color {
         let themeColor = UIColor(themeColor)
         let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.6, color2: themeColor, intensity2: 0.4))
         
         return blendedColor
     }
     
-    func blendColorWithTwentyPercentWhite(themeColor: Color) -> Color {
+    func blendColorWith20PercentWhite(themeColor: Color) -> Color {
         let themeColor = UIColor(themeColor)
         let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
         
         return blendedColor
     }
     
-    func blendColorWithTwentyPercentBlack(themeColor: Color) -> Color {
+    func blendColorWith20PercentBlack(themeColor: Color) -> Color {
         let themeColor = UIColor(themeColor)
         let blendedColor = Color(UIColor.blend(color1: .black, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
         
@@ -170,7 +166,6 @@ import GooglePlaces
     }
     
     func getWeatherWithGoogleData(place: GMSPlace, currentWeather: TodayWeatherModel) async {
-        
         dataIsLoading()
         let coordinates = place.coordinate
         await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
