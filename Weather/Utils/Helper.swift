@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Helper {
+struct Helper {
     /// Takes a Double, removes floating point numbers, then converts to and returns a String
     static func convertNumberToZeroFloatingPoints(number: Double) -> String {
         let convertedStringNumber = String(format: "%.0f", number)

@@ -8,11 +8,6 @@
 import Foundation
 import CoreLocation
 
-
-
-
-
-
 //TODO: Remove publishedError property
 
 class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDelegate {
