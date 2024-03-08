@@ -82,7 +82,7 @@ struct SettingsScreenTile: View {
                 
                 Picker(selection: $distanceUnit) {
                     ForEach(DistanceUnits.allCases, id: \.self) {
-                        Text($0.rawValue)
+                        Text($0.title)
                     }
                 } label: {
                     LabelView(title: "Distance", iconSymbol: "ruler")
