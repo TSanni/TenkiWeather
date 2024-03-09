@@ -272,11 +272,11 @@
 				8313DE852B61A20D0031C5E7 /* PressureTileView.swift */,
 				8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */,
 				83E04FD32A2B2892009720AB /* WindTileView.swift */,
-				838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */,
 				83EB28302B9769C700CFC390 /* HumidityTileView.swift */,
 				83EB28322B976A4700CFC390 /* UVIndexTileView.swift */,
 				83EB28342B976A5500CFC390 /* VisibilityTileView.swift */,
 				83EB28362B976A6000CFC390 /* SunDataTile.swift */,
+				838461802A4C9DDC000B8E86 /* SettingsScreenTile.swift */,
 			);
 			path = "Tile Views";
 			sourceTree = "<group>";

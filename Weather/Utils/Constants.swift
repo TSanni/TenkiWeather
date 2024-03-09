@@ -40,9 +40,9 @@ struct K {
     }
     
     struct DistanceUnitsConstants {
-        static let mph = "Miles per hour"
-        static let kiloPerHour = "Kilometers per hour"
-        static let meterPerSecond = "Meters per second"
+        static let mph = "miles"
+        static let kiloPerHour = "kilometer"
+        static let meterPerSecond = "meters"
     }
     
     struct TimeConstants {
