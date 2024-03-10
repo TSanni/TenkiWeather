@@ -13,20 +13,21 @@ struct TodayScreen: View {
     
     let currentWeather: TodayWeatherModel
     let weatherAlert: WeatherAlertModel?
-
-    var body: some View {        
+    
+    var body: some View {
         GeometryReader { geo in
             
             ScrollView(.vertical ,showsIndicators: false) {
                 ScrollViewReader { proxy in
                     ZStack {
-                        currentWeather.backgroundColor
-                        
-                        if let scene = currentWeather.scene {
-                            WeatherParticleEffectView(sceneImport: scene)
-                        }
+//                        currentWeather.backgroundColor
+//
+//                        if let scene = currentWeather.scene {
+//                            WeatherParticleEffectView(sceneImport: scene)
+//                        }
                         
                         VStack(alignment: .leading, spacing: 0.0) {
+                            TopView()
                             ImmediateWeatherDetails(currentWeather: currentWeather)
                                 .id(0)
                             
@@ -70,7 +71,7 @@ struct TodayScreen: View {
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
-
+                                
                                 PressureTileView(
                                     pressureDetails: currentWeather,
                                     backgroundColor: currentWeather.backgroundColor
@@ -114,8 +115,16 @@ struct TodayScreen: View {
                 }
             }
         }
+        .background {
+            currentWeather.backgroundColor.ignoresSafeArea()
+            
+            if let scene = currentWeather.scene {
+                WeatherParticleEffectView(sceneImport: scene)
+            }
+        }
+        
     }
-      
+    
 }
 
 

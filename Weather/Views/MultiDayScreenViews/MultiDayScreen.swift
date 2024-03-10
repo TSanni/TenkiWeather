@@ -18,6 +18,7 @@ struct MultiDayScreen: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
+            TopView()
             ScrollViewReader { proxy in
                 VStack {
                     DailyWeatherCell(daily: daily[0], title: "Today")
@@ -68,6 +69,7 @@ struct MultiDayScreen: View {
                 .background(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
             }
         }
+        .background(Color(uiColor: K.ColorsConstants.tenDayBarColor))
         .fullScreenCover(isPresented: $showWebView) {
             FullScreenWebView(url: K.legalAttributionURL)
         }
@@ -80,6 +82,8 @@ struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
         MultiDayScreen(daily: [DailyWeatherModel.placeholder])
                 .environmentObject(AppStateViewModel.shared)
+                .environmentObject(WeatherViewModel.shared)
+
     }
 }
  

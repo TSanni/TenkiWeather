@@ -68,6 +68,17 @@ enum TemperatureUnits: String, CaseIterable {
             return "Kelvin"
         }
     }
+    
+    var symbol: String {
+        switch self {
+        case .fahrenheit:
+            return "(°F)"
+        case .celsius:
+            return "(°C)"
+        case .kelvin:
+            return "(K)"
+        }
+    }
 }
 
 enum DistanceUnits: String, CaseIterable {
@@ -78,11 +89,11 @@ enum DistanceUnits: String, CaseIterable {
     var title: String {
         switch self {
         case .miles:
-            "Miles per hour"
+            "Miles"
         case .kilometer:
-            "Kilometers per hour"
+            "Kilometers"
         case .meters:
-            "Meters per second"
+            "Meters"
         }
     }
 }

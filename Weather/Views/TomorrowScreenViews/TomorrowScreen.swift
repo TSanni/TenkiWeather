@@ -20,16 +20,15 @@ struct TomorrowScreen: View {
             ScrollView(.vertical, showsIndicators: false) {
                 ScrollViewReader { proxy in
                     ZStack {
-                        dailyWeather.backgroundColor
+//                        dailyWeather.backgroundColor
                         
-                        // Add possible snow or rain scenes with SpriteKit
-                        if let scene = dailyWeather.scene {
-                            WeatherParticleEffectView(sceneImport: scene)
-                        }
+                       
                         
                         VStack(alignment: .leading, spacing: 0.0) {
                             
                             VStack(alignment: .leading, spacing: 0.0) {
+                                TopView()
+
                                 TomorrowImmediateWeatherView(tomorrowWeather: dailyWeather)
                                     .padding(.bottom)
                                     .id(0)
@@ -95,6 +94,13 @@ struct TomorrowScreen: View {
                 
             }
         }
+        .background {
+            dailyWeather.backgroundColor.ignoresSafeArea()
+            // Add possible snow or rain scenes with SpriteKit
+            if let scene = dailyWeather.scene {
+                WeatherParticleEffectView(sceneImport: scene)
+            }
+        }
     }
     
 }
@@ -105,6 +111,8 @@ struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen(dailyWeather: DailyWeatherModel.placeholder)
             .environmentObject(AppStateViewModel.shared)
+            .environmentObject(WeatherViewModel.shared)
+
     }
 }
 

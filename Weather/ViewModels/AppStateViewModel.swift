@@ -45,6 +45,12 @@ import GooglePlaces
         }
     }
     
+    func toggleShowSettingScreen() {
+        DispatchQueue.main.async {
+            self.showSettingScreen.toggle()
+        }
+    }
+    
     ///Returns columns and tile size accounting for iPhone and iPad
     func getGridColumnAndSize(geo: GeometryProxy) -> [GridItem] {
         if UIDevice.current.userInterfaceIdiom == .pad {
