@@ -52,7 +52,7 @@ struct SearchingScreen: View {
         .sheet(isPresented: $showGoogleSearchScreen) {
             PlacesViewControllerBridge { place in
                 Task {
-                    await appStateViewModel.getWeatherWithGoogleData(place: place, currentWeather: weatherViewModel.currentWeather)
+                    await appStateViewModel.getWeatherWithGoogleData(place: place)
                     persistenceLocations.saveData()
                 }
                 

@@ -16,7 +16,6 @@ import GooglePlaces
     @Published var loading: Bool = false
     @Published var currentLocationName: String = ""
     @Published var currentLocationTimezone: Int = 0
-    
     // This property's only purpose is to add data to CoreData.
     // You can find it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
@@ -140,12 +139,19 @@ import GooglePlaces
         await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: locationViewModel.localLocationName, timezone: currentLocationTimezone)
         
         locationViewModel.searchedLocationName = item.name!
-
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationViewModel.searchedLocationName
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = item.longitude
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = item.latitude
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = item.timezone
         
+        setSearchedLocationDictionary(
+            name: locationViewModel.searchedLocationName,
+            latitude: item.latitude,
+            longitude: item.longitude,
+            timezone: Int(item.timezone),
+            temperature: item.temperature ?? "",
+            date: item.currentDate ?? "",
+            symbol: item.sfSymbol ?? "",
+            weatherCondition: item.weatherCondition ?? "",
+            unitTemperature: item.unitTemperature ?? .fahrenheit
+        )
+
         dataCompletedLoading()
         performViewReset()
     }
@@ -159,24 +165,33 @@ import GooglePlaces
         let userLocationName = locationViewModel.localLocationName
         await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezone: timezone)
         locationViewModel.searchedLocationName = userLocationName
-        
+        let currentWeather = weatherViewModel.currentWeather
+
         setCurrentLocationName(name: userLocationName)
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = locationViewModel.searchedLocationName
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = locationViewModel.latitude
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = locationViewModel.longitude
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = timezone
-        
+
+        setSearchedLocationDictionary(
+            name: locationViewModel.searchedLocationName,
+            latitude: locationViewModel.latitude,
+            longitude: locationViewModel.longitude,
+            timezone: timezone,
+            temperature: currentWeather.currentTemperature,
+            date: currentWeather.readableDate,
+            symbol: currentWeather.symbolName,
+            weatherCondition: currentWeather.weatherDescription.description,
+            unitTemperature: Helper.getUnitTemperature()
+        )
         
         dataCompletedLoading()
         performViewReset()
     }
     
-    func getWeatherWithGoogleData(place: GMSPlace, currentWeather: TodayWeatherModel) async {
+    func getWeatherWithGoogleData(place: GMSPlace) async {
         dataIsLoading()
         let coordinates = place.coordinate
         await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
         let timezone = locationViewModel.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
+        let currentWeather = weatherViewModel.currentWeather
         
         setSearchedLocationDictionary(
             name: locationViewModel.searchedLocationName,

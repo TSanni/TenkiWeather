@@ -227,7 +227,6 @@
 				830279DE2A98E80000E3487D /* WebViews */,
 				83B760922A67119C007075E2 /* LabelView.swift */,
 				835EB2EF2A5508D400346B21 /* SendMailView.swift */,
-				8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */,
 				8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */,
 				83731A6C2A2FD97F00D481CA /* CustomDivider.swift */,
 			);
@@ -254,6 +253,7 @@
 				8313DE8D2B62CCD10031C5E7 /* CurrentLocationView.swift */,
 				83731A752A2FFE4300D481CA /* SavedLocationsView.swift */,
 				83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */,
+				8390BF932A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift */,
 				8313DE8B2B6289A10031C5E7 /* SavedLocationImageView.swift */,
 			);
 			path = SearchingScreenViews;

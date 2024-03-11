@@ -5,6 +5,8 @@
 //  Created by Tomas Sanni on 6/19/23.
 //
 
+//TODO: Cannot update a saved location name because I assume @Published var savedLocations is not ordered correctly
+
 import Foundation
 import CoreData
 
@@ -73,6 +75,19 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         
     }
     
+    
+    func updatePlaceName(entity: LocationEntity, newName: String) {
+        if newName == "" {
+            return
+        }
+        let currentName = entity.name ?? ""
+        let newName = newName
+        entity.name = newName
+        saveData()
+//        entity.name = newName
+//        saveData()
+    }
+    
 //    func updatePlace(entity: LocationEntity) {
 //        let currentName = entity.name ?? ""
 //        let newName = currentName + "!"
@@ -83,6 +98,11 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     func deletePlace(indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
         let entity = savedLocations[index]
+        container.viewContext.delete(entity)
+        saveData()
+    }
+    
+    func deleteLocationFromContextMenu(entity: LocationEntity) {
         container.viewContext.delete(entity)
         saveData()
     }
