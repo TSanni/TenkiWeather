@@ -63,8 +63,10 @@ struct TabViews: View {
 }
 
 #Preview {
-    TabViews( tabViews: .constant(.today))
-        .environmentObject(WeatherViewModel.shared)
-        .environmentObject(AppStateViewModel.shared)
-        .environmentObject(CoreLocationViewModel.shared)
+    NavigationView {
+        TabViews( tabViews: .constant(.today))
+            .environmentObject(WeatherViewModel.shared)
+            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(CoreLocationViewModel.shared)
+    }
 }

@@ -92,21 +92,8 @@ struct SettingsScreen: View {
                 Text("Privacy Policy").onTapGesture { showPrivacyWebsite = true }
                 Text("Terms and Conditions").onTapGesture { showTermsAndConditionsWebsite = true }
             }
-            
-            HStack {
-                Spacer()
-                Text("Tenki Weather")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                
-                Spacer()
-            }
-            .listRowBackground(Color.clear)
-            
         }
-        .navigationTitle("Settings")
+        .navigationTitle("Tenki Weather")
         .toolbar {
             ToolbarItem {
                 Button("Dismiss") {
