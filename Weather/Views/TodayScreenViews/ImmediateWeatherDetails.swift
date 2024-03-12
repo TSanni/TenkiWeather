@@ -22,7 +22,7 @@ struct ImmediateWeatherDetails: View {
         
         VStack(alignment: .leading) {
             
-            Text("Now")
+            Text("Now - Today")
                 .fontWeight(.semibold)
             
             HStack {

@@ -42,6 +42,15 @@ struct SavedLocationCell: View {
                 Spacer()
             }
         }
+        .swipeActions {
+            Button(role: .destructive) {
+                persistence.deleteLocationFromContextMenu(entity: location)
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+            RenameButton()
+
+        }
         .foregroundStyle(.white)
         .contextMenu {
             RenameButton()

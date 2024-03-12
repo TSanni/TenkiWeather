@@ -18,7 +18,7 @@ struct TomorrowImmediateWeatherView: View {
         let blendColor2 = appStateViewModel.mixColorWith60PercentWhite(themeColor: tomorrowWeather.backgroundColor)
         
         VStack(alignment: .leading) {
-            Text(tomorrowWeather.readableDate)
+            Text(tomorrowWeather.readableDate + " - Tomorrow")
                 .fontWeight(.semibold)
             
             HStack {

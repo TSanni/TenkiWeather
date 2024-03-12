@@ -19,14 +19,14 @@ struct TopView: View {
             Button {
                 appStateViewModel.toggleShowSearchScreen()
             } label: {
-                Image(systemName: "magnifyingglass")
-            }
-            Text(locationManager.searchedLocationName)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .onTapGesture {
-                    appStateViewModel.toggleShowSearchScreen()
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    Text(locationManager.searchedLocationName)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                 }
+            }
+
             Spacer()
             
             Button {

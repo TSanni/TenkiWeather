@@ -14,7 +14,7 @@ struct SettingsScreen: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
     
-    @State private var locationSaved: Bool = false
+    @State private var locationSaveAlert: Bool = false
     @State private var showPrivacyWebsite = false
     @State private var showTermsAndConditionsWebsite = false
     
@@ -102,7 +102,7 @@ struct SettingsScreen: View {
                 .tint(.primary)
             }
         }
-        .alert(isPresented: $locationSaved) {
+        .alert(isPresented: $locationSaveAlert) {
             Alert(title: alertTitle, message: alertMessage)
         }
         .fullScreenCover(isPresented: $showPrivacyWebsite) {
@@ -125,7 +125,7 @@ struct SettingsScreen: View {
             persistence.addLocation(locationDictionary: appStateViewModel.searchedLocationDictionary)
         }
         
-        locationSaved.toggle()
+        locationSaveAlert.toggle()
     }
 }
 
