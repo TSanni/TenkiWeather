@@ -39,7 +39,7 @@ struct MainScreen: View {
                     WeatherTabSelectionsView(tabViews: $tabViews)
                     TabViews(tabViews: $tabViews)
                         .tint(.white)
-                        .tabViewStyle(.page(indexDisplayMode: .automatic))
+                        .tabViewStyle(.page(indexDisplayMode: .never))
                         .ignoresSafeArea()
                 } else {
                     TabViews(tabViews: $tabViews)

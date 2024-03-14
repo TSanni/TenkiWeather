@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 import GooglePlaces
 
+//TODO: Add gesture ability for underline when swiping to new tab 
+
 @MainActor class AppStateViewModel: ObservableObject {
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
@@ -134,7 +136,7 @@ import GooglePlaces
         return filledInSymbol
     }
     
-    func getWeatherAndUpdateDictionaryFromSavedLocation(item: LocationEntity) async {
+    func getWeatherAndUpdateDictionaryFromSavedLocation(item: Location) async {
         toggleShowSearchScreen()
         dataIsLoading()
         await locationViewModel.getLocalLocationName()

@@ -5,24 +5,23 @@
 //  Created by Tomas Sanni on 6/19/23.
 //
 
-//TODO: Cannot update a saved location name because I assume @Published var savedLocations is not ordered correctly
-
 import Foundation
 import CoreData
 
+//TODO: Add a new version of the data model. You can't edit the xcdatamodel and expect Core Data to just use the new version. You need to keep your existing model, create a new version, and make your changes in the new version. You must always have a version of the model that matches the persistent store file.
 class SavedLocationsPersistenceViewModel: ObservableObject {
     static let shared = SavedLocationsPersistenceViewModel()
 
     let container: NSPersistentContainer
     let weatherManager = WeatherManager.shared
     
-    @Published var savedLocations: [LocationEntity] = []
+    @Published var savedLocations: [Location] = []
     
     private init() {
         
         ValueTransformer.setValueTransformer(UnitTemperatureTransformer(), forName: NSValueTransformerName("UnitTemperatureTransformer"))
         
-        container = NSPersistentContainer(name: "SavedLocations")
+        container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("ERROR LOADING CORE DATA \(error)")
@@ -34,7 +33,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     }
 
     func fetchLocations() {        
-        let request = NSFetchRequest<LocationEntity>(entityName: "LocationEntity")
+        let request = NSFetchRequest<Location>(entityName: "Location")
         request.sortDescriptors = [NSSortDescriptor(key: "timeAdded", ascending: false)]
         Task {
             do {
@@ -55,7 +54,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             return
         }
         
-        let newLocation = LocationEntity(context: container.viewContext)
+        let newLocation = Location(context: container.viewContext)
         
         newLocation.name = locationDictionary[K.LocationDictionaryKeysConstants.name] as? String
         newLocation.latitude = locationDictionary[K.LocationDictionaryKeysConstants.latitude] as? Double ?? 0
@@ -76,16 +75,13 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     }
     
     
-    func updatePlaceName(entity: LocationEntity, newName: String) {
+    func updatePlaceName(entity: Location, newName: String) {
         if newName == "" {
             return
         }
-        let currentName = entity.name ?? ""
         let newName = newName
         entity.name = newName
         saveData()
-//        entity.name = newName
-//        saveData()
     }
     
 //    func updatePlace(entity: LocationEntity) {
@@ -102,7 +98,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         saveData()
     }
     
-    func deleteLocationFromContextMenu(entity: LocationEntity) {
+    func deleteLocationFromContextMenu(entity: Location) {
         container.viewContext.delete(entity)
         saveData()
     }
@@ -124,8 +120,8 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     
     func fetchWeatherPlacesWithTaskGroup() async throws   {
         
-        return try await withThrowingTaskGroup(of: LocationEntity?.self) { group in
-            var weather: [LocationEntity] = []
+        return try await withThrowingTaskGroup(of: Location?.self) { group in
+            var weather: [Location] = []
 
             for location in savedLocations {
                 group.addTask {
@@ -143,7 +139,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    private func fetchCurrentWeather(entity: LocationEntity) async throws -> LocationEntity {
+    private func fetchCurrentWeather(entity: Location) async throws -> Location {
         
         let weather = try await weatherManager.getWeatherFromWeatherKit(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
 

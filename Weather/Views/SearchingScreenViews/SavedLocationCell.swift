@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SavedLocationCell: View {
-    @ObservedObject var location: LocationEntity
+    @ObservedObject var location: Location
     @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
     @State private var showAlert = false
     @State private var textFieldText = ""

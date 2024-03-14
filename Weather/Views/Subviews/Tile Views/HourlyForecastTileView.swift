@@ -14,6 +14,7 @@ struct HourlyForecastTileView: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     let hourlyTemperatures: [HourlyWeatherModel]
     let color: Color
+    let deviceType = UIDevice.current.userInterfaceIdiom
 
     var body: some View {
         let color = appStateViewModel.blendColorWith20PercentWhite(themeColor: color)
@@ -44,7 +45,8 @@ struct HourlyForecastTileView: View {
                             }
                             .padding(.top)
                             .padding(.horizontal, 10)
-                            .frame(width: 63)
+                            .frame(width: deviceType == .pad ? 100 : 63)
+//                            .frame(width: 63)
                         }
                     }
                     
@@ -65,7 +67,8 @@ struct HourlyForecastTileView: View {
 
                             }
                             .padding([.horizontal, .bottom], 10)
-                            .frame(width: 63)
+                            .frame(width: deviceType == .pad ? 100 : 63)
+//                            .frame(width: 63)
 
                         }
                     }
