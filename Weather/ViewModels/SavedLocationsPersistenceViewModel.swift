@@ -8,7 +8,6 @@
 import Foundation
 import CoreData
 
-//TODO: Add a new version of the data model. You can't edit the xcdatamodel and expect Core Data to just use the new version. You need to keep your existing model, create a new version, and make your changes in the new version. You must always have a version of the model that matches the persistent store file.
 class SavedLocationsPersistenceViewModel: ObservableObject {
     static let shared = SavedLocationsPersistenceViewModel()
 

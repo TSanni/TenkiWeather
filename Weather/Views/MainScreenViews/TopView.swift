@@ -21,7 +21,10 @@ struct TopView: View {
                         Text(locationManager.searchedLocationName)
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
+                        
                     }
+                    .padding()
+                    .contentShape(Rectangle())
                 }
                 
                 Spacer()
@@ -30,11 +33,13 @@ struct TopView: View {
                     appStateViewModel.toggleShowSettingScreen()
                 } label: {
                     Image(systemName: "line.3.horizontal")
+                        .padding()
+                        .contentShape(Rectangle())
                 }
             }
             .foregroundStyle(.white)
             .shadow(radius: 10)
-            .padding()
+//            .padding()
     }
 }
 

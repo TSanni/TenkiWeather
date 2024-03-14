@@ -87,7 +87,7 @@ struct K {
             return SnowScene()
         case K.SymbolConstants.cloudSnow:
             return SnowScene()
-        case "snow":
+        case K.SymbolConstants.snow:
             return SnowScene()
         case K.SymbolConstants.cloudRain:
             return RainScene()
@@ -163,7 +163,9 @@ struct K {
         static let moonAndStarsColor = #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1)
         static let cloudSunColor = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
         static let cloudMoonColor = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
-        static let cloudy = #colorLiteral(red: 0.4886933565, green: 0.624339819, blue: 0.7615836859, alpha: 1)
+//        static let cloudy = #colorLiteral(red: 0.4886933565, green: 0.624339819, blue: 0.7615836859, alpha: 1)
+        static let cloudy = #colorLiteral(red: 0.3367654085, green: 0.5832664371, blue: 0.7205563188, alpha: 1)
+
         static let cloudSunRainColor = #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1)
         static let cloudMoonRainColor = #colorLiteral(red: 0, green: 0.3320232332, blue: 0.6122661233, alpha: 1)
         static let cloudBoltColor = #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1)
