@@ -27,8 +27,6 @@ struct TomorrowScreen: View {
                         VStack(alignment: .leading, spacing: 0.0) {
                             
                             VStack(alignment: .leading, spacing: 0.0) {
-                                TopView()
-
                                 TomorrowImmediateWeatherView(tomorrowWeather: dailyWeather)
                                     .padding(.bottom)
                                     .id(0)
@@ -111,8 +109,6 @@ struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen(dailyWeather: DailyWeatherModel.placeholder)
             .environmentObject(AppStateViewModel.shared)
-            .environmentObject(WeatherViewModel.shared)
-
     }
 }
 

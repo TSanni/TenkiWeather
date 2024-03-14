@@ -38,7 +38,7 @@ struct WeatherApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            NavigationStack {
                 MainScreen()
                     .environmentObject(weatherViewModel)
                     .environmentObject(persistenceLocations)

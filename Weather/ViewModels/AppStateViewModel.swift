@@ -30,6 +30,10 @@ import GooglePlaces
         K.LocationDictionaryKeysConstants.weatherCondition: ""
     ]
     
+    @Published var startingOffsetX: CGFloat = 0
+    @Published var currentDragOffsetX: CGFloat = 0
+    @Published var endingOffsetX: CGFloat = 0
+    
     static let shared  = AppStateViewModel()
     let weatherManager = WeatherManager.shared
     let locationViewModel = CoreLocationViewModel.shared

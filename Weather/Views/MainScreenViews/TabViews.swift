@@ -20,9 +20,9 @@ struct TabViews: View {
                 .tag(WeatherTabs.today)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateViewModel)
-//                .tabItem {
-//                    LabelView(title: "Today", iconSymbol: weatherViewModel.currentWeather.symbolName)
-//                }
+                .tabItem {
+                    LabelView(title: "Today", iconSymbol: weatherViewModel.currentWeather.symbolName)
+                }
                 .toolbar(.visible, for: .tabBar)
                 .toolbarBackground(
                     weatherViewModel.currentWeather.backgroundColor.opacity(0.99),
@@ -34,9 +34,9 @@ struct TabViews: View {
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateViewModel)
                 .toolbar(.visible, for: .tabBar)
-//                .tabItem {
-//                    LabelView(title: "Tomorrow", iconSymbol: weatherViewModel.tomorrowWeather.symbolName)
-//                }
+                .tabItem {
+                    LabelView(title: "Tomorrow", iconSymbol: weatherViewModel.tomorrowWeather.symbolName)
+                }
                 .toolbarBackground(
                     weatherViewModel.tomorrowWeather.backgroundColor.opacity(0.99),
                     for: .tabBar
@@ -47,17 +47,18 @@ struct TabViews: View {
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateViewModel)
                 .toolbar(.visible, for: .tabBar)
-//                .tabItem {
-//                    LabelView(title: "10 Day", iconSymbol: "list.bullet.rectangle.fill")
-//                }
+                .tabItem {
+                    LabelView(title: "10 Day", iconSymbol: "list.bullet.rectangle.fill")
+                }
                 .toolbarBackground(
                     Color(uiColor: K.ColorsConstants.tenDayBarColor),
                     for: .tabBar
                 )
         }
-        .tint(.white)
-        .tabViewStyle(.page(indexDisplayMode: .automatic))
-        .ignoresSafeArea()
+//        .tint(.white)
+//        .tabViewStyle(.page(indexDisplayMode: .automatic))
+//        .ignoresSafeArea()
+
 
     }
 }

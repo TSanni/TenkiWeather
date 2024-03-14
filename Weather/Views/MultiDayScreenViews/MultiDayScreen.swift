@@ -17,17 +17,7 @@ struct MultiDayScreen: View {
     let daily: [DailyWeatherModel]
 
     var body: some View {
-        let blendColor1 = appStateViewModel.mixColorWith70PercentWhite(themeColor: Color(uiColor: K.ColorsConstants.tenDayBarColor))
-
         ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading) {
-                TopView()
-                Text("Next 10 Days")
-                    .fontWeight(.semibold)
-                    .padding([.horizontal, .bottom])
-                    .foregroundStyle(blendColor1)
-            }
-          
             ScrollViewReader { proxy in
                 VStack {
                     DailyWeatherCell(daily: daily[0], title: "Today")
@@ -91,8 +81,6 @@ struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
         MultiDayScreen(daily: [DailyWeatherModel.placeholder])
                 .environmentObject(AppStateViewModel.shared)
-                .environmentObject(WeatherViewModel.shared)
-
     }
 }
  

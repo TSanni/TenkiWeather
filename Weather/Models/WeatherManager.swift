@@ -222,7 +222,7 @@ actor WeatherManager {
 //MARK: - Private functions
 extension WeatherManager {
     
-    /// This functions returns an array of hourly weather data for the next fifteen hours.
+    /// This functions returns an array of hourly weather data for the next twenty four hours.
     private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyWeatherModel] {
         var twentyfourHours: [HourlyWeatherModel] = []
         
@@ -233,7 +233,7 @@ extension WeatherManager {
         })
         
         //TODO: Add error handling to catch when the there aren't enough hours
-        for i in 0..<K.TimeConstants.fifteenHours {
+        for i in 0..<K.TimeConstants.twentyFourHours {
             
             let windData = WindData(
                 speed: nextDayWeatherHours[i].wind.speed,

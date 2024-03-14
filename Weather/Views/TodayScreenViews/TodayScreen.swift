@@ -27,7 +27,6 @@ struct TodayScreen: View {
 //                        }
                         
                         VStack(alignment: .leading, spacing: 0.0) {
-                            TopView()
                             ImmediateWeatherDetails(currentWeather: currentWeather)
                                 .id(0)
                             

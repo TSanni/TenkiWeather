@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct WeatherTabSelectionsView: View {
-    
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     @Namespace var namespace
     @Binding var tabViews: WeatherTabs
     
@@ -31,6 +31,7 @@ struct WeatherTabSelectionsView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .frame(height: 3)
                                     .frame(width: 50)
+                                    .offset(x: appStateViewModel.currentDragOffsetX)
                                     .matchedGeometryEffect(
                                         id: "selected",
                                         in: namespace,

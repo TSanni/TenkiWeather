@@ -12,8 +12,6 @@ struct SearchBar: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
     var body: some View {
-        
-            
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
@@ -24,12 +22,12 @@ struct SearchBar: View {
                 Spacer()
                 
                 
-                Image(systemName: "gear")
+                Image(systemName: "gearshape.fill")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 30, height: 30)
                     .onTapGesture {
-                            appStateViewModel.showSettingScreen = true
+                        appStateViewModel.toggleShowSettingScreen()
                     }
             
 

@@ -20,11 +20,11 @@ struct MainScreen: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var networkManager: NetworkMonitor
     @EnvironmentObject var locationManager: CoreLocationViewModel
-
+    //Must use @State instead of view model because this is the only way to make animations work
     @State var tabViews: WeatherTabs = .today
+    let deviceType = UIDevice.current.userInterfaceIdiom
 
     var body: some View {
-        let blendColor1 = appStateViewModel.mixColorWith70PercentWhite(themeColor: weatherViewModel.currentWeather.backgroundColor)
         
         ZStack {
             VStack(spacing: 0) {
@@ -33,12 +33,21 @@ struct MainScreen: View {
 //                        appStateViewModel.toggleShowSearchScreen()
 //                    }
                 
-//                WeatherTabSelectionsView(tabViews: $tabViews)
+                TopView().padding(.vertical)
                 
-                
-                                
-                TabViews(tabViews: $tabViews)
-                
+                if UIDevice.current.userInterfaceIdiom != .pad {
+                    WeatherTabSelectionsView(tabViews: $tabViews)
+                    TabViews(tabViews: $tabViews)
+                        .tint(.white)
+                        .tabViewStyle(.page(indexDisplayMode: .automatic))
+                        .ignoresSafeArea()
+                } else {
+                    TabViews(tabViews: $tabViews)
+                        .tint(.white)
+                        .ignoresSafeArea()
+                }
+
+
                 if !networkManager.isConnected {
                     HStack {
                         Image(systemName: "wifi.slash")
@@ -50,7 +59,7 @@ struct MainScreen: View {
             .zIndex(0)
             .background(getBarColor.brightness(-0.1).ignoresSafeArea())
             .disabled(appStateViewModel.showSettingScreen ? true : false)
-            .animation(.default, value: tabViews)
+            .animation(deviceType == .pad ? nil : .default, value: tabViews)
 
 
 //            blurBackGround
@@ -65,15 +74,18 @@ struct MainScreen: View {
         .redacted(reason: appStateViewModel.loading ? .placeholder : [])
         .animation(.default, value: appStateViewModel.showSettingScreen)
         .fullScreenCover(isPresented: $appStateViewModel.showSearchScreen) {
-            NavigationView {
+            NavigationStack {
                 SearchingScreen()
             }
+            .navigationViewStyle(.stack)
             
         }
         .fullScreenCover(isPresented: $appStateViewModel.showSettingScreen) {
-            NavigationView {
+            NavigationStack {
                 SettingsScreen()
             }
+            .navigationViewStyle(.stack)
+
         }
         .alert("Weather Request Failed", isPresented: $weatherViewModel.errorPublisher.errorBool) {
             //            Button("Ok") {
@@ -157,6 +169,8 @@ struct MainScreen_Previews: PreviewProvider {
                 .environmentObject(NetworkMonitor())
                 .environmentObject(SavedLocationsPersistenceViewModel.shared)
         }
+        .navigationViewStyle(.stack)
+
     }
 }
 

@@ -37,8 +37,8 @@ enum GeocodingErrors: Error {
 
 enum WeatherTabs: Int, CaseIterable {
     case today = 0
-    case tomorrow
-    case multiDay
+    case tomorrow = 1
+    case multiDay = 2
     
     var title: String {
         switch self {
