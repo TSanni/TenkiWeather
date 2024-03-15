@@ -130,7 +130,7 @@ struct SettingsScreen: View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         SettingsScreen()
             .environmentObject(AppStateViewModel.shared)
             .environmentObject(SavedLocationsPersistenceViewModel.shared)

@@ -46,7 +46,6 @@ struct WeatherApp: App {
                     .environmentObject(appStateViewModel)
                     .environmentObject(networkManager)
             }
-            .navigationViewStyle(.stack)
             .task {
                   if locationViewModel.authorizationStatus == .authorizedWhenInUse {
                       await appStateViewModel.getWeather()

@@ -9,6 +9,10 @@ import Foundation
 import WeatherKit
 import SwiftUI
 import SpriteKit
+
+//TODO: Use WeatherCondition for background color and SKScene instead of symbol string 
+
+
 // MARK: - Main Model
 struct TodayWeatherModel: Identifiable {
     let id = UUID()

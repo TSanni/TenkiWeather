@@ -35,6 +35,8 @@ import GooglePlaces
     @Published var startingOffsetX: CGFloat = 0
     @Published var currentDragOffsetX: CGFloat = 0
     @Published var endingOffsetX: CGFloat = 0
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+
     
     static let shared  = AppStateViewModel()
     let weatherManager = WeatherManager.shared

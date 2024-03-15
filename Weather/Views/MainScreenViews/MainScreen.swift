@@ -77,15 +77,11 @@ struct MainScreen: View {
             NavigationStack {
                 SearchingScreen()
             }
-            .navigationViewStyle(.stack)
-            
         }
         .fullScreenCover(isPresented: $appStateViewModel.showSettingScreen) {
             NavigationStack {
                 SettingsScreen()
             }
-            .navigationViewStyle(.stack)
-
         }
         .alert("Weather Request Failed", isPresented: $weatherViewModel.errorPublisher.errorBool) {
             //            Button("Ok") {
@@ -161,7 +157,7 @@ extension MainScreen {
 //MARK: - Preview
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             MainScreen()
                 .environmentObject(WeatherViewModel.shared)
                 .environmentObject(CoreLocationViewModel.shared)
@@ -169,7 +165,6 @@ struct MainScreen_Previews: PreviewProvider {
                 .environmentObject(NetworkMonitor())
                 .environmentObject(SavedLocationsPersistenceViewModel.shared)
         }
-        .navigationViewStyle(.stack)
 
     }
 }

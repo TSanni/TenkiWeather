@@ -9,7 +9,10 @@ import SwiftUI
 
 struct CurrentLocationView: View {
     @EnvironmentObject var locationManager: CoreLocationViewModel
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
+
     let localWeather: TodayWeatherModel
+    @State private var time = ""
 
     var body: some View {
         HStack {
@@ -27,7 +30,14 @@ struct CurrentLocationView: View {
 
                     VStack(alignment: .leading) {
                         locationName
-                        Text(localWeather.currentTemperature + "° • " + localWeather.weatherDescription)
+                        HStack(spacing: 0.0) {
+                            Text(localWeather.currentTemperature + "° • " + localWeather.weatherDescription)
+                            Text(" • ")
+                            Text(time)
+                                .onReceive(appStateViewModel.timer) { _ in
+                                    time = Helper.getReadableMainDate(date: Date.now, timezoneOffset: localWeather.timezeone)
+                                }
+                        }
                     }
                 }
             }
@@ -53,4 +63,5 @@ struct CurrentLocationView: View {
     CurrentLocationView(localWeather: TodayWeatherModel.holderData)
         .environmentObject(CoreLocationViewModel.shared)
         .environmentObject(WeatherViewModel.shared)
+        .environmentObject(AppStateViewModel.shared)
 }

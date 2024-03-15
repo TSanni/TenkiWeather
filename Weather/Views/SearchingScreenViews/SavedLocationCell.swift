@@ -10,8 +10,11 @@ import SwiftUI
 struct SavedLocationCell: View {
     @ObservedObject var location: Location
     @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
     @State private var showAlert = false
     @State private var textFieldText = ""
+    @State private var time = ""
+    
     var body: some View {
         ZStack {
             Color.teal.opacity(0.000001)
@@ -22,14 +25,16 @@ struct SavedLocationCell: View {
                 VStack(alignment: .leading) {
                     Text(location.name ?? "no name")
                         .font(.headline)
-//                        .onTapGesture {
-//                            persistence.updatePlace(entity: location)
-//                        }
                     
                     HStack(alignment: .top, spacing: 0.0) {
                         Text((newTemp) + "°")
                         Text(" • ")
                         Text(location.weatherCondition ?? "")
+                        Text(" • ")
+                        Text(time)
+                            .onReceive(appStateViewModel.timer) { _ in
+                                time = Helper.getReadableMainDate(date: Date.now, timezoneOffset: Int(location.timezone))
+                            }
                     }
                     .font(.subheadline)
                 }
