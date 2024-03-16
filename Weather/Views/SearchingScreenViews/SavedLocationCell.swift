@@ -16,37 +16,35 @@ struct SavedLocationCell: View {
     @State private var time = ""
     
     var body: some View {
-        ZStack {
-            Color.teal.opacity(0.000001)
+        
+        HStack {
+            SavedLocationImageView(imageName: location.sfSymbol ?? "")
             
-            HStack {
-                SavedLocationImageView(imageName: location.sfSymbol ?? "")
+            VStack(alignment: .leading) {
+                Text(location.name ?? "no name")
+                    .font(.headline)
                 
-                VStack(alignment: .leading) {
-                    Text(location.name ?? "no name")
-                        .font(.headline)
-                    
-                    HStack(alignment: .top, spacing: 0.0) {
-                        Text((newTemp) + "°")
-                        Text(" • ")
-                        Text(location.weatherCondition ?? "")
-                        Text(" • ")
-                        Text(time)
-                            .onReceive(appStateViewModel.timer) { _ in
-                                time = Helper.getReadableMainDate(date: Date.now, timezoneOffset: Int(location.timezone))
-                            }
-                    }
-                    .font(.subheadline)
+                HStack(alignment: .top, spacing: 0.0) {
+                    Text((newTemp) + "°")
+                    Text(" • ")
+                    Text(location.weatherCondition ?? "")
+                    Spacer()
+                    Text(time)
+                        .onReceive(appStateViewModel.timer) { _ in
+                            time = Helper.getReadableMainDate(date: Date.now, timezoneOffset: Int(location.timezone))
+                        }
                 }
-                
-                if location.weatherAlert {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.red)
-                }
-                
-                Spacer()
+                .font(.subheadline)
+            }
+            
+            Spacer()
+            
+            if location.weatherAlert {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.red)
             }
         }
+        .foregroundStyle(.white)
         .swipeActions {
             Button(role: .destructive) {
                 persistence.deleteLocationFromContextMenu(entity: location)
@@ -54,9 +52,7 @@ struct SavedLocationCell: View {
                 Label("Delete", systemImage: "trash")
             }
             RenameButton()
-
         }
-        .foregroundStyle(.white)
         .contextMenu {
             RenameButton()
             Button(role: .destructive) {
@@ -64,7 +60,7 @@ struct SavedLocationCell: View {
             } label: {
                 Text("Delete")
             }
-
+            
         }
         .renameAction {
             showAlert.toggle()
@@ -80,7 +76,7 @@ struct SavedLocationCell: View {
             } label: {
                 Text("Cancel")
             }
-
+            
         }
     }
     

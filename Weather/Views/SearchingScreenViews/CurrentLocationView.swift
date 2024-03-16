@@ -32,7 +32,7 @@ struct CurrentLocationView: View {
                         locationName
                         HStack(spacing: 0.0) {
                             Text(localWeather.currentTemperature + "° • " + localWeather.weatherDescription)
-                            Text(" • ")
+                            Spacer()
                             Text(time)
                                 .onReceive(appStateViewModel.timer) { _ in
                                     time = Helper.getReadableMainDate(date: Date.now, timezoneOffset: localWeather.timezeone)
