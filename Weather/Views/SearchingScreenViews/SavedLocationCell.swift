@@ -21,8 +21,18 @@ struct SavedLocationCell: View {
             SavedLocationImageView(imageName: location.sfSymbol ?? "")
             
             VStack(alignment: .leading) {
-                Text(location.name ?? "no name")
-                    .font(.headline)
+                HStack {
+                    Text(location.name ?? "no name")
+                        .font(.headline)
+                    
+                    Spacer()
+                    
+                    if location.weatherAlert {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.red)
+                    }
+                }
+
                 
                 HStack(alignment: .top, spacing: 0.0) {
                     Text((newTemp) + "°")
@@ -36,13 +46,7 @@ struct SavedLocationCell: View {
                 }
                 .font(.subheadline)
             }
-            
-            Spacer()
-            
-            if location.weatherAlert {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundStyle(.red)
-            }
+   
         }
         .foregroundStyle(.white)
         .swipeActions {

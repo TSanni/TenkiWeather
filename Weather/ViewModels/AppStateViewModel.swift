@@ -29,7 +29,9 @@ import GooglePlaces
         K.LocationDictionaryKeysConstants.temperature: "",
         K.LocationDictionaryKeysConstants.date: "",
         K.LocationDictionaryKeysConstants.symbol: "",
-        K.LocationDictionaryKeysConstants.weatherCondition: ""
+        K.LocationDictionaryKeysConstants.weatherCondition: "",
+        K.LocationDictionaryKeysConstants.unitTemperature: UnitTemperature.fahrenheit,
+        K.LocationDictionaryKeysConstants.weatherAlert: false
     ]
     
     @Published var startingOffsetX: CGFloat = 0
@@ -80,7 +82,7 @@ import GooglePlaces
         currentLocationTimezone = timezone
     }
     
-    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature) {
+    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature, weatherAlert: Bool) {
         
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = name
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = latitude
@@ -91,6 +93,7 @@ import GooglePlaces
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.symbol] = symbol
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.weatherCondition] = weatherCondition
         searchedLocationDictionary[K.LocationDictionaryKeysConstants.unitTemperature] = unitTemperature
+        searchedLocationDictionary[K.LocationDictionaryKeysConstants.weatherAlert] = weatherAlert
     }
     
     func dataIsLoading() {
@@ -157,7 +160,8 @@ import GooglePlaces
             date: item.currentDate ?? "",
             symbol: item.sfSymbol ?? "",
             weatherCondition: item.weatherCondition ?? "",
-            unitTemperature: item.unitTemperature ?? .fahrenheit
+            unitTemperature: item.unitTemperature ?? .fahrenheit, 
+            weatherAlert: item.weatherAlert
         )
 
         dataCompletedLoading()
@@ -186,7 +190,8 @@ import GooglePlaces
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: Helper.getUnitTemperature()
+            unitTemperature: Helper.getUnitTemperature(), 
+            weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
         dataCompletedLoading()
@@ -210,7 +215,8 @@ import GooglePlaces
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: Helper.getUnitTemperature()
+            unitTemperature: Helper.getUnitTemperature(), 
+            weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
         dataCompletedLoading()
@@ -241,7 +247,8 @@ import GooglePlaces
             date: weatherViewModel.currentWeather.readableDate,
             symbol: weatherViewModel.currentWeather.symbolName,
             weatherCondition: weatherViewModel.currentWeather.weatherDescription,
-            unitTemperature: Helper.getUnitTemperature()
+            unitTemperature: Helper.getUnitTemperature(), 
+            weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
         performViewReset()

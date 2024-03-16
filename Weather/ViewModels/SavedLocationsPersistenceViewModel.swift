@@ -65,7 +65,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeysConstants.symbol] as? String
         newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeysConstants.weatherCondition] as? String
         newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeysConstants.unitTemperature] as? UnitTemperature 
-        
+        newLocation.weatherAlert = locationDictionary[K.LocationDictionaryKeysConstants.weatherAlert] as? Bool ?? false
         Task {
             try await fetchWeatherPlacesWithTaskGroup()
             saveData()

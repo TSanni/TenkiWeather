@@ -31,6 +31,7 @@ struct K {
         static let symbol = "symbol"
         static let weatherCondition = "weatherCondition"
         static let unitTemperature = "unitTemperature"
+        static let weatherAlert = "weatherAlert"
     }
     
     struct TemperatureUnitsConstants {
