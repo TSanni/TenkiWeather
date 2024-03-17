@@ -37,7 +37,7 @@ struct UVIndexTileView: View {
                 
                 Spacer()
                 
-                TileImageProgressView(
+                ImageProgressView(
                     height: 50,
                     value: CGFloat(uvIndexNumber),
                     sfSymbol: "seal.fill",

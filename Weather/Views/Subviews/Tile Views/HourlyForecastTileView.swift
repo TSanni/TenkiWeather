@@ -56,7 +56,7 @@ struct HourlyForecastTileView: View {
                     HStack {
                         ForEach(hourlyTemperatures) { item in
                             HStack(spacing: 2) {
-                                TileImageProgressView(
+                                ImageProgressView(
                                     height: 10,
                                     value: item.precipitationChance * 100,
                                     sfSymbol: "drop.fill",

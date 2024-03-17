@@ -38,7 +38,7 @@ struct PrecipitationTileView: View {
                 
                 Spacer()
                 
-                TileImageProgressView(
+                ImageProgressView(
                     height: 50, 
                     value: precipiation * 100,
                     sfSymbol: "drop.fill",

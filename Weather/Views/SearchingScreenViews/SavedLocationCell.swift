@@ -14,6 +14,7 @@ struct SavedLocationCell: View {
     @State private var showAlert = false
     @State private var textFieldText = ""
     @State private var time = ""
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         
@@ -71,6 +72,7 @@ struct SavedLocationCell: View {
         }
         .alert("Rename", isPresented: $showAlert) {
             TextField("New name", text: $textFieldText)
+                .foregroundStyle(colorScheme == .dark ? .white : .black)
             Button("OK") {
                 persistence.updatePlaceName(entity: location, newName: textFieldText)
             }

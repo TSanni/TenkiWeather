@@ -30,7 +30,7 @@ struct HumidityTileView: View {
                 
                 Spacer()
                 
-                TileImageProgressView(
+                ImageProgressView(
                     height: 50,
                     value: humidity * 100,
                     sfSymbol: "humidity.fill",
