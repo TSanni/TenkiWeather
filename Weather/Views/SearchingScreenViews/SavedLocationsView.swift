@@ -26,6 +26,7 @@ struct SavedLocationsView: View {
                     .listRowBackground(Color.clear)
 //                    .listRowSeparator(.hidden)
                     .padding(.top)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         Task {
                             await appStateViewModel.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
