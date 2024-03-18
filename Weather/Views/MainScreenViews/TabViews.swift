@@ -25,7 +25,7 @@ struct TabViews: View {
                 }
                 .toolbar(.visible, for: .tabBar)
                 .toolbarBackground(
-                    Color.black.opacity(0.3),
+                    Color.black.opacity(0.8),
                     for: .tabBar
                 )
             
@@ -38,7 +38,7 @@ struct TabViews: View {
                     LabelView(title: "Tomorrow", iconSymbol: weatherViewModel.tomorrowWeather.symbolName)
                 }
                 .toolbarBackground(
-                    Color.black.opacity(0.3),
+                    Color.black.opacity(0.8),
                     for: .tabBar
                 )
             
