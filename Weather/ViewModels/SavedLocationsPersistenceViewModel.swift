@@ -17,7 +17,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     @Published var savedLocations: [Location] = []
     
     private init() {
-        
+        UserDefaults.standard.set("timeAdded", forKey: "sortType")
+        UserDefaults.standard.set(false, forKey: "ascending")
+
         ValueTransformer.setValueTransformer(UnitTemperatureTransformer(), forName: NSValueTransformerName("UnitTemperatureTransformer"))
         
         container = NSPersistentContainer(name: "Locations")
@@ -30,10 +32,29 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         fetchLocations()
         container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
-
-    func fetchLocations() {        
+    
+    func fetchLocationsWithUserDeterminedOrder(key: String, ascending: Bool) {
         let request = NSFetchRequest<Location>(entityName: "Location")
-        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
+        
+        Task {
+            do {
+                try await MainActor.run {
+                    savedLocations = try container.viewContext.fetch(request)
+                }
+            } catch {
+                print("Error fetching. \(error)")
+            }
+
+        }
+    }
+
+    func fetchLocations() {   
+        let key = UserDefaults.standard.string(forKey: "sortType")
+        let ascending = UserDefaults.standard.bool(forKey: "ascending")
+
+        let request = NSFetchRequest<Location>(entityName: "Location")
+        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
         Task {
             do {
                 try await fetchWeatherPlacesWithTaskGroup()
@@ -75,11 +96,15 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     
     
     func updatePlaceName(entity: Location, newName: String) {
+        let key = UserDefaults.standard.string(forKey: "sortType")
+        let ascending = UserDefaults.standard.bool(forKey: "ascending")
+
         if newName == "" {
             return
         }
         let newName = newName
         entity.name = newName
+        fetchLocationsWithUserDeterminedOrder(key: key ?? "name", ascending: ascending)
         saveData()
     }
     

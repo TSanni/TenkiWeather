@@ -15,7 +15,8 @@ struct SearchingScreen: View {
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
-    
+    @AppStorage("sortType") var sortType = "name"
+    @AppStorage("ascending") var ascending = false
     //MARK: - Main View
     var body: some View {
         VStack {
@@ -38,6 +39,45 @@ struct SearchingScreen: View {
                     Text("Saved locations")
                         .font(.headline)
                     Spacer()
+                    
+                    Menu {
+                        Text("Sort locations by:")
+                        Button {
+                            if sortType == "name" {
+                                ascending.toggle()
+                            }
+                            
+                            sortType = "name"
+                            persistenceLocations.fetchLocationsWithUserDeterminedOrder(key: sortType, ascending: ascending)
+                        } label: {
+                            HStack {
+                                if sortType == "name" {
+                                    Image(systemName: "checkmark")
+                                }
+                                Text("Name")
+                            }
+                        }
+                        
+                        Button {
+                            if sortType == "timeAdded" {
+                                ascending.toggle()
+                            }
+                            sortType = "timeAdded"
+                            persistenceLocations.fetchLocationsWithUserDeterminedOrder(key: sortType, ascending: ascending)
+                        } label: {
+                            HStack {
+                                if sortType == "timeAdded" {
+                                    Image(systemName: "checkmark")
+                                }
+                                Text("Date Added")
+                            }
+                        }
+                        
+                    } label: {
+                        Image(systemName: "arrow.up.arrow.down")
+                            .padding(.leading)
+                    }
+
                 }
                 
                 CustomDivider()
