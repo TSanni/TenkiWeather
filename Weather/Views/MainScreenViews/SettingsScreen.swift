@@ -145,7 +145,7 @@ struct SettingsScreen: View {
     //MARK: - Functions
     private func saveLocation() {
         
-        if persistence.savedLocations.count >= 10 {
+        if persistence.savedLocations.count >= 20 {
             alertTitle = Text("Error")
             alertMessage = Text("Can't save location. Remove some saved locations before trying again.")
         } else {
