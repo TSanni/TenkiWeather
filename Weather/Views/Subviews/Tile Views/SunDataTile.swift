@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SunDataTile: View {
-    let sundata: SunData
+    let sunTime: String
+    let description: String
     let backgroundColor: Color
     let isSunrise: Bool
     
@@ -26,7 +27,7 @@ struct SunDataTile: View {
             Spacer()
             
             HStack {
-                Text(sundata.sunriseTime)
+                Text(sunTime)
                     .font(.largeTitle)
                     .bold()
                     .lineLimit(1)
@@ -43,7 +44,7 @@ struct SunDataTile: View {
             
             Spacer()
             
-            Text(sundata.dawnDescription)
+            Text(description)
             
             
         }
@@ -64,7 +65,7 @@ struct SunDataTile: View {
             Spacer()
             
             HStack {
-                Text(sundata.sunsetTime)
+                Text(sunTime)
                     .font(.largeTitle)
                     .bold()
                     .lineLimit(1)
@@ -81,7 +82,7 @@ struct SunDataTile: View {
             
             Spacer()
             
-            Text(sundata.duskDescription)
+            Text(description)
             
         }
         .cardTileModifier(backgroundColor: backgroundColor)
@@ -101,6 +102,6 @@ struct SunDataTile: View {
 }
 
 #Preview {
-    SunDataTile(sundata: SunData.sunDataHolder, backgroundColor: .red, isSunrise: false)
+    SunDataTile(sunTime: "SunTime", description: "Sun Description", backgroundColor: .red, isSunrise: false)
         .environmentObject(AppStateViewModel.shared)
 }

@@ -37,10 +37,18 @@ struct Helper {
     }
     
     /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: July 7, 10:08 PM
+    ///  Ex: Jul 7, 10:08 PM
     static func getReadableMainDate(date: Date, timezoneOffset: Int) -> String {
+        let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
+        var format: String
+        if militaryTime {
+            format = K.TimeConstants.monthDayHourMinuteMilitary
+        } else {
+            format = K.TimeConstants.monthDayHourMinute
+        }
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = K.TimeConstants.monthDayHourMinuteFormat
+        dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
         
         let readableDate = dateFormatter.string(from: date)
@@ -50,8 +58,17 @@ struct Helper {
     /// This function takes a date and returns a string with readable date data.
     /// Ex: 7 AM
     static func getReadableHourOnly(date: Date, timezoneOffset: Int) -> String {
+        let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
+        var format: String
+        
+        if militaryTime {
+            format = K.TimeConstants.hourOnlyMilitary
+        } else {
+            format = K.TimeConstants.hourOnly
+        }
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h a"
+        dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
         
         let readableHour = dateFormatter.string(from: date)
@@ -62,7 +79,7 @@ struct Helper {
     /// Ex: Tuesday, July 7
     static func getDayOfWeekAndDate(date: Date, timezoneOffset: Int) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, MMM d"
+        dateFormatter.dateFormat = K.TimeConstants.dayOfWeekAndDate
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
         
         let readableDate = dateFormatter.string(from: date)
@@ -72,8 +89,17 @@ struct Helper {
     /// This function accepts a date and returns a string of that date in a readable format
     ///  Ex: 12:07 PM
     static func getReadableHourAndMinute(date: Date?, timezoneOffset: Int) -> String {
+        let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
+        var format: String
+
+        if militaryTime {
+            format = K.TimeConstants.hourAndMinuteMilitary
+        } else {
+            format = K.TimeConstants.hourAndMinute
+        }
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
         if let date = date {
             let readableHourAndMinute = dateFormatter.string(from: date)

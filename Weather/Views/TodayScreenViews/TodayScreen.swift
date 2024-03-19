@@ -93,13 +93,15 @@ struct TodayScreen: View {
                             LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
                                 
                                 SunDataTile(
-                                    sundata: currentWeather.sunData,
+                                    sunTime: currentWeather.sunData.sunriseTime,
+                                    description: currentWeather.sunData.dawnDescription,
                                     backgroundColor: currentWeather.backgroundColor,
                                     isSunrise: true
                                 )
                                 
                                 SunDataTile(
-                                    sundata: currentWeather.sunData,
+                                    sunTime: currentWeather.sunData.sunsetTime,
+                                    description: currentWeather.sunData.duskDescription,
                                     backgroundColor: currentWeather.backgroundColor,
                                     isSunrise: false
                                 )

@@ -20,10 +20,7 @@ struct TomorrowScreen: View {
             ScrollView(.vertical, showsIndicators: false) {
                 ScrollViewReader { proxy in
                     ZStack {
-//                        dailyWeather.backgroundColor
-                        
-                       
-                        
+ 
                         VStack(alignment: .leading, spacing: 0.0) {
                             
                             VStack(alignment: .leading, spacing: 0.0) {
@@ -63,13 +60,15 @@ struct TomorrowScreen: View {
                                     )
                                     
                                     SunDataTile(
-                                        sundata: dailyWeather.sun,
+                                        sunTime: dailyWeather.sun.sunriseTime,
+                                        description: dailyWeather.sun.dawnDescription,
                                         backgroundColor: dailyWeather.backgroundColor,
                                         isSunrise: true
                                     )
                                     
                                     SunDataTile(
-                                        sundata: dailyWeather.sun,
+                                        sunTime: dailyWeather.sun.sunsetTime,
+                                        description: dailyWeather.sun.duskDescription,
                                         backgroundColor: dailyWeather.backgroundColor,
                                         isSunrise: false
                                     )

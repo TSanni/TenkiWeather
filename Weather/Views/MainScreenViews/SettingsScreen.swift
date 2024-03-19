@@ -21,71 +21,25 @@ struct SettingsScreen: View {
     @State private var alertTitle: Text = Text("")
     @State private var alertMessage: Text = Text("")
     
+    @AppStorage(K.UserDefaultKeys.timePreferenceKey) var toggle24HourTime: Bool = false
+ 
     var body: some View {
         List {
+            saveLocationSection
             
-            Section("Save Location") {
-                Button {
-                    saveLocation()
-                } label: {
-                    HStack {
-                        Image(systemName: "mappin.and.ellipse")
-                            .font(.title)
-                        
-                        Spacer()
-                        
-                        VStack {
-                            Text("\(appStateViewModel.searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] as? String ?? "")")
-                                .foregroundStyle(.green)
-                            
-                            Text("Click to save this location")
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.2)
-                        }
-                        
-                        Spacer()
+            temperatureSection
+            
+            distanceAndSpeedSection
+            
+            supportSection
+            
+            
+            Section("Time") {
+                Toggle(isOn: $toggle24HourTime) {
+                    VStack(alignment: .leading, spacing: 0.0) {
+                        Text("Use 24-hour format")
                     }
                 }
-                .tint(.primary)
-                
-            }
-            
-            
-            Section("Temperature") {
-                ForEach(TemperatureUnits.allCases, id: \.title) { unit in
-                    HStack {
-                        Text(unit.title + " " + unit.symbol)
-                        Spacer()
-                        if temperatureUnit == unit {
-                            Image(systemName: "checkmark")
-                        }
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        temperatureUnit = unit
-                    }
-                }
-            }
-            
-            Section("Distance and Speed") {
-                ForEach(DistanceUnits.allCases, id: \.title) { unit in
-                    HStack {
-                        Text(unit.title)
-                        Spacer()
-                        if distanceUnit == unit {
-                            Image(systemName: "checkmark")
-                        }
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        distanceUnit = unit
-                    }
-                }
-            }
-            
-            Section("Support") {
-                SendMailView()
             }
             
             Section {
@@ -99,6 +53,7 @@ struct SettingsScreen: View {
                 Button("Dismiss") {
                     dimiss()
                 }
+                .padding([.vertical, .leading])
                 .tint(.primary)
             }
         }
@@ -112,8 +67,82 @@ struct SettingsScreen: View {
             TermsAndConditionsView()
         }
     }
+     
+    
+    //MARK: - sub views
+    var saveLocationSection: some View {
+        Section("Save Location") {
+            Button {
+                saveLocation()
+            } label: {
+                HStack {
+                    Image(systemName: "mappin.and.ellipse")
+                        .font(.title)
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text("\(appStateViewModel.searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] as? String ?? "")")
+                            .foregroundStyle(.green)
+                        
+                        Text("Click to save this location")
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.2)
+                    }
+                    
+                    Spacer()
+                }
+            }
+            .tint(.primary)
+            
+        }
+    }
+    
+    var temperatureSection: some View {
+        Section("Temperature") {
+            ForEach(TemperatureUnits.allCases, id: \.title) { unit in
+                HStack {
+                    Text(unit.title + " " + unit.symbol)
+                    Spacer()
+                    if temperatureUnit == unit {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    temperatureUnit = unit
+                }
+            }
+        }
+    }
+    
+    var distanceAndSpeedSection: some View {
+        Section("Distance and Speed") {
+            ForEach(DistanceUnits.allCases, id: \.title) { unit in
+                HStack {
+                    Text(unit.title)
+                    Spacer()
+                    if distanceUnit == unit {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    distanceUnit = unit
+                }
+            }
+        }
+    }
+    
+    var supportSection: some View {
+        Section("Support") {
+            SendMailView()
+        }
+    }
     
     
+    //MARK: - Functions
     private func saveLocation() {
         
         if persistence.savedLocations.count >= 10 {
@@ -127,6 +156,8 @@ struct SettingsScreen: View {
         
         locationSaveAlert.toggle()
     }
+
+    
 }
 
 #Preview {

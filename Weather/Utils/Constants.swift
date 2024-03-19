@@ -19,6 +19,7 @@ struct K {
     struct UserDefaultKeys {
         static let unitTemperatureKey = "UnitTemperature"
         static let unitDistanceKey = "UnitDistance"
+        static let timePreferenceKey = "24HourTime"
     }
 
     struct LocationDictionaryKeysConstants {
@@ -52,7 +53,14 @@ struct K {
         static let twentyFourHoursInSeconds = 86400.0
         static let fifteenHours = 15
         static let twentyFourHours = 24
-        static let monthDayHourMinuteFormat = "MMM dd, h:mm a"
+        static let hourOnly = "h a" // Ex) 7 AM
+        static let hourOnlyMilitary = "HH a" // Ex) 13 PM
+        static let monthDayHourMinute = "MMM dd, h:mm a" // Ex: Jul 7, 10:08 PM
+        static let monthDayHourMinuteMilitary = "MMM dd, HH:mm a" // Ex: Jul 7, 13:08 PM
+        static let dayOfWeekAndDate = "EEEE, MMM d" // Ex: Tuesday, July 7
+        static let hourAndMinute = "h:mm a" // Ex: 12:07 PM
+        static let hourAndMinuteMilitary = "HH:mm a" // Ex: 12:07 PM
+
     }
     
     // Can't use Enum because the WeatherKit API is returning Strings for the Symbols
@@ -69,10 +77,10 @@ struct K {
         static let cloudBolt = "cloud.bolt"
         static let snowflake = "snowflake"
         static let cloudFog = "cloud.fog"
-        static let sunMin = "sun.min" //
+        static let sunMin = "sun.min"
         static let cloudBoltRain = "cloud.bolt.rain"
-        static let cloudDrizzle = "cloud.drizzle" //
-        static let cloudSnow = "cloud.snow" //
+        static let cloudDrizzle = "cloud.drizzle"
+        static let cloudSnow = "cloud.snow" 
         static let cloudMoonBolt = "cloud.moon.bolt"
         static let wind = "wind"
         static let sunHaze = "sun.haze"
