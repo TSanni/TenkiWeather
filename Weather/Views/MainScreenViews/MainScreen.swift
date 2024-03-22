@@ -10,12 +10,9 @@ import WeatherKit
 import CoreLocation
 import SpriteKit
 
-
-
 //MARK: - View
 struct MainScreen: View {
     @Environment(\.colorScheme) var colorScheme
-    
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var networkManager: NetworkMonitor
@@ -25,7 +22,6 @@ struct MainScreen: View {
     let deviceType = UIDevice.current.userInterfaceIdiom
 
     var body: some View {
-        
         ZStack {
             VStack(spacing: 0) {
 //                SearchBar()
@@ -60,12 +56,6 @@ struct MainScreen: View {
             .background(getBarColor.brightness(-0.1).ignoresSafeArea())
             .disabled(appStateViewModel.showSettingScreen ? true : false)
             .animation(deviceType == .pad ? nil : .default, value: tabViews)
-
-
-//            blurBackGround
-            
-//            settingsTile
-//                .transition(.offset(x: 1000))
             
             progresView
             
@@ -103,9 +93,6 @@ struct MainScreen: View {
     }
 }
 
-
-
-
 //MARK: - Main View Extension
 extension MainScreen {
     
@@ -120,28 +107,6 @@ extension MainScreen {
         }
     }
     
-//    private var blurBackGround: some View {
-//        Group {
-//            if appStateViewModel.showSettingScreen {
-//                Color.black.ignoresSafeArea().opacity(0.5)
-//                    .onTapGesture {
-//                            appStateViewModel.showSettingScreen = false
-//                    }
-//            }
-//        }
-//    }
-    
-    
-//    @ViewBuilder
-//    private var settingsTile: some View {
-//        if appStateViewModel.showSettingScreen {
-//            SettingsScreenTile()
-//                .padding()
-//                .zIndex(1)
-//        }
-//        
-//    }
-    
     @ViewBuilder
     private var progresView: some View {
         if appStateViewModel.loading {
@@ -149,10 +114,6 @@ extension MainScreen {
         }
     }
 }
-
-
-
-
 
 //MARK: - Preview
 struct MainScreen_Previews: PreviewProvider {
