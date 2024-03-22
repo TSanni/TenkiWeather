@@ -104,83 +104,12 @@ struct DailyWeatherModel: Identifiable {
     
     var backgroundColor: Color {
         let condition = condition
-        
-        switch condition {
-        case .blizzard:
-            return K.ColorsConstants.cloudSnow
-        case .blowingDust:
-            return K.ColorsConstants.haze
-        case .blowingSnow:
-            return K.ColorsConstants.cloudSnow
-        case .breezy:
-            return K.ColorsConstants.wind
-        case .clear:
-            return K.ColorsConstants.sunMaxColor
-        case .cloudy:
-            return K.ColorsConstants.cloudSunColor
-        case .drizzle:
-            return K.ColorsConstants.cloudSunRainColor
-        case .flurries:
-            return K.ColorsConstants.cloudSnow
-        case .foggy:
-            return K.ColorsConstants.cloudy
-        case .freezingDrizzle:
-            return K.ColorsConstants.cloudSunRainColor
-        case .freezingRain:
-            return K.ColorsConstants.cloudSunRainColor
-        case .frigid:
-            return K.ColorsConstants.cloudSnow
-        case .hail:
-            return K.ColorsConstants.cloudSnow
-        case .haze:
-            return K.ColorsConstants.haze
-        case .heavyRain:
-            return K.ColorsConstants.cloudSunRainColor
-        case .heavySnow:
-            return K.ColorsConstants.cloudSnow
-        case .hot:
-            return K.ColorsConstants.maroon
-        case .hurricane:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .isolatedThunderstorms:
-            return K.ColorsConstants.cloudBoltColor
-        case .mostlyClear:
-            return K.ColorsConstants.sunMaxColor
-        case .mostlyCloudy:
-            return K.ColorsConstants.cloudSunColor
-        case .partlyCloudy:
-            return K.ColorsConstants.cloudSunColor
-        case .rain:
-            return K.ColorsConstants.cloudSunRainColor
-        case .scatteredThunderstorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .sleet:
-            return K.ColorsConstants.cloudSnow
-        case .smoky:
-            return K.ColorsConstants.haze
-        case .snow:
-            return K.ColorsConstants.cloudSnow
-        case .strongStorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .sunFlurries:
-            return K.ColorsConstants.cloudSnow
-        case .sunShowers:
-            return K.ColorsConstants.cloudSunRainColor
-        case .thunderstorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .tropicalStorm:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .windy:
-            return K.ColorsConstants.wind
-        case .wintryMix:
-            return K.ColorsConstants.cloudSnow
-        @unknown default:
-            return K.ColorsConstants.sunMaxColor
-        }
+        return Helper.backgroundColor(weatherCondition: condition)
     }
     
     var scene: SKScene? {
-        return  K.getScene(symbol: symbolName)
+        let condition = condition
+        return Helper.getScene(weatherCondition: condition)
     }
     
     

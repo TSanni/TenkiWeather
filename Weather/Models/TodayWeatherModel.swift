@@ -13,19 +13,19 @@ import SpriteKit
 // MARK: - Main Model
 struct TodayWeatherModel: Identifiable {
     let id = UUID()
-    let apparentTemperature: Measurement<UnitTemperature> //
-    let dewPoint: Measurement<UnitTemperature> //
-    let humidity: Double //
-    let temperature: Measurement<UnitTemperature> //
-    let pressure: Measurement<UnitPressure> //
-    let pressureTrend: PressureTrend //
+    let apparentTemperature: Measurement<UnitTemperature>
+    let dewPoint: Measurement<UnitTemperature>
+    let humidity: Double
+    let temperature: Measurement<UnitTemperature>
+    let pressure: Measurement<UnitPressure>
+    let pressureTrend: PressureTrend
     let wind: WindData
     let condition: WeatherCondition
     let date: Date
     let isDaylight: Bool
     let uvIndexCategory: UVIndex.ExposureCategory
     let uvIndexValue: Int
-    let visibility: Measurement<UnitLength> //
+    let visibility: Measurement<UnitLength>
     let symbolName: String
     let highTemperature: Measurement<UnitTemperature>
     let lowTemperature: Measurement<UnitTemperature>
@@ -194,117 +194,15 @@ extension TodayWeatherModel {
         return temperatureValueOnly
     }
     
-    // Use isDaylight to decide whether it is nighttime
     var backgroundColor: Color {
         let condition = condition
         let isDaylight = isDaylight
-        
-        switch condition {
-        case .blizzard:
-            return K.ColorsConstants.cloudSnow
-        case .blowingDust:
-            return K.ColorsConstants.haze
-        case .blowingSnow:
-            return K.ColorsConstants.cloudSnow
-        case .breezy:
-            return K.ColorsConstants.wind
-        case .clear:
-            if isDaylight {
-                return K.ColorsConstants.sunMaxColor
-            }
-            return Color.indigo
-        case .cloudy:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunColor
-            }
-            return K.ColorsConstants.cloudMoonColor
-        case .drizzle:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunRainColor
-            }
-            return K.ColorsConstants.cloudMoonRainColor
-        case .flurries:
-            return K.ColorsConstants.cloudSnow
-        case .foggy:
-            return K.ColorsConstants.cloudy
-        case .freezingDrizzle:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunRainColor
-            }
-            return K.ColorsConstants.cloudMoonRainColor
-        case .freezingRain:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunRainColor
-            }
-            return K.ColorsConstants.cloudMoonRainColor
-        case .frigid:
-            return K.ColorsConstants.cloudSnow
-        case .hail:
-            return K.ColorsConstants.cloudSnow
-        case .haze:
-            return K.ColorsConstants.haze
-        case .heavyRain:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunRainColor
-            }
-            return K.ColorsConstants.cloudMoonRainColor
-        case .heavySnow:
-            return K.ColorsConstants.cloudSnow
-        case .hot:
-            return K.ColorsConstants.maroon
-        case .hurricane:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .isolatedThunderstorms:
-            return K.ColorsConstants.cloudBoltColor
-        case .mostlyClear:
-            if isDaylight {
-                return K.ColorsConstants.sunMaxColor
-            }
-            return Color.indigo
-        case .mostlyCloudy:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunColor
-            }
-            return K.ColorsConstants.cloudMoonColor
-        case .partlyCloudy:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunColor
-            }
-            return K.ColorsConstants.cloudMoonColor
-        case .rain:
-            if isDaylight {
-                return K.ColorsConstants.cloudSunRainColor
-            }
-            return K.ColorsConstants.cloudMoonRainColor
-        case .scatteredThunderstorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .sleet:
-            return K.ColorsConstants.cloudSnow
-        case .smoky:
-            return K.ColorsConstants.haze
-        case .snow:
-            return K.ColorsConstants.cloudSnow
-        case .strongStorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .sunFlurries:
-            return K.ColorsConstants.cloudSnow
-        case .sunShowers:
-            return K.ColorsConstants.cloudSunRainColor
-        case .thunderstorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .tropicalStorm:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .windy:
-            return K.ColorsConstants.wind
-        case .wintryMix:
-            return K.ColorsConstants.cloudSnow
-        @unknown default:
-            return K.ColorsConstants.sunMaxColor
-        }
+        return Helper.backgroundColor(weatherCondition: condition, isDaylight: isDaylight)
     }
     
     var scene: SKScene? {
-        return  K.getScene(symbol: symbolName)
+        let condition = condition
+        return Helper.getScene(weatherCondition: condition)
     }
 }
 
