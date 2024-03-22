@@ -51,7 +51,7 @@ struct TabViews: View {
                     LabelView(title: "10 Day", iconSymbol: "list.bullet.rectangle.fill")
                 }
                 .toolbarBackground(
-                    Color(uiColor: K.ColorsConstants.tenDayBarColor),
+                    K.ColorsConstants.tenDayBarColor,
                     for: .tabBar
                 )
         }

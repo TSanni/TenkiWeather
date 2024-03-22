@@ -13,7 +13,7 @@ struct SavedLocationImageView: View {
     
     var body: some View {
         Circle()
-            .fill(Color(uiColor: K.ColorsConstants.prussianBlue))
+            .fill(K.ColorsConstants.prussianBlue)
             .overlay {
                 Image(systemName: weatherViewModel.getImage(imageName: imageName))
                     .renderingMode(.original)
@@ -26,7 +26,6 @@ struct SavedLocationImageView: View {
 
 #Preview {
     ZStack {
-        Color(uiColor: K.ColorsConstants.properBlack)
         SavedLocationImageView(imageName: "cloud.moon.rain")
     }
 }

@@ -68,7 +68,7 @@ struct MultiDayScreen: View {
                 .background(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
             }
         }
-        .background(Color(uiColor: K.ColorsConstants.tenDayBarColor))
+        .background(K.ColorsConstants.tenDayBarColor)
         .fullScreenCover(isPresented: $showWebView) {
             FullScreenWebView(url: K.legalAttributionURL)
         }

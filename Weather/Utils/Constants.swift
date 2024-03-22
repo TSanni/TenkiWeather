@@ -115,79 +115,77 @@ struct K {
         }
     }
     
-    static func getBackGroundColor(symbol: String) -> Color {
-        switch symbol {
-        case K.SymbolConstants.sunMax:
-            return Color(uiColor: K.ColorsConstants.sunMaxColor)
-        case K.SymbolConstants.moon:
-            return Color.indigo
-        case K.SymbolConstants.moonStars:
-            return Color.indigo
-        case K.SymbolConstants.cloudSun:
-            return Color(uiColor: K.ColorsConstants.cloudSunColor)
-        case K.SymbolConstants.cloudMoon:
-            return Color(uiColor: K.ColorsConstants.cloudMoonColor)
-        case K.SymbolConstants.cloud:
-            return Color(uiColor: K.ColorsConstants.cloudy)
-        case K.SymbolConstants.cloudRain:
-            return Color(uiColor: K.ColorsConstants.cloudSunRainColor)
-        case K.SymbolConstants.cloudSunRain:
-            return Color(uiColor: K.ColorsConstants.cloudSunRainColor)
-        case K.SymbolConstants.cloudMoonRain:
-            return Color(uiColor: K.ColorsConstants.cloudMoonRainColor)
-        case K.SymbolConstants.cloudBolt:
-            return Color(uiColor: K.ColorsConstants.cloudBoltColor)
-        case K.SymbolConstants.snowflake:
-            return Color(uiColor: K.ColorsConstants.cloudSunColor)
-        case K.SymbolConstants.cloudFog:
-            return Color(uiColor: K.ColorsConstants.cloudy)
-        case K.SymbolConstants.cloudBoltRain:
-            return Color(uiColor: K.ColorsConstants.cloudBoltRainColor)
-        case K.SymbolConstants.cloudSnow:
-            return Color(uiColor: K.ColorsConstants.cloudSnow)
-        case K.SymbolConstants.cloudMoonBolt:
-            return Color(uiColor: K.ColorsConstants.cloudBoltColor)
-        case K.SymbolConstants.wind:
-            return Color(uiColor: K.ColorsConstants.wind)
-        case K.SymbolConstants.sunHaze:
-            return Color(uiColor: K.ColorsConstants.haze)
-        case K.SymbolConstants.moonHaze:
-            return Color(uiColor: K.ColorsConstants.haze)
-        case K.SymbolConstants.cloudHeavyRain:
-            return Color(uiColor: K.ColorsConstants.cloudMoonRainColor)
-        case K.SymbolConstants.cloudDrizzle:
-            return Color(uiColor: K.ColorsConstants.cloudSunRainColor)
-        case K.SymbolConstants.snow:
-            return Color(uiColor: K.ColorsConstants.cloudSnow)
-        default:
-            return Color(uiColor: K.ColorsConstants.sunMaxColor)
-        }
-    }
+//    static func getBackGroundColor(symbol: String) -> Color {
+//        switch symbol {
+//        case K.SymbolConstants.sunMax:
+//            return K.ColorsConstants.sunMaxColor
+//        case K.SymbolConstants.moon:
+//            return Color.indigo
+//        case K.SymbolConstants.moonStars:
+//            return Color.indigo
+//        case K.SymbolConstants.cloudSun:
+//            return K.ColorsConstants.cloudSunColor
+//        case K.SymbolConstants.cloudMoon:
+//            return K.ColorsConstants.cloudMoonColor
+//        case K.SymbolConstants.cloud:
+//            return K.ColorsConstants.cloudy
+//        case K.SymbolConstants.cloudRain:
+//            return K.ColorsConstants.cloudSunRainColor
+//        case K.SymbolConstants.cloudSunRain:
+//            return K.ColorsConstants.cloudSunRainColor
+//        case K.SymbolConstants.cloudMoonRain:
+//            return K.ColorsConstants.cloudMoonRainColor
+//        case K.SymbolConstants.cloudBolt:
+//            return  K.ColorsConstants.cloudBoltColor
+//        case K.SymbolConstants.snowflake:
+//            return K.ColorsConstants.cloudSunColor
+//        case K.SymbolConstants.cloudFog:
+//            return K.ColorsConstants.cloudy
+//        case K.SymbolConstants.cloudBoltRain:
+//            return K.ColorsConstants.cloudBoltRainColor
+//        case K.SymbolConstants.cloudSnow:
+//            return K.ColorsConstants.cloudSnow
+//        case K.SymbolConstants.cloudMoonBolt:
+//            return K.ColorsConstants.cloudBoltColor
+//        case K.SymbolConstants.wind:
+//            return K.ColorsConstants.wind
+//        case K.SymbolConstants.sunHaze:
+//            return K.ColorsConstants.haze
+//        case K.SymbolConstants.moonHaze:
+//            return K.ColorsConstants.haze
+//        case K.SymbolConstants.cloudHeavyRain:
+//            return K.ColorsConstants.cloudMoonRainColor
+//        case K.SymbolConstants.cloudDrizzle:
+//            return K.ColorsConstants.cloudSunRainColor
+//        case K.SymbolConstants.snow:
+//            return K.ColorsConstants.cloudSnow
+//        default:
+//            return K.ColorsConstants.sunMaxColor
+//        }
+//    }
     
     struct ColorsConstants {
         static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607837796, green: 0.9607847333, blue: 0.9822904468, alpha: 1))
-        static let properBlack = #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1)
+        static let properBlack = Color(uiColor: #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1))
         static let goodDarkTheme = Color(uiColor: #colorLiteral(red: 0.1450980604, green: 0.1450980604, blue: 0.1450980604, alpha: 1))
-        static let sunMaxColor = #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1)
-        static let moonAndStarsColor = #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1)
-        static let cloudSunColor = #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1)
-        static let cloudMoonColor = #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1)
-//        static let cloudy = #colorLiteral(red: 0.4886933565, green: 0.624339819, blue: 0.7615836859, alpha: 1)
-        static let cloudy = #colorLiteral(red: 0.3367654085, green: 0.5832664371, blue: 0.7205563188, alpha: 1)
-
-        static let cloudSunRainColor = #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1)
-        static let cloudMoonRainColor = #colorLiteral(red: 0, green: 0.3320232332, blue: 0.6122661233, alpha: 1)
-        static let cloudBoltColor = #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1)
-        static let cloudBoltRainColor = #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1)
-        static let wind = #colorLiteral(red: 0.3438811302, green: 0.6744567752, blue: 0.9567326903, alpha: 1)
-        static let haze = #colorLiteral(red: 0.6361310482, green: 0.6071113944, blue: 0.5944020152, alpha: 1)
-        static let cloudSnow = #colorLiteral(red: 0.2117647059, green: 0.3294117647, blue: 0.5254901961, alpha: 1)
+        static let sunMaxColor = Color(uiColor: #colorLiteral(red: 0.1332838535, green: 0.6956239343, blue: 0.889532268, alpha: 1))
+        static let moonAndStarsColor = Color(uiColor: #colorLiteral(red: 0.5618619323, green: 0.3260331154, blue: 1, alpha: 1))
+        static let cloudSunColor = Color(uiColor: #colorLiteral(red: 0.3795131445, green: 0.7058345675, blue: 0.8753471971, alpha: 1))
+        static let cloudMoonColor = Color(uiColor: #colorLiteral(red: 0.521438539, green: 0.5413015485, blue: 0.8576574922, alpha: 1))
+        static let cloudy = Color(uiColor: #colorLiteral(red: 0.3367654085, green: 0.5832664371, blue: 0.7205563188, alpha: 1))
+        static let cloudSunRainColor = Color(uiColor: #colorLiteral(red: 0.1450087726, green: 0.5186601877, blue: 0.8773562908, alpha: 1))
+        static let cloudMoonRainColor = Color(uiColor: #colorLiteral(red: 0, green: 0.3320232332, blue: 0.6122661233, alpha: 1))
+        static let cloudBoltColor = Color(uiColor: #colorLiteral(red: 0.5899515152, green: 0.3875116706, blue: 0.5502174497, alpha: 1))
+        static let cloudBoltRainColor = Color(uiColor: #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1))
+        static let wind = Color(uiColor: #colorLiteral(red: 0.3438811302, green: 0.6744567752, blue: 0.9567326903, alpha: 1))
+        static let haze = Color(uiColor: #colorLiteral(red: 0.6361310482, green: 0.6071113944, blue: 0.5944020152, alpha: 1))
+        static let cloudSnow = Color(uiColor: #colorLiteral(red: 0.2117647059, green: 0.3294117647, blue: 0.5254901961, alpha: 1))
         static let precipitationBlue = Color(uiColor: #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1))
-        static let cloudyBlue = #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1)
-        static let tenDayBarColor = #colorLiteral(red: 0.0978968963, green: 0.3324657381, blue: 0.4080292583, alpha: 1)
-        static let darkRed = #colorLiteral(red: 0.6502581835, green: 0.08077467233, blue: 0.02964879759, alpha: 1)
-        static let lightPink = #colorLiteral(red: 1, green: 0.7621075511, blue: 0.7261560559, alpha: 1)
-        static let maroon = #colorLiteral(red: 0.4117647059, green: 0.003921568627, blue: 0.01960784314, alpha: 1)
-        static let prussianBlue = #colorLiteral(red: 0.003921568627, green: 0.2, blue: 0.3294117647, alpha: 1)
+        static let cloudyBlue = Color(uiColor: #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1))
+        static let tenDayBarColor = Color(uiColor: #colorLiteral(red: 0.0978968963, green: 0.3324657381, blue: 0.4080292583, alpha: 1))
+        static let darkRed = Color(uiColor: #colorLiteral(red: 0.6502581835, green: 0.08077467233, blue: 0.02964879759, alpha: 1))
+        static let lightPink = Color(uiColor: #colorLiteral(red: 1, green: 0.7621075511, blue: 0.7261560559, alpha: 1))
+        static let maroon = Color(uiColor: #colorLiteral(red: 0.4117647059, green: 0.003921568627, blue: 0.01960784314, alpha: 1))
+        static let prussianBlue = Color(uiColor: #colorLiteral(red: 0.003921568627, green: 0.2, blue: 0.3294117647, alpha: 1))
     }
 }

@@ -116,7 +116,7 @@ extension MainScreen {
         case .tomorrow:
             return weatherViewModel.tomorrowWeather.backgroundColor
         case .multiDay:
-            return Color(uiColor: K.ColorsConstants.tenDayBarColor)
+            return K.ColorsConstants.tenDayBarColor
         }
     }
     

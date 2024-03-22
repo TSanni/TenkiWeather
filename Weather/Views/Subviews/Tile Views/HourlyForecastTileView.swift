@@ -100,10 +100,10 @@ struct HourlyForecastTileView: View {
 
 #Preview {
     ZStack {
-        Color(uiColor: K.ColorsConstants.haze).brightness(0.1)
+        K.ColorsConstants.haze.brightness(0.1)
         HourlyForecastTileView(
             hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData,
-            color: Color(uiColor: K.ColorsConstants.haze)
+            color: K.ColorsConstants.haze
         )
         .environmentObject(AppStateViewModel.shared)
     }
