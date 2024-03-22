@@ -44,12 +44,13 @@ struct TodayWeatherModel: Identifiable {
         pressure: Measurement(value: 20, unit: .inchesOfMercury),
         pressureTrend: .rising,
         wind: WindData.windDataHolder[0],
-        condition: .clear, date: Date.now,
+        condition: .snow,
+        date: Date.now,
         isDaylight: false,
         uvIndexCategory: .extreme,
         uvIndexValue: 10,
         visibility: Measurement(value: 5000, unit: .meters),
-        symbolName: "sun.max",
+        symbolName: "moon.stars",
         highTemperature: Measurement(value: 50, unit: .fahrenheit),
         lowTemperature: Measurement(value: 50, unit: .fahrenheit),
         precipitationChance: 0.5,
@@ -66,17 +67,14 @@ extension TodayWeatherModel {
     var feelsLikeTemperature: String {
         let temperature = apparentTemperature.converted(to: Helper.getUnitTemperature())
         let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
-        
         return temperatureValueOnly
     }
     
     var dewPointDescription: String {
         let dewPointTemperature = dewPoint.converted(to: Helper.getUnitTemperature())
         let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: dewPointTemperature.value)
-        
         let description = "The dew point is " + temperatureValueOnly + dewPointTemperature.unit.symbol + " right now."
         return description
-//        return temperatureValueOnly + dewPointTemperature.unit.symbol
     }
     
     var humidityPercentage: String {
