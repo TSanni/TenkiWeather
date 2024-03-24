@@ -64,7 +64,6 @@ struct TodayScreen: View {
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
-                                
                                 PressureTileView(
                                     pressureDetails: currentWeather,
                                     backgroundColor: currentWeather.backgroundColor
@@ -85,7 +84,6 @@ struct TodayScreen: View {
                                 .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
                             
                             LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
-                                
                                 SunDataTile(
                                     sunTime: currentWeather.sunData.sunriseTime,
                                     description: currentWeather.sunData.dawnDescription,

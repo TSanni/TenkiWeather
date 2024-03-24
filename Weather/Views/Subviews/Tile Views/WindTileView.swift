@@ -102,9 +102,7 @@ struct WindTileView: View {
                     Text(windData.speedUnit)
                 }
             }
-            
-            
-            
+  
             VStack(alignment: .leading) {
                 Text(windData.windDescription)
                     .font(.largeTitle)
@@ -114,8 +112,6 @@ struct WindTileView: View {
                 Text("Now · From \(windData.readableWindDirection)")
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
-                
-                
             }
         }
     }
