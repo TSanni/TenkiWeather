@@ -39,7 +39,6 @@ struct TopView: View {
             }
             .foregroundStyle(.white)
             .shadow(radius: 10)
-//            .padding()
     }
 }
 

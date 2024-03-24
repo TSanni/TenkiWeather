@@ -20,12 +20,6 @@ struct TodayScreen: View {
             ScrollView(.vertical ,showsIndicators: false) {
                 ScrollViewReader { proxy in
                     ZStack {
-//                        currentWeather.backgroundColor
-//
-//                        if let scene = currentWeather.scene {
-//                            WeatherParticleEffectView(sceneImport: scene)
-//                        }
-                        
                         VStack(alignment: .leading, spacing: 0.0) {
                             ImmediateWeatherDetails(currentWeather: currentWeather)
                                 .id(0)
@@ -123,9 +117,7 @@ struct TodayScreen: View {
                 WeatherParticleEffectView(sceneImport: scene)
             }
         }
-        
     }
-    
 }
 
 

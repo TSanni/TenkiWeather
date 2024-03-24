@@ -15,7 +15,6 @@ struct TabViews: View {
     var body: some View {
         TabView(selection: $tabViews) {
             
-            
             TodayScreen(currentWeather: weatherViewModel.currentWeather, weatherAlert: weatherViewModel.weatherAlert)
                 .tag(WeatherTabs.today)
                 .environmentObject(weatherViewModel)
@@ -55,11 +54,6 @@ struct TabViews: View {
                     for: .tabBar
                 )
         }
-//        .tint(.white)
-//        .tabViewStyle(.page(indexDisplayMode: .automatic))
-//        .ignoresSafeArea()
-
-
     }
 }
 

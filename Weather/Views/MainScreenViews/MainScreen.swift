@@ -31,18 +31,20 @@ struct MainScreen: View {
                 
                 TopView().padding(.vertical)
                 
-                if UIDevice.current.userInterfaceIdiom != .pad {
-                    WeatherTabSelectionsView(tabViews: $tabViews)
-                    TabViews(tabViews: $tabViews)
-                        .tint(.white)
-                        .tabViewStyle(.page(indexDisplayMode: .never))
-                        .ignoresSafeArea()
-                } else {
-                    TabViews(tabViews: $tabViews)
-                        .tint(.white)
-                        .ignoresSafeArea()
+                
+                Group {
+                    if UIDevice.current.userInterfaceIdiom != .pad {
+                        WeatherTabSelectionsView(tabViews: $tabViews)
+                        TabViews(tabViews: $tabViews)
+                            .tint(.white)
+                            .tabViewStyle(.page(indexDisplayMode: .never))
+                            .ignoresSafeArea()
+                    } else {
+                        TabViews(tabViews: $tabViews)
+                            .tint(.white)
+                            .ignoresSafeArea()
+                    }
                 }
-
 
                 if !networkManager.isConnected {
                     HStack {

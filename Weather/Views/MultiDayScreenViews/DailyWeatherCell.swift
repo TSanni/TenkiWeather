@@ -13,9 +13,7 @@ struct DailyWeatherCell: View {
     let weatherViewModel = WeatherViewModel.shared
     let daily: DailyWeatherModel
     let title: String?
-    
-    
-    
+
     var body: some View {
         VStack {
             VStack {
@@ -47,9 +45,7 @@ struct DailyWeatherCell: View {
             showRest = false
         }
     }
-    
-    
-    
+        
     private var dayDetails: some View {
         VStack {
             HStack {

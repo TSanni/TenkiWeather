@@ -10,9 +10,9 @@ import SwiftUI
 struct CurrentLocationView: View {
     @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
+    @State private var time = ""
 
     let localWeather: TodayWeatherModel
-    @State private var time = ""
 
     var body: some View {
         HStack {
