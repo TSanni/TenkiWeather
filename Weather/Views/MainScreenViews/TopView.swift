@@ -21,6 +21,7 @@ struct TopView: View {
                         Text(locationManager.searchedLocationName)
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
+                        Spacer()
                         
                     }
                     .padding()
