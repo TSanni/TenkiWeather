@@ -10,7 +10,6 @@ import SwiftUI
 struct DailyWeatherCell: View {
     @EnvironmentObject private var appStateViewModel: AppStateViewModel
     @State private var showRest: Bool = false
-    let weatherViewModel = WeatherViewModel.shared
     let daily: DailyWeatherModel
     let title: String?
 
@@ -85,7 +84,7 @@ struct DailyWeatherCell: View {
                     ForEach(daily.hourlyWeather) { hour in
                         VStack {
                             Text("\(hour.hourTemperature)°")
-                            Image(systemName: weatherViewModel.getImage(imageName: hour.symbol))
+                            Image(systemName: Helper.getImage(imageName: hour.symbol))
                                 .renderingMode(.original)
                                 .resizable()
                                 .scaledToFit()
@@ -130,7 +129,7 @@ struct DailyWeatherCell: View {
                         .foregroundColor(.teal)
                         .lineLimit(1)
                 }
-                Image(systemName: weatherViewModel.getImage(imageName: daily.symbolName))
+                Image(systemName: Helper.getImage(imageName: daily.symbolName))
                     .renderingMode(.original)
                     .resizable()
                     .scaledToFit()

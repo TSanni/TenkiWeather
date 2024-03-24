@@ -16,7 +16,6 @@ struct WindTileView: View {
     let hourlyWeather: [HourlyWeatherModel]
     let setTodayWeather: Bool
     let backgroundColor: Color
-    let weatherViewModel = WeatherViewModel.shared
     let deviceType = UIDevice.current.userInterfaceIdiom
 
     var body: some View {
@@ -40,7 +39,7 @@ struct WindTileView: View {
                             .id(0)
                         ForEach(hourlyWeather) { hour in
                             Image(systemName: "location.fill")
-                                .rotationEffect(.degrees(weatherViewModel.getRotation(direction: hour.wind.compassDirection) + 180))
+                                .rotationEffect(.degrees(Helper.getRotation(direction: hour.wind.compassDirection) + 180))
                                 .padding(.vertical)
                                 .padding(.horizontal, deviceType == .pad ? 50 : 10)
                         }
@@ -99,7 +98,7 @@ struct WindTileView: View {
                 
                 VStack {
                     Image(systemName: "location.fill")
-                        .rotationEffect(.degrees(weatherViewModel.getRotation(direction: windData.compassDirection) + 180) )
+                        .rotationEffect(.degrees(Helper.getRotation(direction: windData.compassDirection) + 180) )
                     Text(windData.speedUnit)
                 }
             }

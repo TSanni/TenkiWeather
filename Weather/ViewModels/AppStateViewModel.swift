@@ -137,7 +137,7 @@ import GooglePlaces
     }
     
     func fillImageToPrepareForRendering(symbol: String) -> String {
-        let filledInSymbol = weatherViewModel.getImage(imageName: symbol)
+        let filledInSymbol = Helper.getImage(imageName: symbol)
         return filledInSymbol
     }
     

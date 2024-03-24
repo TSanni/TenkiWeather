@@ -9,13 +9,12 @@ import SwiftUI
 
 struct SavedLocationImageView: View {
     let imageName: String
-    let weatherViewModel = WeatherViewModel.shared
     
     var body: some View {
         Circle()
             .fill(K.ColorsConstants.prussianBlue)
             .overlay {
-                Image(systemName: weatherViewModel.getImage(imageName: imageName))
+                Image(systemName: Helper.getImage(imageName: imageName))
                     .renderingMode(.original)
                     .padding()
                     .font(.headline)
