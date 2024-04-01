@@ -14,6 +14,7 @@
 import SwiftUI
 import UIKit
 import GooglePlaces
+import BackgroundTasks
 
 // no changes in your AppDelegate class
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -36,6 +37,8 @@ struct WeatherApp: App {
     @StateObject private var appStateViewModel = AppStateViewModel.shared
     @StateObject private var networkManager = NetworkMonitor()
     
+    let backgroundClass = BackgroundTasksManager()
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
@@ -52,15 +55,18 @@ struct WeatherApp: App {
                   }
               }
               .onChange(of: locationViewModel.authorizationStatus) { newValue in
-                  if newValue == .authorizedWhenInUse {
+                  switch newValue {
+                  case .authorizedWhenInUse:
                       Task {
                           await appStateViewModel.getWeather()
                       }
+                  default: break
                   }
               }
               .onChange(of: scenePhase) { newValue in
                   //use this modifier to periodically update the weather data
-                  if newValue == .active {
+                  switch newValue {
+                  case .active:
                       Task {
                           if -savedDate.timeIntervalSinceNow > 60 * 10 {
                               // 10 minutes have passed, refresh the data
@@ -71,8 +77,16 @@ struct WeatherApp: App {
                               return
                           }
                       }
+                      
+                  case .background: backgroundClass.startBackgroundTasks()
+                  default: break
                   }
               }
+        }
+        .backgroundTask(.appRefresh("getCurrentWeather")) { _ in
+            print("Hi")
+            await appStateViewModel.getWeather()
+            backgroundClass.startBackgroundTasks()
         }
     }
 }

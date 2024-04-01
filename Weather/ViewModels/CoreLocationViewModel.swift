@@ -11,12 +11,12 @@ import CoreLocation
 //TODO: Remove publishedError property
 
 class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDelegate {
-    @Published var authorizationStatus: CLAuthorizationStatus?
-    @Published var publishedError: GeocodingErrors?
-    @Published var timezoneForCoordinateInput: Int = 0
+    @Published private(set) var authorizationStatus: CLAuthorizationStatus?
+    @Published private(set) var publishedError: GeocodingErrors?
+    @Published private(set) var timezoneForCoordinateInput: Int = 0
+    @Published private(set) var localLocationName: String = ""
     @Published var searchedLocationName: String = ""
-    @Published var localLocationName: String = ""
-    
+
     static let shared = CoreLocationViewModel()
     
     var locationManager = CLLocationManager()

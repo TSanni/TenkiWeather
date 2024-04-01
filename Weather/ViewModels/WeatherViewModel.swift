@@ -11,11 +11,11 @@ import GooglePlaces
 
 
 class WeatherViewModel: ObservableObject {
-    @Published var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
-    @Published var tomorrowWeather: DailyWeatherModel = DailyWeatherModel.placeholder
-    @Published var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.placeholder]
-    @Published var weatherAlert: WeatherAlertModel? = nil
-    @Published var localWeather: TodayWeatherModel = TodayWeatherModel.holderData
+    @Published private(set) var currentWeather: TodayWeatherModel = TodayWeatherModel.holderData
+    @Published private(set) var tomorrowWeather: DailyWeatherModel = DailyWeatherModel.placeholder
+    @Published private(set) var dailyWeather: [DailyWeatherModel] = [DailyWeatherModel.placeholder]
+    @Published private(set) var weatherAlert: WeatherAlertModel? = nil
+    @Published private(set) var localWeather: TodayWeatherModel = TodayWeatherModel.holderData
     @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
     
     static let shared = WeatherViewModel()

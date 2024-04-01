@@ -9,34 +9,38 @@ import Foundation
 import SwiftUI
 import GooglePlaces
 
-//TODO: Add gesture ability for underline when swiping to new tab 
 
+
+//TODO: Add gesture ability for underline when swiping to new tab 
+//TODO: Convert searchedLocationDictionary from dictionary to Model Struct
 @MainActor class AppStateViewModel: ObservableObject {
+    @Published private(set) var resetViews: Bool = false
+    @Published private(set) var loading: Bool = false
+    @Published private(set) var currentLocationName: String = ""
+    @Published private(set) var currentLocationTimezone: Int = 0
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
-    @Published var resetViews: Bool = false
-    @Published var loading: Bool = false
-    @Published var currentLocationName: String = ""
-    @Published var currentLocationTimezone: Int = 0
     // This property's only purpose is to add data to CoreData.
     // You can find it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
-    @Published var searchedLocationDictionary: [String: Any] = [
-        K.LocationDictionaryKeysConstants.name: "",
-        K.LocationDictionaryKeysConstants.latitude: 0,
-        K.LocationDictionaryKeysConstants.longitude: 0,
-        K.LocationDictionaryKeysConstants.timezone: 0.0,
-        K.LocationDictionaryKeysConstants.temperature: "",
-        K.LocationDictionaryKeysConstants.date: "",
-        K.LocationDictionaryKeysConstants.symbol: "",
-        K.LocationDictionaryKeysConstants.weatherCondition: "",
-        K.LocationDictionaryKeysConstants.unitTemperature: UnitTemperature.fahrenheit,
-        K.LocationDictionaryKeysConstants.weatherAlert: false
-    ]
+    @Published private(set) var searchedLocationDictionary2: SearchLocationModel =
+        SearchLocationModel(
+            name: "",
+            latitude: 0,
+            longitude: 0,
+            timezone: 0,
+            temperature: "",
+            date: "",
+            symbol: "",
+            weatherCondition: "",
+            unitTemperature: .fahrenheit,
+            weatherAlert: false
+        )
     
-    @Published var startingOffsetX: CGFloat = 0
-    @Published var currentDragOffsetX: CGFloat = 0
-    @Published var endingOffsetX: CGFloat = 0
+    
+//    @Published var startingOffsetX: CGFloat = 0
+//    @Published var currentDragOffsetX: CGFloat = 0
+//    @Published var endingOffsetX: CGFloat = 0
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
 
     
@@ -82,20 +86,22 @@ import GooglePlaces
         currentLocationTimezone = timezone
     }
     
-    func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature, weatherAlert: Bool) {
+    private func setSearchedLocationDictionary2(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature, weatherAlert: Bool) {
         
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] = name
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.latitude] = latitude
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.longitude] = longitude
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.timezone] = timezone
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.temperature] = temperature
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.date] = date
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.symbol] = symbol
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.weatherCondition] = weatherCondition
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.unitTemperature] = unitTemperature
-        searchedLocationDictionary[K.LocationDictionaryKeysConstants.weatherAlert] = weatherAlert
+        self.searchedLocationDictionary2 = SearchLocationModel(
+            name: name,
+            latitude: latitude,
+            longitude: longitude,
+            timezone: timezone,
+            temperature: temperature,
+            date: date,
+            symbol: symbol,
+            weatherCondition: weatherCondition,
+            unitTemperature: unitTemperature,
+            weatherAlert: weatherAlert
+        )
     }
-    
+
     func dataIsLoading() {
         self.loading = true
     }
@@ -151,16 +157,16 @@ import GooglePlaces
         
         locationViewModel.searchedLocationName = item.name!
         
-        setSearchedLocationDictionary(
+        setSearchedLocationDictionary2(
             name: locationViewModel.searchedLocationName,
             latitude: item.latitude,
             longitude: item.longitude,
             timezone: Int(item.timezone),
             temperature: item.temperature ?? "",
             date: item.currentDate ?? "",
-            symbol: item.sfSymbol ?? "",
+            symbol: item.sfSymbol ?? "sun.max.fill",
             weatherCondition: item.weatherCondition ?? "",
-            unitTemperature: item.unitTemperature ?? .fahrenheit, 
+            unitTemperature: item.unitTemperature ?? .fahrenheit,
             weatherAlert: item.weatherAlert
         )
 
@@ -180,8 +186,8 @@ import GooglePlaces
         let currentWeather = weatherViewModel.currentWeather
 
         setCurrentLocationName(name: userLocationName)
-
-        setSearchedLocationDictionary(
+        
+        setSearchedLocationDictionary2(
             name: locationViewModel.searchedLocationName,
             latitude: locationViewModel.latitude,
             longitude: locationViewModel.longitude,
@@ -190,7 +196,7 @@ import GooglePlaces
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: Helper.getUnitTemperature(), 
+            unitTemperature: Helper.getUnitTemperature(),
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
@@ -206,7 +212,7 @@ import GooglePlaces
         await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         let currentWeather = weatherViewModel.currentWeather
         
-        setSearchedLocationDictionary(
+        setSearchedLocationDictionary2(
             name: locationViewModel.searchedLocationName,
             latitude: coordinates.latitude,
             longitude: coordinates.longitude,
@@ -215,7 +221,7 @@ import GooglePlaces
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: Helper.getUnitTemperature(), 
+            unitTemperature: Helper.getUnitTemperature(),
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
@@ -225,6 +231,7 @@ import GooglePlaces
     }
     
     func getWeather() async {
+        print(#function)
         dataIsLoading()
         
         await locationViewModel.getLocalLocationName()
@@ -238,7 +245,7 @@ import GooglePlaces
         setCurrentLocationTimezone(timezone: timezone)
         dataCompletedLoading()
         
-        setSearchedLocationDictionary(
+        setSearchedLocationDictionary2(
             name: userLocationName,
             latitude: locationViewModel.latitude,
             longitude: locationViewModel.longitude,
@@ -247,7 +254,7 @@ import GooglePlaces
             date: weatherViewModel.currentWeather.readableDate,
             symbol: weatherViewModel.currentWeather.symbolName,
             weatherCondition: weatherViewModel.currentWeather.weatherDescription,
-            unitTemperature: Helper.getUnitTemperature(), 
+            unitTemperature: Helper.getUnitTemperature(),
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         

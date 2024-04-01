@@ -82,41 +82,41 @@ struct PlacesViewControllerBridge: UIViewControllerRepresentable {
     }
 
 
-struct PlacesViewControllerBridgeExampleView: View {
-    @State var text = ""
-    @State var isPresent = true
-    var body: some View {
-        
-        VStack {
-            TextField("777", text: $text)
-                .sheet(isPresented: $isPresent) {
-                    PlacesViewControllerBridge { place in
-                        
-                    }
-                }
-        }
-        
-    }
-    
-}
+//struct PlacesViewControllerBridgeExampleView: View {
+//    @State var text = ""
+//    @State var isPresent = true
+//    var body: some View {
+//        
+//        VStack {
+//            TextField("777", text: $text)
+//                .sheet(isPresented: $isPresent) {
+//                    PlacesViewControllerBridge { place in
+//                        
+//                    }
+//                }
+//        }
+//        
+//    }
+//    
+//}
 
 
-struct CustomTextFieldStyle: TextFieldStyle {
-    func _body(configuration: TextField<Self._Label>) -> some View {
-         configuration
-             .padding()
-             .overlay(
-                 RoundedRectangle(cornerRadius: 30)
-                     .stroke(Color.white, lineWidth:2)
-             )
-     }
-}
+//struct CustomTextFieldStyle: TextFieldStyle {
+//    func _body(configuration: TextField<Self._Label>) -> some View {
+//         configuration
+//             .padding()
+//             .overlay(
+//                 RoundedRectangle(cornerRadius: 30)
+//                     .stroke(Color.white, lineWidth:2)
+//             )
+//     }
+//}
 
-struct PlacesViewControllerBridgeExampleView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            PlacesViewControllerBridgeExampleView()
-        }
-        
-    }
-}
+//struct PlacesViewControllerBridgeExampleView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ZStack {
+//            PlacesViewControllerBridgeExampleView()
+//        }
+//        
+//    }
+//}

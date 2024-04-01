@@ -31,7 +31,7 @@ struct WeatherTabSelectionsView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .frame(height: 3)
                                     .frame(width: 50)
-                                    .offset(x: appStateViewModel.currentDragOffsetX)
+//                                    .offset(x: appStateViewModel.currentDragOffsetX)
                                     .matchedGeometryEffect(
                                         id: "selected",
                                         in: namespace,

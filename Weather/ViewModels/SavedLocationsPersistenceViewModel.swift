@@ -14,7 +14,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     let container: NSPersistentContainer
     let weatherManager = WeatherManager.shared
     
-    @Published var savedLocations: [Location] = []
+    @Published private(set) var savedLocations: [Location] = []
     
     private init() {
         UserDefaults.standard.set("timeAdded", forKey: "sortType")
@@ -67,26 +67,40 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    func addLocation(locationDictionary: [String: Any])  {
+    func addLocation(locationDictionary: SearchLocationModel)  {
 
-        guard let time = locationDictionary[K.LocationDictionaryKeysConstants.timezone] as? Int else {
-            print("COULD NOT CONVERT")
-            return
-        }
+//        guard let time = locationDictionary[K.LocationDictionaryKeysConstants.timezone] as? Int else {
+//            print("COULD NOT CONVERT")
+//            return
+//        }
         
         let newLocation = Location(context: container.viewContext)
         
-        newLocation.name = locationDictionary[K.LocationDictionaryKeysConstants.name] as? String
-        newLocation.latitude = locationDictionary[K.LocationDictionaryKeysConstants.latitude] as? Double ?? 0
-        newLocation.longitude = locationDictionary[K.LocationDictionaryKeysConstants.longitude] as? Double ?? 0
+//        newLocation.name = locationDictionary[K.LocationDictionaryKeysConstants.name] as? String
+//        newLocation.latitude = locationDictionary[K.LocationDictionaryKeysConstants.latitude] as? Double ?? 0
+//        newLocation.longitude = locationDictionary[K.LocationDictionaryKeysConstants.longitude] as? Double ?? 0
+//        newLocation.timeAdded = Date.now
+//        newLocation.timezone = Double(time)
+//        newLocation.temperature = locationDictionary[K.LocationDictionaryKeysConstants.temperature] as? String
+//        newLocation.currentDate = locationDictionary[K.LocationDictionaryKeysConstants.date] as? String
+//        newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeysConstants.symbol] as? String
+//        newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeysConstants.weatherCondition] as? String
+//        newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeysConstants.unitTemperature] as? UnitTemperature
+//        newLocation.weatherAlert = locationDictionary[K.LocationDictionaryKeysConstants.weatherAlert] as? Bool ?? false
+        
+        
+        newLocation.name = locationDictionary.name
+        newLocation.latitude = locationDictionary.latitude
+        newLocation.longitude = locationDictionary.longitude
         newLocation.timeAdded = Date.now
-        newLocation.timezone = Double(time)
-        newLocation.temperature = locationDictionary[K.LocationDictionaryKeysConstants.temperature] as? String
-        newLocation.currentDate = locationDictionary[K.LocationDictionaryKeysConstants.date] as? String
-        newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeysConstants.symbol] as? String
-        newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeysConstants.weatherCondition] as? String
-        newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeysConstants.unitTemperature] as? UnitTemperature 
-        newLocation.weatherAlert = locationDictionary[K.LocationDictionaryKeysConstants.weatherAlert] as? Bool ?? false
+        newLocation.timezone = Double(locationDictionary.timezone)
+        newLocation.temperature = locationDictionary.temperature
+        newLocation.currentDate = locationDictionary.date
+        newLocation.sfSymbol = locationDictionary.symbol
+        newLocation.weatherCondition = locationDictionary.weatherCondition
+        newLocation.unitTemperature = locationDictionary.unitTemperature
+        newLocation.weatherAlert = locationDictionary.weatherAlert
+        
         Task {
             try await fetchWeatherPlacesWithTaskGroup()
             saveData()
