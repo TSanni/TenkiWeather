@@ -30,11 +30,6 @@ extension WeatherErrors: LocalizedError {
     }
 }
 
-enum GeocodingErrors: Error {
-    case reverseGeocodingError
-    case goecodingError
-}
-
 enum WeatherTabs: Int, CaseIterable {
     case today = 0
     case tomorrow = 1

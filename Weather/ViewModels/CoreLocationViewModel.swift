@@ -12,7 +12,6 @@ import CoreLocation
 
 class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus?
-    @Published private(set) var publishedError: GeocodingErrors?
     @Published private(set) var timezoneForCoordinateInput: Int = 0
     @Published private(set) var localLocationName: String = ""
     @Published var searchedLocationName: String = ""
@@ -153,7 +152,6 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
                     let locationName = self?.getLocationName(place: place, placeFromGoogle: nameFromGoogleAPI)
                     continuation.resume(returning: locationName ?? "")
                 } else {
-                    self?.publishedError = .reverseGeocodingError
                     continuation.resume(returning: "")
                 }
             }

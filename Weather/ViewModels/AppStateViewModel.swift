@@ -12,7 +12,6 @@ import GooglePlaces
 
 
 //TODO: Add gesture ability for underline when swiping to new tab 
-//TODO: Convert searchedLocationDictionary from dictionary to Model Struct
 @MainActor class AppStateViewModel: ObservableObject {
     @Published private(set) var resetViews: Bool = false
     @Published private(set) var loading: Bool = false
