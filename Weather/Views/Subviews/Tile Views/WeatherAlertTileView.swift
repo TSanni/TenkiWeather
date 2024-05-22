@@ -44,11 +44,15 @@ struct WeatherAlertTileView: View {
         .onTapGesture {
             showWeatherAlertURL = true
         }
-        .fullScreenCover(isPresented: $showWeatherAlertURL) {
+        .sheet(isPresented: $showWeatherAlertURL) {
             FullScreenWebView(url: weatherAlert.detailsURL.absoluteString)
                 .edgesIgnoringSafeArea(.bottom)
-
         }
+//        .fullScreenCover(isPresented: $showWeatherAlertURL) {
+//            FullScreenWebView(url: weatherAlert.detailsURL.absoluteString)
+//                .edgesIgnoringSafeArea(.bottom)
+//
+//        }
         
         
     }

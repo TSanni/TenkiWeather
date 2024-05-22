@@ -70,7 +70,7 @@ struct MainScreen: View {
                 SearchingScreen()
             }
         }
-        .fullScreenCover(isPresented: $appStateViewModel.showSettingScreen) {
+        .sheet(isPresented: $appStateViewModel.showSettingScreen) {
             NavigationStack {
                 SettingsScreen()
             }

@@ -20,7 +20,7 @@ struct HourlyForecastLineGraphView: View {
                     x: .value("time", item.readableDate),
                     y: .value("temp", Double(item.hourTemperature) ?? 0)
                 )
-                .lineStyle(StrokeStyle(lineWidth: 1))
+                .lineStyle(StrokeStyle(lineWidth: 1.5))
                 .symbol {
                     Circle().fill(.white)
                         .frame(width: 5)

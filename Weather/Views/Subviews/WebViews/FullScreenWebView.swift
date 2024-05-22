@@ -18,11 +18,13 @@ struct FullScreenWebView: View {
             Button {
                 dismiss()
             } label: {
-                Image(systemName: "xmark")
-                    .foregroundColor(.primary)
-                    .font(.title)
-                    .frame(width: 50, height: 50)
-                    .contentShape(Rectangle())
+                Text("Done")
+                    .padding()
+//                Image(systemName: "xmark")
+//                    .foregroundColor(.primary)
+//                    .font(.title)
+//                    .frame(width: 50, height: 50)
+//                    .contentShape(Rectangle())
             }
 
             WebView(urlString: url)

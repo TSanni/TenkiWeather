@@ -46,6 +46,16 @@ struct SettingsScreen: View {
                 Text("Privacy Policy").onTapGesture { showPrivacyWebsite = true }
                 Text("Terms and Conditions").onTapGesture { showTermsAndConditionsWebsite = true }
             }
+            
+            
+            HStack {
+                Spacer()
+                Text("Last weather update: " + appStateViewModel.lastUpdated)
+                    .foregroundStyle(.secondary)
+                Spacer()
+            }
+            .shadow(radius: 5)
+            .listRowBackground(Color.clear)
         }
         .navigationTitle("Tenki Weather")
         .toolbar {

@@ -17,10 +17,11 @@ import GooglePlaces
     @Published private(set) var loading: Bool = false
     @Published private(set) var currentLocationName: String = ""
     @Published private(set) var currentLocationTimezone: Int = 0
+    @Published private(set) var lastUpdated: String = ""
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
     // This property's only purpose is to add data to CoreData.
-    // You can find it's data being saved to CoreData in the SettingScreenTile View
+    // You can fiÔnd it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
     @Published private(set) var searchedLocationDictionary2: SearchLocationModel =
         SearchLocationModel(
@@ -147,6 +148,7 @@ import GooglePlaces
     }
     
     func getWeatherAndUpdateDictionaryFromSavedLocation(item: Location) async {
+        print(#function)
         toggleShowSearchScreen()
         dataIsLoading()
         await locationViewModel.getLocalLocationName()
@@ -170,10 +172,12 @@ import GooglePlaces
         )
 
         dataCompletedLoading()
+        setLastUpdated()
         performViewReset()
     }
     
     func getWeatherAndUpdateDictionaryFromLocation() async {
+        print(#function)
         toggleShowSearchScreen()
         dataIsLoading()
         await locationViewModel.getLocalLocationName()
@@ -200,10 +204,12 @@ import GooglePlaces
         )
         
         dataCompletedLoading()
+        setLastUpdated()
         performViewReset()
     }
     
     func getWeatherWithGoogleData(place: GMSPlace) async {
+        print(#function)
         dataIsLoading()
         let coordinates = place.coordinate
         await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
@@ -226,6 +232,7 @@ import GooglePlaces
         
         dataCompletedLoading()
         toggleShowSearchScreen()
+        setLastUpdated()
         performViewReset()
     }
     
@@ -257,9 +264,16 @@ import GooglePlaces
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
+        setLastUpdated()
+                
         performViewReset()
 
         persistence.saveData()
+    }
+    
+    private func setLastUpdated() {
+        lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneOffset: TimeZone.current.secondsFromGMT())
+
     }
     
 }
