@@ -38,6 +38,7 @@ struct SearchingScreen: View {
                 HStack {
                     Text("Saved locations")
                         .font(.headline)
+                    
                     Spacer()
                     
                     Menu {

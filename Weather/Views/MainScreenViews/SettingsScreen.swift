@@ -70,10 +70,10 @@ struct SettingsScreen: View {
         .alert(isPresented: $locationSaveAlert) {
             Alert(title: alertTitle, message: alertMessage)
         }
-        .fullScreenCover(isPresented: $showPrivacyWebsite) {
+        .sheet(isPresented: $showPrivacyWebsite) {
             FullScreenWebView(url: K.privacyPolicyURL)
         }
-        .fullScreenCover(isPresented: $showTermsAndConditionsWebsite) {
+        .sheet(isPresented: $showTermsAndConditionsWebsite) {
             TermsAndConditionsView()
         }
     }
@@ -92,8 +92,7 @@ struct SettingsScreen: View {
                     Spacer()
                     
                     VStack {
-//                        Text("\(appStateViewModel.searchedLocationDictionary[K.LocationDictionaryKeysConstants.name] as? String ?? "")")
-                        
+                    
                         Text(appStateViewModel.searchedLocationDictionary2.name)
                             .foregroundStyle(.green)
                         
@@ -168,9 +167,7 @@ struct SettingsScreen: View {
         }
         
         locationSaveAlert.toggle()
-    }
-
-    
+    } 
 }
 
 #Preview {

@@ -24,13 +24,8 @@ struct MainScreen: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-//                SearchBar()
-//                    .onTapGesture {
-//                        appStateViewModel.toggleShowSearchScreen()
-//                    }
                 
                 TopView().padding(.vertical)
-                
                 
                 Group {
                     if UIDevice.current.userInterfaceIdiom != .pad {

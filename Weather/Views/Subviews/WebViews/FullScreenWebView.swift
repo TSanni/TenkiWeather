@@ -19,12 +19,9 @@ struct FullScreenWebView: View {
                 dismiss()
             } label: {
                 Text("Done")
+                    .foregroundColor(.primary)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
-//                Image(systemName: "xmark")
-//                    .foregroundColor(.primary)
-//                    .font(.title)
-//                    .frame(width: 50, height: 50)
-//                    .contentShape(Rectangle())
             }
 
             WebView(urlString: url)
