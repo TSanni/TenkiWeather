@@ -23,10 +23,6 @@ struct TabViews: View {
                     LabelView(title: "Today", iconSymbol: weatherViewModel.currentWeather.symbolName)
                 }
                 .toolbar(.visible, for: .tabBar)
-                .toolbarBackground(
-                    Color.black.opacity(0.8),
-                    for: .tabBar
-                )
             
             TomorrowScreen(dailyWeather: weatherViewModel.tomorrowWeather)
                 .tag(WeatherTabs.tomorrow)
@@ -36,10 +32,6 @@ struct TabViews: View {
                 .tabItem {
                     LabelView(title: "Tomorrow", iconSymbol: weatherViewModel.tomorrowWeather.symbolName)
                 }
-                .toolbarBackground(
-                    Color.black.opacity(0.8),
-                    for: .tabBar
-                )
             
             MultiDayScreen(daily: weatherViewModel.dailyWeather)
                 .tag(WeatherTabs.multiDay)
@@ -49,11 +41,8 @@ struct TabViews: View {
                 .tabItem {
                     LabelView(title: "10 Day", iconSymbol: "list.bullet.rectangle.fill")
                 }
-                .toolbarBackground(
-                    K.ColorsConstants.tenDayBarColor,
-                    for: .tabBar
-                )
         }
+//        .toolbarBackground(K.ColorsConstants.tenDayBarColor, for: .tabBar )
     }
 }
 

@@ -63,7 +63,6 @@
 		83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FB52A2472C3009720AB /* MultiDayScreen.swift */; };
 		83E04FC02A2555DE009720AB /* WeatherTabSelectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FBF2A2555DE009720AB /* WeatherTabSelectionsView.swift */; };
 		83E04FC22A255FBC009720AB /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FC12A255FBC009720AB /* MainScreen.swift */; };
-		83E04FC42A25655F009720AB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FC32A25655F009720AB /* SearchBar.swift */; };
 		83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FC92A25BE35009720AB /* WeatherGraphView.swift */; };
 		83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E04FD32A2B2892009720AB /* WindTileView.swift */; };
 		83E228522A42C52E00C4ED34 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */; };
@@ -145,7 +144,6 @@
 		83E04FB52A2472C3009720AB /* MultiDayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDayScreen.swift; sourceTree = "<group>"; };
 		83E04FBF2A2555DE009720AB /* WeatherTabSelectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTabSelectionsView.swift; sourceTree = "<group>"; };
 		83E04FC12A255FBC009720AB /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
-		83E04FC32A25655F009720AB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		83E04FC92A25BE35009720AB /* WeatherGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherGraphView.swift; sourceTree = "<group>"; };
 		83E04FD32A2B2892009720AB /* WindTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindTileView.swift; sourceTree = "<group>"; };
 		83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				8336164C2B9D554A0045F639 /* TopView.swift */,
 				83E04FBF2A2555DE009720AB /* WeatherTabSelectionsView.swift */,
 				8336164E2B9D9B220045F639 /* SettingsScreen.swift */,
-				83E04FC32A25655F009720AB /* SearchBar.swift */,
 			);
 			path = MainScreenViews;
 			sourceTree = "<group>";
@@ -605,7 +602,6 @@
 				83FD51FB2B87B66E008F875B /* SettingsListBackgroundViewModifier+ViewModifier.swift in Sources */,
 				830279E22A9A5CE100E3487D /* NetworkMonitor.swift in Sources */,
 				834E1F782A98C51800DB4DE5 /* WeatherAlertTileView.swift in Sources */,
-				83E04FC42A25655F009720AB /* SearchBar.swift in Sources */,
 				83B760912A6710FF007075E2 /* FullScreenWebView.swift in Sources */,
 				837D7DAB2B6D879F0031B296 /* CircularProgressView.swift in Sources */,
 				83FD52032B87BAA3008F875B /* CardViewModifier+ViewModifier.swift in Sources */,
@@ -776,7 +772,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.3;
+				MARKETING_VERSION = 4.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -820,7 +816,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.3;
+				MARKETING_VERSION = 4.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
