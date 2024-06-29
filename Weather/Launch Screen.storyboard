@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,10 +17,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="P8t-Z8-5CE">
-                                <rect key="frame" x="26" y="255.33333333333334" width="341.33333333333331" height="341.33333333333326"/>
+                                <rect key="frame" x="26" y="255.66666666666663" width="341" height="341"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="KCC-FF-eYp"/>
+                        <color key="backgroundColor" red="0.1686274707" green="0.32941177490000001" blue="0.40000003579999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="P8t-Z8-5CE" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="FyA-jn-DfT"/>
                             <constraint firstItem="P8t-Z8-5CE" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="irb-Fv-92X"/>
@@ -32,6 +34,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchscreenImage" width="341.33334350585938" height="341.33334350585938"/>
+        <image name="launchscreenImage" width="341" height="341"/>
     </resources>
 </document>

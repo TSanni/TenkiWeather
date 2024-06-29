@@ -81,7 +81,7 @@ enum K {
         static let cloudSnow = Color(uiColor: #colorLiteral(red: 0.2117647059, green: 0.3294117647, blue: 0.5254901961, alpha: 1))
         static let precipitationBlue = Color(uiColor: #colorLiteral(red: 0.1168219224, green: 0.998493135, blue: 0.9996963143, alpha: 1))
         static let cloudyBlue = Color(uiColor: #colorLiteral(red: 0.518604517, green: 0.6436038613, blue: 0.78536731, alpha: 1))
-        static let tenDayBarColor = Color(uiColor: #colorLiteral(red: 0.0978968963, green: 0.3324657381, blue: 0.4080292583, alpha: 1))
+        static let tenDayBarColor = Color(uiColor: #colorLiteral(red: 0.09803921569, green: 0.3333333333, blue: 0.4078431373, alpha: 1))
         static let darkRed = Color(uiColor: #colorLiteral(red: 0.6502581835, green: 0.08077467233, blue: 0.02964879759, alpha: 1))
         static let lightPink = Color(uiColor: #colorLiteral(red: 1, green: 0.7621075511, blue: 0.7261560559, alpha: 1))
         static let maroon = Color(uiColor: #colorLiteral(red: 0.4117647059, green: 0.003921568627, blue: 0.01960784314, alpha: 1))
