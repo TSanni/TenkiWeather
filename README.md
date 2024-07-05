@@ -28,4 +28,5 @@ This app has gone through a major redesign since it's inception and first public
 
 ## Demo of Latest version
 
-![Simulator Screen Recording - iPhone 15 Pro Max - 2024-03-20 at 01 02 26](https://github.com/TSanni/TenkiWeather/assets/50508424/d5f9246f-ff30-40c3-922a-070c12fabaa6)
+
+https://github.com/TSanni/TenkiWeather/assets/50508424/b5b03603-63a9-4f69-86ff-764b21a4b04f
