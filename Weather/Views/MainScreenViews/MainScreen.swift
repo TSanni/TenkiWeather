@@ -25,7 +25,7 @@ struct MainScreen: View {
         ZStack {
             VStack(spacing: 0) {
                 
-                TopView().padding(.vertical)
+                TopView(backgroundColor: getBarColor).padding(.vertical)
                 
                 Group {
                     if UIDevice.current.userInterfaceIdiom != .pad {

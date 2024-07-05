@@ -10,6 +10,7 @@ import SwiftUI
 struct TopView: View {
     @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
+    let backgroundColor: Color
 
     var body: some View {
             HStack {
@@ -40,15 +41,20 @@ struct TopView: View {
             }
             .foregroundStyle(.white)
             .shadow(radius: 10)
+            .background(backgroundColor)
+            .clipShape(RoundedRectangle(cornerRadius: 25))
+            .padding(.horizontal)
     }
 }
 
 #Preview {
-    TopView()
-        .environmentObject(AppStateViewModel.shared)
-        .environmentObject(WeatherViewModel.shared)
-        .environmentObject(CoreLocationViewModel.shared)
-        .environmentObject(SavedLocationsPersistenceViewModel.shared)
-        .environmentObject(NetworkMonitor())
-        .background(Color.indigo)
+    ZStack {
+        Color.orange
+        TopView(backgroundColor: .indigo)
+            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(WeatherViewModel.shared)
+            .environmentObject(CoreLocationViewModel.shared)
+            .environmentObject(SavedLocationsPersistenceViewModel.shared)
+            .environmentObject(NetworkMonitor())
+    }
 }

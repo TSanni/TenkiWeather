@@ -53,6 +53,6 @@ struct WeatherTabSelectionsView_Previews: PreviewProvider {
         WeatherTabSelectionsView(tabViews: .constant(.today))
             .environmentObject(AppStateViewModel.shared)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.red)
+            .background(Color.indigo)
     }
 }
