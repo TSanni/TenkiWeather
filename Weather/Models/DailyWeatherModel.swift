@@ -16,7 +16,7 @@ struct DailyWeatherModel: Identifiable {
     let highTemperature: Measurement<UnitTemperature>
     let lowTemperature: Measurement<UnitTemperature>
     let precipitation: Precipitation
-    let precipitationChance: Double // value between 0 and 1
+    let precipitationChance: Double
     let snowfallAmount: Measurement<UnitLength>
     let moon: MoonEvents? //TODO: create a MoonEvents object
     let sun: SunData

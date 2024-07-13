@@ -15,9 +15,7 @@ struct WeatherAlertModel {
     let severity: WeatherSeverity
     let source: String
     let summary: String
-    
-    
-    
+
     var severityColor: Color {
         switch severity {
             case .minor:
@@ -34,7 +32,6 @@ struct WeatherAlertModel {
                 return Color.gray
         }
     }
-    
     
     var unwrappedRegion: String {
         if let region = region {

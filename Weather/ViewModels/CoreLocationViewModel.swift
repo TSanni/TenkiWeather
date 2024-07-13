@@ -158,5 +158,20 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         }
         
     }
+    
+    func getPlaceDataFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async -> CLPlacemark? {
+        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
+        
+        do {
+            let placesArray = try await geocoder.reverseGeocodeLocation(coordinates)
+            if let firstPlace = placesArray.first {
+                return firstPlace
+            }
+        } catch {
+            print(error)
+        }
+        
+        return nil
+    }
  
 }

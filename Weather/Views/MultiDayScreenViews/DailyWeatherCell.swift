@@ -24,6 +24,7 @@ struct DailyWeatherCell: View {
                     dayItemRightSide
                     
                 }
+                .padding(.vertical, 10)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 0.2)) {
@@ -43,6 +44,9 @@ struct DailyWeatherCell: View {
         .onChange(of: appStateViewModel.resetViews) { _ in
             showRest = false
         }
+        .background(K.ColorsConstants.tenDayBarColor.brightness(-0.1))
+        .clipShape(RoundedRectangle(cornerRadius: 40))
+        .padding(.horizontal)
     }
         
     private var dayDetails: some View {
@@ -57,7 +61,7 @@ struct DailyWeatherCell: View {
                     }
                     Text("Sunrise/sunset")
                 }
-                .foregroundColor(.secondary)
+                .foregroundColor(.gray)
                 
                 Spacer()
                 
@@ -71,7 +75,7 @@ struct DailyWeatherCell: View {
                     
                     Text("\(daily.sun.sunriseTime), \(daily.sun.sunsetTime)")
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(.white)
                 
                 Spacer()
                 
@@ -84,6 +88,7 @@ struct DailyWeatherCell: View {
                     ForEach(daily.hourlyWeather) { hour in
                         VStack {
                             Text("\(hour.hourTemperature)°")
+                                .foregroundStyle(.white)
                             Image(systemName: Helper.getImage(imageName: hour.symbol))
                                 .renderingMode(.original)
                                 .resizable()
@@ -94,7 +99,7 @@ struct DailyWeatherCell: View {
                             
                             Text(hour.readableDate)
                                 .font(.callout)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.gray)
                             
                         }
                     }
@@ -109,7 +114,7 @@ struct DailyWeatherCell: View {
             
             if let title = title {
                 Text(title)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
                     .font(.headline)
             } 
             
@@ -117,7 +122,7 @@ struct DailyWeatherCell: View {
             
             Text(daily.dayWeatherDescription)
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundColor(.gray)
         }
     }
     
@@ -140,10 +145,10 @@ struct DailyWeatherCell: View {
             
             VStack {
                 Text("\(daily.dayHigh)°")
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
                 
                 Text("\(daily.dayLow)°")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.gray)
             }
         }
     }
@@ -153,7 +158,15 @@ struct DailyWeatherCell: View {
 
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
-        DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: nil)
-            .environmentObject(AppStateViewModel.shared)
+        ZStack {
+            K.ColorsConstants.haze
+            VStack {
+                DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: "nil")
+                    .environmentObject(AppStateViewModel.shared)
+                
+                DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: "nil")
+                    .environmentObject(AppStateViewModel.shared)
+            }
+        }
     }
 }

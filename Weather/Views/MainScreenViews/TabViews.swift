@@ -14,7 +14,6 @@ struct TabViews: View {
 
     var body: some View {
         TabView(selection: $tabViews) {
-            
             TodayScreen(currentWeather: weatherViewModel.currentWeather, weatherAlert: weatherViewModel.weatherAlert)
                 .tag(WeatherTabs.today)
                 .environmentObject(weatherViewModel)
@@ -42,7 +41,6 @@ struct TabViews: View {
                     LabelView(title: "10 Day", iconSymbol: "list.bullet.rectangle.fill")
                 }
         }
-//        .toolbarBackground(K.ColorsConstants.tenDayBarColor, for: .tabBar )
     }
 }
 

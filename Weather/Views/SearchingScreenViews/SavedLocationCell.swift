@@ -14,6 +14,7 @@ struct SavedLocationCell: View {
     @State private var showAlert = false
     @State private var textFieldText = ""
     @State private var time = ""
+    @State private var showDetails = false
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -56,10 +57,23 @@ struct SavedLocationCell: View {
             } label: {
                 Label("Delete", systemImage: "trash")
             }
+
+            Button {
+                showDetails.toggle()
+            } label: {
+                Label("More Info", systemImage: "info.circle.fill")
+            }
+            .tint(.orange)
+
             RenameButton()
         }
         .contextMenu {
             RenameButton()
+            Button {
+                showDetails.toggle()
+            } label: {
+                Label("More Info", systemImage: "info.circle.fill")
+            }
             Button(role: .destructive) {
                 persistence.deleteLocationFromContextMenu(entity: location)
             } label: {
@@ -83,6 +97,10 @@ struct SavedLocationCell: View {
                 Text("Cancel")
             }
             
+        }
+        .sheet(isPresented: $showDetails) {
+            PlaceDetails(name: location.name ?? "No name", latitude: location.latitude, longitude: location.longitude)
+                .presentationDetents([.fraction(0.4)])
         }
     }
     

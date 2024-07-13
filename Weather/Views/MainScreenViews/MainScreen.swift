@@ -50,7 +50,7 @@ struct MainScreen: View {
                 }
             }
             .zIndex(0)
-            .background(getBarColor.brightness(-0.1).ignoresSafeArea())
+            .background(getBarColor)
             .disabled(appStateViewModel.showSettingScreen ? true : false)
             .animation(deviceType == .pad ? nil : .default, value: tabViews)
             
@@ -86,7 +86,6 @@ struct MainScreen: View {
         .onChange(of: appStateViewModel.resetViews) { _ in
             tabViews = .today
         }
-
     }
 }
 
@@ -123,7 +122,6 @@ struct MainScreen_Previews: PreviewProvider {
                 .environmentObject(NetworkMonitor())
                 .environmentObject(SavedLocationsPersistenceViewModel.shared)
         }
-
     }
 }
 

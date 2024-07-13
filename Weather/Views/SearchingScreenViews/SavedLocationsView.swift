@@ -9,8 +9,6 @@ import SwiftUI
 
 struct SavedLocationsView: View {
     @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
-    @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
 
     var body: some View {
@@ -45,7 +43,11 @@ struct SavedLocationsView: View {
 
 struct SavedLocationsView_Previews: PreviewProvider {
     static var previews: some View {
-        SavedLocationsView()
-            .environmentObject(SavedLocationsPersistenceViewModel.shared)
+        ZStack {
+            K.ColorsConstants.goodDarkTheme
+            SavedLocationsView()
+                .environmentObject(SavedLocationsPersistenceViewModel.shared)
+                .environmentObject(AppStateViewModel.shared)
+        }
     }
 }

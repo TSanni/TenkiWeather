@@ -22,7 +22,7 @@ struct MultiDayScreen: View {
                 VStack {
                     DailyWeatherCell(daily: daily[0], title: "Today")
                         .id(0)
-                    CustomDivider()
+//                    CustomDivider()
                     
                     ForEach(1..<daily.count, id: \.self) { item in
                         
@@ -52,20 +52,21 @@ struct MultiDayScreen: View {
                                 }
                                 .padding()
                                 
-                                CustomDivider()
+//                                CustomDivider()
                                 
                             }
                         } else {
                             
                             DailyWeatherCell(daily: daily[item], title: daily[item].readableDate)
-                            CustomDivider()
+//                            CustomDivider()
                         }
                     }
                     .onChange(of: appStateViewModel.resetViews) { _ in
                         proxy.scrollTo(0)
                     }
                 }
-                .background(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
+                .background(K.ColorsConstants.tenDayBarColor)
+//                .background(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
             }
         }
         .background(K.ColorsConstants.tenDayBarColor)

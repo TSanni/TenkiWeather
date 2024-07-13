@@ -33,7 +33,6 @@ struct SettingsScreen: View {
             
             supportSection
             
-            
             Section("Time") {
                 Toggle(isOn: $toggle24HourTime) {
                     VStack(alignment: .leading, spacing: 0.0) {
@@ -46,7 +45,6 @@ struct SettingsScreen: View {
                 Text("Privacy Policy").onTapGesture { showPrivacyWebsite = true }
                 Text("Terms and Conditions").onTapGesture { showTermsAndConditionsWebsite = true }
             }
-            
             
             HStack {
                 Spacer()
@@ -106,7 +104,6 @@ struct SettingsScreen: View {
                 }
             }
             .tint(.primary)
-            
         }
     }
     
@@ -151,7 +148,6 @@ struct SettingsScreen: View {
             SendMailView()
         }
     }
-    
     
     //MARK: - Functions
     private func saveLocation() {
