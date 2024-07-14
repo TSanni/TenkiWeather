@@ -51,14 +51,9 @@ struct MultiDayScreen: View {
                                     }
                                 }
                                 .padding()
-                                
-//                                CustomDivider()
-                                
                             }
                         } else {
-                            
                             DailyWeatherCell(daily: daily[item], title: daily[item].readableDate)
-//                            CustomDivider()
                         }
                     }
                     .onChange(of: appStateViewModel.resetViews) { _ in
@@ -66,13 +61,13 @@ struct MultiDayScreen: View {
                     }
                 }
                 .background(K.ColorsConstants.tenDayBarColor)
-//                .background(colorScheme == .light ? K.ColorsConstants.goodLightTheme : K.ColorsConstants.goodDarkTheme)
             }
         }
         .background(K.ColorsConstants.tenDayBarColor)
         .fullScreenCover(isPresented: $showWebView) {
             FullScreenWebView(url: K.legalAttributionURL)
         }
+        .padding(.top)
     }
 }
 

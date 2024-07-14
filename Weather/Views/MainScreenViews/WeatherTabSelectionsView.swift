@@ -47,11 +47,9 @@ struct WeatherTabSelectionsView: View {
     }
 }
 
-struct WeatherTabSelectionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        WeatherTabSelectionsView(tabViews: .constant(.today))
-            .environmentObject(AppStateViewModel.shared)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.indigo)
-    }
+#Preview {
+    WeatherTabSelectionsView(tabViews: .constant(.today))
+        .environmentObject(AppStateViewModel.shared)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.indigo)
 }

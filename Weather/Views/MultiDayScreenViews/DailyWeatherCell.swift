@@ -47,6 +47,7 @@ struct DailyWeatherCell: View {
         .background(K.ColorsConstants.tenDayBarColor.brightness(-0.1))
         .clipShape(RoundedRectangle(cornerRadius: 40))
         .padding(.horizontal)
+        .shadow(color: .black, radius: 1, y: 1)
     }
         
     private var dayDetails: some View {

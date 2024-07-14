@@ -40,10 +40,10 @@ struct TopView: View {
                 }
             }
             .foregroundStyle(.white)
-            .shadow(radius: 10)
             .background(backgroundColor.brightness(-0.1))
             .clipShape(RoundedRectangle(cornerRadius: 25))
             .padding(.horizontal)
+            .shadow(color: .black, radius: 0, y: 1)
     }
 }
 

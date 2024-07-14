@@ -25,7 +25,8 @@ struct MainScreen: View {
         ZStack {
             VStack(spacing: 0) {
                 
-                TopView(backgroundColor: getBarColor).padding(.vertical)
+                TopView(backgroundColor: getBarColor)
+                    .padding(.vertical)
                 
                 Group {
                     if UIDevice.current.userInterfaceIdiom != .pad {
@@ -113,16 +114,13 @@ extension MainScreen {
 }
 
 //MARK: - Preview
-struct MainScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            MainScreen()
-                .environmentObject(WeatherViewModel.shared)
-                .environmentObject(CoreLocationViewModel.shared)
-                .environmentObject(AppStateViewModel.shared)
-                .environmentObject(NetworkMonitor())
-                .environmentObject(SavedLocationsPersistenceViewModel.shared)
-        }
+#Preview {
+    NavigationStack {
+        MainScreen()
+            .environmentObject(WeatherViewModel.shared)
+            .environmentObject(CoreLocationViewModel.shared)
+            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(NetworkMonitor())
+            .environmentObject(SavedLocationsPersistenceViewModel.shared)
     }
 }
-

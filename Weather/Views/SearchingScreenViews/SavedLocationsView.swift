@@ -40,13 +40,11 @@ struct SavedLocationsView: View {
     }
 }
 
-struct SavedLocationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            K.ColorsConstants.goodDarkTheme
-            SavedLocationsView()
-                .environmentObject(SavedLocationsPersistenceViewModel.shared)
-                .environmentObject(AppStateViewModel.shared)
-        }
+#Preview {
+    ZStack {
+        K.ColorsConstants.goodDarkTheme
+        SavedLocationsView()
+            .environmentObject(SavedLocationsPersistenceViewModel.shared)
+            .environmentObject(AppStateViewModel.shared)
     }
 }

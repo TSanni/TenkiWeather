@@ -123,13 +123,10 @@ struct SearchingScreen: View {
     }
 }
 
-
-struct SearchingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchingScreen()
-            .environmentObject(WeatherViewModel.shared)
-            .environmentObject(CoreLocationViewModel.shared)
-            .environmentObject(AppStateViewModel.shared)
-            .environmentObject(SavedLocationsPersistenceViewModel.shared)
-    }
+#Preview {
+    SearchingScreen()
+        .environmentObject(WeatherViewModel.shared)
+        .environmentObject(CoreLocationViewModel.shared)
+        .environmentObject(AppStateViewModel.shared)
+        .environmentObject(SavedLocationsPersistenceViewModel.shared)
 }

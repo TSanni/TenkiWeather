@@ -51,7 +51,7 @@ struct PlaceDetails: View {
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 25, height: 25)
-                                    case .failure(let error):
+                                    case .failure:
                                         ProgressView()
                                     @unknown default:
                                         ProgressView()

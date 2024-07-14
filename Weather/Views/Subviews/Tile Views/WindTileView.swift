@@ -74,18 +74,15 @@ struct WindTileView: View {
             }
         }
         .padding()
-        .padding(.top)
         .foregroundStyle(.white)
-        .background {
-            ZStack {
-                RoundedRectangle(cornerRadius: K.tileCornerRadius)
-                    .stroke(lineWidth: 0.5)
-                    .fill(.white)
-                RoundedRectangle(cornerRadius: K.tileCornerRadius).fill(color)
-            }
-        }
+        .background(color)
+        .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
+        .overlay(
+            RoundedRectangle(cornerRadius: K.tileCornerRadius)
+                .stroke(.white, lineWidth: 0.5)
+        )
         .padding()
-        
+
     }
 
     var todayData: some View {
@@ -143,20 +140,18 @@ struct WindTileView: View {
 }
 
 // MARK: - Preview
-struct WindView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            K.ColorsConstants.haze.ignoresSafeArea()
-            GeometryReader { geo in
-                WindTileView(
-                    windData: WindData.windDataHolder[0],
-                    hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
-                    setTodayWeather: true,
-                    backgroundColor: K.ColorsConstants.haze
-                )
-                .environmentObject(AppStateViewModel.shared)
-                
-            }
+#Preview {
+    ZStack {
+        K.ColorsConstants.haze.ignoresSafeArea()
+        GeometryReader { geo in
+            WindTileView(
+                windData: WindData.windDataHolder[0],
+                hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
+                setTodayWeather: true,
+                backgroundColor: K.ColorsConstants.haze
+            )
+            .environmentObject(AppStateViewModel.shared)
+            
         }
     }
 }
