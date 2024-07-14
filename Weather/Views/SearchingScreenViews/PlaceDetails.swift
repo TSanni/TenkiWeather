@@ -53,6 +53,15 @@ struct PlaceDetails: View {
                     Divider()
                 }
                 
+                if let administrativeArea = placeInfo?.administrativeArea {
+                    VStack(alignment: .leading) {
+                        Text("Administrative Area")
+                            .foregroundStyle(.secondary)
+                        Text(administrativeArea)
+                    }
+                    Divider()
+                }
+                
                 VStack(alignment: .leading) {
                     Text("Coordinates")
                         .foregroundStyle(.secondary)

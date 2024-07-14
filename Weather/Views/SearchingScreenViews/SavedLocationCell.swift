@@ -100,7 +100,7 @@ struct SavedLocationCell: View {
         }
         .sheet(isPresented: $showDetails) {
             PlaceDetails(name: location.name ?? "No name", latitude: location.latitude, longitude: location.longitude)
-                .presentationDetents([.medium])
+                .presentationDetents([.height(500)])
         }
     }
     
