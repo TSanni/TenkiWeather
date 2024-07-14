@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+
 struct PlaceDetails: View {
     @EnvironmentObject var coreLocationViewModel: CoreLocationViewModel
     @State private var placeInfo: CLPlacemark? = nil
@@ -39,11 +40,21 @@ struct PlaceDetails: View {
                             Text(country)
 
                             if let countryCode = placeInfo?.isoCountryCode, let url = URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png") {
-                                AsyncImage(url: url) { image in
-                                    if let img = image.image {
-                                        img
+                                
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                            .frame(width: 25, height: 25)
+                                    case .success(let image):
+                                        image
                                             .resizable()
                                             .scaledToFit()
+                                            .frame(width: 25, height: 25)
+                                    case .failure(let error):
+                                        ProgressView()
+                                    @unknown default:
+                                        ProgressView()
                                             .frame(width: 25, height: 25)
                                     }
                                 }
