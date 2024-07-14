@@ -58,9 +58,21 @@ struct PlaceDetails: View {
                         .foregroundStyle(.secondary)
                     
                     Text("Lat: \(latitude), Lon: \(longitude)")
-                        .textSelection(.enabled)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
+                        .contextMenu(menuItems: {
+                            Button {
+                                UIPasteboard.general.string = latitude.description
+                            } label: {
+                                Label("Copy Latitude", systemImage: "doc.on.doc")
+                            }
+                            
+                            Button {
+                                UIPasteboard.general.string = longitude.description
+                            } label: {
+                                Label("Copy Longitude", systemImage: "doc.on.doc")
+                            }
+                        })
                 }
 
                 if let timezone = placeInfo?.timeZone {

@@ -74,6 +74,7 @@ struct TomorrowScreen: View {
                                     )
                                 }
                                 .padding()
+                                .lineLimit(nil)
                             }
                             
                             WindTileView(

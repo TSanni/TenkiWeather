@@ -70,6 +70,7 @@ struct TodayScreen: View {
                                 )
                             }
                             .padding()
+                            .lineLimit(nil)
                             
                             WindTileView(
                                 windData: currentWeather.wind,
