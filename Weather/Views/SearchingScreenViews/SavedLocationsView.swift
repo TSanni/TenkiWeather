@@ -22,7 +22,6 @@ struct SavedLocationsView: View {
                 SavedLocationCell(location: item)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
                     .listRowBackground(Color.clear)
-//                    .listRowSeparator(.hidden)
                     .padding(.top)
                     .contentShape(Rectangle())
                     .onTapGesture {

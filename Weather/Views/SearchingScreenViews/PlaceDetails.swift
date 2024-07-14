@@ -37,7 +37,7 @@ struct PlaceDetails: View {
                             .foregroundStyle(.secondary)
                         HStack {
                             Text(country)
-                                .foregroundStyle(.primary)
+
                             if let countryCode = placeInfo?.isoCountryCode, let url = URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png") {
                                 AsyncImage(url: url) { image in
                                     if let img = image.image {
@@ -56,8 +56,11 @@ struct PlaceDetails: View {
                 VStack(alignment: .leading) {
                     Text("Coordinates")
                         .foregroundStyle(.secondary)
-                    Text("Latitude: \(latitude), Longitude: \(longitude)")
-                        .foregroundStyle(.primary)
+                    
+                    Text("Lat: \(latitude), Lon: \(longitude)")
+                        .textSelection(.enabled)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                 }
 
                 if let timezone = placeInfo?.timeZone {
@@ -66,7 +69,7 @@ struct PlaceDetails: View {
                         Text("Timezone")
                             .foregroundStyle(.secondary)
                         Text(timezone.description)
-                            .foregroundStyle(.primary)
+                        Text("\(timezone.secondsFromGMT())")
                     }
                 }
             }
@@ -76,6 +79,7 @@ struct PlaceDetails: View {
                 placeInfo = await coreLocationViewModel.getPlaceDataFromCoordinates(latitude: latitude, longitude: longitude)
             }
         }
+        .foregroundStyle(.white)
     }
 }
 
@@ -85,7 +89,7 @@ struct PlaceDetails: View {
     }
     .sheet(isPresented: .constant(true)) {
         PlaceDetails(name: "Place name", latitude: 29.600616, longitude: -95.808278)
-            .presentationDetents([.fraction(0.4), .medium])
+            .presentationDetents([.medium, .large])
     }
     .environmentObject(CoreLocationViewModel.shared)
 }
