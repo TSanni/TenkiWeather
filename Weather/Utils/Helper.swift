@@ -225,74 +225,28 @@ enum Helper {
         let isDaylight = isDaylight
         
         switch condition {
-        case .blizzard:
+        case .blizzard, .snow, .flurries, .frigid, .hail, .heavySnow, .sleet, .sunFlurries, .wintryMix, .blowingSnow:
             return K.ColorsConstants.cloudSnow
-        case .blowingDust:
+        case .blowingDust, .haze, .smoky:
             return K.ColorsConstants.haze
-        case .blowingSnow:
-            return K.ColorsConstants.cloudSnow
-        case .breezy:
+        case .breezy, .windy:
             return K.ColorsConstants.wind
-        case .clear:
-            return isDaylight ? K.ColorsConstants.sunMaxColor : Color.indigo
-        case .cloudy:
-            return isDaylight ? K.ColorsConstants.cloudSunColor : K.ColorsConstants.cloudMoonColor
-        case .drizzle:
-            return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonColor
-        case .flurries:
-            return K.ColorsConstants.cloudSnow
+        case .clear, .mostlyClear:
+            return isDaylight ? K.ColorsConstants.sunMaxColor : K.ColorsConstants.moonAndStarsColor
+        case .cloudy, .partlyCloudy, .mostlyCloudy:
+            return isDaylight ? K.ColorsConstants.partlyCloudyColor : K.ColorsConstants.cloudMoonColor
+        case .drizzle, .freezingDrizzle, .freezingRain, .heavyRain, .rain:
+            return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonRainColor
         case .foggy:
-            return K.ColorsConstants.cloudy
-        case .freezingDrizzle:
-            return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonRainColor
-        case .freezingRain:
-            return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonRainColor
-        case .frigid:
-            return K.ColorsConstants.cloudSnow
-        case .hail:
-            return K.ColorsConstants.cloudSnow
-        case .haze:
-            return K.ColorsConstants.haze
-        case .heavyRain:
-            return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonRainColor
-        case .heavySnow:
-            return K.ColorsConstants.cloudSnow
+            return K.ColorsConstants.foggy
         case .hot:
             return K.ColorsConstants.maroon
-        case .hurricane:
+        case .hurricane, .scatteredThunderstorms, .strongStorms, .thunderstorms, .tropicalStorm:
             return K.ColorsConstants.cloudBoltRainColor
         case .isolatedThunderstorms:
             return K.ColorsConstants.cloudBoltColor
-        case .mostlyClear:
-            return isDaylight ? K.ColorsConstants.sunMaxColor : Color.indigo
-        case .mostlyCloudy:
-            return isDaylight ? K.ColorsConstants.cloudSunColor : K.ColorsConstants.cloudMoonColor
-        case .partlyCloudy:
-            return isDaylight ? K.ColorsConstants.cloudSunColor : K.ColorsConstants.cloudMoonColor
-        case .rain:
-            return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonRainColor
-        case .scatteredThunderstorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .sleet:
-            return K.ColorsConstants.cloudSnow
-        case .smoky:
-            return K.ColorsConstants.haze
-        case .snow:
-            return K.ColorsConstants.cloudSnow
-        case .strongStorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .sunFlurries:
-            return K.ColorsConstants.cloudSnow
         case .sunShowers:
             return K.ColorsConstants.cloudSunRainColor
-        case .thunderstorms:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .tropicalStorm:
-            return K.ColorsConstants.cloudBoltRainColor
-        case .windy:
-            return K.ColorsConstants.wind
-        case .wintryMix:
-            return K.ColorsConstants.cloudSnow
         @unknown default:
             return K.ColorsConstants.sunMaxColor
         } 
