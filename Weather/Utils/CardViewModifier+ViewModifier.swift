@@ -19,11 +19,8 @@ struct CardViewModifier: ViewModifier {
             .padding()
             .background(appStateViewModel.blendColorWith20PercentWhite(themeColor: backgroundColor))
             .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
-            .overlay(
-                RoundedRectangle(cornerRadius: K.tileCornerRadius)
-                    .stroke(.white, lineWidth: 0.5)
-            )
             .aspectRatio(1, contentMode: .fit)
+            .shadow(radius: 3)
     }
 }
 

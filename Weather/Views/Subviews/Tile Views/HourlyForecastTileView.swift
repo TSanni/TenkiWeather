@@ -46,7 +46,6 @@ struct HourlyForecastTileView: View {
                             .padding(.top)
                             .padding(.horizontal, 10)
                             .frame(width: deviceType == .pad ? 100 : 63)
-//                            .frame(width: 63)
                         }
                     }
                     
@@ -64,38 +63,26 @@ struct HourlyForecastTileView: View {
                                 )
                                 Text(item.chanceOfPrecipitation)
                                     .font(.caption2)
-
                             }
                             .padding([.horizontal, .bottom], 10)
                             .frame(width: deviceType == .pad ? 100 : 63)
-//                            .frame(width: 63)
-
                         }
                     }
-                    
                 }
                 .onChange(of: appStateViewModel.resetViews) { _ in
                     proxy.scrollTo(0)
                 }
             }
-            
-            
         }
         .foregroundStyle(.white)
         .background(color)
         .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
-        .overlay(
-            RoundedRectangle(cornerRadius: K.tileCornerRadius)
-                .stroke(.white, lineWidth: 0.5)
-        )
         .padding()
-
+        .shadow(radius: 3)
     }
 }
 
-
-
-
+//MARK: - Preview
 #Preview {
     ZStack {
         K.ColorsConstants.haze.brightness(0.1)

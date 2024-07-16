@@ -44,6 +44,8 @@ struct TopView: View {
             .clipShape(RoundedRectangle(cornerRadius: 25))
             .padding(.horizontal)
             .shadow(color: .black, radius: 0, y: 1)
+            .shadow(radius: 3)
+
     }
 }
 

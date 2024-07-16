@@ -77,12 +77,8 @@ struct WindTileView: View {
         .foregroundStyle(.white)
         .background(color)
         .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
-        .overlay(
-            RoundedRectangle(cornerRadius: K.tileCornerRadius)
-                .stroke(.white, lineWidth: 0.5)
-        )
         .padding()
-
+        .shadow(radius: 3)
     }
 
     var todayData: some View {
