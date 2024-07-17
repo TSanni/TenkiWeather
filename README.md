@@ -29,4 +29,5 @@ This app has gone through a major redesign since it's inception and first public
 ## Demo of Latest version
 
 
-https://github.com/TSanni/TenkiWeather/assets/50508424/b5b03603-63a9-4f69-86ff-764b21a4b04f
+
+https://github.com/user-attachments/assets/4f07f531-45d5-4bf2-999b-196849b7a4cf
