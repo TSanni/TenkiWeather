@@ -234,7 +234,7 @@ enum Helper {
         case .clear, .mostlyClear:
             return isDaylight ? K.ColorsConstants.sunMaxColor : K.ColorsConstants.moonAndStarsColor
         case .cloudy, .partlyCloudy, .mostlyCloudy:
-            return isDaylight ? K.ColorsConstants.partlyCloudyColor : K.ColorsConstants.cloudMoonColor
+            return isDaylight ? K.ColorsConstants.cloudSunColor : K.ColorsConstants.cloudMoonColor
         case .drizzle, .freezingDrizzle, .freezingRain, .heavyRain, .rain:
             return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonRainColor
         case .foggy:

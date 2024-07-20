@@ -123,10 +123,10 @@ struct DailyWeatherModel: Identifiable {
         sun: SunData.sunDataHolder,
         wind: WindData.windDataHolder[0],
         date: Date.distantFuture,
-        condition: .blizzard,
+        condition: .clear,
         uvIndexValue: 5,
         uvIndexCategory: .extreme,
-        symbolName: "cloud.rain",
+        symbolName: "sun.max",
         precipitationAmount: Measurement(value: 0.5, unit: .centimeters),
         hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
         timezone: 0

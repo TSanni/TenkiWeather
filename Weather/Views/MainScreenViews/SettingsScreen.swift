@@ -22,6 +22,9 @@ struct SettingsScreen: View {
     @State private var alertMessage: Text = Text("")
     
     @AppStorage(K.UserDefaultKeys.timePreferenceKey) var toggle24HourTime: Bool = false
+    
+    let appVersionString: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+
  
     var body: some View {
         List {
@@ -44,6 +47,7 @@ struct SettingsScreen: View {
             Section {
                 Text("Privacy Policy").onTapGesture { showPrivacyWebsite = true }
                 Text("Terms and Conditions").onTapGesture { showTermsAndConditionsWebsite = true }
+                Text("App Version: \(appVersionString)")
             }
             
             HStack {
