@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,6 +31,7 @@
 		83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */; };
 		83731A762A2FFE4300D481CA /* SavedLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A752A2FFE4300D481CA /* SavedLocationsView.swift */; };
 		83749C5E2BA2B74900480F5F /* Locations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83749C5C2BA2B74900480F5F /* Locations.xcdatamodeld */; };
+		837740552C4D866300628088 /* GooglePlacesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 837740542C4D866300628088 /* GooglePlacesSwift */; };
 		837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */; };
 		837D7DAB2B6D879F0031B296 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */; };
 		837D7DAD2B7138160031B296 /* snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 837D7DAC2B7138160031B296 /* snow.sks */; };
@@ -81,11 +82,9 @@
 		83FD52032B87BAA3008F875B /* CardViewModifier+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD52022B87BAA3008F875B /* CardViewModifier+ViewModifier.swift */; };
 		83FD52052B87BAD1008F875B /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD52042B87BAD1008F875B /* View+extension.swift */; };
 		83FD52072B87E464008F875B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD52062B87E464008F875B /* Helper.swift */; };
-		C19D9DA1ACABA4B0AC8CD510 /* Pods_Tenki_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		451B1D756BE94706A02B180F /* Pods-Tenki Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenki Weather.release.xcconfig"; path = "Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather.release.xcconfig"; sourceTree = "<group>"; };
 		830279E12A9A5CE100E3487D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		8313DE852B61A20D0031C5E7 /* PressureTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureTileView.swift; sourceTree = "<group>"; };
 		8313DE872B61B69C0031C5E7 /* TomorrowImmediateWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowImmediateWeatherView.swift; sourceTree = "<group>"; };
@@ -163,8 +162,6 @@
 		83FD52022B87BAA3008F875B /* CardViewModifier+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardViewModifier+ViewModifier.swift"; sourceTree = "<group>"; };
 		83FD52042B87BAD1008F875B /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		83FD52062B87E464008F875B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tenki Weather.debug.xcconfig"; path = "Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather.debug.xcconfig"; sourceTree = "<group>"; };
-		D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tenki_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,7 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				835EB2F32A5509CC00346B21 /* SwiftUIMailView in Frameworks */,
-				C19D9DA1ACABA4B0AC8CD510 /* Pods_Tenki_Weather.framework in Frameworks */,
+				837740552C4D866300628088 /* GooglePlacesSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,7 +180,6 @@
 		42153E690532CE7A0ADF9022 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D5FF1A48CD1C52B156C0CE0E /* Pods_Tenki_Weather.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -358,7 +354,6 @@
 				83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */,
 				83E04FA22A22DF1B009720AB /* Weather */,
 				83E04FA12A22DF1B009720AB /* Products */,
-				E0E7814CA5C8B1CCA8C1255C /* Pods */,
 				42153E690532CE7A0ADF9022 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -424,15 +419,6 @@
 			path = MultiDayScreenViews;
 			sourceTree = "<group>";
 		};
-		E0E7814CA5C8B1CCA8C1255C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */,
-				451B1D756BE94706A02B180F /* Pods-Tenki Weather.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -440,11 +426,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83E04FAE2A22DF1E009720AB /* Build configuration list for PBXNativeTarget "Tenki Weather" */;
 			buildPhases = (
-				4347BBD862282172C989F511 /* [CP] Check Pods Manifest.lock */,
 				83E04F9C2A22DF1B009720AB /* Sources */,
 				83E04F9D2A22DF1B009720AB /* Frameworks */,
 				83E04F9E2A22DF1B009720AB /* Resources */,
-				291046639E5E8843A5A70FDD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -453,6 +437,7 @@
 			name = "Tenki Weather";
 			packageProductDependencies = (
 				835EB2F22A5509CC00346B21 /* SwiftUIMailView */,
+				837740542C4D866300628088 /* GooglePlacesSwift */,
 			);
 			productName = Weather;
 			productReference = 83E04FA02A22DF1B009720AB /* Tenki Weather.app */;
@@ -474,7 +459,7 @@
 				};
 			};
 			buildConfigurationList = 83E04F9B2A22DF1B009720AB /* Build configuration list for PBXProject "Weather" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -484,6 +469,7 @@
 			mainGroup = 83E04F972A22DF1B009720AB;
 			packageReferences = (
 				835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */,
+				837740532C4D866300628088 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */,
 			);
 			productRefGroup = 83E04FA12A22DF1B009720AB /* Products */;
 			projectDirPath = "";
@@ -508,48 +494,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		291046639E5E8843A5A70FDD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tenki Weather/Pods-Tenki Weather-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4347BBD862282172C989F511 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Tenki Weather-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83E04F9C2A22DF1B009720AB /* Sources */ = {
@@ -748,7 +692,6 @@
 		};
 		83E04FAF2A22DF1E009720AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A005004E4DBD0E8B6774DFA2 /* Pods-Tenki Weather.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -792,7 +735,6 @@
 		};
 		83E04FB02A22DF1E009720AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 451B1D756BE94706A02B180F /* Pods-Tenki Weather.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -866,6 +808,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		837740532C4D866300628088 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/ios-places-swift-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -873,6 +823,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */;
 			productName = SwiftUIMailView;
+		};
+		837740542C4D866300628088 /* GooglePlacesSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 837740532C4D866300628088 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */;
+			productName = GooglePlacesSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 

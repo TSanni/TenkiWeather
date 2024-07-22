@@ -57,7 +57,8 @@ struct PlacesViewControllerBridge: UIViewControllerRepresentable {
         
         func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error)
         {
-            print("Error: ", error.localizedDescription)
+//            print(#function)
+            print("Error in : ", #function, error)
         }
         
         func wasCancelled(_ viewController: GMSAutocompleteViewController) {

@@ -1,5 +1,24 @@
 {
+  "originHash" : "cf40c78c99ef75977f257c482c99fa6c88d860824788d6be2baf52231cce8bdb",
   "pins" : [
+    {
+      "identity" : "ios-places-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/googlemaps/ios-places-sdk",
+      "state" : {
+        "revision" : "5eaf8e9a64f6a2ea27fdc845f4653fdc26231cc3",
+        "version" : "9.0.0"
+      }
+    },
+    {
+      "identity" : "ios-places-swift-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/googlemaps/ios-places-swift-sdk",
+      "state" : {
+        "revision" : "91e1b9c9cbbea32a6a5f5a076a253c5a71b8310e",
+        "version" : "0.1.0"
+      }
+    },
     {
       "identity" : "swiftui-mail-view",
       "kind" : "remoteSourceControl",
@@ -10,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
