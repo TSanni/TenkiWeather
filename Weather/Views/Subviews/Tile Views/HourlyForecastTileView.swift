@@ -31,17 +31,20 @@ struct HourlyForecastTileView: View {
                             let imageName = appStateViewModel.fillImageToPrepareForRendering(symbol: item.symbol)
                             
                             VStack(spacing: 7.0) {
-                                Text(item.hourTemperature + "°")
-                                    .font(.callout)
+                      
+                                Text(item.readableDate)
+                                    .font(.caption)
                                 
                                 Image(systemName: imageName)
                                     .renderingMode(.original)
                                     .frame(width: 25, height: 25)
                                     .font(.title3)
                                 
-                                Text(item.readableDate)
-                                    .font(.caption)
-                                    .fontWeight(.medium)
+                                Text(item.hourTemperature + "°")
+                                    .font(.callout)
+                                    .fontWeight(.semibold)
+                                
+
                             }
                             .padding(.top)
                             .padding(.horizontal, 10)
@@ -56,7 +59,7 @@ struct HourlyForecastTileView: View {
                         ForEach(hourlyTemperatures) { item in
                             HStack(spacing: 2) {
                                 ImageProgressView(
-                                    height: 10,
+                                    height: 15,
                                     value: item.precipitationChance * 100,
                                     sfSymbol: "drop.fill",
                                     color: K.ColorsConstants.precipitationBlue
