@@ -20,7 +20,7 @@ struct DailyWeatherModelPlaceHolder {
         sun: SunModelPlaceholder.sunDataHolder,
         wind: WindModelPlaceholder.windDataHolder[0],
         date: Date.distantFuture,
-        condition: .clear,
+        condition: .cloudy,
         uvIndexValue: 0,
         uvIndexCategory: .extreme,
         symbolName: "sun.max",
