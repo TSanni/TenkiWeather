@@ -74,7 +74,7 @@ struct MultiDayScreen: View {
 //MARK: - MultiDayScreen Preview
 struct MultiDayScreen_Previews: PreviewProvider {
     static var previews: some View {
-        MultiDayScreen(daily: [DailyWeatherModel.placeholder])
+        MultiDayScreen(daily: DailyWeatherModelPlaceHolder.placeholderArray)
                 .environmentObject(AppStateViewModel.shared)
     }
 }

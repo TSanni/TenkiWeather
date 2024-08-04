@@ -61,7 +61,6 @@ struct MainScreen: View {
         .lineLimit(1)
         .minimumScaleFactor(0.5)
         .redacted(reason: appStateViewModel.loading ? .placeholder : [])
-//        .animation(.default, value: appStateViewModel.showSettingScreen)
         .fullScreenCover(isPresented: $appStateViewModel.showSearchScreen) {
             NavigationStack {
                 SearchingScreen()

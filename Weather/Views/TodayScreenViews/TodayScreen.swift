@@ -126,7 +126,7 @@ struct TodayScreen: View {
 //MARK: - TodayScreen Preview
 #Preview {
     NavigationStack {
-        TodayScreen(currentWeather: TodayWeatherModel.holderData, weatherAlert: nil)
+        TodayScreen(currentWeather: TodayWeatherModelPlaceHolder.holderData, weatherAlert: nil)
             .environmentObject(AppStateViewModel.shared)
             .environmentObject(WeatherViewModel.shared)
             .environmentObject(CoreLocationViewModel.shared)

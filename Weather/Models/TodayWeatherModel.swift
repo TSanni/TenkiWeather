@@ -33,32 +33,6 @@ struct TodayWeatherModel: Identifiable {
     let sunData: SunData
     let hourlyWeather: [HourlyWeatherModel]
     let timezeone: Int
-    
-    
-    /// Holder data for Today's weather
-    static let holderData = TodayWeatherModel(
-        apparentTemperature:  Measurement(value: 50, unit: .fahrenheit),
-        dewPoint: Measurement(value: 50, unit: .fahrenheit),
-        humidity: 0.5,
-        temperature: Measurement(value: 50, unit: .fahrenheit),
-        pressure: Measurement(value: 20, unit: .inchesOfMercury),
-        pressureTrend: .rising,
-        wind: WindData.windDataHolder[0],
-        condition: .clear,
-        date: Date.now,
-        isDaylight: false,
-        uvIndexCategory: .extreme,
-        uvIndexValue: 10,
-        visibility: Measurement(value: 5000, unit: .meters),
-        symbolName: "moon.stars",
-        highTemperature: Measurement(value: 50, unit: .fahrenheit),
-        lowTemperature: Measurement(value: 50, unit: .fahrenheit),
-        precipitationChance: 0.5,
-        sunData: SunData.sunDataHolder,
-        hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
-        timezeone: 0
-    )
-    
 }
 
 

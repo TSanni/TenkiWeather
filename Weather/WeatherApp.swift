@@ -5,12 +5,6 @@
 //  Created by Tomas Sanni on 5/27/23.
 //
 
-
-
-//TODO: Add rain and snow effect 
-
-
-
 import SwiftUI
 import UIKit
 import GooglePlaces

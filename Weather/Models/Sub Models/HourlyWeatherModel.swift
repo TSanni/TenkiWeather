@@ -34,26 +34,4 @@ struct HourlyWeatherModel: Identifiable {
     var chanceOfPrecipitation: String {
         return precipitationChance.formatted(.percent)
     }
-    
-    static let hourlyTempHolderData: [HourlyWeatherModel] = [
-        HourlyWeatherModel(temperature: Measurement(value: 50, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date(timeIntervalSince1970: 3600), precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
-        
-        HourlyWeatherModel(temperature: Measurement(value: 70, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date(timeIntervalSince1970: 7200), precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
-        
-        HourlyWeatherModel(temperature: Measurement(value: 40, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date(timeIntervalSince1970: 10800), precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
-        
-        HourlyWeatherModel(temperature: Measurement(value: 50, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date(timeIntervalSince1970: 14400), precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
-        
-        HourlyWeatherModel(temperature: Measurement(value: 80, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date(timeIntervalSince1970: 18000), precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
-        
-        HourlyWeatherModel(temperature: Measurement(value: 85, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date(timeIntervalSince1970: 21600), precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
-        
-        HourlyWeatherModel(temperature: Measurement(value: 70, unit: .fahrenheit), wind: WindData.windDataHolder[0], date: Date(timeIntervalSince1970: 25200), precipitationChance: 0.5, symbol: "sun.max", timezone: 0),
-
-    ]
 }
-
-
-
-
-

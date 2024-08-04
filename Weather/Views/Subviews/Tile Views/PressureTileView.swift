@@ -54,7 +54,7 @@ struct PressureTileView: View {
 }
 
 #Preview {
-    PressureTileView(pressureDetails: TodayWeatherModel.holderData, backgroundColor: Color.brown)
+    PressureTileView(pressureDetails: TodayWeatherModelPlaceHolder.holderData, backgroundColor: Color.brown)
         .frame(width: 250)
         .environmentObject(AppStateViewModel.shared)
 }

@@ -43,14 +43,4 @@ struct SunData {
     var dawnDescription: String {
         return "Dawn: \(Helper.getReadableHourAndMinute(date: civilDawn, timezoneOffset: timezone))"
     }
- 
-    /// Holder data for Sun data
-    static let sunDataHolder = SunData(
-        sunrise: Date.now,
-        sunset: Date.now,
-        civilDawn: Date.now,
-        solarNoon: Date.now,
-        civilDusk: Date.now,
-        timezone: 0
-    )
 }

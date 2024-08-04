@@ -107,7 +107,7 @@ struct TomorrowScreen: View {
 //MARK: - TomorrowScreen Preview
 struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TomorrowScreen(dailyWeather: DailyWeatherModel.placeholder)
+        TomorrowScreen(dailyWeather: DailyWeatherModelPlaceHolder.placeholder)
             .environmentObject(AppStateViewModel.shared)
     }
 }

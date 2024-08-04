@@ -134,7 +134,7 @@ struct WeatherGraphView_Previews: PreviewProvider {
             Color.mint
             ScrollView(.horizontal) {
                 
-                WeatherGraphView(hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData, graphColor: Color.blue)
+                WeatherGraphView(hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray, graphColor: Color.blue)
                     .frame(width: UIScreen.main.bounds.width * 2)
                     .frame(height: 200)
             }

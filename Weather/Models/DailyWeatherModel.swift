@@ -111,25 +111,5 @@ struct DailyWeatherModel: Identifiable {
         let condition = condition
         return Helper.getScene(weatherCondition: condition)
     }
-    
-    
-    static let placeholder = DailyWeatherModel(
-        highTemperature: Measurement(value: 50, unit: .fahrenheit),
-        lowTemperature: Measurement(value: 50, unit: .fahrenheit),
-        precipitation: Precipitation.hail,
-        precipitationChance: 0.3,
-        snowfallAmount:  Measurement(value: 0.5, unit: .centimeters),
-        moon: nil,
-        sun: SunData.sunDataHolder,
-        wind: WindData.windDataHolder[0],
-        date: Date.distantFuture,
-        condition: .clear,
-        uvIndexValue: 5,
-        uvIndexCategory: .extreme,
-        symbolName: "sun.max",
-        precipitationAmount: Measurement(value: 0.5, unit: .centimeters),
-        hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
-        timezone: 0
-    )
 }
 

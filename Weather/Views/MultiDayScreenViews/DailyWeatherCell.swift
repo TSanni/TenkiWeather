@@ -162,10 +162,10 @@ struct DailyWeatherCell_Previews: PreviewProvider {
         ZStack {
             K.ColorsConstants.haze
             VStack {
-                DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: "nil")
+                DailyWeatherCell(daily:DailyWeatherModelPlaceHolder.placeholder, title: "nil")
                     .environmentObject(AppStateViewModel.shared)
                 
-                DailyWeatherCell(daily: DailyWeatherModel.placeholder, title: "nil")
+                DailyWeatherCell(daily: DailyWeatherModelPlaceHolder.placeholder, title: "nil")
                     .environmentObject(AppStateViewModel.shared)
             }
         }

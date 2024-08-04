@@ -50,8 +50,8 @@ struct TomorrowImmediateWeatherView: View {
 
 #Preview {
     ZStack {
-        DailyWeatherModel.placeholder.backgroundColor
-        TomorrowImmediateWeatherView(tomorrowWeather: DailyWeatherModel.placeholder)
+        DailyWeatherModelPlaceHolder.placeholder.backgroundColor
+        TomorrowImmediateWeatherView(tomorrowWeather: DailyWeatherModelPlaceHolder.placeholder)
             .environmentObject(AppStateViewModel.shared)
 
     }

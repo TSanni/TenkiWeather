@@ -141,8 +141,8 @@ struct WindTileView: View {
         K.ColorsConstants.haze.ignoresSafeArea()
         GeometryReader { geo in
             WindTileView(
-                windData: WindData.windDataHolder[0],
-                hourlyWeather: HourlyWeatherModel.hourlyTempHolderData,
+                windData: WindModelPlaceholder.windDataHolder[0],
+                hourlyWeather: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
                 setTodayWeather: true,
                 backgroundColor: K.ColorsConstants.haze
             )

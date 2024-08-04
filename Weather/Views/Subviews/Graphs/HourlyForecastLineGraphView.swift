@@ -63,7 +63,7 @@ struct HourlyForecastLineGraphView: View {
 
 #Preview {
     ScrollView {
-        HourlyForecastLineGraphView(hourlyTemperatures: HourlyWeatherModel.hourlyTempHolderData)
+        HourlyForecastLineGraphView(hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray)
        
     }     
     .background {
