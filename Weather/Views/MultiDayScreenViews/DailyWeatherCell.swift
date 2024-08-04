@@ -47,7 +47,7 @@ struct DailyWeatherCell: View {
         .background(K.ColorsConstants.tenDayBarColor.brightness(-0.1))
         .clipShape(RoundedRectangle(cornerRadius: 40))
         .padding(.horizontal)
-        .shadow(color: .black, radius: 1, y: 1)
+        .shadow(color: .black, radius: 0, y: 0.5)
     }
         
     private var dayDetails: some View {
@@ -160,7 +160,7 @@ struct DailyWeatherCell: View {
 struct DailyWeatherCell_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            K.ColorsConstants.haze
+            K.ColorsConstants.tenDayBarColor
             VStack {
                 DailyWeatherCell(daily:DailyWeatherModelPlaceHolder.placeholder, title: "nil")
                     .environmentObject(AppStateViewModel.shared)
