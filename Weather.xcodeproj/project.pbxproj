@@ -24,7 +24,6 @@
 		8359F4F32BB5E1B6005F8911 /* BackgroundTasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8359F4F22BB5E1B6005F8911 /* BackgroundTasksManager.swift */; };
 		8359F4FB2BB9E78F005F8911 /* SearchLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8359F4FA2BB9E78F005F8911 /* SearchLocationModel.swift */; };
 		835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EB2EF2A5508D400346B21 /* SendMailView.swift */; };
-		835EB2F32A5509CC00346B21 /* SwiftUIMailView in Frameworks */ = {isa = PBXBuildFile; productRef = 835EB2F22A5509CC00346B21 /* SwiftUIMailView */; };
 		83731A6A2A2FC2E400D481CA /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A692A2FC2E400D481CA /* DailyWeatherCell.swift */; };
 		83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A6C2A2FD97F00D481CA /* CustomDivider.swift */; };
 		83731A712A2FDAA700D481CA /* SearchingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A702A2FDAA700D481CA /* SearchingScreen.swift */; };
@@ -53,6 +52,7 @@
 		83AFCA2A2C5FD06600B0F373 /* HourlyWeatherModel+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AFCA292C5FD06600B0F373 /* HourlyWeatherModel+Placeholder.swift */; };
 		83AFCA2C2C5FD1B300B0F373 /* WindModel+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AFCA2B2C5FD1B300B0F373 /* WindModel+Placeholder.swift */; };
 		83AFCA2E2C5FD29E00B0F373 /* SunModel+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AFCA2D2C5FD29E00B0F373 /* SunModel+Placeholder.swift */; };
+		83AFCA332C60035B00B0F373 /* SwiftUIMailView in Frameworks */ = {isa = PBXBuildFile; productRef = 83AFCA322C60035B00B0F373 /* SwiftUIMailView */; };
 		83B5ADC52A310FAB00C3C2F6 /* TodayWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B5ADC42A310FAB00C3C2F6 /* TodayWeatherModel.swift */; };
 		83B760912A6710FF007075E2 /* FullScreenWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760902A6710FF007075E2 /* FullScreenWebView.swift */; };
 		83B760932A67119C007075E2 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760922A67119C007075E2 /* LabelView.swift */; };
@@ -179,7 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				835EB2F32A5509CC00346B21 /* SwiftUIMailView in Frameworks */,
+				83AFCA332C60035B00B0F373 /* SwiftUIMailView in Frameworks */,
 				837740552C4D866300628088 /* GooglePlacesSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,8 +451,8 @@
 			);
 			name = "Tenki Weather";
 			packageProductDependencies = (
-				835EB2F22A5509CC00346B21 /* SwiftUIMailView */,
 				837740542C4D866300628088 /* GooglePlacesSwift */,
+				83AFCA322C60035B00B0F373 /* SwiftUIMailView */,
 			);
 			productName = Weather;
 			productReference = 83E04FA02A22DF1B009720AB /* Tenki Weather.app */;
@@ -483,8 +483,8 @@
 			);
 			mainGroup = 83E04F972A22DF1B009720AB;
 			packageReferences = (
-				835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */,
 				837740532C4D866300628088 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */,
+				83AFCA312C60035B00B0F373 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */,
 			);
 			productRefGroup = 83E04FA12A22DF1B009720AB /* Products */;
 			projectDirPath = "";
@@ -820,14 +820,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/globulus/swiftui-mail-view.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		837740532C4D866300628088 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googlemaps/ios-places-swift-sdk";
@@ -836,18 +828,26 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		83AFCA312C60035B00B0F373 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-mail-view.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		835EB2F22A5509CC00346B21 /* SwiftUIMailView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 835EB2F12A5509CC00346B21 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */;
-			productName = SwiftUIMailView;
-		};
 		837740542C4D866300628088 /* GooglePlacesSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 837740532C4D866300628088 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */;
 			productName = GooglePlacesSwift;
+		};
+		83AFCA322C60035B00B0F373 /* SwiftUIMailView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83AFCA312C60035B00B0F373 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */;
+			productName = SwiftUIMailView;
 		};
 /* End XCSwiftPackageProductDependency section */
 
