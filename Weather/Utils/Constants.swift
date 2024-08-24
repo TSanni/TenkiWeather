@@ -60,7 +60,6 @@ enum K {
         static let dayOfWeekAndDate = "EEEE, MMM d" // Ex: Tuesday, July 7
         static let hourAndMinute = "h:mm a" // Ex: 12:07 PM
         static let hourAndMinuteMilitary = "HH:mm a" // Ex: 12:07 PM
-
     }
     
     struct ColorsConstants {
@@ -85,8 +84,5 @@ enum K {
         static let lightPink = Color(uiColor: #colorLiteral(red: 1, green: 0.7621075511, blue: 0.7261560559, alpha: 1))
         static let maroon = Color(uiColor: #colorLiteral(red: 0.4117647059, green: 0.003921568627, blue: 0.01960784314, alpha: 1))
         static let prussianBlue = Color(uiColor: #colorLiteral(red: 0.003921568627, green: 0.2, blue: 0.3294117647, alpha: 1))
-        
-        
-        
     }
 }

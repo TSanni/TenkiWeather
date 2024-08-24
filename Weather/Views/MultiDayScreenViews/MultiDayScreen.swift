@@ -22,7 +22,6 @@ struct MultiDayScreen: View {
                 VStack {
                     DailyWeatherCell(daily: daily[0], title: "Today")
                         .id(0)
-//                    CustomDivider()
                     
                     ForEach(1..<daily.count, id: \.self) { item in
                         
@@ -34,7 +33,7 @@ struct MultiDayScreen: View {
                                     Spacer()
                                     VStack(alignment: .trailing) {
                                         Text(" Weather")
-                                            .foregroundColor(.primary)
+                                            .foregroundColor(.white)
                                             .font(.caption)
                                         
                                         HStack(spacing: 0.0) {
@@ -47,7 +46,7 @@ struct MultiDayScreen: View {
 
                                         }
                                         .font(.caption2)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(.white)
                                     }
                                 }
                                 .padding()
@@ -60,7 +59,6 @@ struct MultiDayScreen: View {
                         proxy.scrollTo(0)
                     }
                 }
-                .background(K.ColorsConstants.tenDayBarColor)
             }
         }
         .fullScreenCover(isPresented: $showWebView) {

@@ -92,13 +92,6 @@ struct TomorrowScreen: View {
                 
             }
         }
-        .background {
-            dailyWeather.backgroundColor.ignoresSafeArea()
-            // Add possible snow or rain scenes with SpriteKit
-            if let scene = dailyWeather.scene {
-                WeatherParticleEffectView(sceneImport: scene)
-            }
-        }
     }
     
 }

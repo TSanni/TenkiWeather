@@ -23,9 +23,13 @@ struct MainScreen: View {
 
     var body: some View {
         ZStack {
+            getBackgroundColor.ignoresSafeArea()
+            
+            getScene
+            
             VStack(spacing: 0) {
                 
-                TopView(backgroundColor: getBarColor)
+                TopView(backgroundColor: getBackgroundColor)
                     .padding(.vertical)
                 
                 Group {
@@ -36,8 +40,10 @@ struct MainScreen: View {
                             .tabViewStyle(.page(indexDisplayMode: .never))
                             .ignoresSafeArea()
                     } else {
+                        WeatherTabSelectionsView(tabViews: $tabViews)
                         TabViews(tabViews: $tabViews)
                             .tint(.white)
+                            .tabViewStyle(.page(indexDisplayMode: .never))
                             .ignoresSafeArea()
                     }
                 }
@@ -51,7 +57,6 @@ struct MainScreen: View {
                 }
             }
             .zIndex(0)
-            .background(getBarColor)
             .disabled(appStateViewModel.showSettingScreen ? true : false)
             .animation(deviceType == .pad ? nil : .default, value: tabViews)
             
@@ -93,7 +98,7 @@ struct MainScreen: View {
 //MARK: - Main View Extension
 extension MainScreen {
     
-    private var getBarColor: Color {
+    private var getBackgroundColor: Color {
         switch tabViews {
         case .today:
             return weatherViewModel.currentWeather.backgroundColor
@@ -101,6 +106,22 @@ extension MainScreen {
             return weatherViewModel.tomorrowWeather.backgroundColor
         case .multiDay:
             return K.ColorsConstants.tenDayBarColor
+        }
+    }
+    
+    @ViewBuilder
+    private var getScene: some View {
+        switch tabViews {
+        case .today:
+            if let scene = weatherViewModel.currentWeather.scene {
+                WeatherParticleEffectView(sceneImport: scene)
+            }
+        case .tomorrow:
+            if let scene = weatherViewModel.tomorrowWeather.scene {
+                WeatherParticleEffectView(sceneImport: scene)
+            }
+        case .multiDay:
+            EmptyView()
         }
     }
     

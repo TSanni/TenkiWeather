@@ -31,7 +31,9 @@ struct TodayScreen: View {
                             Text("Hourly forecast")
                                 .padding(.horizontal)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
+                                .foregroundStyle(
+                                    appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor)
+                                )
                             
                             HourlyForecastTileView(
                                 hourlyTemperatures: currentWeather.hourlyWeather,
@@ -107,13 +109,6 @@ struct TodayScreen: View {
                         proxy.scrollTo(0)
                     }
                 }
-            }
-        }
-        .background {
-            currentWeather.backgroundColor.ignoresSafeArea()
-            
-            if let scene = currentWeather.scene {
-                WeatherParticleEffectView(sceneImport: scene)
             }
         }
     }
