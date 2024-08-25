@@ -5,6 +5,8 @@
 //  Created by Tomas Sanni on 5/27/23.
 //
 
+// Version 4.7.3 published to App Store
+
 import SwiftUI
 import UIKit
 import GooglePlaces
