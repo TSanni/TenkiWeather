@@ -28,7 +28,7 @@ actor WeatherManager {
     func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> TodayWeatherModel {
         
         /// Filters the hourly forecasts and returns only the items that start at the current hour and beyond
-         let hourlyWeatherStartingFromNow = hourlyWeather.filter({ hourlyWeatherItem in
+         let hourlyDatesStartingFromNow = hourlyWeather.filter({ hourlyWeatherItem in
             return hourlyWeatherItem.date.timeIntervalSinceNow >= -3600
         })
         
@@ -54,17 +54,17 @@ actor WeatherManager {
         for i in 0..<K.TimeConstants.twentyFourHours {
             
             let windData =  WindData(
-                speed: hourlyWeatherStartingFromNow[i].wind.speed,
-                compassDirection: hourlyWeatherStartingFromNow[i].wind.compassDirection
+                speed: hourlyDatesStartingFromNow[i].wind.speed,
+                compassDirection: hourlyDatesStartingFromNow[i].wind.compassDirection
             )
             
             hourlyTemperatures.append(
                 HourlyWeatherModel(
-                    temperature: hourlyWeatherStartingFromNow[i].temperature, 
+                    temperature: hourlyDatesStartingFromNow[i].temperature, 
                     wind: windData,
-                    date: hourlyWeatherStartingFromNow[i].date,
-                    precipitationChance: hourlyWeatherStartingFromNow[i].precipitationChance, 
-                    symbol: hourlyWeatherStartingFromNow[i].symbolName,
+                    date: hourlyDatesStartingFromNow[i].date,
+                    precipitationChance: hourlyDatesStartingFromNow[i].precipitationChance, 
+                    symbol: hourlyDatesStartingFromNow[i].symbolName,
                     timezone: timezoneOffset
                 )
             )
