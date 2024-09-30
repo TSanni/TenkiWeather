@@ -66,6 +66,23 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
+    func fetchLocationsAfterDelete() {
+        let key = UserDefaults.standard.string(forKey: "sortType")
+        let ascending = UserDefaults.standard.bool(forKey: "ascending")
+
+        let request = NSFetchRequest<Location>(entityName: "Location")
+        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
+        Task {
+            do {
+                try await MainActor.run {
+                    savedLocations = try container.viewContext.fetch(request)
+                }
+            } catch let error{
+                print("Error fetching. \(error)")
+            }
+        }
+    }
+    
     func addLocation(locationDictionary: SearchLocationModel)  {
 
         let newLocation = Location(context: container.viewContext)
@@ -105,25 +122,40 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         guard let index = indexSet.first else { return }
         let entity = savedLocations[index]
         container.viewContext.delete(entity)
-        saveData()
+        saveDataAfterDelete()
     }
     
     func deleteLocationFromContextMenu(entity: Location) {
         container.viewContext.delete(entity)
-        saveData()
+        saveDataAfterDelete()
     }
     
     func saveData() {
-        do {
-            Task {
-                try await fetchWeatherPlacesWithTaskGroup()
+        if container.viewContext.hasChanges {
+            do {
+                try container.viewContext.save()
+                
                 fetchLocations()
-            }
-            
-            try container.viewContext.save()
+                Task {
+                    try await fetchWeatherPlacesWithTaskGroup()
+                }
+                
 
-        } catch let error {
-            print("Error saving. \(error)")
+            } catch let error {
+                print("Error saving. \(error)")
+            }
+        }
+    }
+    
+    func saveDataAfterDelete() {
+        if container.viewContext.hasChanges {
+            do {
+                try container.viewContext.save()
+                fetchLocationsAfterDelete()
+                
+            } catch let error {
+                print("Error saving. \(error)")
+            }
         }
     }
     

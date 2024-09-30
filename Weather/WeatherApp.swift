@@ -7,6 +7,8 @@
 
 // Version 4.7.3 published to App Store
 
+//TODO: Fix .renderingMode in files
+
 import SwiftUI
 import UIKit
 import GooglePlaces
@@ -44,6 +46,7 @@ struct WeatherApp: App {
                     .environmentObject(locationViewModel)
                     .environmentObject(appStateViewModel)
                     .environmentObject(networkManager)
+                    .preferredColorScheme(.dark)
             }
             .task {
                   if locationViewModel.authorizationStatus == .authorizedWhenInUse {
