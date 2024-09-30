@@ -103,16 +103,16 @@ struct SavedLocationCell: View {
                 .presentationDetents([.height(500)])
         }
     }
-    
-    
+
     var newTemp: String {
-        let oldTemp = location.temperature ?? "0"
-        let oldTempToDouble = Double(oldTemp) ?? 0
-        let oldTempUnit = location.unitTemperature ?? .fahrenheit
-        let oldTempToMeasurement = Measurement(value: oldTempToDouble, unit: oldTempUnit)
-        let newTemp = oldTempToMeasurement.converted(to: Helper.getUnitTemperature())
-        let newTempWithNoFloatingNumbers = String(format: "%.0f", newTemp.value)
-        return newTempWithNoFloatingNumbers
+        let pureTemp = location.temperature ?? "0"
+        let pureTempToDouble = Double(pureTemp) ?? 0
+        let measurementValueOfPureTemp: Measurement<UnitTemperature> = Measurement(value: pureTempToDouble, unit: .celsius)
+        let measurementValueSavedInUserDefaults = measurementValueOfPureTemp.converted(to: Helper.getUnitTemperature())
+        let newTempValue = measurementValueSavedInUserDefaults.value
+        let newTempValueAsString =  String(format: "%.0f", newTempValue)
+        
+        return newTempValueAsString
     }
 }
 

@@ -95,7 +95,7 @@ struct SettingsScreen: View {
                     
                     VStack {
                     
-                        Text(appStateViewModel.searchedLocationDictionary2.name)
+                        Text(appStateViewModel.searchedLocationDictionary.name)
                             .foregroundStyle(.green)
                         
                         Text("Click to save this location")
@@ -162,8 +162,8 @@ struct SettingsScreen: View {
         } else {
             alertTitle = Text("Saved")
             alertMessage =  Text("Location saved to favorites")
-            print(appStateViewModel.searchedLocationDictionary2)
-            persistence.addLocation(locationDictionary: appStateViewModel.searchedLocationDictionary2)
+            print(appStateViewModel.searchedLocationDictionary)
+            persistence.addLocation(locationDictionary: appStateViewModel.searchedLocationDictionary)
         }
         
         locationSaveAlert.toggle()

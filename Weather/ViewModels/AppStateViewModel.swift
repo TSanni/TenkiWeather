@@ -23,7 +23,7 @@ import GooglePlaces
     // This property's only purpose is to add data to CoreData.
     // You can fiÔnd it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
-    @Published private(set) var searchedLocationDictionary2: SearchLocationModel =
+    @Published private(set) var searchedLocationDictionary: SearchLocationModel =
         SearchLocationModel(
             name: "",
             latitude: 0,
@@ -86,9 +86,9 @@ import GooglePlaces
         currentLocationTimezone = timezone
     }
     
-    private func setSearchedLocationDictionary2(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature, weatherAlert: Bool) {
+    private func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature, weatherAlert: Bool) {
         
-        self.searchedLocationDictionary2 = SearchLocationModel(
+        self.searchedLocationDictionary = SearchLocationModel(
             name: name,
             latitude: latitude,
             longitude: longitude,
@@ -158,7 +158,7 @@ import GooglePlaces
         
         locationViewModel.searchedLocationName = item.name!
         
-        setSearchedLocationDictionary2(
+        setSearchedLocationDictionary(
             name: locationViewModel.searchedLocationName,
             latitude: item.latitude,
             longitude: item.longitude,
@@ -190,12 +190,12 @@ import GooglePlaces
 
         setCurrentLocationName(name: userLocationName)
         
-        setSearchedLocationDictionary2(
+        setSearchedLocationDictionary(
             name: locationViewModel.searchedLocationName,
             latitude: locationViewModel.latitude,
             longitude: locationViewModel.longitude,
             timezone: timezone,
-            temperature: currentWeather.currentTemperature,
+            temperature: currentWeather.temperature.value.description,
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
@@ -216,13 +216,13 @@ import GooglePlaces
         let timezone = locationViewModel.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         let currentWeather = weatherViewModel.currentWeather
-        
-        setSearchedLocationDictionary2(
+        print("THE TEMP: \(currentWeather.temperature.value.description)")
+        setSearchedLocationDictionary(
             name: locationViewModel.searchedLocationName,
             latitude: coordinates.latitude,
             longitude: coordinates.longitude,
             timezone: timezone,
-            temperature: currentWeather.currentTemperature,
+            temperature: currentWeather.temperature.value.description,
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
@@ -251,12 +251,12 @@ import GooglePlaces
         setCurrentLocationTimezone(timezone: timezone)
         dataCompletedLoading()
         
-        setSearchedLocationDictionary2(
+        setSearchedLocationDictionary(
             name: userLocationName,
             latitude: locationViewModel.latitude,
             longitude: locationViewModel.longitude,
             timezone: timezone,
-            temperature: weatherViewModel.currentWeather.currentTemperature,
+            temperature: weatherViewModel.currentWeather.temperature.value.description,
             date: weatherViewModel.currentWeather.readableDate,
             symbol: weatherViewModel.currentWeather.symbolName,
             weatherCondition: weatherViewModel.currentWeather.weatherDescription,

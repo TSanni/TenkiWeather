@@ -20,7 +20,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         UserDefaults.standard.set("timeAdded", forKey: "sortType")
         UserDefaults.standard.set(false, forKey: "ascending")
 
-        ValueTransformer.setValueTransformer(UnitTemperatureTransformer(), forName: NSValueTransformerName("UnitTemperatureTransformer"))
+//        ValueTransformer.setValueTransformer(UnitTemperatureTransformer(), forName: NSValueTransformerName("UnitTemperatureTransformer"))
         
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
@@ -69,25 +69,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     
     func addLocation(locationDictionary: SearchLocationModel)  {
 
-//        guard let time = locationDictionary[K.LocationDictionaryKeysConstants.timezone] as? Int else {
-//            print("COULD NOT CONVERT")
-//            return
-//        }
-        
         let newLocation = Location(context: container.viewContext)
-        
-//        newLocation.name = locationDictionary[K.LocationDictionaryKeysConstants.name] as? String
-//        newLocation.latitude = locationDictionary[K.LocationDictionaryKeysConstants.latitude] as? Double ?? 0
-//        newLocation.longitude = locationDictionary[K.LocationDictionaryKeysConstants.longitude] as? Double ?? 0
-//        newLocation.timeAdded = Date.now
-//        newLocation.timezone = Double(time)
-//        newLocation.temperature = locationDictionary[K.LocationDictionaryKeysConstants.temperature] as? String
-//        newLocation.currentDate = locationDictionary[K.LocationDictionaryKeysConstants.date] as? String
-//        newLocation.sfSymbol = locationDictionary[K.LocationDictionaryKeysConstants.symbol] as? String
-//        newLocation.weatherCondition = locationDictionary[K.LocationDictionaryKeysConstants.weatherCondition] as? String
-//        newLocation.unitTemperature = locationDictionary[K.LocationDictionaryKeysConstants.unitTemperature] as? UnitTemperature
-//        newLocation.weatherAlert = locationDictionary[K.LocationDictionaryKeysConstants.weatherAlert] as? Bool ?? false
-        
         
         newLocation.name = locationDictionary.name
         newLocation.latitude = locationDictionary.latitude
@@ -108,7 +90,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         
     }
     
-    
     func updatePlaceName(entity: Location, newName: String) {
         let key = UserDefaults.standard.string(forKey: "sortType")
         let ascending = UserDefaults.standard.bool(forKey: "ascending")
@@ -121,13 +102,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         fetchLocationsWithUserDeterminedOrder(key: key ?? "name", ascending: ascending)
         saveData()
     }
-    
-//    func updatePlace(entity: LocationEntity) {
-//        let currentName = entity.name ?? ""
-//        let newName = currentName + "!"
-//        entity.name = newName
-//        saveData()
-//    }
     
     func deletePlace(indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
@@ -192,7 +166,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             let possibleWeatherAlerts = await weatherManager.getWeatherAlert(optionalWeatherAlert: currentWeather.weatherAlerts)
           
             entity.currentDate = todaysWeather.readableDate
-            entity.temperature = todaysWeather.currentTemperature
+            entity.temperature = todaysWeather.temperature.value.description
             entity.sfSymbol = todaysWeather.symbolName
             entity.weatherCondition = todaysWeather.weatherDescription.description
             entity.unitTemperature = Helper.getUnitTemperature()

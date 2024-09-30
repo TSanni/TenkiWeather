@@ -81,7 +81,7 @@ struct WeatherApp: App {
         }
         .backgroundTask(.appRefresh("getCurrentWeather")) { _ in
             await appStateViewModel.getWeather()
-            backgroundClass.startBackgroundTasks()
+            await backgroundClass.startBackgroundTasks()
         }
     }
 }
