@@ -11,7 +11,6 @@ import GooglePlaces
 
 
 
-//TODO: Add gesture ability for underline when swiping to new tab 
 @MainActor class AppStateViewModel: ObservableObject {
     @Published private(set) var resetViews: Bool = false
     @Published private(set) var loading: Bool = false
@@ -21,7 +20,7 @@ import GooglePlaces
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
     // This property's only purpose is to add data to CoreData.
-    // You can fiÔnd it's data being saved to CoreData in the SettingScreenTile View
+    // You can find it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
     @Published private(set) var searchedLocationDictionary: SearchLocationModel =
         SearchLocationModel(
@@ -33,14 +32,9 @@ import GooglePlaces
             date: "",
             symbol: "",
             weatherCondition: "",
-            unitTemperature: .fahrenheit,
             weatherAlert: false
         )
-    
-    
-//    @Published var startingOffsetX: CGFloat = 0
-//    @Published var currentDragOffsetX: CGFloat = 0
-//    @Published var endingOffsetX: CGFloat = 0
+
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
 
     
@@ -86,7 +80,7 @@ import GooglePlaces
         currentLocationTimezone = timezone
     }
     
-    private func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, unitTemperature: UnitTemperature, weatherAlert: Bool) {
+    private func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timezone: Int, temperature: String, date: String, symbol: String, weatherCondition: String, weatherAlert: Bool) {
         
         self.searchedLocationDictionary = SearchLocationModel(
             name: name,
@@ -97,7 +91,6 @@ import GooglePlaces
             date: date,
             symbol: symbol,
             weatherCondition: weatherCondition,
-            unitTemperature: unitTemperature,
             weatherAlert: weatherAlert
         )
     }
@@ -167,7 +160,6 @@ import GooglePlaces
             date: item.currentDate ?? "",
             symbol: item.sfSymbol ?? "sun.max.fill",
             weatherCondition: item.weatherCondition ?? "",
-            unitTemperature: item.unitTemperature ?? .fahrenheit,
             weatherAlert: item.weatherAlert
         )
 
@@ -199,7 +191,6 @@ import GooglePlaces
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: Helper.getUnitTemperature(),
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
@@ -216,7 +207,6 @@ import GooglePlaces
         let timezone = locationViewModel.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         let currentWeather = weatherViewModel.currentWeather
-        print("THE TEMP: \(currentWeather.temperature.value.description)")
         setSearchedLocationDictionary(
             name: locationViewModel.searchedLocationName,
             latitude: coordinates.latitude,
@@ -226,7 +216,6 @@ import GooglePlaces
             date: currentWeather.readableDate,
             symbol: currentWeather.symbolName,
             weatherCondition: currentWeather.weatherDescription.description,
-            unitTemperature: Helper.getUnitTemperature(),
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
@@ -260,7 +249,6 @@ import GooglePlaces
             date: weatherViewModel.currentWeather.readableDate,
             symbol: weatherViewModel.currentWeather.symbolName,
             weatherCondition: weatherViewModel.currentWeather.weatherDescription,
-            unitTemperature: Helper.getUnitTemperature(),
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         

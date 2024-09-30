@@ -20,7 +20,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         UserDefaults.standard.set("timeAdded", forKey: "sortType")
         UserDefaults.standard.set(false, forKey: "ascending")
 
-//        ValueTransformer.setValueTransformer(UnitTemperatureTransformer(), forName: NSValueTransformerName("UnitTemperatureTransformer"))
         
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
@@ -80,7 +79,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         newLocation.currentDate = locationDictionary.date
         newLocation.sfSymbol = locationDictionary.symbol
         newLocation.weatherCondition = locationDictionary.weatherCondition
-        newLocation.unitTemperature = locationDictionary.unitTemperature
         newLocation.weatherAlert = locationDictionary.weatherAlert
         
         Task {
@@ -169,7 +167,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             entity.temperature = todaysWeather.temperature.value.description
             entity.sfSymbol = todaysWeather.symbolName
             entity.weatherCondition = todaysWeather.weatherDescription.description
-            entity.unitTemperature = Helper.getUnitTemperature()
             
             if possibleWeatherAlerts != nil {
                 entity.weatherAlert = true

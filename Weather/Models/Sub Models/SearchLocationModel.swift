@@ -17,6 +17,6 @@ struct SearchLocationModel: Identifiable {
     let date: String
     let symbol: String
     let weatherCondition: String
-    let unitTemperature: UnitTemperature
+//    let unitTemperature: UnitTemperature
     let weatherAlert: Bool
 }
