@@ -721,7 +721,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weather/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Tenki Weather";
+				INFOPLIST_KEY_CFBundleDisplayName = Tenki;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide accurate weather data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -736,7 +736,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.7.3;
+				MARKETING_VERSION = 4.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -764,7 +764,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weather/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Tenki Weather";
+				INFOPLIST_KEY_CFBundleDisplayName = Tenki;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide accurate weather data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -779,7 +779,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.7.3;
+				MARKETING_VERSION = 4.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
 				PROVISIONING_PROFILE_SPECIFIER = "";

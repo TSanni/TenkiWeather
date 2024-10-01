@@ -5,9 +5,9 @@
 //  Created by Tomas Sanni on 5/27/23.
 //
 
-// Version 4.7.3 published to App Store
 
-//TODO: Fix .renderingMode in files
+
+//TODO: Fix .renderingMode in files. This is the cause of the CoreSVG: Error: NULL ref passed to getObjectCoreSVG
 
 import SwiftUI
 import UIKit

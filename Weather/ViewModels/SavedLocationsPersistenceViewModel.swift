@@ -48,7 +48,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
 
-    func fetchLocations() {   
+    private func fetchLocations() {
         let key = UserDefaults.standard.string(forKey: "sortType")
         let ascending = UserDefaults.standard.bool(forKey: "ascending")
 
@@ -66,7 +66,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    func fetchLocationsAfterDelete() {
+    private func fetchLocationsAfterDelete() {
         let key = UserDefaults.standard.string(forKey: "sortType")
         let ascending = UserDefaults.standard.bool(forKey: "ascending")
 
@@ -131,7 +131,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     }
     
     func saveData() {
-        if container.viewContext.hasChanges {
             do {
                 try container.viewContext.save()
                 
@@ -144,11 +143,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             } catch let error {
                 print("Error saving. \(error)")
             }
-        }
     }
     
     func saveDataAfterDelete() {
-        if container.viewContext.hasChanges {
             do {
                 try container.viewContext.save()
                 fetchLocationsAfterDelete()
@@ -156,7 +153,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             } catch let error {
                 print("Error saving. \(error)")
             }
-        }
     }
     
     
