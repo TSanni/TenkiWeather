@@ -162,7 +162,6 @@ struct SettingsScreen: View {
         } else {
             alertTitle = Text("Saved")
             alertMessage =  Text("Location saved to favorites")
-            print(appStateViewModel.searchedLocationDictionary)
             persistence.addLocation(locationDictionary: appStateViewModel.searchedLocationDictionary)
         }
         

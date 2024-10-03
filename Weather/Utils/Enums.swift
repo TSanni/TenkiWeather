@@ -7,25 +7,54 @@
 
 import Foundation
 
-enum Errors: Error {
-    case failedToGetWeatherFromWeatherKit
-    case failedToGetWeatherForWeatherViewModel
-    case failedToGetLocalWeatherWithWeatherKit
-    
-}
-
-enum WeatherErrors: Error {
+enum WeatherErrors: Error, LocalizedError {
     case failedToGetWeatherKitData
-}
-
-extension WeatherErrors: LocalizedError {
+    
     var errorDescription: String? {
         switch self {
-            case .failedToGetWeatherKitData:
-                return NSLocalizedString(
-                          "Check your network connection and try again.",
-                          comment: ""
-                      )
+        case .failedToGetWeatherKitData:
+            return "Weather request failed"
+        }
+    }
+    
+    
+    var recoverySuggestion: String? {
+        switch self {
+        case .failedToGetWeatherKitData:
+            return "Check your network connection and try again."
+        }
+    }
+}
+
+enum CoreDataErrors: Error, LocalizedError {
+    case failedToFetch
+    case failedToFetchWeatherPlacesWithTaskGroup
+    case failedToSave
+    case failedToFetchCurrentWeather
+    
+    var errorDescription: String? {
+        switch self {
+        case .failedToFetch:
+            return "Failed to load save locations"
+        case .failedToFetchWeatherPlacesWithTaskGroup:
+            return "Weather request for saved locations failed"
+        case .failedToSave:
+            return "Failed to save location"
+        case .failedToFetchCurrentWeather:
+            return "Weather request for saved locations failed"
+        }
+    }
+    
+    var recoverySuggestion: String? {
+        switch self {
+        case .failedToFetch:
+            return "Please try again."
+        case .failedToFetchWeatherPlacesWithTaskGroup:
+            return "Please check your network connection and try again."
+        case .failedToSave:
+            return "Please try again"
+        case .failedToFetchCurrentWeather:
+            return "Please check your network connection and try again."
         }
     }
 }

@@ -16,7 +16,9 @@ class WeatherViewModel: ObservableObject {
     @Published private(set) var dailyWeather: [DailyWeatherModel] = DailyWeatherModelPlaceHolder.placeholderArray
     @Published private(set) var weatherAlert: WeatherAlertModel? = nil
     @Published private(set) var localWeather: TodayWeatherModel = TodayWeatherModelPlaceHolder.holderData
-    @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
+//    @Published var errorPublisher: (errorBool: Bool, errorMessage: String) = (false, "")
+    @Published var showErrorAlert = false
+    @Published var currentError: WeatherErrors? = nil
     
     static let shared = WeatherViewModel()
     
@@ -46,9 +48,9 @@ class WeatherViewModel: ObservableObject {
                 }
             }
         } catch {
-            print(error.localizedDescription)
             await MainActor.run {
-                errorPublisher = (true, error.localizedDescription)
+                currentError = .failedToGetWeatherKitData
+                showErrorAlert.toggle()
             }
         }
     }
@@ -71,7 +73,8 @@ class WeatherViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
-                errorPublisher = (true, error.localizedDescription)
+                currentError = .failedToGetWeatherKitData
+                showErrorAlert.toggle()
             }
         }
     }

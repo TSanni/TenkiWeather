@@ -15,6 +15,8 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     let weatherManager = WeatherManager.shared
     
     @Published private(set) var savedLocations: [Location] = []
+    @Published var showErrorAlert = false
+    @Published var currentError: CoreDataErrors? = nil
     
     private init() {
         UserDefaults.standard.set("timeAdded", forKey: "sortType")
@@ -42,7 +44,8 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                     savedLocations = try container.viewContext.fetch(request)
                 }
             } catch {
-                print("Error fetching. \(error)")
+                showErrorAlert.toggle()
+                currentError = .failedToFetch
             }
 
         }
@@ -60,8 +63,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                 try await MainActor.run {
                     savedLocations = try container.viewContext.fetch(request)
                 }
-            } catch let error{
-                print("Error fetching. \(error)")
+            } catch {
+                showErrorAlert.toggle()
+                currentError = .failedToFetch
             }
         }
     }
@@ -77,8 +81,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                 try await MainActor.run {
                     savedLocations = try container.viewContext.fetch(request)
                 }
-            } catch let error{
-                print("Error fetching. \(error)")
+            } catch {
+                showErrorAlert.toggle()
+                currentError = .failedToFetch
             }
         }
     }
@@ -140,8 +145,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                 }
                 
 
-            } catch let error {
-                print("Error saving. \(error)")
+            } catch {
+                showErrorAlert.toggle()
+                currentError = .failedToSave
             }
     }
     
@@ -150,8 +156,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                 try container.viewContext.save()
                 fetchLocationsAfterDelete()
                 
-            } catch let error {
-                print("Error saving. \(error)")
+            } catch {
+                showErrorAlert.toggle()
+                currentError = .failedToSave
             }
     }
     
@@ -194,7 +201,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             entity.currentDate = todaysWeather.readableDate
             entity.temperature = todaysWeather.temperature.value.description
             entity.sfSymbol = todaysWeather.symbolName
-            entity.weatherCondition = todaysWeather.weatherDescription.description
+            entity.weatherCondition = todaysWeather.weatherDescription
             
             if possibleWeatherAlerts != nil {
                 entity.weatherAlert = true
@@ -204,7 +211,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             
             return entity
         } else {
-            throw URLError(.badURL)
+            throw CoreDataErrors.failedToFetchCurrentWeather
         }
     }
 }

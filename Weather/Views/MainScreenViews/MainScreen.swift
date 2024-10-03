@@ -17,6 +17,7 @@ struct MainScreen: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var networkManager: NetworkMonitor
     @EnvironmentObject var locationManager: CoreLocationViewModel
+    @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
     //Must use @State instead of view model because this is the only way to make animations work
     @State var tabViews: WeatherTabs = .today
     let deviceType = UIDevice.current.userInterfaceIdiom
@@ -76,18 +77,16 @@ struct MainScreen: View {
                 SettingsScreen()
             }
         }
-        .alert("Weather Request Failed", isPresented: $weatherViewModel.errorPublisher.errorBool) {
-            //            Button("Ok") {
-            //                NetworkMonitor.shared.startMonitoring()
-            //
-            //                Task {
-            //                    await getWeather()
-            //                    NetworkMonitor.shared.stopMonitoring()
-            //                }
-            //
-            //            }
-        } message: {
-            Text(weatherViewModel.errorPublisher.errorMessage)
+        
+        .alert(isPresented: $weatherViewModel.showErrorAlert, error: weatherViewModel.currentError) { _ in
+            
+        } message: { error in
+            Text(error.recoverySuggestion ?? "Try again later")
+        }
+        .alert(isPresented: $savedLocationPersistenceViewModel.showErrorAlert, error: savedLocationPersistenceViewModel.currentError) { _ in
+            
+        } message: { error in
+            Text(error.recoverySuggestion ?? "Try again later")
         }
         .onChange(of: appStateViewModel.resetViews) { _ in
             tabViews = .today
