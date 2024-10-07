@@ -20,7 +20,9 @@ struct HourlyWeatherModelPlaceholder {
                     date: Date(timeIntervalSince1970: TimeInterval(startingTime)),
                     precipitationChance: 0,
                     symbol: "sun.max",
-                    timezone: 0
+                    timezone: 0,
+                    condition: .clear,
+                    isDayLight: true
                 )
             )
             startingTime += 3600

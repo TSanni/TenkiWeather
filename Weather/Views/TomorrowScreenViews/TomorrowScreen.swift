@@ -34,7 +34,11 @@ struct TomorrowScreen: View {
                                     .fontWeight(.semibold)
                                     .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: dailyWeather.backgroundColor))
                                 
-                                HourlyForecastTileView(hourlyTemperatures: dailyWeather.hourlyWeather, color: dailyWeather.backgroundColor)
+                                HourlyForecastTileView(
+                                    hourlyTemperatures: dailyWeather.hourlyWeather,
+                                    color: dailyWeather.backgroundColor,
+                                    forToday: false
+                                )
                                 
                                 
                                 Text("Tomorrow's Conditions")

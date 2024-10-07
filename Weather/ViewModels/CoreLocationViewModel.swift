@@ -87,7 +87,6 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     }
     
     func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, nameFromGoogle: String?) async {
-        //self.searchedLocationName
         
         let searched = await getNameFromCoordinates(latitude: lat, longitude: lon, nameFromGoogleAPI: nameFromGoogle)
         

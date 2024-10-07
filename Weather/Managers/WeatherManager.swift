@@ -65,7 +65,9 @@ actor WeatherManager {
                     date: hourlyDatesStartingFromNow[i].date,
                     precipitationChance: hourlyDatesStartingFromNow[i].precipitationChance, 
                     symbol: hourlyDatesStartingFromNow[i].symbolName,
-                    timezone: timezoneOffset
+                    timezone: timezoneOffset,
+                    condition: hourlyDatesStartingFromNow[i].condition,
+                    isDayLight: hourlyDatesStartingFromNow[i].isDaylight
                 )
             )
         }
@@ -247,7 +249,9 @@ extension WeatherManager {
                     date: nextDayWeatherHours[i].date,
                     precipitationChance: nextDayWeatherHours[i].precipitationChance, 
                     symbol: nextDayWeatherHours[i].symbolName,
-                    timezone: timezoneOffset
+                    timezone: timezoneOffset,
+                    condition: nextDayWeatherHours[i].condition,
+                    isDayLight: nextDayWeatherHours[i].isDaylight
                 )
             )
         }

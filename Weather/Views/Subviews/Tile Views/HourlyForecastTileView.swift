@@ -12,70 +12,88 @@ import SwiftUI
 
 struct HourlyForecastTileView: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
+
     let hourlyTemperatures: [HourlyWeatherModel]
     let color: Color
     let deviceType = UIDevice.current.userInterfaceIdiom
+    let forToday: Bool
 
     var body: some View {
         let color = appStateViewModel.blendColorWith20PercentWhite(themeColor: color)
         
-        ScrollView(.horizontal, showsIndicators: false) {
-            ScrollViewReader { proxy in
-                
+        VStack(alignment: .leading) {
+            if let forecast = weatherViewModel.currentWeather.getForecastUsingHourlyWeather, forToday == true {
                 VStack(alignment: .leading) {
-                    
-                    HStack {
-                        EmptyView()
-                            .id(0)
-                        ForEach(hourlyTemperatures) { item in
-                            let imageName = appStateViewModel.fillImageToPrepareForRendering(symbol: item.symbol)
-                            
-                            VStack(spacing: 7.0) {
-                      
-                                Text(item.readableDate)
-                                    .font(.caption)
-                                
-                                Image(systemName: imageName)
-                                    .renderingMode(.original)
-                                    .frame(width: 25, height: 25)
-                                    .font(.title3)
-                                
-                                Text(item.hourTemperature + "°")
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
-                                
-
-                            }
-                            .padding(.top)
-                            .padding(.horizontal, 10)
-                            .frame(width: deviceType == .pad ? 100 : 63)
-                        }
-                    }
-                    
-                    HourlyForecastLineGraphView(hourlyTemperatures: hourlyTemperatures)
-                        .frame(height: 50)
-                    
-                    HStack {
-                        ForEach(hourlyTemperatures) { item in
-                            HStack(spacing: 2) {
-                                ImageProgressView(
-                                    height: 15,
-                                    value: item.precipitationChance * 100,
-                                    sfSymbol: "drop.fill",
-                                    color: K.ColorsConstants.precipitationBlue
-                                )
-                                Text(item.chanceOfPrecipitation)
-                                    .font(.caption2)
-                            }
-                            .padding([.horizontal, .bottom], 10)
-                            .frame(width: deviceType == .pad ? 100 : 63)
-                        }
-                    }
+                    Text(forecast)
+                        .font(.subheadline)
+                        .lineLimit(3)
+                        .minimumScaleFactor(1)
+                    CustomDivider()
                 }
-                .onChange(of: appStateViewModel.resetViews) { _ in
-                    proxy.scrollTo(0)
+                .padding([.top, .horizontal], 15)
+   
+            }
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                ScrollViewReader { proxy in
+                    
+                    VStack(alignment: .leading) {
+                        
+                        HStack {
+                            EmptyView()
+                                .id(0)
+                            ForEach(hourlyTemperatures) { item in
+                                let imageName = appStateViewModel.fillImageToPrepareForRendering(symbol: item.symbol)
+                                
+                                VStack(spacing: 7.0) {
+                                    
+                                    Text(item.readableDate)
+                                        .font(.caption)
+                                    
+                                    Image(systemName: imageName)
+                                        .renderingMode(.original)
+                                        .frame(width: 25, height: 25)
+                                        .font(.title3)
+                                    
+                                    Text(item.hourTemperature + "°")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                    
+                                    
+                                }
+                                .padding(.top)
+                                .padding(.horizontal, 10)
+                                .frame(width: deviceType == .pad ? 100 : 63)
+                            }
+                        }
+                        
+                        HourlyForecastLineGraphView(hourlyTemperatures: hourlyTemperatures)
+                            .frame(height: 50)
+                        
+                        HStack {
+                            ForEach(hourlyTemperatures) { item in
+                                HStack(spacing: 2) {
+                                    ImageProgressView(
+                                        height: 15,
+                                        value: item.precipitationChance * 100,
+                                        sfSymbol: "drop.fill",
+                                        color: K.ColorsConstants.precipitationBlue
+                                    )
+                                    Text(item.chanceOfPrecipitation)
+                                        .font(.caption2)
+                                }
+                                .padding([.horizontal, .bottom], 10)
+                                .frame(width: deviceType == .pad ? 100 : 63)
+                            }
+                        }
+                    }
+                    .onChange(of: appStateViewModel.resetViews) { _ in
+                        proxy.scrollTo(0)
+                    }
                 }
             }
+
         }
         .foregroundStyle(.white)
         .background(color)
@@ -91,8 +109,9 @@ struct HourlyForecastTileView: View {
         K.ColorsConstants.haze.brightness(0.1)
         HourlyForecastTileView(
             hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
-            color: K.ColorsConstants.haze
+            color: K.ColorsConstants.haze, forToday: true
         )
         .environmentObject(AppStateViewModel.shared)
+        .environmentObject(WeatherViewModel.shared)
     }
 }

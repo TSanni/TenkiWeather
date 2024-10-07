@@ -38,6 +38,60 @@ struct TodayWeatherModel: Identifiable {
 
 // MARK: - Computed Properties
 extension TodayWeatherModel {
+    
+    func areSymbolsEqual(symbol1: String, symbol2: String) -> Bool {
+        if symbol1 == symbol2 {
+            return true
+        } else {
+            return false
+        }
+        
+        
+    }
+    
+    func forecastSentence1(currentHour: HourlyWeatherModel, comparedHour: HourlyWeatherModel) -> String? {
+        let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
+
+        if areSymbolsEqual(symbol1: currentHour.symbol, symbol2: comparedHour.symbol) {
+            return nil
+        }
+        
+        return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate) \(dayOrNight)"
+    }
+    
+    func forecastSentence2(currentHour: HourlyWeatherModel, comparedHour: HourlyWeatherModel) -> String? {
+        let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
+
+        if areSymbolsEqual(symbol1: currentHour.symbol, symbol2: comparedHour.symbol) {
+            return nil
+        }
+        
+        return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate) \(dayOrNight)"
+    }
+
+    
+    var getForecastUsingHourlyWeather: String? {
+        let currentHour = hourlyWeather[0]
+        
+        for i in 1..<hourlyWeather.count {
+
+            if hourlyWeather[i].condition != currentHour.condition {
+                
+                switch hourlyWeather[i].condition {
+                case .blizzard, .blowingDust, .blowingSnow, .drizzle, .flurries, .freezingDrizzle, .freezingRain, .hail, .haze, .heavyRain, .heavySnow, .hurricane, .isolatedThunderstorms, .rain, .scatteredThunderstorms, .sleet, .snow, .strongStorms, .thunderstorms, .tropicalStorm:
+                    return forecastSentence1(currentHour: currentHour, comparedHour: hourlyWeather[i])
+                    
+                case .breezy, .clear, .cloudy, .foggy, .frigid, .hot, .mostlyClear, .mostlyCloudy, .partlyCloudy, .smoky, .sunFlurries, .sunShowers, .windy, .wintryMix:
+                    return forecastSentence2(currentHour: currentHour, comparedHour: hourlyWeather[i])
+                @unknown default:
+                    return nil
+                }  
+            }
+        }
+        
+        return nil
+    }
+    
     var feelsLikeTemperature: String {
         let temperature = apparentTemperature.converted(to: Helper.getUnitTemperature())
         let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)

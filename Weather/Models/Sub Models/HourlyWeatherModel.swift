@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WeatherKit
 
 /// Consists of temperatures and the dates
 struct HourlyWeatherModel: Identifiable {
@@ -16,6 +17,8 @@ struct HourlyWeatherModel: Identifiable {
     let precipitationChance: Double
     let symbol: String
     let timezone: Int
+    let condition: WeatherCondition
+    let isDayLight: Bool
 
     var hourTemperature: String {
         let temperature = temperature.converted(to: Helper.getUnitTemperature())

@@ -37,7 +37,8 @@ struct TodayScreen: View {
                             
                             HourlyForecastTileView(
                                 hourlyTemperatures: currentWeather.hourlyWeather,
-                                color: currentWeather.backgroundColor
+                                color: currentWeather.backgroundColor,
+                                forToday: true
                             )
                             
                             Text("Current conditions")
