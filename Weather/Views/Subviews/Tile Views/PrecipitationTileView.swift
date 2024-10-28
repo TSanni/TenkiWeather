@@ -6,17 +6,38 @@
 //
 
 import SwiftUI
+import WeatherKit
 
 struct PrecipitationTileView: View {
+    let precipitation: Precipitation
     let precipiationChance: Double
     let precipitationDescription: String
     let precipitationFooter: String
     let backgroundColor: Color
     
+    var tileImage: String {
+        switch precipitation {
+        case .none:
+            return "drop.fill"
+        case .hail:
+            return "cloud.hail.fill"
+        case .mixed:
+            return "snowflake"
+        case .rain:
+            return "drop.fill"
+        case .sleet:
+            return "cloud.sleet.fill"
+        case .snow:
+            return "snowflake"
+        @unknown default:
+            return "drop.fill"
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "drop.fill")
+                Image(systemName: tileImage)
                 Text("Precipitation")
                 Spacer()
             }
@@ -41,7 +62,7 @@ struct PrecipitationTileView: View {
                 ImageProgressView(
                     height: 50, 
                     value: precipiationChance * 100,
-                    sfSymbol: "drop.fill",
+                    sfSymbol: tileImage,
                     color: K.ColorsConstants.precipitationBlue
                 )
                 .aspectRatio(1, contentMode: .fit)
@@ -58,8 +79,9 @@ struct PrecipitationTileView: View {
 
 #Preview {
     PrecipitationTileView(
+        precipitation: .sleet,
         precipiationChance: 0.5,
-        precipitationDescription: "Hail", 
+        precipitationDescription: "Hail",
         precipitationFooter: "200% Chance of precipitation",
         backgroundColor: .red
     )
