@@ -50,31 +50,46 @@ extension TodayWeatherModel {
     }
     
     func forecastSentence1(currentHour: HourlyWeatherModel, comparedHour: HourlyWeatherModel) -> String? {
-        let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
-
         if areSymbolsEqual(symbol1: currentHour.symbol, symbol2: comparedHour.symbol) {
             return nil
         }
         
-        return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate) \(dayOrNight)"
+        let currentDay = Helper.getDayOfWeekAndDate(date: currentHour.date, timezoneOffset: timezeone)
+        let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneOffset: timezeone)
+        
+        if currentDay == comparedDay {
+            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
+            return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate) \(dayOrNight)."
+        } else {
+            return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate) tomorrow."
+
+        }
     }
     
     func forecastSentence2(currentHour: HourlyWeatherModel, comparedHour: HourlyWeatherModel) -> String? {
-        let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
-
+        print("Current: \(currentHour.readableDate + currentHour.symbol + currentHour.condition.description)\n\n")
+        print("Compared: \(comparedHour.readableDate + comparedHour.symbol + comparedHour.condition.description)\n\n")
         if areSymbolsEqual(symbol1: currentHour.symbol, symbol2: comparedHour.symbol) {
             return nil
         }
+        let currentDay = Helper.getDayOfWeekAndDate(date: currentHour.date, timezoneOffset: timezeone)
+        let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneOffset: timezeone)
         
-        return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate) \(dayOrNight)"
+        if currentDay == comparedDay {
+            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
+            return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate) \(dayOrNight)."
+        } else {
+            return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate) tomorrow."
+
+        }
     }
 
     
     var getForecastUsingHourlyWeather: String? {
         let currentHour = hourlyWeather[0]
-        
-        for i in 1..<hourlyWeather.count {
+        let dayOrNight = currentHour.isDayLight ? "day" : "night"
 
+        for i in 1..<hourlyWeather.count {
             if hourlyWeather[i].condition != currentHour.condition {
                 
                 switch hourlyWeather[i].condition {
@@ -82,6 +97,7 @@ extension TodayWeatherModel {
                     return forecastSentence1(currentHour: currentHour, comparedHour: hourlyWeather[i])
                     
                 case .breezy, .clear, .cloudy, .foggy, .frigid, .hot, .mostlyClear, .mostlyCloudy, .partlyCloudy, .smoky, .sunFlurries, .sunShowers, .windy, .wintryMix:
+                    print("HIII")
                     return forecastSentence2(currentHour: currentHour, comparedHour: hourlyWeather[i])
                 @unknown default:
                     return nil
@@ -89,7 +105,19 @@ extension TodayWeatherModel {
             }
         }
         
-        return nil
+        switch currentHour.condition {
+        case .blizzard, .blowingDust, .blowingSnow, .drizzle, .flurries, .freezingDrizzle, .freezingRain, .hail, .haze, .heavyRain, .heavySnow, .hurricane, .isolatedThunderstorms, .rain, .scatteredThunderstorms, .sleet, .snow, .strongStorms, .thunderstorms, .tropicalStorm:
+            
+            return "\(currentHour.condition.description) will continue for the rest of the \(dayOrNight)."
+            
+            
+        case .breezy, .clear, .cloudy, .foggy, .frigid, .hot, .mostlyClear, .mostlyCloudy, .partlyCloudy, .smoky, .sunFlurries, .sunShowers, .windy, .wintryMix:
+            
+            return "\(currentHour.condition.description) conditions will continue for the rest of the \(dayOrNight)."
+        @unknown default:
+            return nil
+        }
+        
     }
     
     var feelsLikeTemperature: String {
