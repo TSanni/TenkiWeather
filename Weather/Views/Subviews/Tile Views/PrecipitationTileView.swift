@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PrecipitationTileView: View {
-    let precipiation: Double
+    let precipiationChance: Double
     let precipitationDescription: String
     let precipitationFooter: String
     let backgroundColor: Color
@@ -27,7 +27,7 @@ struct PrecipitationTileView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 0.0) {
                     
-                    Text(precipiation.formatted(.percent))
+                    Text(precipiationChance.formatted(.percent))
                         .font(.largeTitle)
                         .bold()
                     
@@ -40,7 +40,7 @@ struct PrecipitationTileView: View {
                 
                 ImageProgressView(
                     height: 50, 
-                    value: precipiation * 100,
+                    value: precipiationChance * 100,
                     sfSymbol: "drop.fill",
                     color: K.ColorsConstants.precipitationBlue
                 )
@@ -58,7 +58,7 @@ struct PrecipitationTileView: View {
 
 #Preview {
     PrecipitationTileView(
-        precipiation: 0.5,
+        precipiationChance: 0.5,
         precipitationDescription: "Hail", 
         precipitationFooter: "200% Chance of precipitation",
         backgroundColor: .red

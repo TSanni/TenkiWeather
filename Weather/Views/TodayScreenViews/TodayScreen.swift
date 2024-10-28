@@ -75,6 +75,11 @@ struct TodayScreen: View {
                             .padding()
                             .lineLimit(nil)
                             
+                            Text("Hourly Details")
+                                .padding(.horizontal)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
+                            
                             WindTileView(
                                 windData: currentWeather.wind,
                                 hourlyWeather: currentWeather.hourlyWeather,

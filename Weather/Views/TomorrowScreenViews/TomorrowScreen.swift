@@ -57,7 +57,7 @@ struct TomorrowScreen: View {
                                     )
                                     
                                     PrecipitationTileView(
-                                        precipiation: dailyWeather.precipitationChance,
+                                        precipiationChance: dailyWeather.precipitationChance,
                                         precipitationDescription: dailyWeather.precipitationType, 
                                         precipitationFooter: dailyWeather.dayChanceOfPrecipitation,
                                         backgroundColor: dailyWeather.backgroundColor
@@ -106,6 +106,7 @@ struct TomorrowScreen_Previews: PreviewProvider {
     static var previews: some View {
         TomorrowScreen(dailyWeather: DailyWeatherModelPlaceHolder.placeholder)
             .environmentObject(AppStateViewModel.shared)
+            .environmentObject(WeatherViewModel.shared)
     }
 }
 
