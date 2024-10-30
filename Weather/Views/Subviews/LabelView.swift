@@ -23,8 +23,7 @@ struct LabelView: View {
     }
 }
 
-struct LabelView_Previews: PreviewProvider {
-    static var previews: some View {
-        LabelView(title: "My title", iconSymbol: "sun.min")
-    }
+#Preview {
+    LabelView(title: "My title", iconSymbol: "sun.min")
+
 }

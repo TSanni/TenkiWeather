@@ -33,8 +33,6 @@ struct FullScreenWebView: View {
 
 }
 
-struct FullScreenWebView_Previews: PreviewProvider {
-    static var previews: some View {
-        FullScreenWebView(url: "https://www.google.com")
-    }
+#Preview {
+    FullScreenWebView(url: "https://www.google.com")
 }

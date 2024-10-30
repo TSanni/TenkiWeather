@@ -19,6 +19,7 @@ enum K {
     struct UserDefaultKeys {
         static let unitTemperatureKey = "UnitTemperature"
         static let unitDistanceKey = "UnitDistance"
+        static let unitPrecipitationKey = "UnitPrecipitation"
         static let timePreferenceKey = "24HourTime"
     }
 
@@ -45,6 +46,12 @@ enum K {
         static let mph = "miles"
         static let kiloPerHour = "kilometer"
         static let meterPerSecond = "meters"
+    }
+    
+    struct PrecipitationUnitsConstants {
+        static let inches = "inches"
+        static let millimeters = "millimeters"
+        static let centimeters = "centimeters"
     }
     
     struct TimeConstants {

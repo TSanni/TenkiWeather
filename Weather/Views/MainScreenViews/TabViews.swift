@@ -14,7 +14,7 @@ struct TabViews: View {
 
     var body: some View {
         TabView(selection: $tabViews) {
-            TodayScreen(currentWeather: weatherViewModel.currentWeather, weatherAlert: weatherViewModel.weatherAlert)
+            TodayScreen(currentWeather: weatherViewModel.currentWeather, dailyWeather: weatherViewModel.dailyWeather, weatherAlert: weatherViewModel.weatherAlert)
                 .tag(WeatherTabs.today)
                 .environmentObject(weatherViewModel)
                 .environmentObject(appStateViewModel)

@@ -121,3 +121,20 @@ enum DistanceUnits: String, CaseIterable {
         }
     }
 }
+
+enum PrecipitationUnits: String, CaseIterable {
+    case inches
+    case millimeters
+    case centimeters
+    
+    var title: String {
+        switch self {
+        case .inches:
+            "inches"
+        case .millimeters:
+            "millimeters"
+        case .centimeters:
+            "centimeters"
+        }
+    }
+}

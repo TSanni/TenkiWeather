@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import GooglePlaces
 
 struct SearchingScreen: View {
     @State private var showGoogleSearchScreen: Bool = false

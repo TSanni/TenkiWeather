@@ -125,7 +125,6 @@ actor WeatherManager {
             lowTemperature: tomorrowWeather.lowTemperature,
             precipitation: tomorrowWeather.precipitation,
             precipitationChance: tomorrowWeather.precipitationChance,
-            snowfallAmount: tomorrowWeather.snowfallAmount,
             moon: nil,
             sun: sunDetails,
             wind: tomorrowsWindData,
@@ -134,9 +133,9 @@ actor WeatherManager {
             uvIndexValue: tomorrowWeather.uvIndex.value,
             uvIndexCategory: tomorrowWeather.uvIndex.category,
             symbolName: tomorrowWeather.symbolName,
-            precipitationAmount: tomorrowWeather.precipitationAmount,
             hourlyWeather: hourlyWeatherForTomorrow,
-            timezone: timezoneOffset
+            timezone: timezoneOffset,
+            precipitationAmountByType: tomorrowWeather.precipitationAmountByType
         )
         
         return tomorrowsWeather
@@ -171,7 +170,7 @@ actor WeatherManager {
                     lowTemperature: dailyWeather[day].lowTemperature,
                     precipitation: dailyWeather[day].precipitation,
                     precipitationChance: dailyWeather[day].precipitationChance,
-                    snowfallAmount: dailyWeather[day].snowfallAmount,
+//                    snowfallAmount: dailyWeather[day].snowfallAmount,
                     moon: dailyWeather[day].moon,
                     sun: sunData,
                     wind: windDetails,
@@ -180,9 +179,10 @@ actor WeatherManager {
                     uvIndexValue: dailyWeather[day].uvIndex.value,
                     uvIndexCategory: dailyWeather[day].uvIndex.category,
                     symbolName: dailyWeather[day].symbolName,
-                    precipitationAmount: dailyWeather[day].precipitationAmount,
+//                    precipitationAmount: dailyWeather[day].precipitationAmount,
                     hourlyWeather: hourlyTempsForDay,
-                    timezone: timezoneOffset
+                    timezone: timezoneOffset,
+                    precipitationAmountByType: dailyWeather[day].precipitationAmountByType
                 )
             )
         }

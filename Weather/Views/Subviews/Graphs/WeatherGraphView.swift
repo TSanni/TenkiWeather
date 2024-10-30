@@ -15,7 +15,6 @@ struct WeatherGraphView: View {
     let precipitationBlueColor = K.ColorsConstants.precipitationBlue
 
     var body: some View {
-
         Chart(hourlyTemperatures) { item in
             
             //MARK: - Area Graph
@@ -24,7 +23,6 @@ struct WeatherGraphView: View {
                 yStart: .value("start", getGraphStartingPoint()),
                 yEnd: .value("temp", Double(item.hourTemperature) ?? 0)
             )
-            // .interpolationMethod(.cardinal)
             .foregroundStyle(
                 LinearGradient(
                     colors: [.white.opacity(0.2), graphColor],
@@ -33,7 +31,6 @@ struct WeatherGraphView: View {
                 )
             )
              .alignsMarkStylesWithPlotArea()
-
 
             //MARK: - Line Graph
             LineMark(
@@ -57,10 +54,8 @@ struct WeatherGraphView: View {
                     .font(.footnote)
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
-
             }
         }
-        
         .chartPlotStyle(content: { plotArea in
             plotArea.background(Color.clear)
         })
@@ -89,8 +84,6 @@ struct WeatherGraphView: View {
                             .fontWeight(.semibold)
                             .fontWeight(.light)
                             .shadow(color: .white.opacity(0.3), radius: 1, y: 1.7)
-
-
                     }
                     .foregroundColor(.black)
                 }
@@ -127,21 +120,14 @@ struct WeatherGraphView: View {
 }
 
 //MARK: - Preview
-struct WeatherGraphView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        ZStack {
-            Color.mint
-            ScrollView(.horizontal) {
-                
-                WeatherGraphView(hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray, graphColor: Color.blue)
-                    .frame(width: UIScreen.main.bounds.width * 2)
-                    .frame(height: 200)
-            }
-
+#Preview {
+    ZStack {
+        Color.mint
+        ScrollView(.horizontal) {
+            WeatherGraphView(hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray, graphColor: Color.blue)
+                .frame(width: UIScreen.main.bounds.width * 2)
+                .frame(height: 200)
         }
-        
-        
     }
 }
 

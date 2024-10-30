@@ -73,12 +73,7 @@ struct WindTileView: View {
                 }
             }
         }
-        .padding()
-        .foregroundStyle(.white)
-        .background(color)
-        .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
-        .padding()
-        .shadow(radius: 3)
+        .bigCardTileModifier(backgroundColor: color)
     }
 
     var todayData: some View {

@@ -239,9 +239,6 @@ struct TermsAndConditionsView: View {
     }
 }
 
-struct TermsAndConditionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TermsAndConditionsView()
-            .previewDevice("iPhone 11 Pro Max")
-    }
+#Preview {
+    TermsAndConditionsView()
 }

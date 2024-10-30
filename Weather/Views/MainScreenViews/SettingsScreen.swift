@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsScreen: View {
     @AppStorage(K.UserDefaultKeys.unitTemperatureKey) var temperatureUnit: TemperatureUnits = .fahrenheit
     @AppStorage(K.UserDefaultKeys.unitDistanceKey) var distanceUnit: DistanceUnits = .miles
+    @AppStorage(K.UserDefaultKeys.unitPrecipitationKey) var precipitationUnit: PrecipitationUnits = .inches
     @Environment(\.dismiss) var dimiss
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
@@ -33,6 +34,8 @@ struct SettingsScreen: View {
             temperatureSection
             
             distanceAndSpeedSection
+            
+            precipitationSection
             
             supportSection
             
@@ -142,6 +145,24 @@ struct SettingsScreen: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     distanceUnit = unit
+                }
+            }
+        }
+    }
+    
+    var precipitationSection: some View {
+        Section("Precipitation") {
+            ForEach(PrecipitationUnits.allCases, id: \.title) { unit in
+                HStack {
+                    Text(unit.title)
+                    Spacer()
+                    if precipitationUnit == unit {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    precipitationUnit = unit
                 }
             }
         }

@@ -10,6 +10,8 @@ import WeatherKit
 import SwiftUI
 import SpriteKit
 
+
+
 //MARK: - Main Model
 struct DailyWeatherModel: Identifiable {
     let id = UUID()
@@ -17,7 +19,6 @@ struct DailyWeatherModel: Identifiable {
     let lowTemperature: Measurement<UnitTemperature>
     let precipitation: Precipitation
     let precipitationChance: Double
-    let snowfallAmount: Measurement<UnitLength>
     let moon: MoonEvents? //TODO: create a MoonEvents object
     let sun: SunData
     let wind: WindData
@@ -26,9 +27,9 @@ struct DailyWeatherModel: Identifiable {
     let uvIndexValue: Int
     let uvIndexCategory: UVIndex.ExposureCategory
     let symbolName: String
-    let precipitationAmount: Measurement<UnitLength>
     let hourlyWeather: [HourlyWeatherModel]
     let timezone: Int
+    let precipitationAmountByType: PrecipitationAmountByType?
     
     var dayHigh: String {
         let temperature = highTemperature.converted(to: Helper.getUnitTemperature())
@@ -43,15 +44,74 @@ struct DailyWeatherModel: Identifiable {
     }
     
     var precipitationType: String {
-        precipitation.description
+        return precipitation.description
+    }
+    
+    func getAmountOfPrecipitation(value: Double, unit: String, type: String) -> String {
+        if value < 0.01 {
+            return "Less than 0.01 \(unit) of \(type) expected."
+        } else if value < 1 {
+            let reducedNumber = Helper.convertNumberToTwoFloatingPoints(number: value)
+            return "\(reducedNumber) \(unit) of \(type) expected."
+        } else {
+            let reducedNumber = Helper.convertNumberToZeroFloatingPoints(number: value)
+            return "\(reducedNumber) \(unit) of \(type) expected."
+        }
+        
+        
     }
     
     var dayChanceOfPrecipitation: String {
-        return precipitationChance.formatted(.percent) + " chance of precipitation"
+        if let precipitationType = precipitationAmountByType {
+            switch precipitation {
+            case .none:
+                return "No precipitation."
+            case .hail:
+                let hailAmount = precipitationType.hail.converted(to: Helper.getUnitPrecipitation())
+                return getAmountOfPrecipitation(value: hailAmount.value, unit: hailAmount.unit.symbol, type: "hail")
+            case .mixed:
+                let mixedAmount = precipitationType.mixed.converted(to: Helper.getUnitPrecipitation())
+                return getAmountOfPrecipitation(value: mixedAmount.value, unit: mixedAmount.unit.symbol, type: "wintry mix")
+            case .rain:
+                let rainfallAmount = precipitationType.rainfall.converted(to: Helper.getUnitPrecipitation())
+                return getAmountOfPrecipitation(value: rainfallAmount.value, unit: rainfallAmount.unit.symbol, type: "rain")
+
+            case .sleet:
+                let sleetAmount = precipitationType.sleet.converted(to: Helper.getUnitPrecipitation())
+                return getAmountOfPrecipitation(value: sleetAmount.value, unit: sleetAmount.unit.symbol, type: "sleet")
+            case .snow:
+                let a = precipitationType.snowfallAmount.minimum.converted(to: Helper.getUnitPrecipitation())
+                let b = precipitationType.snowfallAmount.maximum.converted(to: Helper.getUnitPrecipitation())
+                let c = precipitationType.snowfallAmount.amount.converted(to: Helper.getUnitPrecipitation())
+
+                if a.value < 1 || b.value < 1 || c.value < 1 {
+                    let minimum = Helper.convertNumberToTwoFloatingPoints(number: a.value)
+                    let maximum = Helper.convertNumberToTwoFloatingPoints(number: b.value)
+                    let amount = Helper.convertNumberToTwoFloatingPoints(number: c.value)
+                    if maximum != minimum {
+                        return "\(minimum)-\(maximum) \(b.unit.symbol) of snow."
+                    }
+                    return "About \(amount) \(b.unit.symbol) of snow."
+                } else {
+                    let minimum = Helper.convertNumberToZeroFloatingPoints(number: a.value)
+                    let maximum = Helper.convertNumberToZeroFloatingPoints(number: b.value)
+                    let amount = Helper.convertNumberToZeroFloatingPoints(number: c.value)
+                    
+                    if maximum != minimum {
+                        return "\(minimum)-\(maximum) \(b.unit.symbol) of snow."
+                    }
+                    return "About \(amount) \(b.unit.symbol) of snow."
+                }
+                
+            @unknown default:
+                return "Unknown precipitation."
+            }
+        } else {
+            return "nil precipitation"
+        }
+        
     }
-    
-    //snowfallAmount
-    //rainfallAmount
+
     //moon events
     
     var readableDate: String {
@@ -99,9 +159,7 @@ struct DailyWeatherModel: Identifiable {
             return Color.red
         }
     }
-    
-    //precipitationAmount
-    
+        
     var backgroundColor: Color {
         let condition = condition
         return Helper.backgroundColor(weatherCondition: condition)

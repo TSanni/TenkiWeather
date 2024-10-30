@@ -144,6 +144,23 @@ enum Helper {
         }
     }
     
+    
+    /// Checks UserDefaults and returns a UnitLength based on stored value
+    static func getUnitPrecipitation() -> UnitLength {
+        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitPrecipitationKey)
+        
+        switch chosenUnitDistance {
+        case  K.PrecipitationUnitsConstants.inches:
+            return .inches
+        case K.PrecipitationUnitsConstants.millimeters:
+            return .millimeters
+        case K.PrecipitationUnitsConstants.centimeters:
+            return .centimeters
+        default:
+            return .inches
+        }
+    }
+    
     static func getScene(weatherCondition: WeatherCondition) -> SKScene? {
         let condition = weatherCondition
         switch condition {

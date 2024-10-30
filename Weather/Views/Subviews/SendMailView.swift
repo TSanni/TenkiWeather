@@ -34,12 +34,7 @@ struct SendMailView: View {
      }
 }
 
-struct SendMailView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            
-            SendMailView()
-        }
-            
-    }
+#Preview {
+    SendMailView()
+
 }

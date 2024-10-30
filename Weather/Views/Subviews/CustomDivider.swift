@@ -15,8 +15,6 @@ struct CustomDivider: View {
     }
 }
 
-struct CustomDivider_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomDivider()
-    }
+#Preview {
+    CustomDivider()
 }

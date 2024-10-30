@@ -15,7 +15,6 @@ struct DailyWeatherModelPlaceHolder {
         lowTemperature: Measurement(value: 0, unit: .fahrenheit),
         precipitation: Precipitation.hail,
         precipitationChance: 0,
-        snowfallAmount:  Measurement(value: 0, unit: .centimeters),
         moon: nil,
         sun: SunModelPlaceholder.sunDataHolder,
         wind: WindModelPlaceholder.windDataHolder[0],
@@ -24,9 +23,9 @@ struct DailyWeatherModelPlaceHolder {
         uvIndexValue: 0,
         uvIndexCategory: .extreme,
         symbolName: "snowflake",
-        precipitationAmount: Measurement(value: 0, unit: .centimeters),
         hourlyWeather: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
-        timezone: 0
+        timezone: 0,
+        precipitationAmountByType: nil
     )
     
     

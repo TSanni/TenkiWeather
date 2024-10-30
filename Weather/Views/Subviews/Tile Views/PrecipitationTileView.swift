@@ -71,7 +71,6 @@ struct PrecipitationTileView: View {
             Spacer()
             
             Text(precipitationFooter)
-                .font(.subheadline)
         }
         .cardTileModifier(backgroundColor: backgroundColor)
     }
@@ -79,7 +78,7 @@ struct PrecipitationTileView: View {
 
 #Preview {
     PrecipitationTileView(
-        precipitation: .sleet,
+        precipitation: .hail,
         precipiationChance: 0.5,
         precipitationDescription: "Hail",
         precipitationFooter: "200% Chance of precipitation",

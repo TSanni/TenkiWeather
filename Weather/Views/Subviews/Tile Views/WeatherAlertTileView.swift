@@ -47,22 +47,12 @@ struct WeatherAlertTileView: View {
         .sheet(isPresented: $showWeatherAlertURL) {
             FullScreenWebView(url: weatherAlert.detailsURL.absoluteString)
                 .edgesIgnoringSafeArea(.bottom)
-        }
-//        .fullScreenCover(isPresented: $showWeatherAlertURL) {
-//            FullScreenWebView(url: weatherAlert.detailsURL.absoluteString)
-//                .edgesIgnoringSafeArea(.bottom)
-//
-//        }
-        
-        
+        }      
     }
 }
 
-struct WeatherAlertView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        let holder = WeatherAlertModel(detailsURL: URL(string: "https://www.google.com")!, region: "Fort Bend", severity: .severe, source: "National Weather Service", summary: "Excessive heat warning")
-        WeatherAlertTileView(weatherAlert: holder)
-    }
+#Preview {
+    let holder = WeatherAlertModel(detailsURL: URL(string: "https://www.google.com")!, region: "Fort Bend", severity: .severe, source: "National Weather Service", summary: "Excessive heat warning")
+    WeatherAlertTileView(weatherAlert: holder)
 }
 

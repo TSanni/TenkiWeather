@@ -58,7 +58,7 @@ struct DailyWeatherCell: View {
                     Text("UV index")
                     
                     if daily.dayChanceOfPrecipitation != "0%" {
-                        Text("Chance of rain")
+                        Text("Precipitation")
                     }
                     Text("Sunrise/sunset")
                 }
@@ -157,17 +157,15 @@ struct DailyWeatherCell: View {
  
 }
 
-struct DailyWeatherCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            K.ColorsConstants.tenDayBarColor
-            VStack {
-                DailyWeatherCell(daily:DailyWeatherModelPlaceHolder.placeholder, title: "nil")
-                    .environmentObject(AppStateViewModel.shared)
-                
-                DailyWeatherCell(daily: DailyWeatherModelPlaceHolder.placeholder, title: "nil")
-                    .environmentObject(AppStateViewModel.shared)
-            }
+#Preview {
+    ZStack {
+        K.ColorsConstants.tenDayBarColor
+        VStack {
+            DailyWeatherCell(daily:DailyWeatherModelPlaceHolder.placeholder, title: "nil")
+                .environmentObject(AppStateViewModel.shared)
+            
+            DailyWeatherCell(daily: DailyWeatherModelPlaceHolder.placeholder, title: "nil")
+                .environmentObject(AppStateViewModel.shared)
         }
     }
 }

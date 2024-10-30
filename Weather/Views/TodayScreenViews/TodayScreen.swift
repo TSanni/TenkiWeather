@@ -12,6 +12,7 @@ struct TodayScreen: View {
     @EnvironmentObject private var appStateViewModel: AppStateViewModel
     
     let currentWeather: TodayWeatherModel
+    let dailyWeather: [DailyWeatherModel]
     let weatherAlert: WeatherAlertModel?
     
     var body: some View {
@@ -58,6 +59,14 @@ struct TodayScreen: View {
                                     uvIndexDescription: currentWeather.uvIndexCategoryDescription,
                                     uvIndexColor: currentWeather.uvIndexColor,
                                     uvIndexActionRecommendation: currentWeather.uvIndexActionRecommendation,
+                                    backgroundColor: currentWeather.backgroundColor
+                                )
+                                
+                                PrecipitationTileView(
+                                    precipitation: dailyWeather[0].precipitation,
+                                    precipiationChance: dailyWeather[0].precipitationChance,
+                                    precipitationDescription: dailyWeather[0].precipitationType,
+                                    precipitationFooter: dailyWeather[0].dayChanceOfPrecipitation,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
                                 
@@ -127,7 +136,7 @@ struct TodayScreen: View {
 //MARK: - TodayScreen Preview
 #Preview {
     NavigationStack {
-        TodayScreen(currentWeather: TodayWeatherModelPlaceHolder.holderData, weatherAlert: nil)
+        TodayScreen(currentWeather: TodayWeatherModelPlaceHolder.holderData, dailyWeather: DailyWeatherModelPlaceHolder.placeholderArray, weatherAlert: nil)
             .environmentObject(AppStateViewModel.shared)
             .environmentObject(WeatherViewModel.shared)
             .environmentObject(CoreLocationViewModel.shared)

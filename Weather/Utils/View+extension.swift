@@ -33,4 +33,8 @@ extension View {
     func cardTileModifier(backgroundColor: Color) -> some View {
         return self.modifier(CardViewModifier(backgroundColor: backgroundColor))
     }
+    
+    func bigCardTileModifier(backgroundColor: Color) -> some View {
+        return self.modifier(BigCardViewModifier(backgroundColor: backgroundColor))
+    }
 }

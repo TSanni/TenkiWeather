@@ -67,8 +67,6 @@ extension TodayWeatherModel {
     }
     
     func forecastSentence2(currentHour: HourlyWeatherModel, comparedHour: HourlyWeatherModel) -> String? {
-        print("Current: \(currentHour.readableDate + currentHour.symbol + currentHour.condition.description)\n\n")
-        print("Compared: \(comparedHour.readableDate + comparedHour.symbol + comparedHour.condition.description)\n\n")
         if areSymbolsEqual(symbol1: currentHour.symbol, symbol2: comparedHour.symbol) {
             return nil
         }
@@ -97,7 +95,6 @@ extension TodayWeatherModel {
                     return forecastSentence1(currentHour: currentHour, comparedHour: hourlyWeather[i])
                     
                 case .breezy, .clear, .cloudy, .foggy, .frigid, .hot, .mostlyClear, .mostlyCloudy, .partlyCloudy, .smoky, .sunFlurries, .sunShowers, .windy, .wintryMix:
-                    print("HIII")
                     return forecastSentence2(currentHour: currentHour, comparedHour: hourlyWeather[i])
                 @unknown default:
                     return nil
