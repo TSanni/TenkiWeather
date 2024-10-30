@@ -80,6 +80,14 @@ struct TodayScreen: View {
                                     pressureDetails: currentWeather,
                                     backgroundColor: currentWeather.backgroundColor
                                 )
+                                
+                                MoonTileView(
+                                    moonrise: currentWeather.moonData.moonriseTime,
+                                    moonset: currentWeather.moonData.moonsetTime,
+                                    moonPhase: currentWeather.moonData.phase.description,
+                                    moonPhaseImage: currentWeather.moonData.moonPhaseImage,
+                                    backgroundColor: currentWeather.backgroundColor
+                                )
                             }
                             .padding()
                             .lineLimit(nil)

@@ -61,6 +61,7 @@
 		83CC40B02CD16A9B00CF58D2 /* GooglePlacesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83CC40AF2CD16A9B00CF58D2 /* GooglePlacesSwift */; };
 		83CC40D02CD290D900CF58D2 /* MoonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40CF2CD290D900CF58D2 /* MoonModel.swift */; };
 		83CC40D22CD2939F00CF58D2 /* MoonModel+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40D12CD2939F00CF58D2 /* MoonModel+Placeholder.swift */; };
+		83CC40D42CD294BA00CF58D2 /* MoonTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40D32CD294BA00CF58D2 /* MoonTileView.swift */; };
 		83CC448E2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC448D2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift */; };
 		83DA72E62A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E52A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift */; };
 		83DA72E82A419C7C00C50C86 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E72A419C7C00C50C86 /* WeatherManager.swift */; };
@@ -148,6 +149,7 @@
 		83C4FFF82A352E9B00DEF7F3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		83CC40CF2CD290D900CF58D2 /* MoonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonModel.swift; sourceTree = "<group>"; };
 		83CC40D12CD2939F00CF58D2 /* MoonModel+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoonModel+Placeholder.swift"; sourceTree = "<group>"; };
+		83CC40D32CD294BA00CF58D2 /* MoonTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonTileView.swift; sourceTree = "<group>"; };
 		83CC448D2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodayWeatherModel+placeholder.swift"; sourceTree = "<group>"; };
 		83DA72E52A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsPersistenceViewModel.swift; sourceTree = "<group>"; };
 		83DA72E72A419C7C00C50C86 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				83EB28322B976A4700CFC390 /* UVIndexTileView.swift */,
 				83EB28342B976A5500CFC390 /* VisibilityTileView.swift */,
 				83EB28362B976A6000CFC390 /* SunDataTile.swift */,
+				83CC40D32CD294BA00CF58D2 /* MoonTileView.swift */,
 			);
 			path = "Tile Views";
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				83731A712A2FDAA700D481CA /* SearchingScreen.swift in Sources */,
 				837D7DB62B713D230031B296 /* RainScene.swift in Sources */,
 				8390BF942A8ED0BF00E0B865 /* PlacesViewControllerBridge.swift in Sources */,
+				83CC40D42CD294BA00CF58D2 /* MoonTileView.swift in Sources */,
 				833D7CCB2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift in Sources */,
 				83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */,
 				83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */,
