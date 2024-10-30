@@ -33,6 +33,7 @@ struct TodayWeatherModel: Identifiable {
     let sunData: SunModel
     let hourlyWeather: [HourlyWeatherModel]
     let timezeone: Int
+    let moonData: MoonModel
 }
 
 

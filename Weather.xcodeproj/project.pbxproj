@@ -59,6 +59,8 @@
 		83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF82A352E9B00DEF7F3 /* Constants.swift */; };
 		83CC40AD2CD16A8500CF58D2 /* SwiftUIMailView in Frameworks */ = {isa = PBXBuildFile; productRef = 83CC40AC2CD16A8500CF58D2 /* SwiftUIMailView */; };
 		83CC40B02CD16A9B00CF58D2 /* GooglePlacesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83CC40AF2CD16A9B00CF58D2 /* GooglePlacesSwift */; };
+		83CC40D02CD290D900CF58D2 /* MoonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40CF2CD290D900CF58D2 /* MoonModel.swift */; };
+		83CC40D22CD2939F00CF58D2 /* MoonModel+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40D12CD2939F00CF58D2 /* MoonModel+Placeholder.swift */; };
 		83CC448E2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC448D2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift */; };
 		83DA72E62A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E52A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift */; };
 		83DA72E82A419C7C00C50C86 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E72A419C7C00C50C86 /* WeatherManager.swift */; };
@@ -144,6 +146,8 @@
 		83B760922A67119C007075E2 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		83C4FFF02A34005F00DEF7F3 /* DailyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherModel.swift; sourceTree = "<group>"; };
 		83C4FFF82A352E9B00DEF7F3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		83CC40CF2CD290D900CF58D2 /* MoonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonModel.swift; sourceTree = "<group>"; };
+		83CC40D12CD2939F00CF58D2 /* MoonModel+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoonModel+Placeholder.swift"; sourceTree = "<group>"; };
 		83CC448D2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodayWeatherModel+placeholder.swift"; sourceTree = "<group>"; };
 		83DA72E52A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsPersistenceViewModel.swift; sourceTree = "<group>"; };
 		83DA72E72A419C7C00C50C86 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
@@ -329,6 +333,8 @@
 				83AFCA2D2C5FD29E00B0F373 /* SunModel+Placeholder.swift */,
 				834E1F792A98D99000DB4DE5 /* WeatherAlertModel.swift */,
 				8359F4FA2BB9E78F005F8911 /* SearchLocationModel.swift */,
+				83CC40CF2CD290D900CF58D2 /* MoonModel.swift */,
+				83CC40D12CD2939F00CF58D2 /* MoonModel+Placeholder.swift */,
 			);
 			path = "Sub Models";
 			sourceTree = "<group>";
@@ -526,6 +532,7 @@
 				83DA72EA2A419F9400C50C86 /* WeatherViewModel.swift in Sources */,
 				83FD52052B87BAD1008F875B /* View+extension.swift in Sources */,
 				83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */,
+				83CC40D22CD2939F00CF58D2 /* MoonModel+Placeholder.swift in Sources */,
 				835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */,
 				839F32EE2A3919510048EF05 /* SunModel.swift in Sources */,
 				83AFCA2E2C5FD29E00B0F373 /* SunModel+Placeholder.swift in Sources */,
@@ -584,6 +591,7 @@
 				8345EA422BA6F21600E8EFBD /* ImageProgressView.swift in Sources */,
 				83EB28372B976A6000CFC390 /* SunDataTile.swift in Sources */,
 				834811602A58EAFB008EB616 /* WebView.swift in Sources */,
+				83CC40D02CD290D900CF58D2 /* MoonModel.swift in Sources */,
 				83FD51FD2B87B6C4008F875B /* HeaderViewModifier+ViewModifier.swift in Sources */,
 				83E04FB62A2472C3009720AB /* MultiDayScreen.swift in Sources */,
 				837D7DB82B7154270031B296 /* WeatherParticleEffectView.swift in Sources */,

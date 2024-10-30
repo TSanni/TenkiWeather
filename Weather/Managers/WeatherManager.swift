@@ -50,6 +50,13 @@ actor WeatherManager {
             timezone: timezoneOffset
         )
         
+        let moonData = MoonModel(
+            moonrise: dailyWeather[0].moon.moonrise,
+            moonset: dailyWeather[0].moon.moonset,
+            phase: dailyWeather[0].moon.phase,
+            timezone: timezoneOffset
+        )
+        
         /// 12 hour forecast data for the Wind and temperatures
         for i in 0..<K.TimeConstants.twentyFourHours {
             
@@ -93,7 +100,8 @@ actor WeatherManager {
             precipitationChance: dailyWeather[0].precipitationChance,
             sunData: sunData,
             hourlyWeather: hourlyTemperatures,
-            timezeone: timezoneOffset
+            timezeone: timezoneOffset,
+            moonData: moonData
         )
 
         return todaysWeather
