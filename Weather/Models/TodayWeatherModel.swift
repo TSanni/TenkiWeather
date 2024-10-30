@@ -19,7 +19,7 @@ struct TodayWeatherModel: Identifiable {
     let temperature: Measurement<UnitTemperature>
     let pressure: Measurement<UnitPressure>
     let pressureTrend: PressureTrend
-    let wind: WindData
+    let wind: WindModel
     let condition: WeatherCondition
     let date: Date
     let isDaylight: Bool
@@ -30,7 +30,7 @@ struct TodayWeatherModel: Identifiable {
     let highTemperature: Measurement<UnitTemperature>
     let lowTemperature: Measurement<UnitTemperature>
     let precipitationChance: Double
-    let sunData: SunData
+    let sunData: SunModel
     let hourlyWeather: [HourlyWeatherModel]
     let timezeone: Int
 }

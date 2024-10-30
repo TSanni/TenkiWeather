@@ -20,8 +20,8 @@ struct DailyWeatherModel: Identifiable {
     let precipitation: Precipitation
     let precipitationChance: Double
     let moon: MoonEvents? //TODO: create a MoonEvents object
-    let sun: SunData
-    let wind: WindData
+    let sun: SunModel
+    let wind: WindModel
     let date: Date
     let condition: WeatherCondition
     let uvIndexValue: Int

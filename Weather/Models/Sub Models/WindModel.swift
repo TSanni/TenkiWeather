@@ -10,7 +10,7 @@ import WeatherKit
 import SwiftUI
 
 /// Consists of windSpeed, compassDirection, time, windDescription, and readableWindDirection
-struct WindData: Identifiable {
+struct WindModel: Identifiable {
     let id = UUID()
     let speed: Measurement<UnitSpeed>
     let compassDirection: Wind.CompassDirection

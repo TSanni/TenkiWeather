@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: - Sun Data Model: Will be used in multiple models
-struct SunData {
+struct SunModel {
     let sunrise: Date?
     let sunset: Date?
     let civilDawn: Date?

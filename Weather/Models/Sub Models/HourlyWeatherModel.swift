@@ -12,7 +12,7 @@ import WeatherKit
 struct HourlyWeatherModel: Identifiable {
     let id = UUID()
     let temperature: Measurement<UnitTemperature>
-    let wind: WindData
+    let wind: WindModel
     let date: Date
     let precipitationChance: Double
     let symbol: String
@@ -26,8 +26,8 @@ struct HourlyWeatherModel: Identifiable {
         return temperatureValueOnly
     }
     
-    var windTruth: WindData {
-        WindData(speed: wind.speed, compassDirection: wind.compassDirection)
+    var windTruth: WindModel {
+        WindModel(speed: wind.speed, compassDirection: wind.compassDirection)
     }
     
     var readableDate: String {

@@ -35,13 +35,13 @@ actor WeatherManager {
         var hourlyTemperatures: [HourlyWeatherModel] = []
                 
         /// Weather data for wind
-        let windDetailsInfo = WindData(
+        let windDetailsInfo = WindModel(
             speed: current.wind.speed,
             compassDirection: current.wind.compassDirection
         )
         
         /// Weather data for sun events
-        let sunData = SunData(
+        let sunData = SunModel(
             sunrise: dailyWeather[0].sun.sunrise,
             sunset: dailyWeather[0].sun.sunset,
             civilDawn: dailyWeather[0].sun.civilDawn,
@@ -53,7 +53,7 @@ actor WeatherManager {
         /// 12 hour forecast data for the Wind and temperatures
         for i in 0..<K.TimeConstants.twentyFourHours {
             
-            let windData =  WindData(
+            let windData =  WindModel(
                 speed: hourlyDatesStartingFromNow[i].wind.speed,
                 compassDirection: hourlyDatesStartingFromNow[i].wind.compassDirection
             )
@@ -106,7 +106,7 @@ actor WeatherManager {
         
         let hourlyWeatherForTomorrow = getHourlyWeatherForDay(day: tomorrowWeather, hours: hours, timezoneOffset: timezoneOffset)
 
-        let sunDetails = SunData(
+        let sunDetails = SunModel(
             sunrise: tomorrowWeather.sun.sunrise,
             sunset: tomorrowWeather.sun.sunset,
             civilDawn: tomorrowWeather.sun.civilDawn,
@@ -115,7 +115,7 @@ actor WeatherManager {
             timezone: timezoneOffset
         )
         
-        let tomorrowsWindData = WindData(
+        let tomorrowsWindData = WindModel(
             speed: tomorrowWeather.wind.speed,
             compassDirection: tomorrowWeather.wind.compassDirection
         )
@@ -148,7 +148,7 @@ actor WeatherManager {
 
         for day in 0..<dailyWeather.count {
             
-            let sunData = SunData(
+            let sunData = SunModel(
                 sunrise: dailyWeather[day].sun.sunrise,
                 sunset: dailyWeather[day].sun.sunset,
                 civilDawn: dailyWeather[day].sun.civilDawn,
@@ -157,7 +157,7 @@ actor WeatherManager {
                 timezone: timezoneOffset
             )
             
-            let windDetails = WindData(
+            let windDetails = WindModel(
                 speed: dailyWeather[day].wind.speed,
                 compassDirection: dailyWeather[day].wind.compassDirection
             )
@@ -170,7 +170,6 @@ actor WeatherManager {
                     lowTemperature: dailyWeather[day].lowTemperature,
                     precipitation: dailyWeather[day].precipitation,
                     precipitationChance: dailyWeather[day].precipitationChance,
-//                    snowfallAmount: dailyWeather[day].snowfallAmount,
                     moon: dailyWeather[day].moon,
                     sun: sunData,
                     wind: windDetails,
@@ -179,7 +178,6 @@ actor WeatherManager {
                     uvIndexValue: dailyWeather[day].uvIndex.value,
                     uvIndexCategory: dailyWeather[day].uvIndex.category,
                     symbolName: dailyWeather[day].symbolName,
-//                    precipitationAmount: dailyWeather[day].precipitationAmount,
                     hourlyWeather: hourlyTempsForDay,
                     timezone: timezoneOffset,
                     precipitationAmountByType: dailyWeather[day].precipitationAmountByType
@@ -237,7 +235,7 @@ extension WeatherManager {
         //TODO: Add error handling to catch when the there aren't enough hours
         for i in 0..<K.TimeConstants.fifteenHours {
             
-            let windData = WindData(
+            let windData = WindModel(
                 speed: nextDayWeatherHours[i].wind.speed,
                 compassDirection: nextDayWeatherHours[i].wind.compassDirection
             )

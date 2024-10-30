@@ -12,7 +12,7 @@ struct WindTileView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     
-    let windData: WindData
+    let windData: WindModel
     let hourlyWeather: [HourlyWeatherModel]
     let setTodayWeather: Bool
     let backgroundColor: Color
