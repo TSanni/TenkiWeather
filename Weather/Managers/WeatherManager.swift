@@ -31,11 +31,7 @@ actor WeatherManager {
          let hourlyDatesStartingFromNow = hourlyWeather.filter({ hourlyWeatherItem in
             return hourlyWeatherItem.date.timeIntervalSinceNow >= -3600
         })
-        
-        for i in dailyWeather {
-            print(i.moon.phase)
-        }
-        
+
         var hourlyTemperatures: [HourlyWeatherModel] = []
                 
         /// Weather data for wind

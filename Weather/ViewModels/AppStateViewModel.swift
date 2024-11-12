@@ -156,10 +156,10 @@ import GooglePlaces
             latitude: item.latitude,
             longitude: item.longitude,
             timezone: Int(item.timezone),
-            temperature: item.temperature ?? "",
-            date: item.currentDate ?? "",
+            temperature: item.temperature ?? "0",
+            date: item.currentDate ?? Helper.getReadableMainDate(date: Date.now, timezoneOffset: 0),
             symbol: item.sfSymbol ?? "sun.max.fill",
-            weatherCondition: item.weatherCondition ?? "",
+            weatherCondition: item.weatherCondition ?? "cloudy",
             weatherAlert: item.weatherAlert
         )
 

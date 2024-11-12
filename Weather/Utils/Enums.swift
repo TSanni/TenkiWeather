@@ -27,6 +27,7 @@ enum WeatherErrors: Error, LocalizedError {
 }
 
 enum CoreDataErrors: Error, LocalizedError {
+    case failedToLoad
     case failedToFetch
     case failedToFetchWeatherPlacesWithTaskGroup
     case failedToSave
@@ -42,6 +43,8 @@ enum CoreDataErrors: Error, LocalizedError {
             return "Failed to save location"
         case .failedToFetchCurrentWeather:
             return "Weather request for saved locations failed"
+        case .failedToLoad:
+            return "Failed to load saved data"
         }
     }
     
@@ -52,9 +55,11 @@ enum CoreDataErrors: Error, LocalizedError {
         case .failedToFetchWeatherPlacesWithTaskGroup:
             return "Please check your network connection and try again."
         case .failedToSave:
-            return "Please try again"
+            return "Please try again."
         case .failedToFetchCurrentWeather:
             return "Please check your network connection and try again."
+        case .failedToLoad:
+            return "Please check your network connection or reload the app."
         }
     }
 }

@@ -10,10 +10,10 @@ import CoreData
 
 class SavedLocationsPersistenceViewModel: ObservableObject {
     static let shared = SavedLocationsPersistenceViewModel()
+    let weatherManager = WeatherManager.shared
 
     let container: NSPersistentContainer
-    let weatherManager = WeatherManager.shared
-    
+
     @Published private(set) var savedLocations: [Location] = []
     @Published var showErrorAlert = false
     @Published var currentError: CoreDataErrors? = nil
@@ -26,6 +26,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
             if let error = error {
+                self.currentError = .failedToLoad
                 print("ERROR LOADING CORE DATA \(error)")
                 return
             }
@@ -44,8 +45,11 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                     savedLocations = try container.viewContext.fetch(request)
                 }
             } catch {
-                showErrorAlert.toggle()
-                currentError = .failedToFetch
+                await MainActor.run {
+                    showErrorAlert.toggle()
+                    currentError = .failedToFetch
+
+                }
             }
 
         }
@@ -64,8 +68,11 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                     savedLocations = try container.viewContext.fetch(request)
                 }
             } catch {
-                showErrorAlert.toggle()
-                currentError = .failedToFetch
+                await MainActor.run {
+                    showErrorAlert.toggle()
+                    currentError = .failedToFetch
+                }
+
             }
         }
     }
@@ -82,8 +89,10 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                     savedLocations = try container.viewContext.fetch(request)
                 }
             } catch {
-                showErrorAlert.toggle()
-                currentError = .failedToFetch
+                await MainActor.run {
+                    showErrorAlert.toggle()
+                    currentError = .failedToFetch
+                }
             }
         }
     }
@@ -143,11 +152,11 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                 Task {
                     try await fetchWeatherPlacesWithTaskGroup()
                 }
-                
-
             } catch {
-                showErrorAlert.toggle()
-                currentError = .failedToSave
+                DispatchQueue.main.async {
+                    self.showErrorAlert.toggle()
+                    self.currentError = .failedToSave
+                }
             }
     }
     
@@ -157,8 +166,11 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                 fetchLocationsAfterDelete()
                 
             } catch {
-                showErrorAlert.toggle()
-                currentError = .failedToSave
+                DispatchQueue.main.async {
+                    self.showErrorAlert.toggle()
+                    self.currentError = .failedToSave
+                }
+
             }
     }
     
@@ -197,17 +209,22 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             )
             
             let possibleWeatherAlerts = await weatherManager.getWeatherAlert(optionalWeatherAlert: currentWeather.weatherAlerts)
-          //TODO: An error happened in this line (201). FIX
-            entity.currentDate = todaysWeather.readableDate // ERROR HERE
-            entity.temperature = todaysWeather.temperature.value.description
-            entity.sfSymbol = todaysWeather.symbolName
-            entity.weatherCondition = todaysWeather.weatherDescription
             
-            if possibleWeatherAlerts != nil {
-                entity.weatherAlert = true
-            } else {
-                entity.weatherAlert = false
+            DispatchQueue.main.async {
+                //TODO: An error happened in this line. FIX
+                entity.currentDate = todaysWeather.readableDate // ERROR HERE
+                entity.temperature = todaysWeather.temperature.value.description
+                entity.sfSymbol = todaysWeather.symbolName
+                entity.weatherCondition = todaysWeather.weatherDescription
+                
+                if possibleWeatherAlerts != nil {
+                    entity.weatherAlert = true
+                } else {
+                    entity.weatherAlert = false
+                }
             }
+            
+            
             
             return entity
         } else {

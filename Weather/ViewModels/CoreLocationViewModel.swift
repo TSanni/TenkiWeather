@@ -39,31 +39,35 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print("Location manager authorization status raw value: \(manager.authorizationStatus.rawValue)" )
         
-        switch manager.authorizationStatus {
-            case .authorizedWhenInUse:  // Location services are available.
-                // Insert code here of what should happen when Location services are authorized
-                authorizationStatus = .authorizedWhenInUse
-                locationManager.requestLocation()                
-                break
-                
-            case .restricted:  // Location services currently unavailable.
-                // Insert code here of what should happen when Location services are NOT authorized
-                authorizationStatus = .restricted
-                break
-                
-            case .denied:  // Location services currently unavailable.
-                // Insert code here of what should happen when Location services are NOT authorized
-                authorizationStatus = .denied
-                break
-                
-            case .notDetermined:  // Authorization not determined yet.
-                authorizationStatus = .notDetermined
-                manager.requestWhenInUseAuthorization()
-                break
-                
-            default:
-                break
+        DispatchQueue.main.async {
+            switch manager.authorizationStatus {
+                case .authorizedWhenInUse:  // Location services are available.
+                    // Insert code here of what should happen when Location services are authorized
+                self.authorizationStatus = .authorizedWhenInUse
+                self.locationManager.requestLocation()
+                    break
+                    
+                case .restricted:  // Location services currently unavailable.
+                    // Insert code here of what should happen when Location services are NOT authorized
+                self.authorizationStatus = .restricted
+                    break
+                    
+                case .denied:  // Location services currently unavailable.
+                    // Insert code here of what should happen when Location services are NOT authorized
+                self.authorizationStatus = .denied
+                    break
+                    
+                case .notDetermined:  // Authorization not determined yet.
+                self.authorizationStatus = .notDetermined
+                    manager.requestWhenInUseAuthorization()
+                    break
+                    
+                default:
+                    break
+            }
+
         }
+
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -126,11 +130,15 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         let country = place.country
         let timezone = place.timeZone?.secondsFromGMT()
         
-        self.timezoneForCoordinateInput = timezone ?? 0
-        
+        DispatchQueue.main.async {
+            self.timezoneForCoordinateInput = timezone ?? 0
+        }
+
         if let placeFromGoogle = placeFromGoogle {
             if Int(placeFromGoogle) == nil { /// user submits name, not zipcode
-                self.searchedLocationName = "\(placeFromGoogle), \(country ?? "")"
+                DispatchQueue.main.async {
+                    self.searchedLocationName = "\(placeFromGoogle), \(country ?? "")"
+                }
                 return "\(placeFromGoogle), \(country ?? "")"
             } else {
                 return combinationOfNames(cityName: cityName, state: state, country: country)
