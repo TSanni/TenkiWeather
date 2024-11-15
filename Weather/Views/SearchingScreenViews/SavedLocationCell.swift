@@ -18,7 +18,6 @@ struct SavedLocationCell: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        
         HStack {
             SavedLocationImageView(imageName: location.sfSymbol ?? "")
             
@@ -53,7 +52,7 @@ struct SavedLocationCell: View {
         .foregroundStyle(.white)
         .swipeActions {
             Button(role: .destructive) {
-                persistence.deleteLocationFromContextMenu(entity: location)
+                persistence.deleteLocationFromContextMenu(location: location)
             } label: {
                 Label("Delete", systemImage: "trash")
             }
@@ -75,7 +74,7 @@ struct SavedLocationCell: View {
                 Label("More Info", systemImage: "info.circle.fill")
             }
             Button(role: .destructive) {
-                persistence.deleteLocationFromContextMenu(entity: location)
+                persistence.deleteLocationFromContextMenu(location: location)
             } label: {
                 Text("Delete")
             }
@@ -88,7 +87,7 @@ struct SavedLocationCell: View {
             TextField("New name", text: $textFieldText)
                 .foregroundStyle(colorScheme == .dark ? .white : .black)
             Button("OK") {
-                persistence.updatePlaceName(entity: location, newName: textFieldText)
+                persistence.updateLocationName(entity: location, newName: textFieldText)
             }
             
             Button(role: .cancel) {
@@ -115,9 +114,3 @@ struct SavedLocationCell: View {
         return newTempValueAsString
     }
 }
-
-//struct SavedLocationCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SavedLocationCell(location: TodayWeatherModel.holderData)
-//    }
-//}

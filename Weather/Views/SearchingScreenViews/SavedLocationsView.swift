@@ -27,11 +27,10 @@ struct SavedLocationsView: View {
                     .onTapGesture {
                         Task {
                             await appStateViewModel.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
-                            persistence.saveData()
                         }
                     }
             }
-            .onDelete(perform: persistence.deletePlace(indexSet:))
+            .onDelete(perform: persistence.deleteLocationBySwipe(indexSet:))
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)

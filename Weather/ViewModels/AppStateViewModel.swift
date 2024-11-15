@@ -253,10 +253,7 @@ import GooglePlaces
         )
         
         setLastUpdated()
-                
         performViewReset()
-
-        persistence.saveData()
     }
     
     private func setLastUpdated() {

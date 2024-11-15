@@ -19,173 +19,142 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     @Published var currentError: CoreDataErrors? = nil
     
     private init() {
-        UserDefaults.standard.set("timeAdded", forKey: "sortType")
-        UserDefaults.standard.set(false, forKey: "ascending")
-
-        
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
             if let error = error {
-                self.currentError = .failedToLoad
+                DispatchQueue.main.async {
+                    self.currentError = .failedToLoad
+                }
                 print("ERROR LOADING CORE DATA \(error)")
                 return
             }
         }
-        fetchLocations()
+        fetchAllLocations(updateNetwork: true)
+
         container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
     
-    func fetchLocationsWithUserDeterminedOrder(key: String, ascending: Bool) {
-        let request = NSFetchRequest<Location>(entityName: "Location")
-        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
-        
-        Task {
-            do {
-                try await MainActor.run {
-                    savedLocations = try container.viewContext.fetch(request)
-                }
-            } catch {
-                await MainActor.run {
-                    showErrorAlert.toggle()
-                    currentError = .failedToFetch
-
-                }
-            }
-
-        }
-    }
-
-    private func fetchLocations() {
-        let key = UserDefaults.standard.string(forKey: "sortType")
-        let ascending = UserDefaults.standard.bool(forKey: "ascending")
-
-        let request = NSFetchRequest<Location>(entityName: "Location")
-        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
-        Task {
-            do {
-                try await fetchWeatherPlacesWithTaskGroup()
-                try await MainActor.run {
-                    savedLocations = try container.viewContext.fetch(request)
-                }
-            } catch {
-                await MainActor.run {
-                    showErrorAlert.toggle()
-                    currentError = .failedToFetch
-                }
-
-            }
-        }
-    }
     
-    private func fetchLocationsAfterDelete() {
-        let key = UserDefaults.standard.string(forKey: "sortType")
-        let ascending = UserDefaults.standard.bool(forKey: "ascending")
-
-        let request = NSFetchRequest<Location>(entityName: "Location")
-        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
-        Task {
-            do {
-                try await MainActor.run {
-                    savedLocations = try container.viewContext.fetch(request)
-                }
-            } catch {
-                await MainActor.run {
-                    showErrorAlert.toggle()
-                    currentError = .failedToFetch
-                }
-            }
-        }
-    }
-    
-    func addLocation(locationDictionary: SearchLocationModel)  {
-
+    func createLocation(locationInfo: SearchLocationModel) {
         let newLocation = Location(context: container.viewContext)
         
-        newLocation.name = locationDictionary.name
-        newLocation.latitude = locationDictionary.latitude
-        newLocation.longitude = locationDictionary.longitude
+        newLocation.name = locationInfo.name
+        newLocation.name = locationInfo.name
+        newLocation.latitude = locationInfo.latitude
+        newLocation.longitude = locationInfo.longitude
         newLocation.timeAdded = Date.now
-        newLocation.timezone = Double(locationDictionary.timezone)
-        newLocation.temperature = locationDictionary.temperature
-        newLocation.currentDate = locationDictionary.date
-        newLocation.sfSymbol = locationDictionary.symbol
-        newLocation.weatherCondition = locationDictionary.weatherCondition
-        newLocation.weatherAlert = locationDictionary.weatherAlert
+        newLocation.timezone = Double(locationInfo.timezone)
+        newLocation.temperature = locationInfo.temperature
+        newLocation.currentDate = locationInfo.date
+        newLocation.sfSymbol = locationInfo.symbol
+        newLocation.weatherCondition = locationInfo.weatherCondition
+        newLocation.weatherAlert = locationInfo.weatherAlert
         
-        Task {
-            try await fetchWeatherPlacesWithTaskGroup()
-            saveData()
-        }
-        
+        saveData()
+        fetchAllLocations(updateNetwork: true)
     }
     
-    func updatePlaceName(entity: Location, newName: String) {
-        let key = UserDefaults.standard.string(forKey: "sortType")
-        let ascending = UserDefaults.standard.bool(forKey: "ascending")
-
-        if newName == "" {
+    func updateLocationName(entity: Location, newName: String) {
+        if newName.isEmpty {
             return
         }
+        
         let newName = newName
         entity.name = newName
-        fetchLocationsWithUserDeterminedOrder(key: key ?? "name", ascending: ascending)
         saveData()
+        fetchAllLocations(updateNetwork: false)
     }
     
-    func deletePlace(indexSet: IndexSet) {
+    func deleteLocationBySwipe(indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
-        let entity = savedLocations[index]
-        container.viewContext.delete(entity)
-        saveDataAfterDelete()
+        let location = savedLocations[index]
+        container.viewContext.delete(location)
+        saveData()
+        fetchAllLocations(updateNetwork: false)
     }
     
-    func deleteLocationFromContextMenu(entity: Location) {
-        container.viewContext.delete(entity)
-        saveDataAfterDelete()
+    func deleteLocationFromContextMenu(location: Location) {
+        container.viewContext.delete(location)
+        saveData()
+        fetchAllLocations(updateNetwork: false)
     }
     
-    func saveData() {
-            do {
-                try container.viewContext.save()
-                
-                fetchLocations()
-                Task {
-                    try await fetchWeatherPlacesWithTaskGroup()
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    self.showErrorAlert.toggle()
-                    self.currentError = .failedToSave
-                }
-            }
-    }
-    
-    func saveDataAfterDelete() {
-            do {
-                try container.viewContext.save()
-                fetchLocationsAfterDelete()
-                
-            } catch {
-                DispatchQueue.main.async {
-                    self.showErrorAlert.toggle()
-                    self.currentError = .failedToSave
-                }
+    private func saveData() {
+        print(#function)
 
+        do {
+            try container.viewContext.save()
+        } catch {
+            DispatchQueue.main.async {
+                self.showErrorAlert.toggle()
+                self.currentError = .failedToSave
             }
+        }
     }
     
-    
-    func fetchWeatherPlacesWithTaskGroup() async throws   {
+    func fetchAllLocations(updateNetwork: Bool) {
+         print(#function)
+
+        let key = UserDefaults.standard.string(forKey: "sortType")
+        let ascending = UserDefaults.standard.bool(forKey: "ascending")
+        let request = NSFetchRequest<Location>(entityName: "Location")
+        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
         
+        do {
+            let fetchedLocation = try container.viewContext.fetch(request)
+            DispatchQueue.main.async {
+                self.savedLocations = fetchedLocation
+                if updateNetwork {
+                    print("updating network")
+                    Task {
+                        await self.callFetchWeatherPlacesWithTaskGroup()
+                    }
+                }
+            }
+        } catch {
+            DispatchQueue.main.async {
+                self.showErrorAlert.toggle()
+                self.currentError = .failedToFetch
+            }
+        }
+    }
+    
+    func callFetchWeatherPlacesWithTaskGroup() async {
+        print(#function)
+        
+        if savedLocations.isEmpty {
+            print("No saved data.")
+            return
+        }
+        
+        do {
+            let a = try await fetchWeatherPlacesWithTaskGroup(allLocation: savedLocations)
+            DispatchQueue.main.async {
+                self.savedLocations = a
+                self.saveData()
+            }
+            
+            fetchAllLocations(updateNetwork: false)
+        } catch {
+            DispatchQueue.main.async {
+                self.showErrorAlert.toggle()
+                self.currentError = .failedToFetch
+            }
+        }
+    }
+    
+    private func fetchWeatherPlacesWithTaskGroup(allLocation: [Location]) async throws -> [Location] {
+        print(#function)
+
         return try await withThrowingTaskGroup(of: Location?.self) { group in
             var weather: [Location] = []
-
+            
             for location in savedLocations {
                 group.addTask {
-                    try? await self.fetchCurrentWeather(entity: location)
+                    try await self.fetchCurrentWeather(entity: location)
                 }
             }
-
+            
             // Special For Loop. This For Loop waits for each task to come back
             // If a task never comes back, we would wait forever or until it fails
             for try await currentData in group {
@@ -193,13 +162,15 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                     weather.append(data)
                 }
             }
+            
+            return weather
         }
     }
     
+    
     private func fetchCurrentWeather(entity: Location) async throws -> Location {
-        
         let weather = try await weatherManager.getWeatherFromWeatherKit(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
-
+        
         if let currentWeather = weather {
             let todaysWeather = await weatherManager.getTodayWeather(
                 current: currentWeather.currentWeather,
@@ -223,8 +194,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
                     entity.weatherAlert = false
                 }
             }
-            
-            
             
             return entity
         } else {

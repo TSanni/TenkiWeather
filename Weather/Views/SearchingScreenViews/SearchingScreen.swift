@@ -30,7 +30,6 @@ struct SearchingScreen: View {
                     .onTapGesture {
                         Task {
                             await appStateViewModel.getWeatherAndUpdateDictionaryFromLocation()
-                            persistenceLocations.saveData()
                         }
                     }
                 
@@ -48,7 +47,7 @@ struct SearchingScreen: View {
                             }
                             
                             sortType = "name"
-                            persistenceLocations.fetchLocationsWithUserDeterminedOrder(key: sortType, ascending: ascending)
+                            persistenceLocations.fetchAllLocations(updateNetwork: false)
                         } label: {
                             HStack {
                                 if sortType == "name" {
@@ -63,7 +62,7 @@ struct SearchingScreen: View {
                                 ascending.toggle()
                             }
                             sortType = "timeAdded"
-                            persistenceLocations.fetchLocationsWithUserDeterminedOrder(key: sortType, ascending: ascending)
+                            persistenceLocations.fetchAllLocations(updateNetwork: false)
                         } label: {
                             HStack {
                                 if sortType == "timeAdded" {
@@ -77,7 +76,6 @@ struct SearchingScreen: View {
                         Image(systemName: "arrow.up.arrow.down")
                             .padding(.leading)
                     }
-
                 }
                 
                 CustomDivider()
@@ -93,9 +91,7 @@ struct SearchingScreen: View {
             PlacesViewControllerBridge { place in
                 Task {
                     await appStateViewModel.getWeatherWithGoogleData(place: place)
-                    persistenceLocations.saveData()
                 }
-                
             }
         }
     }

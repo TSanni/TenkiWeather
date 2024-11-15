@@ -35,6 +35,11 @@ struct WeatherApp: App {
     @StateObject private var appStateViewModel = AppStateViewModel.shared
     @StateObject private var networkManager = NetworkMonitor()
     
+    init() {
+        UserDefaults.standard.set("timeAdded", forKey: "sortType")
+        UserDefaults.standard.set(false, forKey: "ascending")
+    }
+    
     let backgroundClass = BackgroundTasksManager()
     
     var body: some Scene {
@@ -70,6 +75,7 @@ struct WeatherApp: App {
                           if -savedDate.timeIntervalSinceNow > 60 * 10 {
                               // 10 minutes have passed, refresh the data
                               await appStateViewModel.getWeather()
+                              await persistenceLocations.callFetchWeatherPlacesWithTaskGroup()
                               savedDate = Date()
                           } else {
                               // 10 minutes have NOT passed, do nothing
