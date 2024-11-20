@@ -59,13 +59,13 @@ enum Helper {
     }
     
     /// This function takes a date and returns a string with readable date data.
-    /// Ex: 7 AM
+    /// Ex: 7 AM or 07 for military
     static func getReadableHourOnly(date: Date, timezoneOffset: Int) -> String {
         let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
         var format: String
         
         if militaryTime {
-            format = K.TimeConstants.hourOnlyMilitary
+            format = K.TimeConstants.hourAndMinuteMilitary
         } else {
             format = K.TimeConstants.hourOnly
         }
@@ -90,7 +90,7 @@ enum Helper {
     }
     
     /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: 12:07 PM
+    ///  Ex: 1:07 PM or 13:07 for military
     static func getReadableHourAndMinute(date: Date?, timezoneOffset: Int) -> String {
         let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
         var format: String

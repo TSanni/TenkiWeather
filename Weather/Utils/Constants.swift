@@ -61,12 +61,12 @@ enum K {
         static let fifteenHours = 15
         static let twentyFourHours = 24
         static let hourOnly = "h a" // Ex) 7 AM
-        static let hourOnlyMilitary = "HH a" // Ex) 13 PM
+        static let hourOnlyMilitary = "HH" // Ex) 13
         static let monthDayHourMinute = "MMM dd, h:mm a" // Ex: Jul 7, 10:08 PM
-        static let monthDayHourMinuteMilitary = "MMM dd, HH:mm a" // Ex: Jul 7, 13:08 PM
+        static let monthDayHourMinuteMilitary = "dd MMM, HH:mm" // Ex: Jul 7, 13:08
         static let dayOfWeekAndDate = "EEEE, MMM d" // Ex: Tuesday, July 7
         static let hourAndMinute = "h:mm a" // Ex: 12:07 PM
-        static let hourAndMinuteMilitary = "HH:mm a" // Ex: 12:07 PM
+        static let hourAndMinuteMilitary = "HH:mm" // Ex: 12:07 
     }
     
     struct ColorsConstants {

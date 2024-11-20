@@ -30,6 +30,8 @@ struct SavedLocationsView: View {
                         }
                     }
             }
+            
+//            .onMove(perform: <#T##Optional<(IndexSet, Int) -> Void>##Optional<(IndexSet, Int) -> Void>##(IndexSet, Int) -> Void#>)
             .onDelete(perform: persistence.deleteLocationBySwipe(indexSet:))
         }
         .listStyle(.plain)

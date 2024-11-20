@@ -18,6 +18,7 @@ struct HourlyForecastTileView: View {
     let color: Color
     let deviceType = UIDevice.current.userInterfaceIdiom
     let forToday: Bool
+    let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
 
     var body: some View {
         let color = appStateViewModel.blendColorWith20PercentWhite(themeColor: color)
@@ -48,8 +49,17 @@ struct HourlyForecastTileView: View {
                                 
                                 VStack(spacing: 7.0) {
                                     
-                                    Text(item.readableDate)
-                                        .font(.caption)
+                                    if militaryTime {
+                                        let time = item.readableDate
+                                        let newTime = time.dropLast(3)
+                                        Text(newTime)
+                                            .font(.callout)
+                                    } else {
+                                        Text(item.readableDate)
+                                            .font(.caption)
+                                    }
+                                    
+                                    
                                     
                                     Image(systemName: imageName)
                                         .renderingMode(.original)

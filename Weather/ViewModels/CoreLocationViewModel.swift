@@ -8,7 +8,6 @@
 import Foundation
 import CoreLocation
 
-//TODO: Remove publishedError property
 
 class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus?

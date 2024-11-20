@@ -182,8 +182,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             let possibleWeatherAlerts = await weatherManager.getWeatherAlert(optionalWeatherAlert: currentWeather.weatherAlerts)
             
             DispatchQueue.main.async {
-                //TODO: An error happened in this line. FIX
-                entity.currentDate = todaysWeather.readableDate // ERROR HERE
+                entity.currentDate = todaysWeather.readableDate
                 entity.temperature = todaysWeather.temperature.value.description
                 entity.sfSymbol = todaysWeather.symbolName
                 entity.weatherCondition = todaysWeather.weatherDescription

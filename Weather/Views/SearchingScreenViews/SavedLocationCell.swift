@@ -19,7 +19,7 @@ struct SavedLocationCell: View {
     
     var body: some View {
         HStack {
-            SavedLocationImageView(imageName: location.sfSymbol ?? "")
+            SavedLocationImageView(imageName: location.sfSymbol ?? "snowflake")
             
             VStack(alignment: .leading) {
                 HStack {
@@ -49,6 +49,8 @@ struct SavedLocationCell: View {
             }
    
         }
+        .lineLimit(1)
+        .minimumScaleFactor(0.5)
         .foregroundStyle(.white)
         .swipeActions {
             Button(role: .destructive) {

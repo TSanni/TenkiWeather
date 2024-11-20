@@ -752,7 +752,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8.0;
+				MARKETING_VERSION = 4.8.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -796,7 +796,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8.0;
+				MARKETING_VERSION = 4.8.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";

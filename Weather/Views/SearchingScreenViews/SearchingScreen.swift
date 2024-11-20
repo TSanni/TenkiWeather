@@ -27,6 +27,8 @@ struct SearchingScreen: View {
                 CurrentLocationView(localWeather: weatherViewModel.localWeather)
                     .padding(.bottom)
                     .padding(.bottom)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     .onTapGesture {
                         Task {
                             await appStateViewModel.getWeatherAndUpdateDictionaryFromLocation()
