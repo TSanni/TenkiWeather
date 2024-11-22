@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchingScreen: View {
     @State private var showGoogleSearchScreen: Bool = false
+    @State private var isEditing: Bool = false // Tracks editing state
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var persistenceLocations: SavedLocationsPersistenceViewModel
     @EnvironmentObject var weatherViewModel: WeatherViewModel
@@ -16,6 +17,7 @@ struct SearchingScreen: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @AppStorage("sortType") var sortType = "name"
     @AppStorage("ascending") var ascending = false
+    
     //MARK: - Main View
     var body: some View {
         VStack {
@@ -40,49 +42,16 @@ struct SearchingScreen: View {
                         .font(.headline)
                     
                     Spacer()
-                    
-                    Menu {
-                        Text("Sort locations by:")
-                        Button {
-                            if sortType == "name" {
-                                ascending.toggle()
-                            }
-                            
-                            sortType = "name"
-                            persistenceLocations.fetchAllLocations(updateNetwork: false)
-                        } label: {
-                            HStack {
-                                if sortType == "name" {
-                                    Image(systemName: "checkmark")
-                                }
-                                Text("Name")
-                            }
-                        }
-                        
-                        Button {
-                            if sortType == "timeAdded" {
-                                ascending.toggle()
-                            }
-                            sortType = "timeAdded"
-                            persistenceLocations.fetchAllLocations(updateNetwork: false)
-                        } label: {
-                            HStack {
-                                if sortType == "timeAdded" {
-                                    Image(systemName: "checkmark")
-                                }
-                                Text("Date Added")
-                            }
-                        }
-                        
-                    } label: {
-                        Image(systemName: "arrow.up.arrow.down")
-                            .padding(.leading)
+
+                    Button(isEditing ? "Done" : "Edit") {
+                        toggleEditMode()
                     }
                 }
                 
                 CustomDivider()
                 
                 SavedLocationsView()
+                    .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive)) // Manage edit mode
             }
             .padding()
         }
@@ -97,6 +66,13 @@ struct SearchingScreen: View {
             }
         }
     }
+    
+    // Toggle the editing mode
+        private func toggleEditMode() {
+            withAnimation {
+                isEditing.toggle()
+            }
+        }
     
     //MARK: - Textfield and Back button
     var textFieldAndBackButton: some View {

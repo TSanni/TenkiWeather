@@ -119,6 +119,7 @@
 		83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationCell.swift; sourceTree = "<group>"; };
 		83731A752A2FFE4300D481CA /* SavedLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsView.swift; sourceTree = "<group>"; };
 		83749C5D2BA2B74900480F5F /* Locations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations.xcdatamodel; sourceTree = "<group>"; };
+		8375865E2CED6BE3000E2EF9 /* Locations4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations4.xcdatamodel; sourceTree = "<group>"; };
 		837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastLineGraphView.swift; sourceTree = "<group>"; };
 		837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		837D7DAC2B7138160031B296 /* snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = snow.sks; sourceTree = "<group>"; };
@@ -752,7 +753,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8.2;
+				MARKETING_VERSION = 4.9.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -796,7 +797,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8.2;
+				MARKETING_VERSION = 4.9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -870,11 +871,12 @@
 		83749C5C2BA2B74900480F5F /* Locations.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8375865E2CED6BE3000E2EF9 /* Locations4.xcdatamodel */,
 				838F7A382CAAD54B00607451 /* Locations3.xcdatamodel */,
 				8345EA402BA5631F00E8EFBD /* Locations2.xcdatamodel */,
 				83749C5D2BA2B74900480F5F /* Locations.xcdatamodel */,
 			);
-			currentVersion = 838F7A382CAAD54B00607451 /* Locations3.xcdatamodel */;
+			currentVersion = 8375865E2CED6BE3000E2EF9 /* Locations4.xcdatamodel */;
 			path = Locations.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

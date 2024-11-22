@@ -179,7 +179,7 @@ struct SettingsScreen: View {
         
         if persistence.savedLocations.count >= 20 {
             alertTitle = Text("Error")
-            alertMessage = Text("Can't save location. Remove some saved locations before trying again.")
+            alertMessage = Text("Unable to save location. You can have up to 20 saved locations.")
         } else {
             alertTitle = Text("Saved")
             alertMessage =  Text("Location saved to favorites")

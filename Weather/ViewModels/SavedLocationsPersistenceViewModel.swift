@@ -39,7 +39,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         let newLocation = Location(context: container.viewContext)
         
         newLocation.name = locationInfo.name
-        newLocation.name = locationInfo.name
+        newLocation.order = (savedLocations.last?.order ?? 0) + 1
         newLocation.latitude = locationInfo.latitude
         newLocation.longitude = locationInfo.longitude
         newLocation.timeAdded = Date.now
@@ -61,6 +61,18 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         
         let newName = newName
         entity.name = newName
+        saveData()
+        fetchAllLocations(updateNetwork: false)
+    }
+    
+    func moveItem(from source: IndexSet, to destination: Int) {
+        var updatedItems = savedLocations
+        updatedItems.move(fromOffsets: source, toOffset: destination)
+        
+        for (index, item) in updatedItems.enumerated() {
+            item.order = Int64(index)
+        }
+        
         saveData()
         fetchAllLocations(updateNetwork: false)
     }
@@ -98,15 +110,16 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         let key = UserDefaults.standard.string(forKey: "sortType")
         let ascending = UserDefaults.standard.bool(forKey: "ascending")
         let request = NSFetchRequest<Location>(entityName: "Location")
-        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
+        request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         
         do {
             let fetchedLocation = try container.viewContext.fetch(request)
             DispatchQueue.main.async {
                 self.savedLocations = fetchedLocation
+                
                 if updateNetwork {
                     print("updating network")
-                    Task {
+                    Task(priority: .background) {
                         await self.callFetchWeatherPlacesWithTaskGroup()
                     }
                 }
