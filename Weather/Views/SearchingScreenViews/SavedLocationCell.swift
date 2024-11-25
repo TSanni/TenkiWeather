@@ -51,7 +51,6 @@ struct SavedLocationCell: View {
         }
         .lineLimit(1)
         .minimumScaleFactor(0.5)
-        .foregroundStyle(.white)
         .swipeActions {
             Button(role: .destructive) {
                 persistence.deleteLocationFromContextMenu(location: location)

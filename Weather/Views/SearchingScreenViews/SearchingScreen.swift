@@ -55,9 +55,9 @@ struct SearchingScreen: View {
             }
             .padding()
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(.primary)
         .contentShape(Rectangle())
-        .background(K.ColorsConstants.goodDarkTheme)
+        .background(colorScheme == .dark ? K.ColorsConstants.goodDarkTheme : K.ColorsConstants.goodLightTheme)
         .sheet(isPresented: $showGoogleSearchScreen) {
             PlacesViewControllerBridge { place in
                 Task {

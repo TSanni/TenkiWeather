@@ -59,8 +59,8 @@ extension TodayWeatherModel {
         let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneOffset: timezeone)
         
         if currentDay == comparedDay {
-            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
-            return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate) \(dayOrNight)."
+//            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
+            return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate)."
         } else {
             return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate) tomorrow."
 
@@ -75,8 +75,8 @@ extension TodayWeatherModel {
         let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneOffset: timezeone)
         
         if currentDay == comparedDay {
-            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
-            return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate) \(dayOrNight)."
+//            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
+            return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate)."
         } else {
             return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate) tomorrow."
 
@@ -86,7 +86,7 @@ extension TodayWeatherModel {
     
     var getForecastUsingHourlyWeather: String? {
         let currentHour = hourlyWeather[0]
-        let dayOrNight = currentHour.isDayLight ? "day" : "night"
+//        let dayOrNight = currentHour.isDayLight ? "day" : "night"
 
         for i in 1..<hourlyWeather.count {
             if hourlyWeather[i].condition != currentHour.condition {
@@ -106,12 +106,12 @@ extension TodayWeatherModel {
         switch currentHour.condition {
         case .blizzard, .blowingDust, .blowingSnow, .drizzle, .flurries, .freezingDrizzle, .freezingRain, .hail, .haze, .heavyRain, .heavySnow, .hurricane, .isolatedThunderstorms, .rain, .scatteredThunderstorms, .sleet, .snow, .strongStorms, .thunderstorms, .tropicalStorm:
             
-            return "\(currentHour.condition.description) will continue for the rest of the \(dayOrNight)."
+            return "\(currentHour.condition.description) will continue all day."
             
             
         case .breezy, .clear, .cloudy, .foggy, .frigid, .hot, .mostlyClear, .mostlyCloudy, .partlyCloudy, .smoky, .sunFlurries, .sunShowers, .windy, .wintryMix:
             
-            return "\(currentHour.condition.description) conditions will continue for the rest of the \(dayOrNight)."
+            return "\(currentHour.condition.description) conditions will continue all day."
         @unknown default:
             return nil
         }
@@ -138,7 +138,10 @@ extension TodayWeatherModel {
     var currentTemperature: String {
         let temperature = temperature.converted(to: Helper.getUnitTemperature())
         let temperatureValueOnly = Helper.convertNumberToZeroFloatingPoints(number: temperature.value)
-        return temperatureValueOnly
+        if Helper.getShowTemperatureUnitPreference() {
+            return temperatureValueOnly + temperature.unit.symbol
+        }
+        return temperatureValueOnly + "°"
     }
     
     var pressureString: String {

@@ -21,6 +21,7 @@ enum K {
         static let unitDistanceKey = "UnitDistance"
         static let unitPrecipitationKey = "UnitPrecipitation"
         static let timePreferenceKey = "24HourTime"
+        static let showTemperatureUnitKey = "showTemperatureUnitKey"
     }
 
     struct LocationDictionaryKeysConstants {

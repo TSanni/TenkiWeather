@@ -5,7 +5,7 @@
 //  Created by Tomas Sanni on 5/27/23.
 //
 
-//MARK: Version 4.9.0 published to App Store
+//MARK: Version 4.10 published to App Store and more support for dark/light mode
 
 //TODO: Fix .renderingMode in files. This is the cause of the CoreSVG: Error: NULL ref passed to getObjectCoreSVG
 
@@ -51,7 +51,6 @@ struct WeatherApp: App {
                     .environmentObject(locationViewModel)
                     .environmentObject(appStateViewModel)
                     .environmentObject(networkManager)
-                    .preferredColorScheme(.dark)
             }
             .task {
                   if locationViewModel.authorizationStatus == .authorizedWhenInUse {

@@ -31,7 +31,7 @@ struct CurrentLocationView: View {
                     VStack(alignment: .leading) {
                         locationName
                         HStack(spacing: 0.0) {
-                            Text(localWeather.currentTemperature + "° • " + localWeather.weatherDescription)
+                            Text(localWeather.currentTemperature + " • " + localWeather.weatherDescription)
                             Spacer()
                             Text(time)
                                 .onReceive(appStateViewModel.timer) { _ in

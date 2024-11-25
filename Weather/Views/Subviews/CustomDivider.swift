@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomDivider: View {
     var body: some View {
         Rectangle()
-            .fill(Color.white)
+            .fill(Color.primary)
             .frame(height: 0.5)
     }
 }

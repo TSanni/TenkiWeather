@@ -11,6 +11,12 @@ import SpriteKit
 import SwiftUI
 
 enum Helper {
+    
+    static func getShowTemperatureUnitPreference() -> Bool{
+        let showTemperatureUnit = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.showTemperatureUnitKey)
+        return showTemperatureUnit
+    }
+    
     /// Takes a Double, removes floating point numbers, then converts to and returns a String
     static func convertNumberToZeroFloatingPoints(number: Double) -> String {
         let convertedStringNumber = String(format: "%.0f", number)

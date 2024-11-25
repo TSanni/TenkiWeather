@@ -23,6 +23,7 @@ struct SettingsScreen: View {
     @State private var alertMessage: Text = Text("")
     
     @AppStorage(K.UserDefaultKeys.timePreferenceKey) var toggle24HourTime: Bool = false
+    @AppStorage(K.UserDefaultKeys.showTemperatureUnitKey) var showTemperatureUnit: Bool = false
     
     let appVersionString: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
@@ -39,19 +40,9 @@ struct SettingsScreen: View {
             
             supportSection
             
-            Section("Time") {
-                Toggle(isOn: $toggle24HourTime) {
-                    VStack(alignment: .leading, spacing: 0.0) {
-                        Text("Use 24-hour format")
-                    }
-                }
-            }
+            timeSection
             
-            Section {
-                Text("Privacy Policy").onTapGesture { showPrivacyWebsite = true }
-                Text("Terms and Conditions").onTapGesture { showTermsAndConditionsWebsite = true }
-                Text("App Version: \(appVersionString)")
-            }
+            extraSection
             
             HStack {
                 Spacer()
@@ -129,6 +120,10 @@ struct SettingsScreen: View {
                     temperatureUnit = unit
                 }
             }
+            
+            Toggle(isOn: $showTemperatureUnit) {
+                Text("Show unit")
+            }
         }
     }
     
@@ -173,6 +168,24 @@ struct SettingsScreen: View {
             SendMailView()
         }
     }
+    
+    var timeSection: some View {
+        Section("Time") {
+            Toggle(isOn: $toggle24HourTime) {
+                Text("Use 24-hour format")
+            }
+        }
+    }
+    
+    var extraSection: some View {
+        Section {
+            Text("Privacy Policy").onTapGesture { showPrivacyWebsite = true }
+            Text("Terms and Conditions").onTapGesture { showTermsAndConditionsWebsite = true }
+            Text("App Version: \(appVersionString)")
+        }
+    }
+    
+    
     
     //MARK: - Functions
     private func saveLocation() {
