@@ -55,7 +55,8 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     }
     
     func updateLocationName(entity: Location, newName: String) {
-        if newName.isEmpty {
+        if newName.isEmpty || newName == entity.name {
+            print("Either newName is empty or is identical to saved location name")
             return
         }
         

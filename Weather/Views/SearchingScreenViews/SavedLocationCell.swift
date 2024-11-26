@@ -65,10 +65,8 @@ struct SavedLocationCell: View {
             }
             .tint(.orange)
 
-            RenameButton()
         }
         .contextMenu {
-            RenameButton()
             Button {
                 showDetails.toggle()
             } label: {
@@ -81,25 +79,8 @@ struct SavedLocationCell: View {
             }
             
         }
-        .renameAction {
-            showAlert.toggle()
-        }
-        .alert("Rename", isPresented: $showAlert) {
-            TextField("New name", text: $textFieldText)
-                .foregroundStyle(colorScheme == .dark ? .white : .black)
-            Button("OK") {
-                persistence.updateLocationName(entity: location, newName: textFieldText)
-            }
-            
-            Button(role: .cancel) {
-                
-            } label: {
-                Text("Cancel")
-            }
-            
-        }
         .sheet(isPresented: $showDetails) {
-            PlaceDetails(name: location.name ?? "No name", latitude: location.latitude, longitude: location.longitude)
+            PlaceDetails(name: location.name ?? "No name", latitude: location.latitude, longitude: location.longitude, location: location)
                 .presentationDetents([.height(500)])
         }
     }

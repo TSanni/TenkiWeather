@@ -10,25 +10,43 @@ import CoreLocation
 
 struct PlaceDetails: View {
     @EnvironmentObject var coreLocationViewModel: CoreLocationViewModel
+    @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
+    @Environment(\.dismiss) private var dismiss
     @State private var placeInfo: CLPlacemark? = nil
+    @State private var textFieldText = ""
     let name: String
     let latitude: Double
     let longitude: Double
+    @ObservedObject var location: Location
+    
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             K.ColorsConstants.tenDayBarColor.ignoresSafeArea()
             VStack(alignment: .leading) {
-                Text("Details")
-                    .font(.title)
-                    .padding(.bottom)
-                
+                HStack {
+                    Text("Details")
+                        .font(.largeTitle)
+                    
+                    Spacer()
+
+                    Button("Dismiss") {
+                        dismiss()
+                    }
+                }
+                .padding(.bottom)
+
                 Divider()
                 
                 VStack(alignment: .leading) {
                     Text("Name")
                         .foregroundStyle(.secondary)
-                    Text(name)
+                    TextField("Enter name", text: $textFieldText)
+                        .foregroundStyle(.blue)
+                        .fontWeight(.semibold)
+                        .onSubmit {
+                            persistence.updateLocationName(entity: location, newName: textFieldText)
+                        }
                 }
                 Divider()
                 
@@ -104,6 +122,22 @@ struct PlaceDetails: View {
                         Text("\(timezone.secondsFromGMT())")
                     }
                 }
+                
+                
+                HStack {
+                    Spacer()
+                    
+                    Button("Save") {
+                        persistence.updateLocationName(entity: location, newName: textFieldText)
+                        dismiss()
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(K.ColorsConstants.goodLightTheme)
+                    .shadow(radius: 5)
+                    .foregroundStyle(K.ColorsConstants.tenDayBarColor)
+                    
+                    Spacer()
+                }
             }
             .padding()
             .background(K.ColorsConstants.tenDayBarColor)
@@ -111,17 +145,11 @@ struct PlaceDetails: View {
                 placeInfo = await coreLocationViewModel.getPlaceDataFromCoordinates(latitude: latitude, longitude: longitude)
             }
         }
+        .navigationTitle("Details")
         .foregroundStyle(.white)
+        .onAppear {
+            textFieldText = location.name ?? "no name"
+        }
     }
 }
 
-#Preview {
-    VStack {
-        
-    }
-    .sheet(isPresented: .constant(true)) {
-        PlaceDetails(name: "Place name", latitude: 29.600616, longitude: -95.808278)
-            .presentationDetents([.medium, .large])
-    }
-    .environmentObject(CoreLocationViewModel.shared)
-}
