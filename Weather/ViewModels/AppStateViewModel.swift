@@ -16,7 +16,6 @@ import GooglePlaces
     @Published private(set) var loading: Bool = false
     @Published private(set) var currentLocationName: String = ""
     @Published private(set) var currentLocationTimezone: Int = 0
-    @Published private(set) var lastUpdated: String = ""
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
     // This property's only purpose is to add data to CoreData.
@@ -164,7 +163,6 @@ import GooglePlaces
         )
 
         dataCompletedLoading()
-        setLastUpdated()
         performViewReset()
     }
     
@@ -195,7 +193,6 @@ import GooglePlaces
         )
         
         dataCompletedLoading()
-        setLastUpdated()
         performViewReset()
     }
     
@@ -221,7 +218,6 @@ import GooglePlaces
         
         dataCompletedLoading()
         toggleShowSearchScreen()
-        setLastUpdated()
         performViewReset()
     }
     
@@ -252,13 +248,6 @@ import GooglePlaces
             weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
         )
         
-        setLastUpdated()
         performViewReset()
     }
-    
-    private func setLastUpdated() {
-        lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneOffset: TimeZone.current.secondsFromGMT())
-
-    }
-    
 }

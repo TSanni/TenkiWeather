@@ -14,7 +14,7 @@ struct SettingsScreen: View {
     @Environment(\.dismiss) var dimiss
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
-    
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
     @State private var locationSaveAlert: Bool = false
     @State private var showPrivacyWebsite = false
     @State private var showTermsAndConditionsWebsite = false
@@ -46,7 +46,7 @@ struct SettingsScreen: View {
             
             HStack {
                 Spacer()
-                Text("Last weather update: " + appStateViewModel.lastUpdated)
+                Text("Last weather update: " + weatherViewModel.lastUpdated)
                     .foregroundStyle(.secondary)
                 Spacer()
             }

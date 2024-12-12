@@ -17,12 +17,19 @@ class WeatherViewModel: ObservableObject {
     @Published private(set) var localWeather: TodayWeatherModel = TodayWeatherModelPlaceHolder.holderData
     @Published var showErrorAlert = false
     @Published var currentError: WeatherErrors? = nil
-    
+    @Published private(set) var lastUpdated: String = ""
+
     static let shared = WeatherViewModel()
     
     let weatherManager = WeatherManager.shared
     
     private init() { }
+    
+    private func setLastUpdated() {
+        DispatchQueue.main.async {
+            self.lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneOffset: TimeZone.current.secondsFromGMT())
+        }
+    }
     
     func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
         do {
@@ -44,6 +51,8 @@ class WeatherViewModel: ObservableObject {
                     self.dailyWeather = dailyWeather
                     self.weatherAlert = weatherAlert
                 }
+                
+                setLastUpdated()
             }
         } catch {
             await MainActor.run {
@@ -68,6 +77,8 @@ class WeatherViewModel: ObservableObject {
                 await MainActor.run {
                     self.localWeather = localWeather
                 }
+                
+                setLastUpdated()
             }
         } catch {
             await MainActor.run {
