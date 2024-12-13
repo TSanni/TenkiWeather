@@ -5,7 +5,7 @@
 //  Created by Tomas Sanni on 5/27/23.
 //
 
-//MARK: Version 4.10.2 published to App Store
+//MARK: Version 4.10.3 published to App Store
 
 //TODO: Fix .renderingMode in files. This is the cause of the CoreSVG: Error: NULL ref passed to getObjectCoreSVG
 
@@ -57,16 +57,16 @@ struct WeatherApp: App {
                       await appStateViewModel.getWeather()
                   }
               }
-              .onChange(of: locationViewModel.authorizationStatus) { newValue in
-                  switch newValue {
-                  case .authorizedWhenInUse:
-                      Task {
-                          await appStateViewModel.getWeather()
-                      }
-                  default: break
-                  }
-              }
-              .onChange(of: scenePhase) { newValue in
+            .onChange(of: locationViewModel.authorizationStatus, { oldValue, newValue in
+                switch newValue {
+                case .authorizedWhenInUse:
+                    Task {
+                        await appStateViewModel.getWeather()
+                    }
+                default: break
+                }
+            })
+              .onChange(of: scenePhase) { oldValue, newValue in
                   //use this modifier to periodically update the weather data
                   switch newValue {
                   case .active:
