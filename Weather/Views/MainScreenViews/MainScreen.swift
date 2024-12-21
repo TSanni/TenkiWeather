@@ -88,7 +88,7 @@ struct MainScreen: View {
         } message: { error in
             Text(error.recoverySuggestion ?? "Try again later")
         }
-        .onChange(of: appStateViewModel.resetViews) { _ in
+        .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
             tabViews = .today
         }
     }

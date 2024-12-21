@@ -108,8 +108,8 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     func fetchAllLocations(updateNetwork: Bool) {
          print(#function)
 
-        let key = UserDefaults.standard.string(forKey: "sortType")
-        let ascending = UserDefaults.standard.bool(forKey: "ascending")
+       // let key = UserDefaults.standard.string(forKey: "sortType")
+       // let ascending = UserDefaults.standard.bool(forKey: "ascending")
         let request = NSFetchRequest<Location>(entityName: "Location")
         request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         

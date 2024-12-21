@@ -57,12 +57,13 @@
 		83B760932A67119C007075E2 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B760922A67119C007075E2 /* LabelView.swift */; };
 		83C4FFF12A34005F00DEF7F3 /* DailyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF02A34005F00DEF7F3 /* DailyWeatherModel.swift */; };
 		83C4FFF92A352E9B00DEF7F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C4FFF82A352E9B00DEF7F3 /* Constants.swift */; };
-		83CC40AD2CD16A8500CF58D2 /* SwiftUIMailView in Frameworks */ = {isa = PBXBuildFile; productRef = 83CC40AC2CD16A8500CF58D2 /* SwiftUIMailView */; };
-		83CC40B02CD16A9B00CF58D2 /* GooglePlacesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83CC40AF2CD16A9B00CF58D2 /* GooglePlacesSwift */; };
 		83CC40D02CD290D900CF58D2 /* MoonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40CF2CD290D900CF58D2 /* MoonModel.swift */; };
 		83CC40D22CD2939F00CF58D2 /* MoonModel+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40D12CD2939F00CF58D2 /* MoonModel+Placeholder.swift */; };
 		83CC40D42CD294BA00CF58D2 /* MoonTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC40D32CD294BA00CF58D2 /* MoonTileView.swift */; };
 		83CC448E2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC448D2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift */; };
+		83CDC90F2D120D01002028CE /* SwiftUIMailView in Frameworks */ = {isa = PBXBuildFile; productRef = 83CDC90E2D120D01002028CE /* SwiftUIMailView */; };
+		83CDC9122D1373A9002028CE /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 83CDC9112D1373A9002028CE /* GooglePlaces */; };
+		83CDC9142D1373A9002028CE /* GooglePlacesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 83CDC9132D1373A9002028CE /* GooglePlacesSwift */; };
 		83DA72E62A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E52A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift */; };
 		83DA72E82A419C7C00C50C86 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E72A419C7C00C50C86 /* WeatherManager.swift */; };
 		83DA72EA2A419F9400C50C86 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DA72E92A419F9400C50C86 /* WeatherViewModel.swift */; };
@@ -187,8 +188,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83CC40AD2CD16A8500CF58D2 /* SwiftUIMailView in Frameworks */,
-				83CC40B02CD16A9B00CF58D2 /* GooglePlacesSwift in Frameworks */,
+				83CDC90F2D120D01002028CE /* SwiftUIMailView in Frameworks */,
+				83CDC9122D1373A9002028CE /* GooglePlaces in Frameworks */,
+				83CDC9142D1373A9002028CE /* GooglePlacesSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,8 +464,9 @@
 			);
 			name = "Tenki Weather";
 			packageProductDependencies = (
-				83CC40AC2CD16A8500CF58D2 /* SwiftUIMailView */,
-				83CC40AF2CD16A9B00CF58D2 /* GooglePlacesSwift */,
+				83CDC90E2D120D01002028CE /* SwiftUIMailView */,
+				83CDC9112D1373A9002028CE /* GooglePlaces */,
+				83CDC9132D1373A9002028CE /* GooglePlacesSwift */,
 			);
 			productName = Weather;
 			productReference = 83E04FA02A22DF1B009720AB /* Tenki Weather.app */;
@@ -494,8 +497,8 @@
 			);
 			mainGroup = 83E04F972A22DF1B009720AB;
 			packageReferences = (
-				83CC40AB2CD16A8500CF58D2 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */,
-				83CC40AE2CD16A9B00CF58D2 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */,
+				83CDC90D2D120D01002028CE /* XCRemoteSwiftPackageReference "swiftui-mail-view" */,
+				83CDC9102D1373A9002028CE /* XCRemoteSwiftPackageReference "ios-places-sdk" */,
 			);
 			productRefGroup = 83E04FA12A22DF1B009720AB /* Products */;
 			projectDirPath = "";
@@ -753,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.10.3;
+				MARKETING_VERSION = 4.10.4;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -797,7 +800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.10.3;
+				MARKETING_VERSION = 4.10.4;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -836,7 +839,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		83CC40AB2CD16A8500CF58D2 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */ = {
+		83CDC90D2D120D01002028CE /* XCRemoteSwiftPackageReference "swiftui-mail-view" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/globulus/swiftui-mail-view";
 			requirement = {
@@ -844,25 +847,30 @@
 				minimumVersion = 1.0.1;
 			};
 		};
-		83CC40AE2CD16A9B00CF58D2 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */ = {
+		83CDC9102D1373A9002028CE /* XCRemoteSwiftPackageReference "ios-places-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googlemaps/ios-places-swift-sdk";
+			repositoryURL = "https://github.com/googlemaps/ios-places-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
+				kind = exactVersion;
+				version = 9.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		83CC40AC2CD16A8500CF58D2 /* SwiftUIMailView */ = {
+		83CDC90E2D120D01002028CE /* SwiftUIMailView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83CC40AB2CD16A8500CF58D2 /* XCRemoteSwiftPackageReference "swiftui-mail-view" */;
+			package = 83CDC90D2D120D01002028CE /* XCRemoteSwiftPackageReference "swiftui-mail-view" */;
 			productName = SwiftUIMailView;
 		};
-		83CC40AF2CD16A9B00CF58D2 /* GooglePlacesSwift */ = {
+		83CDC9112D1373A9002028CE /* GooglePlaces */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 83CC40AE2CD16A9B00CF58D2 /* XCRemoteSwiftPackageReference "ios-places-swift-sdk" */;
+			package = 83CDC9102D1373A9002028CE /* XCRemoteSwiftPackageReference "ios-places-sdk" */;
+			productName = GooglePlaces;
+		};
+		83CDC9132D1373A9002028CE /* GooglePlacesSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83CDC9102D1373A9002028CE /* XCRemoteSwiftPackageReference "ios-places-sdk" */;
 			productName = GooglePlacesSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

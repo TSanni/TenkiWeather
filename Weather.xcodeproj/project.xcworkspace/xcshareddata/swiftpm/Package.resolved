@@ -1,28 +1,19 @@
 {
-  "originHash" : "0cf830c8bb6968586969d05d900490bd1c42d3a536d0692f30306e64a3ed9fdf",
+  "originHash" : "b12694e72284187ded0e440130422ac2f288af88cd87556ea7fd71efd9ad95bd",
   "pins" : [
     {
       "identity" : "ios-places-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/googlemaps/ios-places-sdk",
       "state" : {
-        "revision" : "7b3af6b3087b183444f6cb51dd80d416c98f9e53",
-        "version" : "9.1.0"
-      }
-    },
-    {
-      "identity" : "ios-places-swift-sdk",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/googlemaps/ios-places-swift-sdk",
-      "state" : {
-        "revision" : "335244a0c8324c35555916596d7e6891a321710f",
-        "version" : "0.2.0"
+        "revision" : "1737dc600c80eaeaf9b0cf0d25522b8ead713d60",
+        "version" : "9.2.0"
       }
     },
     {
       "identity" : "swiftui-mail-view",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/globulus/swiftui-mail-view.git",
+      "location" : "https://github.com/globulus/swiftui-mail-view",
       "state" : {
         "revision" : "dad1d289cb904d477f2fbabcca5ba82bfcfb2ea6",
         "version" : "1.0.1"

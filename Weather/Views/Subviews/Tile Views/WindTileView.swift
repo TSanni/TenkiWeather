@@ -44,7 +44,7 @@ struct WindTileView: View {
                                 .padding(.horizontal, deviceType == .pad ? 50 : 10)
                         }
                     }
-                    .onChange(of: appStateViewModel.resetViews) { _ in
+                    .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
                         proxy.scrollTo(0)
                     }
                     

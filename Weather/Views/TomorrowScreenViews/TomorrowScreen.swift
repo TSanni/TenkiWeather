@@ -90,7 +90,7 @@ struct TomorrowScreen: View {
                             )
                         }
                     }
-                    .onChange(of: appStateViewModel.resetViews) { _ in
+                    .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
                         proxy.scrollTo(0)
                     }
                 }

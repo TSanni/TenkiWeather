@@ -23,7 +23,6 @@ struct DailyWeatherCell: View {
                     Spacer()
                     
                     dayItemRightSide
-                    
                 }
                 .padding(.vertical, 10)
                 .contentShape(Rectangle())
@@ -33,7 +32,6 @@ struct DailyWeatherCell: View {
                     }
                 }
                 
-                
                 if showRest {
                     dayDetails
                         .transition(.asymmetric(insertion: .opacity, removal: .identity))
@@ -42,45 +40,40 @@ struct DailyWeatherCell: View {
             .padding(.vertical, 10)
             .padding(.horizontal)
         }
-        .onChange(of: appStateViewModel.resetViews) { _ in
-            showRest = false
-        }
         .background(K.ColorsConstants.tenDayBarColor.brightness(-0.1))
         .clipShape(RoundedRectangle(cornerRadius: 40))
         .padding(.horizontal)
         .shadow(color: .black, radius: 0, y: 0.5)
+        .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
+            showRest = false
+        }
     }
         
     private var dayDetails: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 5.0) {
+            
             HStack {
-                VStack(alignment: .leading, spacing: 5.0) {
-                    Text("Wind")
-                    Text("UV index")
-                    
-                    if daily.dayChanceOfPrecipitation != "0%" {
-                        Text("Precipitation")
-                    }
-                    Text("Sunrise/sunset")
-                }
-                .foregroundColor(.gray)
-                
+                Text("Wind")
                 Spacer()
-                
-                VStack(alignment: .leading, spacing: 5.0) {
-                    Text("\(daily.wind.windDescription), \(daily.wind.windSpeed) \(daily.wind.speedUnit) \(daily.wind.compassDirection.abbreviation)")
-                    Text(daily.uvIndexCategoryDescription + "," + daily.uvIndexNumberDescription)
-                    
-                    if daily.dayChanceOfPrecipitation != "0%" {
-                        Text(daily.dayChanceOfPrecipitation)
-                    }
-                    
-                    Text("\(daily.sun.sunriseTime), \(daily.sun.sunsetTime)")
-                }
-                .foregroundColor(.white)
-                
+                Text("\(daily.wind.windDescription), \(daily.wind.windSpeed) \(daily.wind.speedUnit) \(daily.wind.compassDirection.abbreviation)")
+            }
+            
+            HStack {
+                Text("UV index")
                 Spacer()
-                
+                Text(daily.uvIndexCategoryDescription + "," + daily.uvIndexNumberDescription)
+            }
+            
+            HStack {
+                Text("Precipitation")
+                Spacer()
+                Text(daily.dayChanceOfPrecipitation)
+            }
+            
+            HStack {
+                Text("Sunrise/sunset")
+                Spacer()
+                Text("\(daily.sun.sunriseTime), \(daily.sun.sunsetTime)")
             }
             .padding(.bottom)
             
@@ -113,7 +106,7 @@ struct DailyWeatherCell: View {
                 }
             }
         }
-        
+        .foregroundColor(.white)
     }
     
     private var dayItemLeftSide: some View {
@@ -123,10 +116,8 @@ struct DailyWeatherCell: View {
                 Text(title)
                     .foregroundColor(.white)
                     .font(.headline)
-            } 
-            
-            
-            
+            }
+
             Text(daily.dayWeatherDescription)
                 .font(.subheadline)
                 .foregroundColor(.gray)
@@ -147,7 +138,6 @@ struct DailyWeatherCell: View {
                     .scaledToFit()
                     .frame(width: 40, height: 40)
                     .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
-                
             }
             
             VStack {
@@ -159,8 +149,6 @@ struct DailyWeatherCell: View {
             }
         }
     }
-    
- 
 }
 
 #Preview {
