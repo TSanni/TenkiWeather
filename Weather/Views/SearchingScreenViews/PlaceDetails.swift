@@ -21,134 +21,132 @@ struct PlaceDetails: View {
     
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            K.ColorsConstants.tenDayBarColor.ignoresSafeArea()
+        ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {
-                HStack {
-                    Text("Details")
-                        .font(.largeTitle)
-                    
-                    Spacer()
+                    HStack {
+                        Text("Details")
+                            .font(.largeTitle)
+                        
+                        Spacer()
 
-                    Button("Dismiss") {
-                        dismiss()
-                    }
-                }
-                .padding(.bottom)
-
-                Divider()
-                
-                VStack(alignment: .leading) {
-                    Text("Name")
-                        .foregroundStyle(.secondary)
-                    TextField("Enter name", text: $textFieldText)
-                        .foregroundStyle(.blue)
-                        .fontWeight(.semibold)
-                        .onSubmit {
-                            persistence.updateLocationName(entity: location, newName: textFieldText)
+                        Button("Dismiss") {
+                            dismiss()
                         }
-                }
-                Divider()
-                
-                if let country = placeInfo?.country {
-                    VStack(alignment: .leading) {
-                        Text("Country")
-                            .foregroundStyle(.secondary)
-                        HStack {
-                            Text(country)
+                    }
+                    .padding(.bottom)
 
-                            if let countryCode = placeInfo?.isoCountryCode, let url = URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png") {
-                                
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                            .frame(width: 25, height: 25)
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 25, height: 25)
-                                    case .failure:
-                                        ProgressView()
-                                    @unknown default:
-                                        ProgressView()
-                                            .frame(width: 25, height: 25)
+                    Divider()
+                    
+                    VStack(alignment: .leading) {
+                        Text("Name")
+                            .foregroundStyle(.secondary)
+                        TextField("Enter name", text: $textFieldText)
+                            .foregroundStyle(.blue)
+                            .fontWeight(.semibold)
+                            .onSubmit {
+                                persistence.updateLocationName(entity: location, newName: textFieldText)
+                            }
+                    }
+                    Divider()
+                    
+                    if let country = placeInfo?.country {
+                        VStack(alignment: .leading) {
+                            Text("Country")
+                                .foregroundStyle(.secondary)
+                            HStack {
+                                Text(country)
+
+                                if let countryCode = placeInfo?.isoCountryCode, let url = URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png") {
+                                    
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                                .frame(width: 25, height: 25)
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 25, height: 25)
+                                        case .failure:
+                                            ProgressView()
+                                        @unknown default:
+                                            ProgressView()
+                                                .frame(width: 25, height: 25)
+                                        }
                                     }
                                 }
                             }
                         }
+                        Divider()
                     }
-                    Divider()
-                }
-                
-                if let administrativeArea = placeInfo?.administrativeArea {
-                    VStack(alignment: .leading) {
-                        Text("Administrative Area")
-                            .foregroundStyle(.secondary)
-                        Text(administrativeArea)
-                    }
-                    Divider()
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("Coordinates")
-                        .foregroundStyle(.secondary)
                     
-                    Text("Lat: \(latitude), Lon: \(longitude)")
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
-                        .contextMenu(menuItems: {
-                            Button {
-                                UIPasteboard.general.string = latitude.description
-                            } label: {
-                                Label("Copy Latitude", systemImage: "doc.on.doc")
-                            }
-                            
-                            Button {
-                                UIPasteboard.general.string = longitude.description
-                            } label: {
-                                Label("Copy Longitude", systemImage: "doc.on.doc")
-                            }
-                        })
-                }
+                    if let administrativeArea = placeInfo?.administrativeArea {
+                        VStack(alignment: .leading) {
+                            Text("Administrative Area")
+                                .foregroundStyle(.secondary)
+                            Text(administrativeArea)
+                        }
+                        Divider()
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Coordinates")
+                            .foregroundStyle(.secondary)
+                        
+                        Text("Lat: \(latitude), Lon: \(longitude)")
+                            .lineLimit(2)
+                            .contextMenu(menuItems: {
+                                Button {
+                                    UIPasteboard.general.string = latitude.description
+                                } label: {
+                                    Label("Copy Latitude", systemImage: "doc.on.doc")
+                                }
+                                
+                                Button {
+                                    UIPasteboard.general.string = longitude.description
+                                } label: {
+                                    Label("Copy Longitude", systemImage: "doc.on.doc")
+                                }
+                            })
+                    }
 
-                if let timezone = placeInfo?.timeZone {
-                    Divider()
-                    VStack(alignment: .leading) {
-                        Text("Timezone")
-                            .foregroundStyle(.secondary)
-                        Text(timezone.description)
-                        Text("\(timezone.secondsFromGMT())")
+                    if let timezone = placeInfo?.timeZone {
+                        Divider()
+                        VStack(alignment: .leading) {
+                            Text("Timezone")
+                                .foregroundStyle(.secondary)
+                            Text(timezone.description)
+                            Text("\(timezone.secondsFromGMT())")
+                        }
+                    }
+                    
+                    
+                    HStack {
+                        Spacer()
+                        
+                        Button("Save") {
+                            persistence.updateLocationName(entity: location, newName: textFieldText)
+                            dismiss()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(K.ColorsConstants.goodLightTheme)
+                        .shadow(radius: 5)
+                        .foregroundStyle(K.ColorsConstants.tenDayBarColor)
+                        
+                        Spacer()
                     }
                 }
-                
-                
-                HStack {
-                    Spacer()
-                    
-                    Button("Save") {
-                        persistence.updateLocationName(entity: location, newName: textFieldText)
-                        dismiss()
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(K.ColorsConstants.goodLightTheme)
-                    .shadow(radius: 5)
-                    .foregroundStyle(K.ColorsConstants.tenDayBarColor)
-                    
-                    Spacer()
-                }
-            }
             .padding()
-            .background(K.ColorsConstants.tenDayBarColor)
-            .task {
-                placeInfo = await coreLocationViewModel.getPlaceDataFromCoordinates(latitude: latitude, longitude: longitude)
-            }
         }
+        .background(K.ColorsConstants.tenDayBarColor.ignoresSafeArea())
         .navigationTitle("Details")
         .foregroundStyle(.white)
         .onAppear {
             textFieldText = location.name ?? "no name"
+        }
+        .task {
+            placeInfo = await coreLocationViewModel.getPlaceDataFromCoordinates(latitude: latitude, longitude: longitude)
         }
     }
 }
