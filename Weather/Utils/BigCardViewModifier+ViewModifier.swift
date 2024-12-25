@@ -20,6 +20,7 @@ struct BigCardViewModifier: ViewModifier {
             .background(backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
             .padding()
+            .shadow(color: .black, radius: 0, y: 0.5)
             .shadow(radius: 3)
     }
 }

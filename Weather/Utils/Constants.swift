@@ -92,5 +92,6 @@ enum K {
         static let lightPink = Color(uiColor: #colorLiteral(red: 1, green: 0.7621075511, blue: 0.7261560559, alpha: 1))
         static let maroon = Color(uiColor: #colorLiteral(red: 0.4117647059, green: 0.003921568627, blue: 0.01960784314, alpha: 1))
         static let prussianBlue = Color(uiColor: #colorLiteral(red: 0.003921568627, green: 0.2, blue: 0.3294117647, alpha: 1))
+        static let UIColorTenDayBarColor = #colorLiteral(red: 0.09803921569, green: 0.3333333333, blue: 0.4078431373, alpha: 1)
     }
 }

@@ -80,8 +80,11 @@ struct SavedLocationCell: View {
             
         }
         .sheet(isPresented: $showDetails) {
-            PlaceDetails(name: location.name ?? "No name", latitude: location.latitude, longitude: location.longitude, location: location)
-                .presentationDetents([.height(500)])
+            NavigationStack {
+                PlaceDetails(name: location.name ?? "No name", latitude: location.latitude, longitude: location.longitude, location: location)
+                    .presentationDetents([.height(500)])
+            }
+         
         }
     }
 

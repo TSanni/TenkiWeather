@@ -18,7 +18,7 @@ struct CurrentLocationView: View {
         HStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Image(systemName: "mappin")
+                    Image(systemName: "mappin.and.ellipse")
                         .renderingMode(.original)
                     Text("Current Location")
                 }

@@ -20,6 +20,7 @@ struct CardViewModifier: ViewModifier {
             .background(appStateViewModel.blendColorWith20PercentWhite(themeColor: backgroundColor))
             .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
             .aspectRatio(1, contentMode: .fit)
+            .shadow(color: .black, radius: 0, y: 0.5)
             .shadow(radius: 3)
     }
 }
