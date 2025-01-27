@@ -1,6 +1,15 @@
 {
-  "originHash" : "b12694e72284187ded0e440130422ac2f288af88cd87556ea7fd71efd9ad95bd",
+  "originHash" : "9c33d5b1c71d50fab3dd55e72dc72ba407d5dcccfdc0141fc9f28c1dbb5a5f1e",
   "pins" : [
+    {
+      "identity" : "dotlottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/LottieFiles/dotlottie-ios",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5882d81ccb677e2da0175fc9c97980bb61af3eb9"
+      }
+    },
     {
       "identity" : "ios-places-sdk",
       "kind" : "remoteSourceControl",
@@ -8,15 +17,6 @@
       "state" : {
         "revision" : "1737dc600c80eaeaf9b0cf0d25522b8ead713d60",
         "version" : "9.2.0"
-      }
-    },
-    {
-      "identity" : "swiftui-mail-view",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/globulus/swiftui-mail-view",
-      "state" : {
-        "revision" : "dad1d289cb904d477f2fbabcca5ba82bfcfb2ea6",
-        "version" : "1.0.1"
       }
     }
   ],

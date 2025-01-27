@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TopView: View {
+struct SearchBar: View {
     @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     let backgroundColor: Color
@@ -52,7 +52,7 @@ struct TopView: View {
 #Preview {
     ZStack {
         Color.orange
-        TopView(backgroundColor: .indigo)
+        SearchBar(backgroundColor: .indigo)
             .environmentObject(AppStateViewModel.shared)
             .environmentObject(WeatherViewModel.shared)
             .environmentObject(CoreLocationViewModel.shared)

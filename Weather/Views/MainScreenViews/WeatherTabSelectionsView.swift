@@ -39,8 +39,8 @@ struct WeatherTabSelectionsView: View {
                             }
                         }
                     }
+                    .tint(.white)
                 }
-                .tint(.white)
             }
         }
         

@@ -30,24 +30,16 @@ struct MainScreen: View {
             
             VStack(spacing: 0) {
                 
-                TopView(backgroundColor: getBackgroundColor)
+                SearchBar(backgroundColor: getBackgroundColor)
                     .padding(.vertical)
                 
-                Group {
-                    if UIDevice.current.userInterfaceIdiom != .pad {
-                        WeatherTabSelectionsView(tabViews: $tabViews)
-                        TabViews(tabViews: $tabViews)
-                            .tint(.white)
-                            .tabViewStyle(.page(indexDisplayMode: .never))
-                            .ignoresSafeArea()
-                    } else {
-                        WeatherTabSelectionsView(tabViews: $tabViews)
-                        TabViews(tabViews: $tabViews)
-                            .tint(.white)
-                            .tabViewStyle(.page(indexDisplayMode: .never))
-                            .ignoresSafeArea()
-                    }
-                }
+                WeatherTabSelectionsView(tabViews: $tabViews)
+                
+                TabViews(tabViews: $tabViews)
+                    .tint(.white)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .ignoresSafeArea()
+                
 
                 if !networkManager.isConnected {
                     HStack {
