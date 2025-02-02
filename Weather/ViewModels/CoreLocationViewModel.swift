@@ -89,9 +89,9 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         })
     }
     
-    func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, nameFromGoogle: String?) async {
+    func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, name: String?) async {
         
-        let searched = await getNameFromCoordinates(latitude: lat, longitude: lon, nameFromGoogleAPI: nameFromGoogle)
+        let searched = await getNameFromCoordinates(latitude: lat, longitude: lon, name: name)
         
         await MainActor.run(body: {
             self.searchedLocationName = searched
@@ -122,7 +122,9 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         
     }
     
-    private func getLocationName(place: CLPlacemark, placeFromGoogle: String? = nil) -> String {
+    
+    //TODO: Update this function. A lot of unneeded code. Most likely can delete combinationOfNames method.
+    private func getLocationName(place: CLPlacemark, name: String? = nil) -> String {
         
         let cityName = place.locality
         let state = place.administrativeArea
@@ -133,12 +135,12 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
             self.timezoneForCoordinateInput = timezone ?? 0
         }
 
-        if let placeFromGoogle = placeFromGoogle {
-            if Int(placeFromGoogle) == nil { /// user submits name, not zipcode
+        if let name = name {
+            if Int(name) == nil { /// user submits name, not zipcode
                 DispatchQueue.main.async {
-                    self.searchedLocationName = "\(placeFromGoogle), \(country ?? "")"
+                    self.searchedLocationName = "\(name)"
                 }
-                return "\(placeFromGoogle), \(country ?? "")"
+                return "\(name)"
             } else {
                 return combinationOfNames(cityName: cityName, state: state, country: country)
             }
@@ -149,13 +151,13 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     
     //MARK: - Geocoding
     ///Will get all names for pass in coordinates
-    private func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, nameFromGoogleAPI: String? = nil) async -> String {
+    private func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String? = nil) async -> String {
         let coordinates = CLLocation(latitude: latitude, longitude: longitude)
         return await withCheckedContinuation { continuation in
             geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
                 
                 if let place = places?.first {
-                    let locationName = self?.getLocationName(place: place, placeFromGoogle: nameFromGoogleAPI)
+                    let locationName = self?.getLocationName(place: place, name: name)
                     continuation.resume(returning: locationName ?? "")
                 } else {
                     continuation.resume(returning: "")

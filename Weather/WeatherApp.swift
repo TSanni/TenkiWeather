@@ -34,6 +34,7 @@ struct WeatherApp: App {
     @StateObject private var locationViewModel = CoreLocationViewModel.shared
     @StateObject private var appStateViewModel = AppStateViewModel.shared
     @StateObject private var networkManager = NetworkMonitor()
+    @StateObject private var locationSearchViewModel = LocationSearchViewModel()
     
     init() {
         UserDefaults.standard.set("timeAdded", forKey: "sortType")
@@ -51,6 +52,8 @@ struct WeatherApp: App {
                     .environmentObject(locationViewModel)
                     .environmentObject(appStateViewModel)
                     .environmentObject(networkManager)
+                    .environmentObject(locationViewModel)
+                    .environmentObject(locationSearchViewModel)
             }
             .task {
                   if locationViewModel.authorizationStatus == .authorizedWhenInUse {

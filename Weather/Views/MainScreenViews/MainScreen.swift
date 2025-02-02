@@ -61,7 +61,7 @@ struct MainScreen: View {
         .redacted(reason: appStateViewModel.loading ? .placeholder : [])
         .fullScreenCover(isPresented: $appStateViewModel.showSearchScreen) {
             NavigationStack {
-                SearchingScreen()
+                SearchingScreenView()
             }
         }
         .sheet(isPresented: $appStateViewModel.showSettingScreen) {
@@ -133,5 +133,7 @@ extension MainScreen {
             .environmentObject(AppStateViewModel.shared)
             .environmentObject(NetworkMonitor())
             .environmentObject(SavedLocationsPersistenceViewModel.shared)
+            .environmentObject(LocationSearchViewModel())
+
     }
 }

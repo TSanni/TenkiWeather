@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import GooglePlaces
+import CoreLocation
 
 
 
@@ -144,7 +144,7 @@ import GooglePlaces
         toggleShowSearchScreen()
         dataIsLoading()
         await locationViewModel.getLocalLocationName()
-        await locationViewModel.getSearchedLocationName(lat: item.latitude, lon: item.longitude, nameFromGoogle: nil)
+        await locationViewModel.getSearchedLocationName(lat: item.latitude, lon: item.longitude, name: nil)
         await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationViewModel.timezoneForCoordinateInput)
         await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: locationViewModel.localLocationName, timezone: currentLocationTimezone)
         
@@ -196,16 +196,41 @@ import GooglePlaces
         performViewReset()
     }
     
-    func getWeatherWithGoogleData(place: GMSPlace) async {
+//    func getWeatherWithGoogleData(place: GMSPlace) async {
+//        print(#function)
+//        dataIsLoading()
+//        let coordinates = place.coordinate
+//        await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, name: place.name)
+//        let timezone = locationViewModel.timezoneForCoordinateInput
+//        await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
+//        let currentWeather = weatherViewModel.currentWeather
+//        setSearchedLocationDictionary(
+//            name: locationViewModel.searchedLocationName,
+//            latitude: coordinates.latitude,
+//            longitude: coordinates.longitude,
+//            timezone: timezone,
+//            temperature: currentWeather.temperature.value.description,
+//            date: currentWeather.readableDate,
+//            symbol: currentWeather.symbolName,
+//            weatherCondition: currentWeather.weatherDescription.description,
+//            weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
+//        )
+//        
+//        dataCompletedLoading()
+//        toggleShowSearchScreen()
+//        performViewReset()
+//    }
+    
+    func getWeatherFromLocationSearch(coordinate: CLLocationCoordinate2D, name: String) async {
         print(#function)
         dataIsLoading()
-        let coordinates = place.coordinate
-        await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, nameFromGoogle: place.name)
+        let coordinates = coordinate
+        await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, name: name)
         let timezone = locationViewModel.timezoneForCoordinateInput
         await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         let currentWeather = weatherViewModel.currentWeather
         setSearchedLocationDictionary(
-            name: locationViewModel.searchedLocationName,
+            name: name,
             latitude: coordinates.latitude,
             longitude: coordinates.longitude,
             timezone: timezone,
