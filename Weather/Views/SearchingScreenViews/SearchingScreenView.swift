@@ -8,16 +8,11 @@
 import SwiftUI
 
 struct SearchingScreenView: View {
-    @State private var isSearching = false
     @State private var isEditing: Bool = false // Tracks editing state
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var persistenceLocations: SavedLocationsPersistenceViewModel
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var locationManager: CoreLocationViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var locationSearchViewModel: LocationSearchViewModel
-    @AppStorage("sortType") var sortType = "name"
-    @AppStorage("ascending") var ascending = false
     
     
     //MARK: - Main View
@@ -36,8 +31,8 @@ struct SearchingScreenView: View {
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .listRowBackground(Color.clear)
-                    .padding(.top)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         locationSearchViewModel.fetchCityLocation(for: suggestion) { coordinate, name, error in
@@ -90,7 +85,6 @@ struct SearchingScreenView: View {
                         .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive)) // Manage edit mode
                 }
                 .padding()
-                
             }
         }
         .foregroundStyle(.primary)
@@ -125,8 +119,6 @@ struct SearchingScreenView: View {
 #Preview {
     SearchingScreenView()
         .environmentObject(WeatherViewModel.shared)
-        .environmentObject(CoreLocationViewModel.shared)
         .environmentObject(AppStateViewModel.shared)
-        .environmentObject(SavedLocationsPersistenceViewModel.shared)
         .environmentObject(LocationSearchViewModel())
 }
