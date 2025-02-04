@@ -12,22 +12,15 @@
 
 import SwiftUI
 import UIKit
-import GooglePlaces
 import BackgroundTasks
 
 // no changes in your AppDelegate class
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        GMSPlacesClient.provideAPIKey(K.googleApiKey)
-        return true
-    }
-}
+
 
 @main
 struct WeatherApp: App {
     @State private var savedDate = Date()
 
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) var scenePhase
 
     @StateObject private var weatherViewModel = WeatherViewModel.shared
