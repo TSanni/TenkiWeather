@@ -8,6 +8,9 @@
 import Foundation
 import SpriteKit
 
+// radians = degrees * .pi / 180
+
+// degrees = rad * 180 / .pi
 
 class SnowScene: SKScene {
 
@@ -17,10 +20,12 @@ class SnowScene: SKScene {
         guard let snowEmitterNode = snowEmitterNode else { return }
         snowEmitterNode.particleSize = CGSize(width: 50, height: 50)
         snowEmitterNode.particleLifetime = 20
-//        snowEmitterNode.particleLifetimeRange = 1
         snowEmitterNode.particleBirthRate = 25
-//        snowEmitterNode.particleAlphaSpeed = -0.2
-        snowEmitterNode.position = CGPoint(x: 0, y: 400)
+        snowEmitterNode.particleSpeed = 80
+        snowEmitterNode.emissionAngle = 270 * (.pi / 180)
+        snowEmitterNode.yAcceleration = -10
+        snowEmitterNode.position = CGPoint(x: 0, y: 100)
+
 
         addChild(snowEmitterNode)
     }
@@ -28,7 +33,7 @@ class SnowScene: SKScene {
     override func didChangeSize(_ oldSize: CGSize) {
         guard let snowEmitterNode = snowEmitterNode else { return }
         snowEmitterNode.particlePosition = CGPoint(x: size.width/2, y: size.height)
-        snowEmitterNode.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+        snowEmitterNode.particlePositionRange = CGVector(dx: size.width, dy: 0)
     }
     
 }

@@ -134,6 +134,5 @@ extension MainScreen {
             .environmentObject(NetworkMonitor())
             .environmentObject(SavedLocationsPersistenceViewModel.shared)
             .environmentObject(LocationSearchViewModel())
-
     }
 }

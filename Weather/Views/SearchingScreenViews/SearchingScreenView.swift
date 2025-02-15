@@ -111,6 +111,7 @@ struct SearchingScreenView: View {
                     .padding()
             }
             TextField("Search for a location", text: $locationSearchViewModel.query)
+                .autocorrectionDisabled()
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
@@ -121,4 +122,6 @@ struct SearchingScreenView: View {
         .environmentObject(WeatherViewModel.shared)
         .environmentObject(AppStateViewModel.shared)
         .environmentObject(LocationSearchViewModel())
+        .environmentObject(CoreLocationViewModel.shared)
+        .environmentObject(SavedLocationsPersistenceViewModel.shared)
 }

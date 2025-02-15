@@ -28,5 +28,8 @@ struct WeatherParticleEffectView: View {
 }
 
 #Preview {
-    WeatherParticleEffectView(sceneImport: SnowScene())
+    ZStack {
+        Color.indigo.ignoresSafeArea()
+        WeatherParticleEffectView(sceneImport: RainScene())
+    }
 }

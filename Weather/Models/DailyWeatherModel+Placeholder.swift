@@ -19,10 +19,10 @@ struct DailyWeatherModelPlaceHolder {
         sun: SunModelPlaceholder.sunDataHolder,
         wind: WindModelPlaceholder.windDataHolder[0],
         date: Date.distantFuture,
-        condition: .snow,
+        condition: .rain,
         uvIndexValue: 0,
         uvIndexCategory: .extreme,
-        symbolName: "snowflake",
+        symbolName: "cloud.rain",
         hourlyWeather: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
         timezone: 0,
         precipitationAmountByType: nil

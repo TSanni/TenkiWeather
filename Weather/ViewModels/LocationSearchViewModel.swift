@@ -59,7 +59,6 @@ class LocationSearchViewModel: NSObject, ObservableObject, MKLocalSearchComplete
                     let coordinate = placemark.coordinate
                     let locationName = mapItem.placemark.title
                     
-                    print("locationName: \(locationName)")
                     completionHandler(coordinate, locationName, nil)
                 } else {
                     completionHandler(nil, nil, NSError(domain: "InvalidLocation", code: 400, userInfo: [NSLocalizedDescriptionKey: "Not a city-like location"]))

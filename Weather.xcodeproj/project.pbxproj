@@ -35,6 +35,9 @@
 		83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */; };
 		83731A762A2FFE4300D481CA /* SavedLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A752A2FFE4300D481CA /* SavedLocationsView.swift */; };
 		83749C5E2BA2B74900480F5F /* Locations.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83749C5C2BA2B74900480F5F /* Locations.xcdatamodeld */; };
+		8378D8092D568F69004EE3CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8378D8072D568F69004EE3CB /* Assets.xcassets */; };
+		8378D80A2D568F69004EE3CB /* cloud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8378D8082D568F69004EE3CB /* cloud.sks */; };
+		8378D8102D5690DA004EE3CB /* CloudScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8378D80F2D5690DA004EE3CB /* CloudScene.swift */; };
 		8378DCC92D4F257E008E98AC /* snowfall.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 8378DCC82D4F257E008E98AC /* snowfall.lottie */; };
 		8378DCCB2D4F2B2B008E98AC /* woman-in-rain.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 8378DCCA2D4F2B2B008E98AC /* woman-in-rain.lottie */; };
 		837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */; };
@@ -128,6 +131,9 @@
 		83731A752A2FFE4300D481CA /* SavedLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsView.swift; sourceTree = "<group>"; };
 		83749C5D2BA2B74900480F5F /* Locations.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations.xcdatamodel; sourceTree = "<group>"; };
 		8375865E2CED6BE3000E2EF9 /* Locations4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations4.xcdatamodel; sourceTree = "<group>"; };
+		8378D8072D568F69004EE3CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8378D8082D568F69004EE3CB /* cloud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = cloud.sks; sourceTree = "<group>"; };
+		8378D80F2D5690DA004EE3CB /* CloudScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudScene.swift; sourceTree = "<group>"; };
 		8378DCC82D4F257E008E98AC /* snowfall.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = snowfall.lottie; sourceTree = "<group>"; };
 		8378DCCA2D4F2B2B008E98AC /* woman-in-rain.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "woman-in-rain.lottie"; sourceTree = "<group>"; };
 		837D7DA62B6B07C60031B296 /* HourlyForecastLineGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastLineGraphView.swift; sourceTree = "<group>"; };
@@ -267,7 +273,6 @@
 				838FAE162B6084A200AAC0C1 /* Tile Views */,
 				834E1F762A98C49C00DB4DE5 /* Graphs */,
 				830279DE2A98E80000E3487D /* WebViews */,
-				837D7DB72B7154270031B296 /* WeatherParticleEffectView.swift */,
 				837D7DAA2B6D879F0031B296 /* CircularProgressView.swift */,
 				8345EA412BA6F21600E8EFBD /* ImageProgressView.swift */,
 				83B760922A67119C007075E2 /* LabelView.swift */,
@@ -308,6 +313,10 @@
 		837D7DAE2B7139040031B296 /* SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
+				837D7DB72B7154270031B296 /* WeatherParticleEffectView.swift */,
+				8378D8072D568F69004EE3CB /* Assets.xcassets */,
+				8378D8082D568F69004EE3CB /* cloud.sks */,
+				8378D80F2D5690DA004EE3CB /* CloudScene.swift */,
 				837D7DAC2B7138160031B296 /* snow.sks */,
 				837D7DAF2B7139150031B296 /* SnowScene.swift */,
 				837D7DB12B713C910031B296 /* rain.sks */,
@@ -536,6 +545,8 @@
 				83E04FAB2A22DF1E009720AB /* Preview Assets.xcassets in Resources */,
 				8378DCCB2D4F2B2B008E98AC /* woman-in-rain.lottie in Resources */,
 				830AF90D2D432F7100AF9A90 /* cloud.lottie in Resources */,
+				8378D8092D568F69004EE3CB /* Assets.xcassets in Resources */,
+				8378D80A2D568F69004EE3CB /* cloud.sks in Resources */,
 				837D7DB32B713C910031B296 /* rain.sks in Resources */,
 				837D7DAD2B7138160031B296 /* snow.sks in Resources */,
 				83E04FA82A22DF1E009720AB /* Assets.xcassets in Resources */,
@@ -559,6 +570,7 @@
 				83DA72EA2A419F9400C50C86 /* WeatherViewModel.swift in Sources */,
 				83FD52052B87BAD1008F875B /* View+extension.swift in Sources */,
 				83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */,
+				8378D8102D5690DA004EE3CB /* CloudScene.swift in Sources */,
 				83CC40D22CD2939F00CF58D2 /* MoonModel+Placeholder.swift in Sources */,
 				835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */,
 				839F32EE2A3919510048EF05 /* SunModel.swift in Sources */,
@@ -779,7 +791,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.10.7;
+				MARKETING_VERSION = 4.11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -824,7 +836,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.10.7;
+				MARKETING_VERSION = 4.11.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";

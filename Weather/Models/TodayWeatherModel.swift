@@ -59,7 +59,6 @@ extension TodayWeatherModel {
         let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneOffset: timezeone)
         
         if currentDay == comparedDay {
-//            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
             return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate)."
         } else {
             return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate) tomorrow."
@@ -86,7 +85,6 @@ extension TodayWeatherModel {
     
     var getForecastUsingHourlyWeather: String? {
         let currentHour = hourlyWeather[0]
-//        let dayOrNight = currentHour.isDayLight ? "day" : "night"
 
         for i in 1..<hourlyWeather.count {
             if hourlyWeather[i].condition != currentHour.condition {

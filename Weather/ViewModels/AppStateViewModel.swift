@@ -196,31 +196,6 @@ import CoreLocation
         performViewReset()
     }
     
-//    func getWeatherWithGoogleData(place: GMSPlace) async {
-//        print(#function)
-//        dataIsLoading()
-//        let coordinates = place.coordinate
-//        await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, name: place.name)
-//        let timezone = locationViewModel.timezoneForCoordinateInput
-//        await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
-//        let currentWeather = weatherViewModel.currentWeather
-//        setSearchedLocationDictionary(
-//            name: locationViewModel.searchedLocationName,
-//            latitude: coordinates.latitude,
-//            longitude: coordinates.longitude,
-//            timezone: timezone,
-//            temperature: currentWeather.temperature.value.description,
-//            date: currentWeather.readableDate,
-//            symbol: currentWeather.symbolName,
-//            weatherCondition: currentWeather.weatherDescription.description,
-//            weatherAlert: weatherViewModel.weatherAlert != nil ? true : false
-//        )
-//        
-//        dataCompletedLoading()
-//        toggleShowSearchScreen()
-//        performViewReset()
-//    }
-    
     func getWeatherFromLocationSearch(coordinate: CLLocationCoordinate2D, name: String) async {
         print(#function)
         dataIsLoading()
