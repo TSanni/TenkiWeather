@@ -232,36 +232,62 @@ extension WeatherManager {
     
     /// This functions returns an array of hourly weather data for the next fifteen hours.
     private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyWeatherModel] {
-        var fifteenHours: [HourlyWeatherModel] = []
+        var allHours: [HourlyWeatherModel] = []
         
-        /// Gets all hourly forecasts starting with 7AM that day
+        /// Gets all hourly forecasts starting with 12AM that day
         let nextDayWeatherHours = hours.filter({ hourWeather in
-            /// Weather starts at 12AM on the day. Use .advanced method to advance time by 25000 seconds (7 hours)
-            return hourWeather.date >= day.date.advanced(by: K.TimeConstants.sevenHoursInSeconds)
+            /// Weather starts at 12AM on the day. Use .advanced method to advance time by 0 seconds (0 hours)
+            return hourWeather.date >= day.date.advanced(by: 0)
         })
         
-        //TODO: Add error handling to catch when the there aren't enough hours
-        for i in 0..<K.TimeConstants.fifteenHours {
-            
-            let windData = WindModel(
-                speed: nextDayWeatherHours[i].wind.speed,
-                compassDirection: nextDayWeatherHours[i].wind.compassDirection
-            )
-            
-            fifteenHours.append(
-                HourlyWeatherModel(
-                    temperature: nextDayWeatherHours[i].temperature, 
-                    wind: windData,
-                    date: nextDayWeatherHours[i].date,
-                    precipitationChance: nextDayWeatherHours[i].precipitationChance, 
-                    symbol: nextDayWeatherHours[i].symbolName,
-                    timezone: timezoneOffset,
-                    condition: nextDayWeatherHours[i].condition,
-                    isDayLight: nextDayWeatherHours[i].isDaylight
+        if nextDayWeatherHours.count < K.TimeConstants.twentyFourHours {
+
+            for i in 0..<K.TimeConstants.fifteenHours {
+                
+                let windData = WindModel(
+                    speed: nextDayWeatherHours[i].wind.speed,
+                    compassDirection: nextDayWeatherHours[i].wind.compassDirection
                 )
-            )
+                
+                allHours.append(
+                    HourlyWeatherModel(
+                        temperature: nextDayWeatherHours[i].temperature,
+                        wind: windData,
+                        date: nextDayWeatherHours[i].date,
+                        precipitationChance: nextDayWeatherHours[i].precipitationChance,
+                        symbol: nextDayWeatherHours[i].symbolName,
+                        timezone: timezoneOffset,
+                        condition: nextDayWeatherHours[i].condition,
+                        isDayLight: nextDayWeatherHours[i].isDaylight
+                    )
+                )
+            }
+        } else {
+
+            for i in 0..<K.TimeConstants.twentyFourHours {
+                
+                let windData = WindModel(
+                    speed: nextDayWeatherHours[i].wind.speed,
+                    compassDirection: nextDayWeatherHours[i].wind.compassDirection
+                )
+                
+                allHours.append(
+                    HourlyWeatherModel(
+                        temperature: nextDayWeatherHours[i].temperature,
+                        wind: windData,
+                        date: nextDayWeatherHours[i].date,
+                        precipitationChance: nextDayWeatherHours[i].precipitationChance,
+                        symbol: nextDayWeatherHours[i].symbolName,
+                        timezone: timezoneOffset,
+                        condition: nextDayWeatherHours[i].condition,
+                        isDayLight: nextDayWeatherHours[i].isDaylight
+                    )
+                )
+            }
         }
         
-        return fifteenHours
+
+        
+        return allHours
     }
 }
