@@ -8,7 +8,6 @@
 //MARK: Version 4.11.1 published to App Store
 
 //TODO: Fix .renderingMode in files. This is the cause of the CoreSVG: Error: NULL ref passed to getObjectCoreSVG
-//TODO: Remove Google APIs from project
 
 import SwiftUI
 import UIKit

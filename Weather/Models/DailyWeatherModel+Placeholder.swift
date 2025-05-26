@@ -15,7 +15,6 @@ struct DailyWeatherModelPlaceHolder {
         lowTemperature: Measurement(value: 0, unit: .fahrenheit),
         precipitation: Precipitation.hail,
         precipitationChance: 0,
-        moon: nil,
         sun: SunModelPlaceholder.sunDataHolder,
         wind: WindModelPlaceholder.windDataHolder[0],
         date: Date.distantFuture,
