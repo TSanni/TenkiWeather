@@ -141,7 +141,7 @@ struct WindTileView: View {
                 setTodayWeather: true,
                 backgroundColor: K.ColorsConstants.haze
             )
-            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(AppStateViewModel.preview)
             
         }
     }

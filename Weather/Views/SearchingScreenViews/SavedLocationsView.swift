@@ -44,7 +44,7 @@ struct SavedLocationsView: View {
     ZStack {
         K.ColorsConstants.goodDarkTheme
         SavedLocationsView()
-            .environmentObject(SavedLocationsPersistenceViewModel.shared)
-            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(SavedLocationsPersistenceViewModel())
+            .environmentObject(AppStateViewModel.preview)
     }
 }

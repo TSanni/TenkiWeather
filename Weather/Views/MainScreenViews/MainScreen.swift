@@ -13,15 +13,41 @@ import SpriteKit
 //MARK: - View
 struct MainScreen: View {
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var appStateViewModel: AppStateViewModel
-    @EnvironmentObject var networkManager: NetworkMonitor
-    @EnvironmentObject var locationManager: CoreLocationViewModel
-    @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
+    @Environment(\.scenePhase) var scenePhase
+    
+    @StateObject var weatherViewModel: WeatherViewModel
+    @StateObject var appStateViewModel: AppStateViewModel
+    @StateObject var networkManager: NetworkMonitor
+    @StateObject var locationViewModel: CoreLocationViewModel
+    @StateObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
+    @StateObject var locationSearchViewModel: LocationSearchViewModel
+    
     //Must use @State instead of view model because this is the only way to make animations work
     @State var tabViews: WeatherTabs = .today
+    @State private var savedDate = Date()
+    
+    let backgroundClass = BackgroundTasksManager()
     let deviceType = UIDevice.current.userInterfaceIdiom
-
+    
+    init() {
+        let weatherManager = WeatherManager.shared
+        let locationVM = CoreLocationViewModel()
+        let weatherVM = WeatherViewModel(weatherManager: weatherManager)
+        let persistenceVM = SavedLocationsPersistenceViewModel()
+        
+        _weatherViewModel = StateObject(wrappedValue: weatherVM)
+        _appStateViewModel = StateObject(wrappedValue: AppStateViewModel(
+            weatherManager: weatherManager,
+            locationViewModel: locationVM,
+            weatherViewModel: weatherVM,
+            persistence: persistenceVM
+        ))
+        _networkManager = StateObject(wrappedValue: NetworkMonitor())
+        _locationViewModel = StateObject(wrappedValue: locationVM)
+        _savedLocationPersistenceViewModel = StateObject(wrappedValue: persistenceVM)
+        _locationSearchViewModel = StateObject(wrappedValue: LocationSearchViewModel())
+    }
+    
     var body: some View {
         ZStack {
             getBackgroundColor.ignoresSafeArea()
@@ -40,7 +66,7 @@ struct MainScreen: View {
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .ignoresSafeArea()
                 
-
+                
                 if !networkManager.isConnected {
                     HStack {
                         Image(systemName: "wifi.slash")
@@ -83,6 +109,46 @@ struct MainScreen: View {
         .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
             tabViews = .today
         }
+        .task {
+            if locationViewModel.authorizationStatus == .authorizedWhenInUse {
+                await appStateViewModel.getWeather()
+            }
+        }
+        .onChange(of: locationViewModel.authorizationStatus) { oldValue, newValue in
+            switch newValue {
+            case .authorizedWhenInUse:
+                Task {
+                    await appStateViewModel.getWeather()
+                }
+            default: break
+            }
+        }
+        .onChange(of: scenePhase) { oldValue, newValue in
+            //use this modifier to periodically update the weather data
+            switch newValue {
+            case .active:
+                Task {
+                    if -savedDate.timeIntervalSinceNow > 60 * 10 {
+                        // 10 minutes have passed, refresh the data
+                        await appStateViewModel.getWeather()
+                        await savedLocationPersistenceViewModel.callFetchWeatherPlacesWithTaskGroup()
+                        savedDate = Date()
+                    } else {
+                        // 10 minutes have NOT passed, do nothing
+                        return
+                    }
+                }
+                
+            case .background: backgroundClass.startBackgroundTasks()
+            default: break
+            }
+        }
+        .environmentObject(weatherViewModel)
+        .environmentObject(savedLocationPersistenceViewModel)
+        .environmentObject(locationViewModel)
+        .environmentObject(appStateViewModel)
+        .environmentObject(networkManager)
+        .environmentObject(locationSearchViewModel)
     }
 }
 
@@ -128,11 +194,16 @@ extension MainScreen {
 #Preview {
     NavigationStack {
         MainScreen()
-            .environmentObject(WeatherViewModel.shared)
-            .environmentObject(CoreLocationViewModel.shared)
-            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(WeatherViewModel(weatherManager: WeatherManager.shared))
+            .environmentObject(CoreLocationViewModel())
             .environmentObject(NetworkMonitor())
-            .environmentObject(SavedLocationsPersistenceViewModel.shared)
+            .environmentObject(SavedLocationsPersistenceViewModel())
             .environmentObject(LocationSearchViewModel())
+            .environmentObject(AppStateViewModel(
+                weatherManager: WeatherManager.shared,
+                locationViewModel: CoreLocationViewModel(),
+                weatherViewModel: WeatherViewModel(weatherManager: WeatherManager.shared),
+                persistence: SavedLocationsPersistenceViewModel())
+            )
     }
 }

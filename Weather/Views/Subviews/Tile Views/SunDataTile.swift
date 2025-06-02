@@ -103,5 +103,5 @@ struct SunDataTile: View {
 
 #Preview {
     SunDataTile(sunTime: "SunTime", description: "Sun Description", backgroundColor: .red, isSunrise: false)
-        .environmentObject(AppStateViewModel.shared)
+        .environmentObject(AppStateViewModel.preview)
 }

@@ -35,26 +35,25 @@ import CoreLocation
         )
 
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-
     
-    static let shared  = AppStateViewModel()
-    let weatherManager = WeatherManager.shared
-    let locationViewModel = CoreLocationViewModel.shared
-    let weatherViewModel = WeatherViewModel.shared
-    let persistence = SavedLocationsPersistenceViewModel.shared
+    let weatherManager: WeatherManager
+    let locationViewModel: CoreLocationViewModel
+    let weatherViewModel: WeatherViewModel
+    let persistence: SavedLocationsPersistenceViewModel
     
-    private init() { }
+    init(weatherManager: WeatherManager, locationViewModel: CoreLocationViewModel, weatherViewModel: WeatherViewModel, persistence: SavedLocationsPersistenceViewModel) {
+        self.weatherManager = weatherManager
+        self.locationViewModel = locationViewModel
+        self.weatherViewModel = weatherViewModel
+        self.persistence = persistence
+    }
     
     func toggleShowSearchScreen() {
-        DispatchQueue.main.async {
-            self.showSearchScreen.toggle()
-        }
+        self.showSearchScreen.toggle()
     }
     
     func toggleShowSettingScreen() {
-        DispatchQueue.main.async {
-            self.showSettingScreen.toggle()
-        }
+        self.showSettingScreen.toggle()
     }
     
     ///Returns columns and tile size accounting for iPhone and iPad
@@ -145,8 +144,8 @@ import CoreLocation
         dataIsLoading()
         await locationViewModel.getLocalLocationName()
         await locationViewModel.getSearchedLocationName(lat: item.latitude, lon: item.longitude, name: nil)
-        await weatherViewModel.getWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationViewModel.timezoneForCoordinateInput)
-        await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: locationViewModel.localLocationName, timezone: currentLocationTimezone)
+        await weatherViewModel.fetchWeather(latitude: item.latitude, longitude: item.longitude, timezone: locationViewModel.timezoneForCoordinateInput)
+        await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: locationViewModel.localLocationName, timezone: currentLocationTimezone)
         
         locationViewModel.searchedLocationName = item.name!
         
@@ -172,9 +171,9 @@ import CoreLocation
         dataIsLoading()
         await locationViewModel.getLocalLocationName()
         let timezone = locationViewModel.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezone: timezone)
+        await weatherViewModel.fetchWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezone: timezone)
         let userLocationName = locationViewModel.localLocationName
-        await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezone: timezone)
+        await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezone: timezone)
         locationViewModel.searchedLocationName = userLocationName
         let currentWeather = weatherViewModel.currentWeather
 
@@ -202,7 +201,7 @@ import CoreLocation
         let coordinates = coordinate
         await locationViewModel.getSearchedLocationName(lat: coordinates.latitude, lon: coordinates.longitude, name: name)
         let timezone = locationViewModel.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
+        await weatherViewModel.fetchWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezone: timezone)
         let currentWeather = weatherViewModel.currentWeather
         setSearchedLocationDictionary(
             name: name,
@@ -228,9 +227,9 @@ import CoreLocation
         await locationViewModel.getLocalLocationName()
         locationViewModel.searchedLocationName = locationViewModel.localLocationName
         let timezone = locationViewModel.timezoneForCoordinateInput
-        await weatherViewModel.getWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezone: timezone)
+        await weatherViewModel.fetchWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezone: timezone)
         let userLocationName = locationViewModel.localLocationName
-        await weatherViewModel.getLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezone: timezone)
+        await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezone: timezone)
         
         setCurrentLocationName(name: userLocationName)
         setCurrentLocationTimezone(timezone: timezone)

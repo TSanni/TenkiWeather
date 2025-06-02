@@ -44,5 +44,5 @@ struct VisibilityTileView: View {
         visiblityDescription: "Description",
         backgroundColor: .red
     )
-    .environmentObject(AppStateViewModel.shared)
+    .environmentObject(AppStateViewModel.preview)
 }

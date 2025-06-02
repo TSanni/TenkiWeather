@@ -53,10 +53,7 @@ struct SearchBar: View {
     ZStack {
         Color.orange
         SearchBar(backgroundColor: .indigo)
-            .environmentObject(AppStateViewModel.shared)
-            .environmentObject(WeatherViewModel.shared)
-            .environmentObject(CoreLocationViewModel.shared)
-            .environmentObject(SavedLocationsPersistenceViewModel.shared)
-            .environmentObject(NetworkMonitor())
+            .environmentObject(AppStateViewModel.preview)
+            .environmentObject(CoreLocationViewModel())
     }
 }

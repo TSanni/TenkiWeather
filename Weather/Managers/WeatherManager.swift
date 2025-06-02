@@ -10,10 +10,10 @@ import WeatherKit
 
 
 
-actor WeatherManager {
+class WeatherManager {
     static let shared = WeatherManager()
   
-    func getWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather? {
+    func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather {
         do {
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
             return weather
@@ -283,9 +283,7 @@ extension WeatherManager {
                 )
             }
         }
-        
 
-        
         return allHours
     }
 }

@@ -45,10 +45,11 @@ struct TabViews: View {
 }
 
 #Preview {
+    @Previewable @State var selectedTab: WeatherTabs = .today
+
     NavigationStack {
-        TabViews( tabViews: .constant(.today))
-            .environmentObject(WeatherViewModel.shared)
-            .environmentObject(AppStateViewModel.shared)
-            .environmentObject(CoreLocationViewModel.shared)
+        TabViews( tabViews: $selectedTab)
+            .environmentObject(WeatherViewModel.preview)
+            .environmentObject(AppStateViewModel.preview)
     }
 }

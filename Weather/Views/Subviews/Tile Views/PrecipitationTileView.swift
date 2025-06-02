@@ -85,5 +85,5 @@ struct PrecipitationTileView: View {
         backgroundColor: .red
     )
     .frame(width: 200)
-    .environmentObject(AppStateViewModel.shared)
+    .environmentObject(AppStateViewModel.preview)
 }

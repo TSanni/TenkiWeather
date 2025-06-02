@@ -48,8 +48,10 @@ struct WeatherTabSelectionsView: View {
 }
 
 #Preview {
-    WeatherTabSelectionsView(tabViews: .constant(.today))
-        .environmentObject(AppStateViewModel.shared)
+    @Previewable @State var selectedTab: WeatherTabs = .today
+    
+    WeatherTabSelectionsView(tabViews: $selectedTab)
+        .environmentObject(AppStateViewModel.preview)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.indigo)
 }

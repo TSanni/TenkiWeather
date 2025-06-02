@@ -19,41 +19,38 @@ class WeatherViewModel: ObservableObject {
     @Published var currentError: WeatherErrors? = nil
     @Published private(set) var lastUpdated: String = ""
 
-    static let shared = WeatherViewModel()
-    
-    let weatherManager = WeatherManager.shared
-    
-    private init() { }
-    
-    private func setLastUpdated() {
-        DispatchQueue.main.async {
-            self.lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneOffset: TimeZone.current.secondsFromGMT())
-        }
+    private let weatherManager: WeatherManager
+
+
+    init(weatherManager: WeatherManager = WeatherManager.shared) {
+        self.weatherManager = weatherManager
     }
     
-    func getWeather(latitude: Double, longitude: Double, timezone: Int) async {
+    private func setLastUpdated() {
+        self.lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneOffset: TimeZone.current.secondsFromGMT())
+    }
+    
+    func fetchWeather(latitude: Double, longitude: Double, timezone: Int) async {
         do {
-            let weather = try await weatherManager.getWeatherFromWeatherKit(latitude: latitude, longitude: longitude, timezone: timezone)
+            let weather = try await weatherManager.fetchWeatherFromWeatherKit(latitude: latitude, longitude: longitude, timezone: timezone)
             
-            if let weather = weather {
-                
-                let currentWeather = await weatherManager.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
-                
-                let tomorrowWeather = await weatherManager.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: timezone)
-
-                let dailyWeather = await weatherManager.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
-                
-                let weatherAlert = await weatherManager.getWeatherAlert(optionalWeatherAlert: weather.weatherAlerts)
-
-                await MainActor.run {
-                    self.currentWeather = currentWeather
-                    self.tomorrowWeather = tomorrowWeather
-                    self.dailyWeather = dailyWeather
-                    self.weatherAlert = weatherAlert
-                }
-                
+            let currentWeather = weatherManager.getTodayWeather(current: weather.currentWeather, dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+            
+            let tomorrowWeather = weatherManager.getTomorrowWeather(tomorrowWeather: weather.dailyForecast, hours: weather.hourlyForecast, timezoneOffset: timezone)
+            
+            let dailyWeather = weatherManager.getDailyWeather(dailyWeather: weather.dailyForecast, hourlyWeather: weather.hourlyForecast, timezoneOffset: timezone)
+            
+            let weatherAlert = weatherManager.getWeatherAlert(optionalWeatherAlert: weather.weatherAlerts)
+            
+            await MainActor.run {
+                self.currentWeather = currentWeather
+                self.tomorrowWeather = tomorrowWeather
+                self.dailyWeather = dailyWeather
+                self.weatherAlert = weatherAlert
                 setLastUpdated()
             }
+            
+            
         } catch {
             await MainActor.run {
                 currentError = .failedToGetWeatherKitData
@@ -61,23 +58,20 @@ class WeatherViewModel: ObservableObject {
             }
         }
     }
-
-    func getLocalWeather(latitude: Double, longitude: Double, name: String, timezone: Int) async {
+    
+    func fetchLocalWeather(latitude: Double, longitude: Double, name: String, timezone: Int) async {
         do {
-            let weather = try await weatherManager.getWeatherFromWeatherKit(latitude: latitude, longitude: longitude, timezone: timezone)
+            let weather = try await weatherManager.fetchWeatherFromWeatherKit(latitude: latitude, longitude: longitude, timezone: timezone)
             
-            if let weather = weather {
-                let localWeather = await weatherManager.getTodayWeather(
-                    current: weather.currentWeather,
-                    dailyWeather: weather.dailyForecast,
-                    hourlyWeather: weather.hourlyForecast,
-                    timezoneOffset: timezone
-                )
-                
-                await MainActor.run {
-                    self.localWeather = localWeather
-                }
-                
+            let localWeather = weatherManager.getTodayWeather(
+                current: weather.currentWeather,
+                dailyWeather: weather.dailyForecast,
+                hourlyWeather: weather.hourlyForecast,
+                timezoneOffset: timezone
+            )
+            
+            await MainActor.run {
+                self.localWeather = localWeather
                 setLastUpdated()
             }
         } catch {

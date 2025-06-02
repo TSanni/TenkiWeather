@@ -9,16 +9,15 @@ import Foundation
 import CoreData
 
 class SavedLocationsPersistenceViewModel: ObservableObject {
-    static let shared = SavedLocationsPersistenceViewModel()
-    let weatherManager = WeatherManager.shared
-
+    let weatherManager: WeatherManager
     let container: NSPersistentContainer
-
+    
     @Published private(set) var savedLocations: [Location] = []
     @Published var showErrorAlert = false
     @Published var currentError: CoreDataErrors? = nil
     
-    private init() {
+    init() {
+        weatherManager = WeatherManager.shared
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
             if let error = error {
@@ -30,10 +29,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             }
         }
         fetchAllLocations(updateNetwork: true)
-
+        
         container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
-    
     
     func createLocation(locationInfo: SearchLocationModel) {
         let newLocation = Location(context: container.viewContext)
@@ -60,7 +58,6 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             return
         }
         
-        let newName = newName
         entity.name = newName
         saveData()
         fetchAllLocations(updateNetwork: false)
@@ -94,7 +91,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     
     private func saveData() {
         print(#function)
-
+        
         do {
             try container.viewContext.save()
         } catch {
@@ -106,10 +103,10 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     }
     
     func fetchAllLocations(updateNetwork: Bool) {
-         print(#function)
-
-       // let key = UserDefaults.standard.string(forKey: "sortType")
-       // let ascending = UserDefaults.standard.bool(forKey: "ascending")
+        print(#function)
+        
+        // let key = UserDefaults.standard.string(forKey: "sortType")
+        // let ascending = UserDefaults.standard.bool(forKey: "ascending")
         let request = NSFetchRequest<Location>(entityName: "Location")
         request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
         
@@ -145,9 +142,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             let a = try await fetchWeatherPlacesWithTaskGroup(allLocation: savedLocations)
             DispatchQueue.main.async {
                 self.savedLocations = a
-                self.saveData()
             }
-            
+            self.saveData()
+
             fetchAllLocations(updateNetwork: false)
         } catch {
             DispatchQueue.main.async {
@@ -159,11 +156,11 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     
     private func fetchWeatherPlacesWithTaskGroup(allLocation: [Location]) async throws -> [Location] {
         print(#function)
-
+        
         return try await withThrowingTaskGroup(of: Location?.self) { group in
             var weather: [Location] = []
             
-            for location in savedLocations {
+            for location in allLocation {
                 group.addTask {
                     try await self.fetchCurrentWeather(entity: location)
                 }
@@ -181,19 +178,18 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    
-    private func fetchCurrentWeather(entity: Location) async throws -> Location {
-        let weather = try await weatherManager.getWeatherFromWeatherKit(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
-        
-        if let currentWeather = weather {
-            let todaysWeather = await weatherManager.getTodayWeather(
+    private func fetchCurrentWeather(entity: Location) async throws -> Location {        
+        do {
+            let currentWeather = try await weatherManager.fetchWeatherFromWeatherKit(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
+            
+            let todaysWeather = weatherManager.getTodayWeather(
                 current: currentWeather.currentWeather,
                 dailyWeather: currentWeather.dailyForecast,
                 hourlyWeather: currentWeather.hourlyForecast,
                 timezoneOffset: Int(entity.timezone)
             )
             
-            let possibleWeatherAlerts = await weatherManager.getWeatherAlert(optionalWeatherAlert: currentWeather.weatherAlerts)
+            let possibleWeatherAlerts = weatherManager.getWeatherAlert(optionalWeatherAlert: currentWeather.weatherAlerts)
             
             DispatchQueue.main.async {
                 entity.currentDate = todaysWeather.readableDate
@@ -209,8 +205,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             }
             
             return entity
-        } else {
+        } catch {
             throw CoreDataErrors.failedToFetchCurrentWeather
         }
+        
     }
 }

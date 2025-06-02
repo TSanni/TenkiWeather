@@ -53,5 +53,5 @@ struct HumidityTileView: View {
         dewPointDescription: "Dew point description",
         backgroundColor: .red
     )
-    .environmentObject(AppStateViewModel.shared)
+    .environmentObject(AppStateViewModel.preview)
 }

@@ -64,5 +64,5 @@ struct UVIndexTileView: View {
         uvIndexActionRecommendation: "Recommendation",
         backgroundColor: .indigo
     )
-    .environmentObject(AppStateViewModel.shared)
+    .environmentObject(AppStateViewModel.preview)
 }

@@ -156,10 +156,10 @@ struct DailyWeatherCell: View {
         K.ColorsConstants.tenDayBarColor
         VStack {
             DailyWeatherCell(daily:DailyWeatherModelPlaceHolder.placeholder, title: "nil")
-                .environmentObject(AppStateViewModel.shared)
+                .environmentObject(AppStateViewModel.preview)
             
             DailyWeatherCell(daily: DailyWeatherModelPlaceHolder.placeholder, title: "nil")
-                .environmentObject(AppStateViewModel.shared)
+                .environmentObject(AppStateViewModel.preview)
         }
     }
 }

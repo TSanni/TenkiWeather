@@ -145,8 +145,8 @@ struct TodayScreen: View {
 #Preview {
     NavigationStack {
         TodayScreen(currentWeather: TodayWeatherModelPlaceHolder.holderData, dailyWeather: DailyWeatherModelPlaceHolder.placeholderArray, weatherAlert: nil)
-            .environmentObject(AppStateViewModel.shared)
-            .environmentObject(WeatherViewModel.shared)
-            .environmentObject(CoreLocationViewModel.shared)
+            .environmentObject(AppStateViewModel.preview)
+            .environmentObject(WeatherViewModel.preview)
+            .environmentObject(CoreLocationViewModel())
     }
 }

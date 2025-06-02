@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		831AA2742D442F1200FAF5B5 /* rain.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 831AA2732D442F1100FAF5B5 /* rain.lottie */; };
 		831AA2802D493AB800FAF5B5 /* SearchingScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831AA27F2D493AB800FAF5B5 /* SearchingScreenView.swift */; };
 		831AA2822D49557900FAF5B5 /* LocationSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831AA2812D49557900FAF5B5 /* LocationSearchViewModel.swift */; };
+		8325B39E2DEE091A00EBD840 /* ViewModel+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325B39D2DEE091A00EBD840 /* ViewModel+extensions.swift */; };
 		8336164D2B9D554A0045F639 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8336164C2B9D554A0045F639 /* SearchBar.swift */; };
 		8336164F2B9D9B220045F639 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8336164E2B9D9B220045F639 /* SettingsScreen.swift */; };
 		833D7CCB2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */; };
@@ -98,6 +99,16 @@
 		83FD52072B87E464008F875B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FD52062B87E464008F875B /* Helper.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		83A7E5FF2DE5C09E00A6C622 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83E04F982A22DF1B009720AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83E04F9F2A22DF1B009720AB;
+			remoteInfo = "Tenki Weather";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		830279E12A9A5CE100E3487D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		830AF90C2D432F7100AF9A90 /* cloud.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = cloud.lottie; sourceTree = "<group>"; };
@@ -112,6 +123,7 @@
 		831AA2732D442F1100FAF5B5 /* rain.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = rain.lottie; sourceTree = "<group>"; };
 		831AA27F2D493AB800FAF5B5 /* SearchingScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingScreenView.swift; sourceTree = "<group>"; };
 		831AA2812D49557900FAF5B5 /* LocationSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewModel.swift; sourceTree = "<group>"; };
+		8325B39D2DEE091A00EBD840 /* ViewModel+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModel+extensions.swift"; sourceTree = "<group>"; };
 		8336164C2B9D554A0045F639 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		8336164E2B9D9B220045F639 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigCardViewModifier+ViewModifier.swift"; sourceTree = "<group>"; };
@@ -152,7 +164,8 @@
 		839F32EA2A39186C0048EF05 /* WindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindModel.swift; sourceTree = "<group>"; };
 		839F32ED2A3919510048EF05 /* SunModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunModel.swift; sourceTree = "<group>"; };
 		839F32EF2A39198C0048EF05 /* HourlyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherModel.swift; sourceTree = "<group>"; };
-		839F32F72A3BD62C0048EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		839F32F72A3BD62C0048EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83A7E5FB2DE5C09D00A6C622 /* TenkiWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TenkiWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83AFCA272C5F84F200B0F373 /* DailyWeatherModel+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyWeatherModel+Placeholder.swift"; sourceTree = "<group>"; };
 		83AFCA292C5FD06600B0F373 /* HourlyWeatherModel+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HourlyWeatherModel+Placeholder.swift"; sourceTree = "<group>"; };
 		83AFCA2B2C5FD1B300B0F373 /* WindModel+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WindModel+Placeholder.swift"; sourceTree = "<group>"; };
@@ -196,7 +209,18 @@
 		83FD52062B87E464008F875B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		83A7E5FC2DE5C09E00A6C622 /* TenkiWeatherTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TenkiWeatherTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		83A7E5F82DE5C09D00A6C622 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83E04F9D2A22DF1B009720AB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,6 +421,7 @@
 				83FD51F82B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift */,
 				83FD51FE2B87BA3E008F875B /* SubHeaderViewModifier+ViewModifier.swift */,
 				83FD52002B87BA71008F875B /* CustomNavBackButton+ViewModifier.swift */,
+				8325B39D2DEE091A00EBD840 /* ViewModel+extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -407,6 +432,7 @@
 				83146D5D2A5B94C5000631D2 /* Tenki Weather.entitlements */,
 				83E04FA22A22DF1B009720AB /* Weather */,
 				83E04FA72A22DF1E009720AB /* Assets.xcassets */,
+				83A7E5FC2DE5C09E00A6C622 /* TenkiWeatherTests */,
 				83E04FA12A22DF1B009720AB /* Products */,
 				42153E690532CE7A0ADF9022 /* Frameworks */,
 			);
@@ -416,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				83E04FA02A22DF1B009720AB /* Tenki Weather.app */,
+				83A7E5FB2DE5C09D00A6C622 /* TenkiWeatherTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -424,16 +451,16 @@
 			isa = PBXGroup;
 			children = (
 				83E04FA32A22DF1B009720AB /* WeatherApp.swift */,
-				8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */,
-				839F32F72A3BD62C0048EF05 /* Info.plist */,
+				83731A6F2A2FD9F300D481CA /* Views */,
 				8359F4F12BB5E196005F8911 /* Managers */,
 				839F32EC2A3918FD0048EF05 /* Models */,
-				83731A6F2A2FD9F300D481CA /* Views */,
 				83DA72DA2A3FC12800C50C86 /* ViewModels */,
 				83DA72DB2A3FC13500C50C86 /* Utils */,
 				837D7DAE2B7139040031B296 /* SpriteKit */,
 				830CCD5C2D51F58B007717D4 /* Lotties */,
 				83E04FA92A22DF1E009720AB /* Preview Content */,
+				8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */,
+				839F32F72A3BD62C0048EF05 /* Info.plist */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -476,6 +503,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		83A7E5FA2DE5C09D00A6C622 /* TenkiWeatherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83A7E6032DE5C09E00A6C622 /* Build configuration list for PBXNativeTarget "TenkiWeatherTests" */;
+			buildPhases = (
+				83A7E5F72DE5C09D00A6C622 /* Sources */,
+				83A7E5F82DE5C09D00A6C622 /* Frameworks */,
+				83A7E5F92DE5C09D00A6C622 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83A7E6002DE5C09E00A6C622 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				83A7E5FC2DE5C09E00A6C622 /* TenkiWeatherTests */,
+			);
+			name = TenkiWeatherTests;
+			packageProductDependencies = (
+			);
+			productName = TenkiWeatherTests;
+			productReference = 83A7E5FB2DE5C09D00A6C622 /* TenkiWeatherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		83E04F9F2A22DF1B009720AB /* Tenki Weather */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83E04FAE2A22DF1E009720AB /* Build configuration list for PBXNativeTarget "Tenki Weather" */;
@@ -502,9 +552,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
+					83A7E5FA2DE5C09D00A6C622 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 83E04F9F2A22DF1B009720AB;
+					};
 					83E04F9F2A22DF1B009720AB = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -526,11 +580,19 @@
 			projectRoot = "";
 			targets = (
 				83E04F9F2A22DF1B009720AB /* Tenki Weather */,
+				83A7E5FA2DE5C09D00A6C622 /* TenkiWeatherTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		83A7E5F92DE5C09D00A6C622 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83E04F9E2A22DF1B009720AB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -553,6 +615,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		83A7E5F72DE5C09D00A6C622 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83E04F9C2A22DF1B009720AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -599,6 +668,7 @@
 				837D7DA72B6B07C60031B296 /* HourlyForecastLineGraphView.swift in Sources */,
 				83DA72E82A419C7C00C50C86 /* WeatherManager.swift in Sources */,
 				83E04FCA2A25BE35009720AB /* WeatherGraphView.swift in Sources */,
+				8325B39E2DEE091A00EBD840 /* ViewModel+extensions.swift in Sources */,
 				839F32EB2A39186C0048EF05 /* WindModel.swift in Sources */,
 				838461832A508E14000B8E86 /* AppStateViewModel.swift in Sources */,
 				8390BF962A9356CE00E0B865 /* TermsAndConditionsView.swift in Sources */,
@@ -639,7 +709,60 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		83A7E6002DE5C09E00A6C622 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83E04F9F2A22DF1B009720AB /* Tenki Weather */;
+			targetProxy = 83A7E5FF2DE5C09E00A6C622 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		83A7E6012DE5C09E00A6C622 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNXV57SQKM;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.TenkiWeatherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tenki Weather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tenki Weather";
+			};
+			name = Debug;
+		};
+		83A7E6022DE5C09E00A6C622 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QNXV57SQKM;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.TenkiWeatherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tenki Weather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tenki Weather";
+			};
+			name = Release;
+		};
 		83E04FAC2A22DF1E009720AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -850,6 +973,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		83A7E6032DE5C09E00A6C622 /* Build configuration list for PBXNativeTarget "TenkiWeatherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83A7E6012DE5C09E00A6C622 /* Debug */,
+				83A7E6022DE5C09E00A6C622 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		83E04F9B2A22DF1B009720AB /* Build configuration list for PBXProject "Weather" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

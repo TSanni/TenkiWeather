@@ -73,6 +73,6 @@ struct MultiDayScreen: View {
 
 #Preview {
     MultiDayScreen(daily: DailyWeatherModelPlaceHolder.placeholderArray)
-            .environmentObject(AppStateViewModel.shared)
+            .environmentObject(AppStateViewModel.preview)
 }
  
