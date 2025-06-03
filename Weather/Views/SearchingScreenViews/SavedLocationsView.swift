@@ -42,7 +42,6 @@ struct SavedLocationsView: View {
 
 #Preview {
     ZStack {
-        K.ColorsConstants.goodDarkTheme
         SavedLocationsView()
             .environmentObject(SavedLocationsPersistenceViewModel())
             .environmentObject(AppStateViewModel.preview)

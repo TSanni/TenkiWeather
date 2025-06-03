@@ -194,16 +194,12 @@ extension MainScreen {
 #Preview {
     NavigationStack {
         MainScreen()
-            .environmentObject(WeatherViewModel(weatherManager: WeatherManager.shared))
+            .environmentObject(WeatherViewModel.preview)
             .environmentObject(CoreLocationViewModel())
             .environmentObject(NetworkMonitor())
             .environmentObject(SavedLocationsPersistenceViewModel())
             .environmentObject(LocationSearchViewModel())
-            .environmentObject(AppStateViewModel(
-                weatherManager: WeatherManager.shared,
-                locationViewModel: CoreLocationViewModel(),
-                weatherViewModel: WeatherViewModel(weatherManager: WeatherManager.shared),
-                persistence: SavedLocationsPersistenceViewModel())
-            )
+            .environmentObject(AppStateViewModel.preview)
+            
     }
 }

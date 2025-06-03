@@ -134,6 +134,7 @@ struct TodayScreen: View {
                 }
             }
         }
+        .background(currentWeather.backgroundColor)
     }
 }
 

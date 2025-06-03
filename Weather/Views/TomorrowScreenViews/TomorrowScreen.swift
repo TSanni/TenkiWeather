@@ -97,6 +97,7 @@ struct TomorrowScreen: View {
                 
             }
         }
+        .background(dailyWeather.backgroundColor)
     }
     
 }
