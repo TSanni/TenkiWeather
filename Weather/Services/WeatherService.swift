@@ -8,7 +8,7 @@
 import Foundation
 import WeatherKit
 
-protocol WeatherManagerProtocol {
+protocol WeatherServiceProtocol {
     func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather
 
     func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> TodayWeatherModel
@@ -20,7 +20,7 @@ protocol WeatherManagerProtocol {
     func getWeatherAlert(optionalWeatherAlert: [WeatherAlert]?) -> WeatherAlertModel?
 }
 
-class WeatherManager: WeatherManagerProtocol {
+class ProductionWeatherService: WeatherServiceProtocol {
   
     func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather {
         do {
@@ -235,7 +235,7 @@ class WeatherManager: WeatherManagerProtocol {
 
 
 //MARK: - Private functions
-extension WeatherManager {
+extension ProductionWeatherService {
     
     /// This functions returns an array of hourly weather data for the next fifteen hours.
     private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyWeatherModel] {

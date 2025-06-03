@@ -13,8 +13,8 @@ struct DailyWeatherModelPlaceHolder {
     static let placeholder = DailyWeatherModel(
         highTemperature: Measurement(value: 0, unit: .fahrenheit),
         lowTemperature: Measurement(value: 0, unit: .fahrenheit),
-        precipitation: Precipitation.hail,
-        precipitationChance: 0,
+        precipitation: Precipitation.rain,
+        precipitationChance: 0.8,
         sun: SunModelPlaceholder.sunDataHolder,
         wind: WindModelPlaceholder.windDataHolder[0],
         date: Date.distantFuture,

@@ -9,14 +9,14 @@ import Foundation
 import CoreData
 
 class SavedLocationsPersistenceViewModel: ObservableObject {
-    private let weatherManager: WeatherManagerProtocol
+    private let weatherManager: WeatherServiceProtocol
     private let container: NSPersistentContainer
     
     @Published private(set) var savedLocations: [Location] = []
     @Published var showErrorAlert = false
     @Published var currentError: CoreDataErrors? = nil
     
-    init(weatherManager: WeatherManagerProtocol) {
+    init(weatherManager: WeatherServiceProtocol) {
         self.weatherManager = weatherManager
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in

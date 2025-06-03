@@ -7,11 +7,10 @@
 
 import Foundation
 
-//TODO: Replace WeatherManager() with a mock Weather Manager for previews
 
 extension AppStateViewModel {
     static var preview: AppStateViewModel {
-        let weatherManager = WeatherManager()
+        let weatherManager = MockWeatherService()
         let vm = AppStateViewModel(
             locationViewModel: CoreLocationViewModel(),
             weatherViewModel: WeatherViewModel(weatherManager: weatherManager),
@@ -24,7 +23,7 @@ extension AppStateViewModel {
 
 extension WeatherViewModel {
     static var preview: WeatherViewModel {
-        let weatherManager = WeatherManager()
+        let weatherManager = MockWeatherService()
         let vm = WeatherViewModel(weatherManager: weatherManager)
         
         return vm
@@ -41,7 +40,7 @@ extension CoreLocationViewModel {
 
 extension SavedLocationsPersistenceViewModel {
     static var preview: SavedLocationsPersistenceViewModel {
-        let weatherManager = WeatherManager()
+        let weatherManager = MockWeatherService()
         let vm = SavedLocationsPersistenceViewModel(weatherManager: weatherManager)
         
         return vm

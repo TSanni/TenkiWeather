@@ -15,43 +15,28 @@ struct MainScreen: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.scenePhase) var scenePhase
     
-    @StateObject var weatherViewModel: WeatherViewModel
-    @StateObject var appStateViewModel: AppStateViewModel
-    @StateObject var networkManager: NetworkMonitor
-    @StateObject var locationViewModel: CoreLocationViewModel
-    @StateObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
-    @StateObject var locationSearchViewModel: LocationSearchViewModel
+    @EnvironmentObject var weatherViewModel: WeatherViewModel
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
+    @EnvironmentObject var networkManager: NetworkMonitor
+    @EnvironmentObject var locationViewModel: CoreLocationViewModel
+    @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
+    @EnvironmentObject var locationSearchViewModel: LocationSearchViewModel
     
     //Must use @State instead of view model because this is the only way to make animations work
     @State var tabViews: WeatherTabs = .today
     @State private var savedDate = Date()
     
     let backgroundClass = BackgroundTasksManager()
-    let deviceType = UIDevice.current.userInterfaceIdiom
-    
-    init() {
-        let weatherManager = WeatherManager()
-        let locationVM = CoreLocationViewModel()
-        let weatherVM = WeatherViewModel(weatherManager: weatherManager)
-        let persistenceVM = SavedLocationsPersistenceViewModel(weatherManager: weatherManager)
-        
-        _weatherViewModel = StateObject(wrappedValue: weatherVM)
-        _appStateViewModel = StateObject(wrappedValue: AppStateViewModel(
-            locationViewModel: locationVM,
-            weatherViewModel: weatherVM,
-            persistence: persistenceVM
-        ))
-        _networkManager = StateObject(wrappedValue: NetworkMonitor())
-        _locationViewModel = StateObject(wrappedValue: locationVM)
-        _savedLocationPersistenceViewModel = StateObject(wrappedValue: persistenceVM)
-        _locationSearchViewModel = StateObject(wrappedValue: LocationSearchViewModel())
+    var deviceType: UIUserInterfaceIdiom {
+        UIDevice.current.userInterfaceIdiom
     }
+
     
     var body: some View {
         ZStack {
             getBackgroundColor.ignoresSafeArea()
             
-            getScene
+            weatherEffectSceneView
             
             VStack(spacing: 0) {
                 
@@ -78,7 +63,7 @@ struct MainScreen: View {
             .disabled(appStateViewModel.showSettingScreen ? true : false)
             .animation(deviceType == .pad ? nil : .default, value: tabViews)
             
-            progresView
+            progressView
             
         }
         .lineLimit(1)
@@ -96,12 +81,12 @@ struct MainScreen: View {
         }
         
         .alert(isPresented: $weatherViewModel.showErrorAlert, error: weatherViewModel.currentError) { _ in
-            
+            Button("OK", role: .cancel) { }
         } message: { error in
             Text(error.recoverySuggestion ?? "Try again later")
         }
         .alert(isPresented: $savedLocationPersistenceViewModel.showErrorAlert, error: savedLocationPersistenceViewModel.currentError) { _ in
-            
+            Button("OK", role: .cancel) { }
         } message: { error in
             Text(error.recoverySuggestion ?? "Try again later")
         }
@@ -132,9 +117,6 @@ struct MainScreen: View {
                         await appStateViewModel.getWeather()
                         await savedLocationPersistenceViewModel.callFetchWeatherPlacesWithTaskGroup()
                         savedDate = Date()
-                    } else {
-                        // 10 minutes have NOT passed, do nothing
-                        return
                     }
                 }
                 
@@ -166,7 +148,7 @@ extension MainScreen {
     }
     
     @ViewBuilder
-    private var getScene: some View {
+    private var weatherEffectSceneView: some View {
         switch tabViews {
         case .today:
             if let scene = weatherViewModel.currentWeather.scene {
@@ -182,7 +164,7 @@ extension MainScreen {
     }
     
     @ViewBuilder
-    private var progresView: some View {
+    private var progressView: some View {
         if appStateViewModel.loading {
             ProgressView()
         }

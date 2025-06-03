@@ -19,10 +19,10 @@ class WeatherViewModel: ObservableObject {
     @Published var currentError: WeatherErrors? = nil
     @Published private(set) var lastUpdated: String = ""
 
-    private let weatherManager: WeatherManagerProtocol
+    private let weatherManager: WeatherServiceProtocol
 
 
-    init(weatherManager: WeatherManagerProtocol) {
+    init(weatherManager: WeatherServiceProtocol) {
         self.weatherManager = weatherManager
     }
     
