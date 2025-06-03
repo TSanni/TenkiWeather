@@ -9,15 +9,15 @@ import Foundation
 import CoreData
 
 class SavedLocationsPersistenceViewModel: ObservableObject {
-    let weatherManager: WeatherManager
-    let container: NSPersistentContainer
+    private let weatherManager: WeatherManagerProtocol
+    private let container: NSPersistentContainer
     
     @Published private(set) var savedLocations: [Location] = []
     @Published var showErrorAlert = false
     @Published var currentError: CoreDataErrors? = nil
     
-    init() {
-        weatherManager = WeatherManager.shared
+    init(weatherManager: WeatherManagerProtocol) {
+        self.weatherManager = weatherManager
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
             if let error = error {

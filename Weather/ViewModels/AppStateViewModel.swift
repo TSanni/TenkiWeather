@@ -36,13 +36,11 @@ import CoreLocation
 
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
-    let weatherManager: WeatherManager
-    let locationViewModel: CoreLocationViewModel
-    let weatherViewModel: WeatherViewModel
-    let persistence: SavedLocationsPersistenceViewModel
+    private let locationViewModel: CoreLocationViewModel
+    private let weatherViewModel: WeatherViewModel
+    private let persistence: SavedLocationsPersistenceViewModel
     
-    init(weatherManager: WeatherManager, locationViewModel: CoreLocationViewModel, weatherViewModel: WeatherViewModel, persistence: SavedLocationsPersistenceViewModel) {
-        self.weatherManager = weatherManager
+    init(locationViewModel: CoreLocationViewModel, weatherViewModel: WeatherViewModel, persistence: SavedLocationsPersistenceViewModel) {
         self.locationViewModel = locationViewModel
         self.weatherViewModel = weatherViewModel
         self.persistence = persistence

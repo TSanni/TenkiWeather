@@ -207,7 +207,7 @@ struct SettingsScreen: View {
     NavigationStack {
         SettingsScreen()
             .environmentObject(AppStateViewModel.preview)
-            .environmentObject(SavedLocationsPersistenceViewModel())
+            .environmentObject(SavedLocationsPersistenceViewModel.preview)
             .environmentObject(WeatherViewModel.preview)
     }
 }

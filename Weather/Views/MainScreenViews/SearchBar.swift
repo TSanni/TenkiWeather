@@ -54,6 +54,6 @@ struct SearchBar: View {
         Color.orange
         SearchBar(backgroundColor: .indigo)
             .environmentObject(AppStateViewModel.preview)
-            .environmentObject(CoreLocationViewModel())
+            .environmentObject(CoreLocationViewModel.preview)
     }
 }

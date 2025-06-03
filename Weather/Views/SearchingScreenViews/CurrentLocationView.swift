@@ -61,6 +61,6 @@ struct CurrentLocationView: View {
 
 #Preview {
     CurrentLocationView(localWeather: TodayWeatherModelPlaceHolder.holderData)
-        .environmentObject(CoreLocationViewModel())
+        .environmentObject(CoreLocationViewModel.preview)
         .environmentObject(AppStateViewModel.preview)
 }

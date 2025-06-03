@@ -52,7 +52,13 @@ struct WeatherAlertTileView: View {
 }
 
 #Preview {
-    let holder = WeatherAlertModel(detailsURL: URL(string: "https://www.google.com")!, region: "Fort Bend", severity: .severe, source: "National Weather Service", summary: "Excessive heat warning")
+    let holder = WeatherAlertModel(
+        detailsURL: URL(string: "https://www.google.com")!,
+        region: "Fort Bend",
+        severity: .severe,
+        source: "National Weather Service",
+        summary: "Excessive heat warning"
+    )
     WeatherAlertTileView(weatherAlert: holder)
 }
 

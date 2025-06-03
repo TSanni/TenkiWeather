@@ -121,7 +121,7 @@ struct SearchingScreenView: View {
     SearchingScreenView()
         .environmentObject(WeatherViewModel.preview)
         .environmentObject(AppStateViewModel.preview)
-        .environmentObject(LocationSearchViewModel())
-        .environmentObject(CoreLocationViewModel())
-        .environmentObject(SavedLocationsPersistenceViewModel())
+        .environmentObject(LocationSearchViewModel.preview)
+        .environmentObject(CoreLocationViewModel.preview)
+        .environmentObject(SavedLocationsPersistenceViewModel.preview)
 }

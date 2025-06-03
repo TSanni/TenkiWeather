@@ -148,6 +148,6 @@ struct TodayScreen: View {
         TodayScreen(currentWeather: TodayWeatherModelPlaceHolder.holderData, dailyWeather: DailyWeatherModelPlaceHolder.placeholderArray, weatherAlert: nil)
             .environmentObject(AppStateViewModel.preview)
             .environmentObject(WeatherViewModel.preview)
-            .environmentObject(CoreLocationViewModel())
+            .environmentObject(CoreLocationViewModel.preview)
     }
 }

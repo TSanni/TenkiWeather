@@ -43,7 +43,7 @@ struct SavedLocationsView: View {
 #Preview {
     ZStack {
         SavedLocationsView()
-            .environmentObject(SavedLocationsPersistenceViewModel())
+            .environmentObject(SavedLocationsPersistenceViewModel.preview)
             .environmentObject(AppStateViewModel.preview)
     }
 }

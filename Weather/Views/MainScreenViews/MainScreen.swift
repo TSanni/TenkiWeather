@@ -30,14 +30,13 @@ struct MainScreen: View {
     let deviceType = UIDevice.current.userInterfaceIdiom
     
     init() {
-        let weatherManager = WeatherManager.shared
+        let weatherManager = WeatherManager()
         let locationVM = CoreLocationViewModel()
         let weatherVM = WeatherViewModel(weatherManager: weatherManager)
-        let persistenceVM = SavedLocationsPersistenceViewModel()
+        let persistenceVM = SavedLocationsPersistenceViewModel(weatherManager: weatherManager)
         
         _weatherViewModel = StateObject(wrappedValue: weatherVM)
         _appStateViewModel = StateObject(wrappedValue: AppStateViewModel(
-            weatherManager: weatherManager,
             locationViewModel: locationVM,
             weatherViewModel: weatherVM,
             persistence: persistenceVM
@@ -195,10 +194,10 @@ extension MainScreen {
     NavigationStack {
         MainScreen()
             .environmentObject(WeatherViewModel.preview)
-            .environmentObject(CoreLocationViewModel())
-            .environmentObject(NetworkMonitor())
-            .environmentObject(SavedLocationsPersistenceViewModel())
-            .environmentObject(LocationSearchViewModel())
+            .environmentObject(CoreLocationViewModel.preview)
+            .environmentObject(NetworkMonitor.preview)
+            .environmentObject(SavedLocationsPersistenceViewModel.preview)
+            .environmentObject(LocationSearchViewModel.preview)
             .environmentObject(AppStateViewModel.preview)
             
     }
