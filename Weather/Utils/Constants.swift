@@ -16,7 +16,8 @@ enum K {
     static let tileCornerRadius: CGFloat = 20
     static let legalAttributionURL = "https://weatherkit.apple.com/legal-attribution.html"
     static let defaultTimezoneIdentifier = "America/Chicago"
-    
+    static let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+
     struct MockData {
         static let names = ["Los Angeles, CA, United States", "New York, NY, United States", "Seoul, South Korea", "Gyeongsangnam-do, South Korea", "Tokyo, Japan", "Koka, Shiga, Japan", "Dayuan District , TAO, Taiwan", "Zürich, Switzerland", "Nagoya, Japan", "Miami, United States", "Cairo, Egypt", "Washington, DC, United States", "Svalbard, Norway", "Sapporo, Japan", "Oregon, United States", "Madrid, Spain", "Sugar Land, TX, United States", "São Paulo - SP, Brazil"]
         
@@ -31,6 +32,7 @@ enum K {
         static let unitPrecipitationKey = "UnitPrecipitation"
         static let timePreferenceKey = "24HourTime"
         static let showTemperatureUnitKey = "showTemperatureUnitKey"
+        static let migrationFlagKey = "hasMigratedTimezones"
     }
 
     struct LocationDictionaryKeysConstants {
@@ -68,6 +70,7 @@ enum K {
         static let oneHourInSeconds = 3600.0
         static let sevenHoursInSeconds = 25000.0
         static let twentyFourHoursInSeconds = 86400.0
+        static let tenMinutesInSeconds = 60 * 10
         static let fifteenHours = 15
         static let twentyFourHours = 24
         static let hourOnly = "h a" // Ex) 7 AM

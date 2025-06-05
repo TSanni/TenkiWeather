@@ -12,13 +12,14 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     private let weatherManager: WeatherServiceProtocol
     private let coreLocationModel: CoreLocationViewModel
     private let container: NSPersistentContainer
-    private let timezoneMigrationFlagKey = "hasMigratedTimezones"
+    private let timezoneMigrationFlagKey = K.UserDefaultKeys.migrationFlagKey
 
     @Published private(set) var savedLocations: [Location] = []
     @Published var showErrorAlert = false
     @Published var currentError: CoreDataErrors? = nil
     
     init(weatherManager: WeatherServiceProtocol, coreLocationModel: CoreLocationViewModel) {
+        print(#function)
         self.weatherManager = weatherManager
         self.coreLocationModel = coreLocationModel
         container = NSPersistentContainer(name: "Locations")
@@ -38,6 +39,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     
     
     private func migrateTimezoneDataIfNeeded() {
+        print(#function)
         let hasMigrated = UserDefaults.standard.bool(forKey: timezoneMigrationFlagKey)
         guard !hasMigrated else {
             print("✅ Timezone migration already done.")
@@ -175,9 +177,9 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
         
         do {
-            let a = try await fetchWeatherPlacesWithTaskGroup(allLocation: savedLocations)
+            let updatedLocations = try await fetchWeatherPlacesWithTaskGroup(allLocation: savedLocations)
             await MainActor.run {
-                self.savedLocations = a
+                self.savedLocations = updatedLocations
             }
             
             fetchAllLocations(updateNetwork: false)

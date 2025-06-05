@@ -34,8 +34,6 @@ import CoreLocation
             weatherAlert: false,
             timezone: 0
         )
-
-    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     private let locationViewModel: CoreLocationViewModel
     private let weatherViewModel: WeatherViewModel

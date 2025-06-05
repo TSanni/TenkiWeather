@@ -111,7 +111,7 @@ struct MainScreen: View {
             switch newValue {
             case .active:
                 Task {
-                    if -savedDate.timeIntervalSinceNow > 60 * 10 {
+                    if -savedDate.timeIntervalSinceNow > Double(K.TimeConstants.tenMinutesInSeconds) {
                         // 10 minutes have passed, refresh the data
                         await appStateViewModel.getWeather()
                         await savedLocationPersistenceViewModel.callFetchWeatherPlacesWithTaskGroup()

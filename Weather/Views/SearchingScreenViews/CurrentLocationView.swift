@@ -34,7 +34,7 @@ struct CurrentLocationView: View {
                             Text(localWeather.currentTemperature + " • " + localWeather.weatherDescription)
                             Spacer()
                             Text(time)
-                                .onReceive(appStateViewModel.timer) { _ in
+                                .onReceive(K.timer) { _ in
                                     time = Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: localWeather.timezoneIdentifier)
                                 }
                         }
