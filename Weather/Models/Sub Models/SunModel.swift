@@ -14,33 +14,33 @@ struct SunModel {
     let civilDawn: Date?
     let solarNoon: Date?
     let civilDusk: Date?
-    let timezone: Int
+    let timezoneIdentifier: String
     
     var sunriseTime: String {
-        Helper.getReadableHourAndMinute(date: sunrise, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: sunrise, timezoneIdentifier: timezoneIdentifier)
     }
     
     var sunsetTime: String {
-        Helper.getReadableHourAndMinute(date: sunset, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: sunset, timezoneIdentifier: timezoneIdentifier)
     }
     
     var dawn: String {
-        Helper.getReadableHourAndMinute(date: civilDawn, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: civilDawn, timezoneIdentifier: timezoneIdentifier)
     }
     
     var solarNoonTime: String {
-        Helper.getReadableHourAndMinute(date: solarNoon, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: solarNoon, timezoneIdentifier: timezoneIdentifier)
     }
     
     var dusk: String {
-        Helper.getReadableHourAndMinute(date: civilDusk, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: civilDusk, timezoneIdentifier: timezoneIdentifier)
     }
     
     var duskDescription: String {
-        return "Dusk: \(Helper.getReadableHourAndMinute(date: civilDusk, timezoneOffset: timezone))"
+        return "Dusk: \(Helper.getReadableHourAndMinute(date: civilDusk, timezoneIdentifier: timezoneIdentifier))"
     }
     
     var dawnDescription: String {
-        return "Dawn: \(Helper.getReadableHourAndMinute(date: civilDawn, timezoneOffset: timezone))"
+        return "Dawn: \(Helper.getReadableHourAndMinute(date: civilDawn, timezoneIdentifier: timezoneIdentifier))"
     }
 }

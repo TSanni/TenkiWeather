@@ -9,20 +9,20 @@ import Foundation
 import WeatherKit
 
 protocol WeatherServiceProtocol {
-    func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather
+    func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezoneIdentifier: String) async throws -> Weather
 
-    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> TodayWeatherModel
+    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneIdentifier: String) -> TodayWeatherModel
     
-    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> DailyWeatherModel
+    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneIdentifier: String) -> DailyWeatherModel
     
-    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> [DailyWeatherModel]
+    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneIdentifier: String) -> [DailyWeatherModel]
 
     func getWeatherAlert(optionalWeatherAlert: [WeatherAlert]?) -> WeatherAlertModel?
 }
 
 class ProductionWeatherService: WeatherServiceProtocol {
   
-    func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather {
+    func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezoneIdentifier: String) async throws -> Weather {
         do {
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
             return weather
@@ -34,7 +34,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
 
     //MARK: - Get the Current Weather
     // add a parameter here that takes UnitTemperature type
-    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> TodayWeatherModel {
+    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneIdentifier: String) -> TodayWeatherModel {
         
         /// Filters the hourly forecasts and returns only the items that start at the current hour and beyond
          let hourlyDatesStartingFromNow = hourlyWeather.filter({ hourlyWeatherItem in
@@ -56,14 +56,14 @@ class ProductionWeatherService: WeatherServiceProtocol {
             civilDawn: dailyWeather[0].sun.civilDawn,
             solarNoon: dailyWeather[0].sun.solarNoon,
             civilDusk: dailyWeather[0].sun.civilDusk,
-            timezone: timezoneOffset
+            timezoneIdentifier: timezoneIdentifier
         )
         
         let moonData = MoonModel(
             moonrise: dailyWeather[0].moon.moonrise,
             moonset: dailyWeather[0].moon.moonset,
             phase: dailyWeather[0].moon.phase,
-            timezone: timezoneOffset
+            timezoneIdentifier: timezoneIdentifier
         )
         
         /// 12 hour forecast data for the Wind and temperatures
@@ -81,7 +81,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
                     date: hourlyDatesStartingFromNow[i].date,
                     precipitationChance: hourlyDatesStartingFromNow[i].precipitationChance, 
                     symbol: hourlyDatesStartingFromNow[i].symbolName,
-                    timezone: timezoneOffset,
+                    timezoneIdentifier: timezoneIdentifier,
                     condition: hourlyDatesStartingFromNow[i].condition,
                     isDayLight: hourlyDatesStartingFromNow[i].isDaylight
                 )
@@ -109,7 +109,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
             precipitationChance: dailyWeather[0].precipitationChance,
             sunData: sunData,
             hourlyWeather: hourlyTemperatures,
-            timezeone: timezoneOffset,
+            timezoneIdentifier: timezoneIdentifier,
             moonData: moonData
         )
 
@@ -117,11 +117,11 @@ class ProductionWeatherService: WeatherServiceProtocol {
     }
     
     //MARK: - Get Tomorrow's Weather
-    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> DailyWeatherModel {
+    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneIdentifier: String) -> DailyWeatherModel {
         /// Tomorrow's date
         let tomorrowWeather = tomorrowWeather[1]
         
-        let hourlyWeatherForTomorrow = getHourlyWeatherForDay(day: tomorrowWeather, hours: hours, timezoneOffset: timezoneOffset)
+        let hourlyWeatherForTomorrow = getHourlyWeatherForDay(day: tomorrowWeather, hours: hours, timezoneIdentifier: timezoneIdentifier)
 
         let sunDetails = SunModel(
             sunrise: tomorrowWeather.sun.sunrise,
@@ -129,7 +129,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
             civilDawn: tomorrowWeather.sun.civilDawn,
             solarNoon: tomorrowWeather.sun.solarNoon,
             civilDusk: tomorrowWeather.sun.civilDusk,
-            timezone: timezoneOffset
+            timezoneIdentifier: timezoneIdentifier
         )
         
         let tomorrowsWindData = WindModel(
@@ -150,7 +150,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
             uvIndexCategory: tomorrowWeather.uvIndex.category,
             symbolName: tomorrowWeather.symbolName,
             hourlyWeather: hourlyWeatherForTomorrow,
-            timezone: timezoneOffset,
+            timezoneIdentifier: timezoneIdentifier,
             precipitationAmountByType: tomorrowWeather.precipitationAmountByType
         )
         
@@ -158,7 +158,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
     }
     
     //MARK: - Get the Daily Weather
-    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> [DailyWeatherModel] {
+    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneIdentifier: String) -> [DailyWeatherModel] {
 
         var daily: [DailyWeatherModel] = []
 
@@ -170,7 +170,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
                 civilDawn: dailyWeather[day].sun.civilDawn,
                 solarNoon: dailyWeather[day].sun.solarNoon,
                 civilDusk: dailyWeather[day].sun.civilDusk,
-                timezone: timezoneOffset
+                timezoneIdentifier: timezoneIdentifier
             )
             
             let windDetails = WindModel(
@@ -178,7 +178,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
                 compassDirection: dailyWeather[day].wind.compassDirection
             )
             
-            let hourlyTempsForDay = getHourlyWeatherForDay(day: dailyWeather[day], hours: hourlyWeather, timezoneOffset: timezoneOffset)
+            let hourlyTempsForDay = getHourlyWeatherForDay(day: dailyWeather[day], hours: hourlyWeather, timezoneIdentifier: timezoneIdentifier)
             
             daily.append(
                 DailyWeatherModel(
@@ -194,7 +194,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
                     uvIndexCategory: dailyWeather[day].uvIndex.category,
                     symbolName: dailyWeather[day].symbolName,
                     hourlyWeather: hourlyTempsForDay,
-                    timezone: timezoneOffset,
+                    timezoneIdentifier: timezoneIdentifier,
                     precipitationAmountByType: dailyWeather[day].precipitationAmountByType
                 )
             )
@@ -238,7 +238,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
 extension ProductionWeatherService {
     
     /// This functions returns an array of hourly weather data for the next fifteen hours.
-    private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneOffset: Int) -> [HourlyWeatherModel] {
+    private func getHourlyWeatherForDay(day: DayWeather, hours: Forecast<HourWeather>, timezoneIdentifier: String) -> [HourlyWeatherModel] {
         var allHours: [HourlyWeatherModel] = []
         
         /// Gets all hourly forecasts starting with 12AM that day
@@ -263,7 +263,7 @@ extension ProductionWeatherService {
                         date: nextDayWeatherHours[i].date,
                         precipitationChance: nextDayWeatherHours[i].precipitationChance,
                         symbol: nextDayWeatherHours[i].symbolName,
-                        timezone: timezoneOffset,
+                        timezoneIdentifier: timezoneIdentifier,
                         condition: nextDayWeatherHours[i].condition,
                         isDayLight: nextDayWeatherHours[i].isDaylight
                     )
@@ -285,7 +285,7 @@ extension ProductionWeatherService {
                         date: nextDayWeatherHours[i].date,
                         precipitationChance: nextDayWeatherHours[i].precipitationChance,
                         symbol: nextDayWeatherHours[i].symbolName,
-                        timezone: timezoneOffset,
+                        timezoneIdentifier: timezoneIdentifier,
                         condition: nextDayWeatherHours[i].condition,
                         isDayLight: nextDayWeatherHours[i].isDaylight
                     )

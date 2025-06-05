@@ -10,27 +10,60 @@ import CoreData
 
 class SavedLocationsPersistenceViewModel: ObservableObject {
     private let weatherManager: WeatherServiceProtocol
+    private let coreLocationModel: CoreLocationViewModel
     private let container: NSPersistentContainer
-    
+    private let timezoneMigrationFlagKey = "hasMigratedTimezones"
+
     @Published private(set) var savedLocations: [Location] = []
     @Published var showErrorAlert = false
     @Published var currentError: CoreDataErrors? = nil
     
-    init(weatherManager: WeatherServiceProtocol) {
+    init(weatherManager: WeatherServiceProtocol, coreLocationModel: CoreLocationViewModel) {
         self.weatherManager = weatherManager
+        self.coreLocationModel = coreLocationModel
         container = NSPersistentContainer(name: "Locations")
         container.loadPersistentStores { description, error in
             if let error = error {
                 DispatchQueue.main.async {
                     self.currentError = .failedToLoad
                 }
-                print("ERROR LOADING CORE DATA \(error)")
+                print("❌ ERROR LOADING CORE DATA \(error)")
                 return
             }
         }
         fetchAllLocations(updateNetwork: true)
-        
+
         container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+    }
+    
+    
+    private func migrateTimezoneDataIfNeeded() {
+        let hasMigrated = UserDefaults.standard.bool(forKey: timezoneMigrationFlagKey)
+        guard !hasMigrated else {
+            print("✅ Timezone migration already done.")
+            return
+        }
+
+        print("--- MIGRATING DATA ---")
+        
+        Task {
+            for location in savedLocations {
+                if location.timezoneIdentifier != nil { continue }
+
+                if let placeData = await coreLocationModel.getPlaceDataFromCoordinates(latitude: location.latitude, longitude: location.longitude),
+                   let tz = placeData.timeZone {
+                    await MainActor.run {
+                        location.timezoneIdentifier = tz.identifier
+                    }
+                }
+            }
+
+            await MainActor.run {
+                self.saveData()
+                UserDefaults.standard.set(true, forKey: self.timezoneMigrationFlagKey)
+                print("✅ Timezone migration completed and flag set.")
+            }
+        }
     }
     
     func createLocation(locationInfo: SearchLocationModel) {
@@ -41,12 +74,13 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         newLocation.latitude = locationInfo.latitude
         newLocation.longitude = locationInfo.longitude
         newLocation.timeAdded = Date.now
-        newLocation.timezone = Double(locationInfo.timezone)
+        newLocation.timezoneIdentifier = locationInfo.timeZoneIdentifier
         newLocation.temperature = locationInfo.temperature
         newLocation.currentDate = locationInfo.date
         newLocation.sfSymbol = locationInfo.symbol
         newLocation.weatherCondition = locationInfo.weatherCondition
         newLocation.weatherAlert = locationInfo.weatherAlert
+        newLocation.timezone = Double(locationInfo.timezone)
         
         saveData()
         fetchAllLocations(updateNetwork: true)
@@ -102,7 +136,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    func fetchAllLocations(updateNetwork: Bool) {
+    private func fetchAllLocations(updateNetwork: Bool) {
         print(#function)
         
         // let key = UserDefaults.standard.string(forKey: "sortType")
@@ -114,13 +148,15 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
             let fetchedLocation = try container.viewContext.fetch(request)
             DispatchQueue.main.async {
                 self.savedLocations = fetchedLocation
-                
+                self.migrateTimezoneDataIfNeeded()
+
                 if updateNetwork {
-                    print("updating network")
+                    print("🛜 updating network")
                     Task(priority: .background) {
                         await self.callFetchWeatherPlacesWithTaskGroup()
                     }
                 }
+                
             }
         } catch {
             DispatchQueue.main.async {
@@ -140,14 +176,13 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         
         do {
             let a = try await fetchWeatherPlacesWithTaskGroup(allLocation: savedLocations)
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.savedLocations = a
             }
-            self.saveData()
-
+            
             fetchAllLocations(updateNetwork: false)
         } catch {
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.showErrorAlert.toggle()
                 self.currentError = .failedToFetch
             }
@@ -178,20 +213,20 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    private func fetchCurrentWeather(entity: Location) async throws -> Location {        
+    private func fetchCurrentWeather(entity: Location) async throws -> Location {
         do {
-            let currentWeather = try await weatherManager.fetchWeatherFromWeatherKit(latitude: entity.latitude, longitude: entity.longitude, timezone: Int(entity.timezone))
+            let currentWeather = try await weatherManager.fetchWeatherFromWeatherKit(latitude: entity.latitude, longitude: entity.longitude, timezoneIdentifier: entity.timezoneIdentifier ?? K.defaultTimezoneIdentifier)
             
             let todaysWeather = weatherManager.getTodayWeather(
                 current: currentWeather.currentWeather,
                 dailyWeather: currentWeather.dailyForecast,
                 hourlyWeather: currentWeather.hourlyForecast,
-                timezoneOffset: Int(entity.timezone)
+                timezoneIdentifier: entity.timezoneIdentifier ?? K.defaultTimezoneIdentifier
             )
             
             let possibleWeatherAlerts = weatherManager.getWeatherAlert(optionalWeatherAlert: currentWeather.weatherAlerts)
             
-            DispatchQueue.main.async {
+            await MainActor.run {
                 entity.currentDate = todaysWeather.readableDate
                 entity.temperature = todaysWeather.temperature.value.description
                 entity.sfSymbol = todaysWeather.symbolName

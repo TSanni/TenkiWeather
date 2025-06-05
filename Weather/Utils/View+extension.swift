@@ -37,4 +37,8 @@ extension View {
     func bigCardTileModifier(backgroundColor: Color) -> some View {
         return self.modifier(BigCardViewModifier(backgroundColor: backgroundColor))
     }
+    
+    func navigationBarColor(_ backgroundColor: UIColor?) -> some View {
+        self.modifier(NavigationBarModifier(backgroundColor: backgroundColor))
+    }
 }

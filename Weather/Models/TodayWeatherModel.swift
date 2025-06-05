@@ -32,7 +32,7 @@ struct TodayWeatherModel: Identifiable {
     let precipitationChance: Double
     let sunData: SunModel
     let hourlyWeather: [HourlyWeatherModel]
-    let timezeone: Int
+    let timezoneIdentifier: String
     let moonData: MoonModel
 }
 
@@ -55,8 +55,8 @@ extension TodayWeatherModel {
             return nil
         }
         
-        let currentDay = Helper.getDayOfWeekAndDate(date: currentHour.date, timezoneOffset: timezeone)
-        let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneOffset: timezeone)
+        let currentDay = Helper.getDayOfWeekAndDate(date: currentHour.date, timezoneIdentifier: timezoneIdentifier)
+        let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneIdentifier: timezoneIdentifier)
         
         if currentDay == comparedDay {
             return "\(comparedHour.condition.description) expected around \(comparedHour.readableDate)."
@@ -70,8 +70,8 @@ extension TodayWeatherModel {
         if areSymbolsEqual(symbol1: currentHour.symbol, symbol2: comparedHour.symbol) {
             return nil
         }
-        let currentDay = Helper.getDayOfWeekAndDate(date: currentHour.date, timezoneOffset: timezeone)
-        let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneOffset: timezeone)
+        let currentDay = Helper.getDayOfWeekAndDate(date: currentHour.date, timezoneIdentifier: timezoneIdentifier)
+        let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneIdentifier: timezoneIdentifier)
         
         if currentDay == comparedDay {
 //            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
@@ -173,7 +173,7 @@ extension TodayWeatherModel {
     }
     
     var readableDate: String {
-        return Helper.getReadableMainDate(date: date, timezoneOffset: timezeone)
+        return Helper.getReadableMainDate(date: date, timezoneIdentifier: timezoneIdentifier)
     }
     
     var uvIndexCategoryDescription: String {

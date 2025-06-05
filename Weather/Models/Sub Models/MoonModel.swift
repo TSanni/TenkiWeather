@@ -13,15 +13,15 @@ struct MoonModel {
     let moonrise: Date?
     let moonset: Date?
     let phase: MoonPhase
-    let timezone: Int
+    let timezoneIdentifier: String
     
     
     var moonriseTime: String {
-        Helper.getReadableHourAndMinute(date: moonrise, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: moonrise, timezoneIdentifier: timezoneIdentifier)
     }
     
     var moonsetTime: String {
-        Helper.getReadableHourAndMinute(date: moonset, timezoneOffset: timezone)
+        Helper.getReadableHourAndMinute(date: moonset, timezoneIdentifier: timezoneIdentifier)
     }
     
     var moonPhaseImage: String {

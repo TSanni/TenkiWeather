@@ -11,10 +11,11 @@ import Foundation
 extension AppStateViewModel {
     static var preview: AppStateViewModel {
         let weatherManager = MockWeatherService()
+        let coreLocationVM = CoreLocationViewModel()
         let vm = AppStateViewModel(
             locationViewModel: CoreLocationViewModel(),
             weatherViewModel: WeatherViewModel(weatherManager: weatherManager),
-            persistence: SavedLocationsPersistenceViewModel(weatherManager: weatherManager)
+            persistence: SavedLocationsPersistenceViewModel(weatherManager: weatherManager, coreLocationModel: coreLocationVM)
         )
         
         return vm
@@ -41,7 +42,9 @@ extension CoreLocationViewModel {
 extension SavedLocationsPersistenceViewModel {
     static var preview: SavedLocationsPersistenceViewModel {
         let weatherManager = MockWeatherService()
-        let vm = SavedLocationsPersistenceViewModel(weatherManager: weatherManager)
+        let coreLocationVM = CoreLocationViewModel()
+
+        let vm = SavedLocationsPersistenceViewModel(weatherManager: weatherManager, coreLocationModel: coreLocationVM)
         
         return vm
     }

@@ -26,7 +26,6 @@ struct MainScreen: View {
     @State var tabViews: WeatherTabs = .today
     @State private var savedDate = Date()
     
-    let backgroundClass = BackgroundTasksManager()
     var deviceType: UIUserInterfaceIdiom {
         UIDevice.current.userInterfaceIdiom
     }
@@ -120,8 +119,8 @@ struct MainScreen: View {
                     }
                 }
                 
-            case .background: backgroundClass.startBackgroundTasks()
-            default: break
+            default:
+                break
             }
         }
         .environmentObject(weatherViewModel)

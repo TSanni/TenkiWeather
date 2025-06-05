@@ -30,7 +30,7 @@ struct TodayWeatherModelPlaceHolder {
         precipitationChance: 0.8,
         sunData: SunModelPlaceholder.sunDataHolder,
         hourlyWeather: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
-        timezeone: 0,
+        timezoneIdentifier: K.defaultTimezoneIdentifier,
         moonData: MoonModelPlaceholder.moonDataHolder
     )
 }

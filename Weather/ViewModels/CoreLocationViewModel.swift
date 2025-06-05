@@ -11,7 +11,8 @@ import CoreLocation
 
 class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus?
-    @Published private(set) var timezoneForCoordinateInput: Int = 0
+    @Published private(set) var timezoneIdentifier: String = K.defaultTimezoneIdentifier
+    @Published private(set) var timezoneSecondsFromGMT: Int = 0
     @Published private(set) var localLocationName: String = ""
     @Published var searchedLocationName: String = ""
     
@@ -79,21 +80,32 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         print("Error from didFailWithError delegate method: \(error.localizedDescription)")
     }
   
-    func getLocalLocationName() async {
-        let location = await getNameFromCoordinates(latitude: latitude, longitude: longitude)
+    func getLocalLocationName() async throws {
+        do {
+            let location = try await getNameFromCoordinates(latitude: latitude, longitude: longitude)
+            await MainActor.run {
+                self.localLocationName = location
+            }
+        } catch {
+            throw error
+        }
         
-        await MainActor.run(body: {
-            self.localLocationName = location
-        })
+        
     }
     
-    func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, name: String?) async {
+    func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, name: String?) async throws {
         
-        let searched = await getNameFromCoordinates(latitude: lat, longitude: lon, name: name)
+        do {
+            let searched = try await getNameFromCoordinates(latitude: lat, longitude: lon, name: name)
+            await MainActor.run {
+                self.searchedLocationName = searched
+            }
+        } catch {
+            throw error
+        }
         
-        await MainActor.run(body: {
-            self.searchedLocationName = searched
-        })
+
+
     }
     
     private func combinationOfNames(cityName: String?, state: String?, country: String?) -> String {
@@ -127,10 +139,11 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         let cityName = place.locality
         let state = place.administrativeArea
         let country = place.country
-        let timezone = place.timeZone?.secondsFromGMT()
-        
+        let timezoneIdentifier = place.timeZone?.identifier ?? K.defaultTimezoneIdentifier
+        let secondsFromGMT = place.timeZone?.secondsFromGMT() ?? 0
         DispatchQueue.main.async {
-            self.timezoneForCoordinateInput = timezone ?? 0
+            self.timezoneIdentifier = timezoneIdentifier
+            self.timezoneSecondsFromGMT = secondsFromGMT
         }
 
         if let name = name {
@@ -149,21 +162,42 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
     
     //MARK: - Geocoding
     ///Will get all names for pass in coordinates
-    private func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String? = nil) async -> String {
+//    private func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String? = nil) async -> String {
+//        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
+//        return await withCheckedContinuation { continuation in
+//            geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
+//                
+//                if let place = places?.first {
+//                    let locationName = self?.getLocationName(place: place, name: name)
+//                    continuation.resume(returning: locationName ?? "")
+//                } else {
+//                    continuation.resume(returning: "")
+//                }
+//            }
+//        }
+//        
+//    }
+    
+    private func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String? = nil) async throws -> String {
         let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        return await withCheckedContinuation { continuation in
+        
+        return try await withCheckedThrowingContinuation { continuation in
             geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
                 
                 if let place = places?.first {
                     let locationName = self?.getLocationName(place: place, name: name)
                     continuation.resume(returning: locationName ?? "")
                 } else {
-                    continuation.resume(returning: "")
+                    continuation.resume(throwing: NSError(domain: "Geocoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "No placemarks found"]))
                 }
             }
         }
-        
     }
+
     
     func getPlaceDataFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async -> CLPlacemark? {
         let coordinates = CLLocation(latitude: latitude, longitude: longitude)

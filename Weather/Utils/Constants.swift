@@ -15,6 +15,15 @@ enum K {
     static let privacyPolicyURL = "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621"
     static let tileCornerRadius: CGFloat = 20
     static let legalAttributionURL = "https://weatherkit.apple.com/legal-attribution.html"
+    static let defaultTimezoneIdentifier = "America/Chicago"
+    
+    struct MockData {
+        static let names = ["Los Angeles, CA, United States", "New York, NY, United States", "Seoul, South Korea", "Gyeongsangnam-do, South Korea", "Tokyo, Japan", "Koka, Shiga, Japan", "Dayuan District , TAO, Taiwan", "Zürich, Switzerland", "Nagoya, Japan", "Miami, United States", "Cairo, Egypt", "Washington, DC, United States", "Svalbard, Norway", "Sapporo, Japan", "Oregon, United States", "Madrid, Spain", "Sugar Land, TX, United States", "São Paulo - SP, Brazil"]
+        
+        static let latitudes = [33.9697897, 40.753685399999995, 37.550263, 35.3763461, 35.6764225, 34.914825439453125, 25.076522827148438, 47.3768866, 35.18145060000001, 25.7616798, 30.0444196, 38.912068, 77.8749725, 43.0617713, 44.9412527, 40.4192127, 29.595067, -23.5796404]
+
+        static let longitude = [-118.2468148, -73.9991637, 126.9970831, 128.147727, 139.650027, 136.18474154224646, 121.23416710004986, 8.541694, 136.9065571, -80.1917902, 31.2357116, -77.0190228, 20.9751822, 141.3544506, -123.0290197, -3.692517, -95.620962, -46.6550645]
+    }
 
     struct UserDefaultKeys {
         static let unitTemperatureKey = "UnitTemperature"

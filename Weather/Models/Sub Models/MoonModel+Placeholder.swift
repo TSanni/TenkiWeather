@@ -13,6 +13,6 @@ struct MoonModelPlaceholder {
         moonrise: Date.now,
         moonset: Date.now,
         phase: .full,
-        timezone: 0
+        timezoneIdentifier: K.defaultTimezoneIdentifier
     )
 }

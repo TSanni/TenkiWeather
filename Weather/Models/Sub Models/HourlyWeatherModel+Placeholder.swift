@@ -20,7 +20,7 @@ struct HourlyWeatherModelPlaceholder {
                     date: Date(timeIntervalSince1970: TimeInterval(startingTime)),
                     precipitationChance: 0,
                     symbol: "sun.max",
-                    timezone: 0,
+                    timezoneIdentifier: K.defaultTimezoneIdentifier,
                     condition: .clear,
                     isDayLight: true
                 )

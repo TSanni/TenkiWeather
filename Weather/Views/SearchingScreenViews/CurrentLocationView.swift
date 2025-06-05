@@ -35,7 +35,7 @@ struct CurrentLocationView: View {
                             Spacer()
                             Text(time)
                                 .onReceive(appStateViewModel.timer) { _ in
-                                    time = Helper.getReadableMainDate(date: Date.now, timezoneOffset: localWeather.timezeone)
+                                    time = Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: localWeather.timezoneIdentifier)
                                 }
                         }
                     }

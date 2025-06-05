@@ -10,7 +10,7 @@ import WeatherKit
 
 class MockWeatherService: WeatherServiceProtocol {
     
-    func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezone: Int) async throws -> Weather {
+    func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezoneIdentifier: String) async throws -> Weather {
         do {
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
             return weather
@@ -19,15 +19,15 @@ class MockWeatherService: WeatherServiceProtocol {
         }
     }
     
-    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> TodayWeatherModel {
+    func getTodayWeather(current: CurrentWeather, dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneIdentifier: String) -> TodayWeatherModel {
         return TodayWeatherModelPlaceHolder.holderData
     }
     
-    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneOffset: Int) -> DailyWeatherModel {
+    func getTomorrowWeather(tomorrowWeather: Forecast<DayWeather>, hours: Forecast<HourWeather>, timezoneIdentifier: String) -> DailyWeatherModel {
         return DailyWeatherModelPlaceHolder.placeholder
     }
     
-    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneOffset: Int) -> [DailyWeatherModel] {
+    func getDailyWeather(dailyWeather: Forecast<DayWeather>, hourlyWeather: Forecast<HourWeather>, timezoneIdentifier: String) -> [DailyWeatherModel] {
         DailyWeatherModelPlaceHolder.placeholderArray
     }
     

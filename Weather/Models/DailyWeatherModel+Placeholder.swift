@@ -23,7 +23,7 @@ struct DailyWeatherModelPlaceHolder {
         uvIndexCategory: .extreme,
         symbolName: "cloud.rain",
         hourlyWeather: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
-        timezone: 0,
+        timezoneIdentifier: K.defaultTimezoneIdentifier,
         precipitationAmountByType: nil
     )
     

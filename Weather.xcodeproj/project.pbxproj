@@ -22,6 +22,7 @@
 		8325B39E2DEE091A00EBD840 /* ViewModel+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325B39D2DEE091A00EBD840 /* ViewModel+extensions.swift */; };
 		8325B3A02DEF17D500EBD840 /* WeatherAlertModel+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325B39F2DEF17D500EBD840 /* WeatherAlertModel+Placeholder.swift */; };
 		8325B3A82DEF1DC600EBD840 /* MockWeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325B3A72DEF1DC600EBD840 /* MockWeatherService.swift */; };
+		8325B3AA2DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325B3A92DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift */; };
 		8336164D2B9D554A0045F639 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8336164C2B9D554A0045F639 /* SearchBar.swift */; };
 		8336164F2B9D9B220045F639 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8336164E2B9D9B220045F639 /* SettingsScreen.swift */; };
 		833D7CCB2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */; };
@@ -128,6 +129,8 @@
 		8325B39D2DEE091A00EBD840 /* ViewModel+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModel+extensions.swift"; sourceTree = "<group>"; };
 		8325B39F2DEF17D500EBD840 /* WeatherAlertModel+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherAlertModel+Placeholder.swift"; sourceTree = "<group>"; };
 		8325B3A72DEF1DC600EBD840 /* MockWeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherService.swift; sourceTree = "<group>"; };
+		8325B3A92DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationBarModifier+ViewModifier.swift"; sourceTree = "<group>"; };
+		8325B3AB2DF086E500EBD840 /* Locations5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations5.xcdatamodel; sourceTree = "<group>"; };
 		8336164C2B9D554A0045F639 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		8336164E2B9D9B220045F639 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigCardViewModifier+ViewModifier.swift"; sourceTree = "<group>"; };
@@ -428,6 +431,7 @@
 				83FD51FE2B87BA3E008F875B /* SubHeaderViewModifier+ViewModifier.swift */,
 				83FD52002B87BA71008F875B /* CustomNavBackButton+ViewModifier.swift */,
 				8325B39D2DEE091A00EBD840 /* ViewModel+extensions.swift */,
+				8325B3A92DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -666,6 +670,7 @@
 				837D7DB62B713D230031B296 /* RainScene.swift in Sources */,
 				83CC40D42CD294BA00CF58D2 /* MoonTileView.swift in Sources */,
 				833D7CCB2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift in Sources */,
+				8325B3AA2DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift in Sources */,
 				83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */,
 				83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */,
 				83AFCA2A2C5FD06600B0F373 /* HourlyWeatherModel+Placeholder.swift in Sources */,
@@ -1014,12 +1019,13 @@
 		83749C5C2BA2B74900480F5F /* Locations.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8325B3AB2DF086E500EBD840 /* Locations5.xcdatamodel */,
 				8375865E2CED6BE3000E2EF9 /* Locations4.xcdatamodel */,
 				838F7A382CAAD54B00607451 /* Locations3.xcdatamodel */,
 				8345EA402BA5631F00E8EFBD /* Locations2.xcdatamodel */,
 				83749C5D2BA2B74900480F5F /* Locations.xcdatamodel */,
 			);
-			currentVersion = 8375865E2CED6BE3000E2EF9 /* Locations4.xcdatamodel */;
+			currentVersion = 8325B3AB2DF086E500EBD840 /* Locations5.xcdatamodel */;
 			path = Locations.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

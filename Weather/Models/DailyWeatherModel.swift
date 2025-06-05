@@ -27,7 +27,7 @@ struct DailyWeatherModel: Identifiable {
     let uvIndexCategory: UVIndex.ExposureCategory
     let symbolName: String
     let hourlyWeather: [HourlyWeatherModel]
-    let timezone: Int
+    let timezoneIdentifier: String
     let precipitationAmountByType: PrecipitationAmountByType?
     
     var dayHigh: String {
@@ -114,7 +114,7 @@ struct DailyWeatherModel: Identifiable {
     //moon events
     
     var readableDate: String {
-        return Helper.getDayOfWeekAndDate(date: date, timezoneOffset: timezone)
+        return Helper.getDayOfWeekAndDate(date: date, timezoneIdentifier: timezoneIdentifier)
     }
     
     var dayWeatherDescription: String {

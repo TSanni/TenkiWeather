@@ -33,7 +33,6 @@ struct SavedLocationCell: View {
                             .foregroundStyle(.red)
                     }
                 }
-
                 
                 HStack(alignment: .top, spacing: 0.0) {
                     Text((newTemp) + "°")
@@ -42,12 +41,11 @@ struct SavedLocationCell: View {
                     Spacer()
                     Text(time)
                         .onReceive(appStateViewModel.timer) { _ in
-                            time = Helper.getReadableMainDate(date: Date.now, timezoneOffset: Int(location.timezone))
+                            time = Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: location.timezoneIdentifier ?? K.defaultTimezoneIdentifier)
                         }
                 }
                 .font(.subheadline)
             }
-   
         }
         .lineLimit(1)
         .minimumScaleFactor(0.5)
@@ -84,7 +82,6 @@ struct SavedLocationCell: View {
                 PlaceDetails(name: location.name ?? "No name", latitude: location.latitude, longitude: location.longitude, location: location)
                     .presentationDetents([.height(500)])
             }
-         
         }
     }
 

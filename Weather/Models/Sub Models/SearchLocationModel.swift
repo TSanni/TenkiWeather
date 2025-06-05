@@ -12,10 +12,11 @@ struct SearchLocationModel: Identifiable {
     let name: String
     let latitude: Double
     let longitude: Double
-    let timezone: Int
+    let timeZoneIdentifier: String
     let temperature: String
     let date: String
     let symbol: String
     let weatherCondition: String
     let weatherAlert: Bool
+    let timezone: Int
 }

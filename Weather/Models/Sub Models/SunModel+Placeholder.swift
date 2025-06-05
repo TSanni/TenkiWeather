@@ -15,6 +15,6 @@ struct SunModelPlaceholder {
         civilDawn: Date.now,
         solarNoon: Date.now,
         civilDusk: Date.now,
-        timezone: 0
+        timezoneIdentifier: K.defaultTimezoneIdentifier
     )
 }

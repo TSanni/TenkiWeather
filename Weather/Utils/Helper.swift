@@ -47,7 +47,7 @@ enum Helper {
     
     /// This function accepts a date and returns a string of that date in a readable format
     ///  Ex: Jul 7, 10:08 PM
-    static func getReadableMainDate(date: Date, timezoneOffset: Int) -> String {
+    static func getReadableMainDate(date: Date, timezoneIdentifier: String) -> String {
         let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
         var format: String
         if militaryTime {
@@ -58,7 +58,7 @@ enum Helper {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
+        dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
         
         let readableDate = dateFormatter.string(from: date)
         return readableDate
@@ -66,7 +66,7 @@ enum Helper {
     
     /// This function takes a date and returns a string with readable date data.
     /// Ex: 7 AM or 07 for military
-    static func getReadableHourOnly(date: Date, timezoneOffset: Int) -> String {
+    static func getReadableHourOnly(date: Date, timezoneIdentifier: String) -> String {
         let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
         var format: String
         
@@ -78,26 +78,26 @@ enum Helper {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
+        dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
+
         let readableHour = dateFormatter.string(from: date)
         return readableHour
     }
     
     /// This functions accepts a date and returns a string of that date in a readable format
     /// Ex: Tuesday, July 7
-    static func getDayOfWeekAndDate(date: Date, timezoneOffset: Int) -> String {
+    static func getDayOfWeekAndDate(date: Date, timezoneIdentifier: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = K.TimeConstants.dayOfWeekAndDate
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
-        
+        dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
+
         let readableDate = dateFormatter.string(from: date)
         return readableDate
     }
     
     /// This function accepts a date and returns a string of that date in a readable format
     ///  Ex: 1:07 PM or 13:07 for military
-    static func getReadableHourAndMinute(date: Date?, timezoneOffset: Int) -> String {
+    static func getReadableHourAndMinute(date: Date?, timezoneIdentifier: String) -> String {
         let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
         var format: String
 
@@ -109,7 +109,7 @@ enum Helper {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezoneOffset)
+        dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
         if let date = date {
             let readableHourAndMinute = dateFormatter.string(from: date)
             return readableHourAndMinute

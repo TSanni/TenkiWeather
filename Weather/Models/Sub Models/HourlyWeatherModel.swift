@@ -16,7 +16,7 @@ struct HourlyWeatherModel: Identifiable {
     let date: Date
     let precipitationChance: Double
     let symbol: String
-    let timezone: Int
+    let timezoneIdentifier: String
     let condition: WeatherCondition
     let isDayLight: Bool
 
@@ -31,7 +31,7 @@ struct HourlyWeatherModel: Identifiable {
     }
     
     var readableDate: String {
-        Helper.getReadableHourOnly(date: date, timezoneOffset: timezone)
+        Helper.getReadableHourOnly(date: date, timezoneIdentifier: timezoneIdentifier)
     }
     
     var chanceOfPrecipitation: String {
