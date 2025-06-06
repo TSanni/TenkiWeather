@@ -8,189 +8,83 @@
 import Foundation
 import CoreLocation
 
-
-class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDelegate {
+class CoreLocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus?
     @Published private(set) var timezoneIdentifier: String = K.defaultTimezoneIdentifier
     @Published private(set) var timezoneSecondsFromGMT: Int = 0
     @Published private(set) var localLocationName: String = ""
     @Published var searchedLocationName: String = ""
-    
-    var locationManager = CLLocationManager()
-    
-    var geocoder = CLGeocoder()
-    
+
+    private var locationManager = CLLocationManager()
+    private var geocoder = CLGeocoder()
+
     var latitude: CLLocationDegrees {
         locationManager.location?.coordinate.latitude ?? 0.0
     }
-    
+
     var longitude: CLLocationDegrees {
         locationManager.location?.coordinate.longitude ?? 0.0
     }
-    
+
     override init() {
         super.init()
         locationManager.delegate = self
     }
-    
-    //MARK: - Location
+
+    // MARK: - Authorization Handling
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("Location manager authorization status raw value: \(manager.authorizationStatus.rawValue)" )
-        
+        let status = manager.authorizationStatus
+        print("Authorization status changed: \(status.rawValue)")
+
         DispatchQueue.main.async {
-            switch manager.authorizationStatus {
-                case .authorizedWhenInUse:  // Location services are available.
-                    // Insert code here of what should happen when Location services are authorized
-                self.authorizationStatus = .authorizedWhenInUse
+            self.authorizationStatus = status
+
+            switch status {
+            case .authorizedWhenInUse:
                 self.locationManager.requestLocation()
-                    break
-                    
-                case .restricted:  // Location services currently unavailable.
-                    // Insert code here of what should happen when Location services are NOT authorized
-                self.authorizationStatus = .restricted
-                    break
-                    
-                case .denied:  // Location services currently unavailable.
-                    // Insert code here of what should happen when Location services are NOT authorized
-                self.authorizationStatus = .denied
-                    break
-                    
-                case .notDetermined:  // Authorization not determined yet.
-                self.authorizationStatus = .notDetermined
-                    manager.requestWhenInUseAuthorization()
-                    break
-                    
-                default:
-                    break
+            case .notDetermined:
+                self.locationManager.requestWhenInUseAuthorization()
+            default:
+                break
             }
-
         }
-
     }
-    
+
+    // MARK: - Location Updates
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("didUpdateLocations delegate called ")
-        // Insert code to handle location updates
+        print("didUpdateLocations called")
         if locations.last != nil {
             manager.stopUpdatingLocation()
         }
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error from didFailWithError delegate method: \(error.localizedDescription)")
+        print("Location error: \(error.localizedDescription)")
     }
-  
+
+    // MARK: - Reverse Geocoding
+
     func getLocalLocationName() async throws {
-        do {
-            let location = try await getNameFromCoordinates(latitude: latitude, longitude: longitude)
-            await MainActor.run {
-                self.localLocationName = location
-            }
-        } catch {
-            throw error
-        }
-        
-        
+        let name = try await getNameFromCoordinates(latitude: latitude, longitude: longitude)
+        await MainActor.run { self.localLocationName = name }
     }
-    
+
     func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, name: String?) async throws {
-        
-        do {
-            let searched = try await getNameFromCoordinates(latitude: lat, longitude: lon, name: name)
-            await MainActor.run {
-                self.searchedLocationName = searched
-            }
-        } catch {
-            throw error
-        }
-        
-
-
+        let searched = try await getNameFromCoordinates(latitude: lat, longitude: lon, name: name)
+        await MainActor.run { self.searchedLocationName = searched }
     }
-    
-    private func combinationOfNames(cityName: String?, state: String?, country: String?) -> String {
-        /// Going through possible combinations of optionals existing
-        if let cityName = cityName, let state = state, let country = country { // All optionals exist
-            if cityName == state || cityName.contains(state) {
-                return "\(cityName), \(country)"
-            } else {
-                return "\(cityName), \(state), \(country)"
-            }
-        } else if let state = state, let country = country { // Only state and country exist
-            return "\(state), \(country)"
-        } else if let cityName = cityName, let country = country { // Only city and country exist
-            return "\(cityName), \(country)"
-        } else if let cityName = cityName { // Only city exists
-            return "\(cityName)"
-        } else if let state = state { // Only state exists
-            return "\(state)"
-        } else if let country = country { // Only country exists
-            return "\(country)"
-        } else {
-            return ""
-        }
-        
-    }
-    
-    
-    //TODO: Update this function. A lot of unneeded code. Most likely can delete combinationOfNames method.
-    private func getLocationName(place: CLPlacemark, name: String? = nil) -> String {
-        
-        let cityName = place.locality
-        let state = place.administrativeArea
-        let country = place.country
-        let timezoneIdentifier = place.timeZone?.identifier ?? K.defaultTimezoneIdentifier
-        let secondsFromGMT = place.timeZone?.secondsFromGMT() ?? 0
-        DispatchQueue.main.async {
-            self.timezoneIdentifier = timezoneIdentifier
-            self.timezoneSecondsFromGMT = secondsFromGMT
-        }
 
-        if let name = name {
-            if Int(name) == nil { /// user submits name, not zipcode
-                DispatchQueue.main.async {
-                    self.searchedLocationName = "\(name)"
-                }
-                return "\(name)"
-            } else {
-                return combinationOfNames(cityName: cityName, state: state, country: country)
-            }
-        } else {
-            return combinationOfNames(cityName: cityName, state: state, country: country)
-        }
-    }
-    
-    //MARK: - Geocoding
-    ///Will get all names for pass in coordinates
-//    private func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String? = nil) async -> String {
-//        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-//        return await withCheckedContinuation { continuation in
-//            geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
-//                
-//                if let place = places?.first {
-//                    let locationName = self?.getLocationName(place: place, name: name)
-//                    continuation.resume(returning: locationName ?? "")
-//                } else {
-//                    continuation.resume(returning: "")
-//                }
-//            }
-//        }
-//        
-//    }
-    
     private func getNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String? = nil) async throws -> String {
-        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
         return try await withCheckedThrowingContinuation { continuation in
-            geocoder.reverseGeocodeLocation(coordinates) { [weak self] places, error in
+            geocoder.reverseGeocodeLocation(location) { [weak self] places, error in
                 if let error = error {
                     continuation.resume(throwing: error)
-                    return
-                }
-                
-                if let place = places?.first {
-                    let locationName = self?.getLocationName(place: place, name: name)
-                    continuation.resume(returning: locationName ?? "")
+                } else if let place = places?.first {
+                    let result = self?.processPlacemark(place, fallbackName: name)
+                    continuation.resume(returning: result ?? "")
                 } else {
                     continuation.resume(throwing: NSError(domain: "Geocoder", code: 0, userInfo: [NSLocalizedDescriptionKey: "No placemarks found"]))
                 }
@@ -198,20 +92,54 @@ class CoreLocationViewModel : NSObject, ObservableObject, CLLocationManagerDeleg
         }
     }
 
-    
     func getPlaceDataFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async -> CLPlacemark? {
-        let coordinates = CLLocation(latitude: latitude, longitude: longitude)
-        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
         do {
-            let placesArray = try await geocoder.reverseGeocodeLocation(coordinates)
-            if let firstPlace = placesArray.first {
-                return firstPlace
-            }
+            return try await geocoder.reverseGeocodeLocation(location).first
         } catch {
-            print(error)
+            print("Geocoder error: \(error)")
+            return nil
         }
-        
-        return nil
     }
- 
+
+    // MARK: - Placemark Processing
+
+    private func processPlacemark(_ place: CLPlacemark, fallbackName: String?) -> String {
+        updateTimezone(from: place)
+
+        if let name = fallbackName, Int(name) == nil {
+            DispatchQueue.main.async {
+                self.searchedLocationName = name
+            }
+            return name
+        }
+
+        return formatLocationName(city: place.locality, state: place.administrativeArea, country: place.country)
+    }
+
+    private func updateTimezone(from place: CLPlacemark) {
+        DispatchQueue.main.async {
+            self.timezoneIdentifier = place.timeZone?.identifier ?? K.defaultTimezoneIdentifier
+            self.timezoneSecondsFromGMT = place.timeZone?.secondsFromGMT() ?? 0
+        }
+    }
+
+    // MARK: - Formatting
+
+    private func formatLocationName(city: String?, state: String?, country: String?) -> String {
+        var parts: [String] = []
+
+        if let city = city, let state = state, city == state || city.contains(state) {
+            parts.append(city)
+        } else {
+            if let city = city { parts.append(city) }
+            if let state = state { parts.append(state) }
+        }
+
+        if let country = country {
+            parts.append(country)
+        }
+
+        return parts.joined(separator: ", ")
+    }
 }
