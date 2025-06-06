@@ -92,11 +92,6 @@ struct MainScreen: View {
         .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
             tabViews = .today
         }
-        .task {
-            if locationViewModel.authorizationStatus == .authorizedWhenInUse {
-                await appStateViewModel.getWeather()
-            }
-        }
         .onChange(of: locationViewModel.authorizationStatus) { oldValue, newValue in
             switch newValue {
             case .authorizedWhenInUse:

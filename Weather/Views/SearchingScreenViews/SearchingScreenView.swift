@@ -10,9 +10,9 @@ import SwiftUI
 struct SearchingScreenView: View {
     @State private var isEditing: Bool = false // Tracks editing state
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var appStateViewModel: AppStateViewModel
-    @EnvironmentObject var locationSearchViewModel: LocationSearchViewModel
+    @EnvironmentObject var weatherVM: WeatherViewModel
+    @EnvironmentObject var appStateVM: AppStateViewModel
+    @EnvironmentObject var locationSearchVM: LocationSearchViewModel
     
     
     //MARK: - Main View
@@ -22,8 +22,8 @@ struct SearchingScreenView: View {
             
             CustomDivider()
             
-            if !locationSearchViewModel.query.isEmpty {
-                List(locationSearchViewModel.suggestions, id: \.self) { suggestion in
+            if !locationSearchVM.query.isEmpty {
+                List(locationSearchVM.suggestions, id: \.self) { suggestion in
                     VStack(alignment: .leading) {
                         Text(suggestion.title)
                             .font(.headline)
@@ -35,15 +35,15 @@ struct SearchingScreenView: View {
                     .listRowBackground(Color.clear)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        locationSearchViewModel.fetchCityLocation(for: suggestion) { coordinate, name, error in
+                        locationSearchVM.fetchCityLocation(for: suggestion) { coordinate, name, error in
                             if let error = error {
                                 fatalError("Failed at fetchCityLocation function: \(error)")
                             }
                             
                             guard let coordinate = coordinate, let name = name else { return }
                             Task {
-                                await appStateViewModel.getWeatherFromLocationSearch(coordinate: coordinate, name: name)
-                                locationSearchViewModel.query = ""
+                                await appStateVM.getWeatherFromLocationSearch(coordinate: coordinate, name: name)
+                                locationSearchVM.query = ""
                             }
                             
 
@@ -57,16 +57,11 @@ struct SearchingScreenView: View {
                 .scrollDismissesKeyboard(.immediately)
             } else {
                 VStack {
-                    CurrentLocationView(localWeather: weatherViewModel.localWeather)
+                    CurrentLocationView(localWeather: weatherVM.localWeather)
                         .padding(.bottom)
                         .padding(.bottom)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
-                        .onTapGesture {
-                            Task {
-                                await appStateViewModel.getWeatherAndUpdateDictionaryFromLocation()
-                            }
-                        }
                     
                     HStack {
                         Text("Saved locations")
@@ -103,14 +98,14 @@ struct SearchingScreenView: View {
     var textFieldAndBackButton: some View {
         HStack {
             Button {
-                appStateViewModel.toggleShowSearchScreen()
-                locationSearchViewModel.query = ""
+                appStateVM.toggleShowSearchScreen()
+                locationSearchVM.query = ""
             } label: {
                 Image(systemName: "arrow.left")
                     .contentShape(Rectangle())
                     .padding()
             }
-            TextField("Search for a location", text: $locationSearchViewModel.query)
+            TextField("Search for a location", text: $locationSearchVM.query)
                 .autocorrectionDisabled()
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

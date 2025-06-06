@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CurrentLocationView: View {
-    @EnvironmentObject var locationManager: CoreLocationViewModel
-    @EnvironmentObject var appStateViewModel: AppStateViewModel
+    @EnvironmentObject var coreLocationVM: CoreLocationViewModel
+    @EnvironmentObject var appStateVM: AppStateViewModel
     @State private var time = ""
+    @State private var showSettingsAlert = false
 
     let localWeather: TodayWeatherModel
 
@@ -23,7 +24,6 @@ struct CurrentLocationView: View {
                     Text("Current Location")
                 }
                 .padding(.bottom)
-                
                 
                 HStack {
                     SavedLocationImageView(imageName: localWeather.symbolName)
@@ -40,6 +40,27 @@ struct CurrentLocationView: View {
                         }
                     }
                 }
+                .onTapGesture {
+                    Task {
+                        if coreLocationVM.authorizationStatus == .denied {
+                            showSettingsAlert = true
+                        } else {
+                            await appStateVM.getWeatherAndUpdateDictionaryFromLocation()
+                        }
+                    }
+                }
+                .alert(isPresented: $showSettingsAlert) {
+                     Alert(
+                         title: Text("Location Access Needed"),
+                         message: Text("Please enable location access in Settings."),
+                         primaryButton: .default(Text("Open Settings"), action: {
+                             if let url = URL(string: UIApplication.openSettingsURLString) {
+                                 UIApplication.shared.open(url)
+                             }
+                         }),
+                         secondaryButton: .cancel()
+                     )
+                 }
             }
             
             Spacer()
@@ -48,12 +69,12 @@ struct CurrentLocationView: View {
   
     var locationName: some View {
         
-        if locationManager.localLocationName == "" {
+        if coreLocationVM.localLocationName == "" {
             Text("Tap to reload")
                 .font(.headline)
 
         } else {
-            Text(locationManager.localLocationName)
+            Text(coreLocationVM.localLocationName)
                 .font(.headline)
         }
     }
