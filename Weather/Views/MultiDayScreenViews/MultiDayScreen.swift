@@ -64,7 +64,7 @@ struct MultiDayScreen: View {
         .fullScreenCover(isPresented: $showWebView) {
             FullScreenWebView(url: K.legalAttributionURL)
         }
-        .background(K.ColorsConstants.tenDayBarColor)
+        .background(Color.tenDayBarColor)
     }
 }
 

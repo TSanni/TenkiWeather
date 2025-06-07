@@ -88,7 +88,7 @@ struct HourlyForecastTileView: View {
                                         height: 15,
                                         value: item.precipitationChance * 100,
                                         sfSymbol: "drop.fill",
-                                        color: K.ColorsConstants.precipitationBlue
+                                        color: Color.precipitationBlue
                                     )
                                     Text(item.chanceOfPrecipitation)
                                         .font(.caption2)
@@ -117,10 +117,10 @@ struct HourlyForecastTileView: View {
 //MARK: - Preview
 #Preview {
     ZStack {
-        K.ColorsConstants.haze.brightness(0.1)
+        Color.haze.brightness(0.1)
         HourlyForecastTileView(
             hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
-            color: K.ColorsConstants.haze, forToday: true
+            color: Color.haze, forToday: true
         )
         .environmentObject(AppStateViewModel.preview)
         .environmentObject(WeatherViewModel.preview)

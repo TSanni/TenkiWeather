@@ -12,7 +12,7 @@ struct SavedLocationImageView: View {
     
     var body: some View {
         Circle()
-            .fill(K.ColorsConstants.prussianBlue)
+            .fill(Color.prussianBlue)
             .overlay {
                 Image(systemName: Helper.getImage(imageName: imageName))
                     .renderingMode(.original)

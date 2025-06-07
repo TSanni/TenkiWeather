@@ -133,13 +133,13 @@ struct WindTileView: View {
 // MARK: - Preview
 #Preview {
     ZStack {
-        K.ColorsConstants.haze.ignoresSafeArea()
+        Color.haze.ignoresSafeArea()
         GeometryReader { geo in
             WindTileView(
                 windData: WindModelPlaceholder.windDataHolder[0],
                 hourlyWeather: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
                 setTodayWeather: true,
-                backgroundColor: K.ColorsConstants.haze
+                backgroundColor: Color.haze
             )
             .environmentObject(AppStateViewModel.preview)
             

@@ -34,11 +34,11 @@ enum Helper {
         let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
         
         switch savedUnitTemperature {
-        case K.TemperatureUnitsConstants.fahrenheit:
+        case K.UserDefaultValue.fahrenheit:
             return .fahrenheit
-        case K.TemperatureUnitsConstants.celsius:
+        case K.UserDefaultValue.celsius:
             return .celsius
-        case   K.TemperatureUnitsConstants.kelvin:
+        case   K.UserDefaultValue.kelvin:
             return .kelvin
         default:
             return .fahrenheit
@@ -139,11 +139,11 @@ enum Helper {
         let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
         
         switch chosenUnitDistance {
-        case  K.DistanceUnitsConstants.mph:
+        case K.UserDefaultValue.mph:
             return .milesPerHour
-        case K.DistanceUnitsConstants.kiloPerHour:
+        case K.UserDefaultValue.kiloPerHour:
             return .kilometersPerHour
-        case K.DistanceUnitsConstants.meterPerSecond:
+        case K.UserDefaultValue.meterPerSecond:
             return .metersPerSecond
         default:
             return .milesPerHour
@@ -156,11 +156,11 @@ enum Helper {
         let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitPrecipitationKey)
         
         switch chosenUnitDistance {
-        case  K.PrecipitationUnitsConstants.inches:
+        case K.UserDefaultValue.inches:
             return .inches
-        case K.PrecipitationUnitsConstants.millimeters:
+        case K.UserDefaultValue.millimeters:
             return .millimeters
-        case K.PrecipitationUnitsConstants.centimeters:
+        case K.UserDefaultValue.centimeters:
             return .centimeters
         default:
             return .inches
@@ -249,30 +249,30 @@ enum Helper {
         
         switch condition {
         case .blizzard, .snow, .flurries, .frigid, .hail, .heavySnow, .sleet, .sunFlurries, .wintryMix, .blowingSnow:
-            return K.ColorsConstants.cloudSnow
+            return Color.cloudSnow
         case .blowingDust, .haze, .smoky:
-            return K.ColorsConstants.haze
+            return Color.haze
         case .breezy, .windy:
-            return K.ColorsConstants.wind
+            return Color.wind
         case .clear, .mostlyClear:
-            return isDaylight ? K.ColorsConstants.sunMaxColor : K.ColorsConstants.moonAndStarsColor
+            return isDaylight ? Color.sunMaxColor : Color.moonAndStarsColor
         case .cloudy, .partlyCloudy, .mostlyCloudy:
-            return isDaylight ? K.ColorsConstants.cloudSunColor : K.ColorsConstants.cloudMoonColor
+            return isDaylight ? Color.cloudSunColor : Color.cloudMoonColor
         case .drizzle, .freezingDrizzle, .freezingRain, .heavyRain, .rain:
-            return isDaylight ? K.ColorsConstants.cloudSunRainColor : K.ColorsConstants.cloudMoonRainColor
+            return isDaylight ? Color.cloudSunRainColor : Color.cloudMoonRainColor
         case .foggy:
-            return K.ColorsConstants.foggy
+            return Color.foggy
         case .hot:
-            return K.ColorsConstants.maroon
+            return Color.maroon
         case .hurricane, .scatteredThunderstorms, .strongStorms, .thunderstorms, .tropicalStorm:
-            return K.ColorsConstants.cloudBoltRainColor
+            return Color.cloudBoltRainColor
         case .isolatedThunderstorms:
-            return K.ColorsConstants.cloudBoltColor
+            return Color.cloudBoltColor
         case .sunShowers:
-            return K.ColorsConstants.cloudSunRainColor
+            return Color.cloudSunRainColor
         @unknown default:
-            return K.ColorsConstants.sunMaxColor
-        } 
+            return Color.sunMaxColor
+        }
     }
     
     /// Takes a CompassDirection and returns a Double which indicates the angle the current compass direction.

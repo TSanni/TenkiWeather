@@ -34,6 +34,7 @@
 		8359F4F32BB5E1B6005F8911 /* BackgroundTasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8359F4F22BB5E1B6005F8911 /* BackgroundTasksManager.swift */; };
 		8359F4FB2BB9E78F005F8911 /* SearchLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8359F4FA2BB9E78F005F8911 /* SearchLocationModel.swift */; };
 		835EB2F02A5508D400346B21 /* SendMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835EB2EF2A5508D400346B21 /* SendMailView.swift */; };
+		8362F0B22DF49C5D00F51805 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8362F0B12DF49C5D00F51805 /* Color+extension.swift */; };
 		83731A6A2A2FC2E400D481CA /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A692A2FC2E400D481CA /* DailyWeatherCell.swift */; };
 		83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A6C2A2FD97F00D481CA /* CustomDivider.swift */; };
 		83731A742A2FFC9A00D481CA /* SavedLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */; };
@@ -143,6 +144,7 @@
 		8359F4F22BB5E1B6005F8911 /* BackgroundTasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTasksManager.swift; sourceTree = "<group>"; };
 		8359F4FA2BB9E78F005F8911 /* SearchLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationModel.swift; sourceTree = "<group>"; };
 		835EB2EF2A5508D400346B21 /* SendMailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMailView.swift; sourceTree = "<group>"; };
+		8362F0B12DF49C5D00F51805 /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
 		83731A692A2FC2E400D481CA /* DailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCell.swift; sourceTree = "<group>"; };
 		83731A6C2A2FD97F00D481CA /* CustomDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
 		83731A732A2FFC9A00D481CA /* SavedLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationCell.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				837D7DBB2B72B0210031B296 /* Enums.swift */,
 				83FD52042B87BAD1008F875B /* View+extension.swift */,
 				83FD51F62B87B56B008F875B /* UIColor+extension.swift */,
+				8362F0B12DF49C5D00F51805 /* Color+extension.swift */,
 				83FD52022B87BAA3008F875B /* CardViewModifier+ViewModifier.swift */,
 				833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */,
 				83FD51FC2B87B6C4008F875B /* HeaderViewModifier+ViewModifier.swift */,
@@ -693,6 +696,7 @@
 				8336164F2B9D9B220045F639 /* SettingsScreen.swift in Sources */,
 				83CC448E2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift in Sources */,
 				83FD51F72B87B56B008F875B /* UIColor+extension.swift in Sources */,
+				8362F0B22DF49C5D00F51805 /* Color+extension.swift in Sources */,
 				837D7DB02B7139150031B296 /* SnowScene.swift in Sources */,
 				83FD51FB2B87B66E008F875B /* SettingsListBackgroundViewModifier+ViewModifier.swift in Sources */,
 				830279E22A9A5CE100E3487D /* NetworkMonitor.swift in Sources */,
@@ -923,7 +927,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.11.1;
+				MARKETING_VERSION = 4.11.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -968,7 +972,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.11.1;
+				MARKETING_VERSION = 4.11.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";

@@ -67,7 +67,7 @@ struct HourlyForecastLineGraphView: View {
        
     }     
     .background {
-        K.ColorsConstants.haze.ignoresSafeArea()
+        Color.haze.ignoresSafeArea()
     }
 
 }

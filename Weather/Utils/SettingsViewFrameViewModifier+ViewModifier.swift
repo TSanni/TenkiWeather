@@ -16,7 +16,7 @@ struct SettingsViewFrameViewModifier: ViewModifier {
             .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 300 : 300)
             .foregroundStyle(.primary)
             .padding()
-            .background(colorScheme == .light ? .white : K.ColorsConstants.goodDarkTheme)
+            .background(colorScheme == .light ? .white : Color.goodDarkTheme)
             .clipShape(RoundedRectangle(cornerRadius: K.tileCornerRadius))
     }
 }

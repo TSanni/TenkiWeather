@@ -115,19 +115,19 @@ struct PlaceDetails: View {
                         dismiss()
                     }
                     .buttonStyle(.borderedProminent)
-                    .tint(K.ColorsConstants.goodLightTheme)
+                    .tint(Color.goodLightTheme)
                     .shadow(radius: 5)
-                    .foregroundStyle(K.ColorsConstants.tenDayBarColor)
+                    .foregroundStyle(Color.tenDayBarColor)
                     
                     Spacer()
                 }
             }
             .padding()
         }
-        .background(K.ColorsConstants.tenDayBarColor.ignoresSafeArea())
+        .background(Color.tenDayBarColor.ignoresSafeArea())
         .navigationTitle("Details")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarColor(K.ColorsConstants.UIColorTenDayBarColor)
+        .navigationBarColor(UIColor.UIColorTenDayBarColor)
         .foregroundStyle(.white)
         .onAppear { textFieldText = location.name ?? "no name" }
         .task { placeInfo = await coreLocationViewModel.getPlaceDataFromCoordinates(latitude: latitude, longitude: longitude) }

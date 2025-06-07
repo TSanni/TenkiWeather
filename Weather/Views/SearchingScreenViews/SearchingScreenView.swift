@@ -84,7 +84,7 @@ struct SearchingScreenView: View {
         }
         .foregroundStyle(.primary)
         .contentShape(Rectangle())
-        .background(colorScheme == .dark ? K.ColorsConstants.goodDarkTheme : K.ColorsConstants.goodLightTheme)
+        .background(colorScheme == .dark ? Color.goodDarkTheme : Color.goodLightTheme)
     }
     
     // Toggle the editing mode

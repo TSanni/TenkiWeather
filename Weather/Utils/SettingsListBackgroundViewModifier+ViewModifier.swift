@@ -12,8 +12,8 @@ struct SettingsListBackgroundViewModifier: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     
     func body(content: Content) -> some View {
-        let darkTheme = K.ColorsConstants.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: 10))
-        let lightTheme = K.ColorsConstants.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: 10))
+        let darkTheme = Color.goodDarkTheme.clipShape(RoundedRectangle(cornerRadius: 10))
+        let lightTheme = Color.goodLightTheme.clipShape(RoundedRectangle(cornerRadius: 10))
         
         content
             .listRowBackground(colorScheme == .light ? lightTheme.brightness(-0.03) : darkTheme.brightness(-0.03))

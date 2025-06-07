@@ -190,13 +190,15 @@ struct SettingsScreen: View {
     //MARK: - Functions
     private func saveLocation() {
         
-        if persistence.savedLocations.count >= 20 {
-            alertTitle = Text("Error")
-            alertMessage = Text("Unable to save location. You can have up to 20 saved locations.")
-        } else {
-            alertTitle = Text("Saved")
-            alertMessage =  Text("Location saved to favorites")
-            persistence.createLocation(locationInfo: appStateViewModel.searchedLocationDictionary)
+        do {
+            try persistence.createLocation(locationInfo: appStateViewModel.searchedLocationDictionary)
+            alertTitle = Text("Saved.")
+            alertMessage =  Text("Location saved to favorites.")
+        } catch {
+            if let error = error as? LocalizedError {
+                alertTitle = Text(error.localizedDescription)
+                alertMessage = Text(error.recoverySuggestion ?? "Unknown error occured.")
+            }
         }
         
         locationSaveAlert.toggle()

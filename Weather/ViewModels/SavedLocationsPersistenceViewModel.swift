@@ -68,7 +68,11 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    func createLocation(locationInfo: SearchLocationModel) {
+    func createLocation(locationInfo: SearchLocationModel) throws {
+        if savedLocations.count >= 20 {
+            throw CoreDataErrors.locationSaveLimitReached
+        }
+        
         let newLocation = Location(context: container.viewContext)
         
         newLocation.name = locationInfo.name

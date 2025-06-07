@@ -32,6 +32,7 @@ enum CoreDataErrors: Error, LocalizedError {
     case failedToFetchWeatherPlacesWithTaskGroup
     case failedToSave
     case failedToFetchCurrentWeather
+    case locationSaveLimitReached
     
     var errorDescription: String? {
         switch self {
@@ -45,6 +46,8 @@ enum CoreDataErrors: Error, LocalizedError {
             return "Weather request for saved locations failed"
         case .failedToLoad:
             return "Failed to load saved data"
+        case .locationSaveLimitReached:
+            return "Unable to save location."
         }
     }
     
@@ -60,6 +63,8 @@ enum CoreDataErrors: Error, LocalizedError {
             return "Please check your network connection and try again."
         case .failedToLoad:
             return "Please check your network connection or reload the app."
+        case .locationSaveLimitReached:
+            return "You can save up to 20 saved locations. Delete one and try again."
         }
     }
 }
@@ -90,11 +95,11 @@ enum TemperatureUnits: String, CaseIterable {
     var title: String {
         switch self {
         case .fahrenheit:
-            return "Fahrenheit"
+            return self.rawValue
         case .celsius:
-            return "Celsius"
+            return self.rawValue
         case .kelvin:
-            return "Kelvin"
+            return self.rawValue
         }
     }
     

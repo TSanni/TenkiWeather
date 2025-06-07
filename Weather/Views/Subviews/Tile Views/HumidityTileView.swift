@@ -34,7 +34,7 @@ struct HumidityTileView: View {
                     height: 50,
                     value: humidity * 100,
                     sfSymbol: "humidity.fill",
-                    color: K.ColorsConstants.precipitationBlue
+                    color: Color.precipitationBlue
                 )
             }
             

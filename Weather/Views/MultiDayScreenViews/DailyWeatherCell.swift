@@ -40,7 +40,7 @@ struct DailyWeatherCell: View {
             .padding(.vertical, 10)
             .padding(.horizontal)
         }
-        .background(K.ColorsConstants.tenDayBarColor.brightness(-0.1))
+        .background(Color.tenDayBarColor.brightness(-0.1))
         .clipShape(RoundedRectangle(cornerRadius: 40))
         .padding(.horizontal)
         .shadow(color: .black, radius: 0, y: 0.5)
@@ -153,7 +153,7 @@ struct DailyWeatherCell: View {
 
 #Preview {
     ZStack {
-        K.ColorsConstants.tenDayBarColor
+        Color.tenDayBarColor
         VStack {
             DailyWeatherCell(daily:DailyWeatherModelPlaceHolder.placeholder, title: "nil")
                 .environmentObject(AppStateViewModel.preview)

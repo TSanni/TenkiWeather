@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 extension UIColor {
+    static let UIColorTenDayBarColor = #colorLiteral(red: 0.09803921569, green: 0.3333333333, blue: 0.4078431373, alpha: 1)
+
     static func blend(color1: UIColor, intensity1: CGFloat = 0.5, color2: UIColor, intensity2: CGFloat = 0.5) -> UIColor {
         let total = intensity1 + intensity2
         let l1 = intensity1/total

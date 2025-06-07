@@ -18,9 +18,9 @@ struct WeatherAlertTileView: View {
     var body: some View {
         HStack {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(K.ColorsConstants.maroon)
+                .foregroundColor(Color.maroon)
                 .padding(10)
-                .background(K.ColorsConstants.lightPink)
+                .background(Color.lightPink)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             
             VStack(alignment: .leading) {
@@ -37,9 +37,9 @@ struct WeatherAlertTileView: View {
             Image(systemName: "chevron.right")
         }
         .padding()
-        .background(K.ColorsConstants.darkRed)
+        .background(Color.darkRed)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .foregroundStyle(K.ColorsConstants.lightPink)
+        .foregroundStyle(Color.lightPink)
         .padding()
         .onTapGesture {
             showWeatherAlertURL = true
