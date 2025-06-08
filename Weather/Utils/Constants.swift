@@ -6,16 +6,14 @@
 //
 
 import Foundation
-import SwiftUI
-import SpriteKit
 
 
 enum K {
     static let googleApiKey = Bundle.main.object(forInfoDictionaryKey: "googlePlacesApiKey") as! String
-    static let privacyPolicyURL = "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621"
+    static let privacyPolicyURL: String = "https://www.termsfeed.com/live/a13a54bd-d22e-4076-9260-29d2f89d4621"
     static let tileCornerRadius: CGFloat = 20
-    static let legalAttributionURL = "https://weatherkit.apple.com/legal-attribution.html"
-    static let defaultTimezoneIdentifier = "America/Chicago"
+    static let legalAttributionURL: String = "https://weatherkit.apple.com/legal-attribution.html"
+    static let defaultTimezoneIdentifier: String = "America/Chicago"
     static let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
 
     struct MockData {
@@ -27,38 +25,25 @@ enum K {
     }
 
     struct UserDefaultKeys {
-        static let unitTemperatureKey = "UnitTemperature"
-        static let unitDistanceKey = "UnitDistance"
-        static let unitPrecipitationKey = "UnitPrecipitation"
-        static let timePreferenceKey = "24HourTime"
-        static let showTemperatureUnitKey = "showTemperatureUnitKey"
-        static let migrationFlagKey = "hasMigratedTimezones"
+        static let unitTemperatureKey: String = "UnitTemperature"
+        static let unitDistanceKey: String = "UnitDistance"
+        static let unitPrecipitationKey: String = "UnitPrecipitation"
+        static let timePreferenceKey: String = "24HourTime"
+        static let showTemperatureUnitKey: String = "showTemperatureUnitKey"
+        static let migrationFlagKey: String = "hasMigratedTimezones"
 
     }
     
     struct UserDefaultValue {
-        static let fahrenheit = "Fahrenheit"
-        static let celsius = "Celsius"
-        static let kelvin = "Kelvin"
-        static let mph = "miles"
-        static let kiloPerHour = "kilometer"
-        static let meterPerSecond = "meters"
-        static let inches = "inches"
-        static let millimeters = "millimeters"
-        static let centimeters = "centimeters"
-    }
-
-    struct LocationDictionaryKeysConstants {
-        static let name = "name"
-        static let latitude = "latitude"
-        static let longitude = "longitude"
-        static let timezone = "timezone"
-        static let temperature = "temperature"
-        static let date = "date"
-        static let symbol = "symbol"
-        static let weatherCondition = "weatherCondition"
-        static let unitTemperature = "unitTemperature"
-        static let weatherAlert = "weatherAlert"
+        static let fahrenheit: String = "Fahrenheit"
+        static let celsius: String = "Celsius"
+        static let kelvin: String = "Kelvin"
+        static let mph: String = "miles"
+        static let kiloPerHour: String = "kilometer"
+        static let meterPerSecond: String = "meters"
+        static let inches: String = "inches"
+        static let millimeters: String = "millimeters"
+        static let centimeters: String = "centimeters"
     }
     
     struct TimeConstants {
@@ -66,8 +51,8 @@ enum K {
         static let sevenHoursInSeconds = 25000.0
         static let twentyFourHoursInSeconds = 86400.0
         static let tenMinutesInSeconds = 60 * 10
-        static let fifteenHours = 15
-        static let twentyFourHours = 24
+        static let fifteenHours: Int = 15
+        static let twentyFourHours: Int = 24
         static let hourOnly = "h a" // Ex) 7 AM
         static let hourOnlyMilitary = "HH" // Ex) 13
         static let monthDayHourMinute = "MMM dd, h:mm a" // Ex: Jul 7, 10:08 PM
