@@ -10,9 +10,9 @@ import WeatherKit
 import SpriteKit
 import SwiftUI
 
-enum Helper {
+struct Helper {
     
-    static func getShowTemperatureUnitPreference() -> Bool{
+    static func getShowTemperatureUnitPreference() -> Bool {
         let showTemperatureUnit = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.showTemperatureUnitKey)
         return showTemperatureUnit
     }
@@ -38,23 +38,21 @@ enum Helper {
             return .fahrenheit
         case K.UserDefaultValue.celsius:
             return .celsius
-        case   K.UserDefaultValue.kelvin:
+        case K.UserDefaultValue.kelvin:
             return .kelvin
         default:
             return .fahrenheit
         }
     }
     
+    static func isMilitaryTime() -> Bool {
+        UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
+    }
+    
     /// This function accepts a date and returns a string of that date in a readable format
     ///  Ex: Jul 7, 10:08 PM
     static func getReadableMainDate(date: Date, timezoneIdentifier: String) -> String {
-        let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
-        var format: String
-        if militaryTime {
-            format = K.TimeConstants.monthDayHourMinuteMilitary
-        } else {
-            format = K.TimeConstants.monthDayHourMinute
-        }
+        let format = isMilitaryTime() ? K.TimeConstants.monthDayHourMinuteMilitary : K.TimeConstants.monthDayHourMinute
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
@@ -67,14 +65,7 @@ enum Helper {
     /// This function takes a date and returns a string with readable date data.
     /// Ex: 7 AM or 07 for military
     static func getReadableHourOnly(date: Date, timezoneIdentifier: String) -> String {
-        let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
-        var format: String
-        
-        if militaryTime {
-            format = K.TimeConstants.hourAndMinuteMilitary
-        } else {
-            format = K.TimeConstants.hourOnly
-        }
+        let format = isMilitaryTime() ? K.TimeConstants.hourAndMinuteMilitary : K.TimeConstants.hourOnly
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
@@ -98,24 +89,14 @@ enum Helper {
     /// This function accepts a date and returns a string of that date in a readable format
     ///  Ex: 1:07 PM or 13:07 for military
     static func getReadableHourAndMinute(date: Date?, timezoneIdentifier: String) -> String {
-        let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
-        var format: String
-
-        if militaryTime {
-            format = K.TimeConstants.hourAndMinuteMilitary
-        } else {
-            format = K.TimeConstants.hourAndMinute
-        }
+        let format = isMilitaryTime() ? K.TimeConstants.hourAndMinuteMilitary : K.TimeConstants.hourAndMinute
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
-        if let date = date {
-            let readableHourAndMinute = dateFormatter.string(from: date)
-            return readableHourAndMinute
-        } else {
-            return "-"
-        }
+        
+        guard let date = date else { return "-" }
+        return dateFormatter.string(from: date)
     }
     
     /// Returns a UnitLength based on stored value of UnitSpeed in UserDefaults
@@ -168,8 +149,7 @@ enum Helper {
     }
     
     static func getScene(weatherCondition: WeatherCondition) -> SKScene? {
-        let condition = weatherCondition
-        switch condition {
+        switch weatherCondition {
         case .blizzard:
             return SnowScene()
         case .blowingDust:
@@ -244,10 +224,7 @@ enum Helper {
     }
     
     static func backgroundColor(weatherCondition: WeatherCondition, isDaylight: Bool = true) -> Color {
-        let condition = weatherCondition
-        let isDaylight = isDaylight
-        
-        switch condition {
+        switch weatherCondition {
         case .blizzard, .snow, .flurries, .frigid, .hail, .heavySnow, .sleet, .sunFlurries, .wintryMix, .blowingSnow:
             return Color.cloudSnow
         case .blowingDust, .haze, .smoky:
