@@ -75,8 +75,12 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         
         let newLocation = Location(context: container.viewContext)
         
+        // Get the maximum order directly from Core Data
+        let maxOrder = getMaxOrder()
+        print("MAX ORDER: \(maxOrder)")
+        
         newLocation.name = locationInfo.name
-        newLocation.order = (savedLocations.last?.order ?? 0) + 1
+        newLocation.order = Int64(maxOrder + 1)
         newLocation.latitude = locationInfo.latitude
         newLocation.longitude = locationInfo.longitude
         newLocation.timeAdded = Date.now
@@ -90,6 +94,20 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         
         saveData()
         fetchAllLocations(updateNetwork: true)
+    }
+    
+    private func getMaxOrder() -> Int32 {
+        let request = NSFetchRequest<Location>(entityName: "Location")
+        request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: false)]
+        request.fetchLimit = 1
+        
+        do {
+            let result = try container.viewContext.fetch(request)
+            return Int32(result.first?.order ?? 0)
+        } catch {
+            print("Failed to fetch max order: \(error)")
+            return 0
+        }
     }
     
     func updateLocationName(entity: Location, newName: String) {
@@ -142,13 +160,12 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
     }
     
-    private func fetchAllLocations(updateNetwork: Bool) {
+     func fetchAllLocations(updateNetwork: Bool) {
         print(#function)
         
-        // let key = UserDefaults.standard.string(forKey: "sortType")
-        // let ascending = UserDefaults.standard.bool(forKey: "ascending")
+        let ascending = UserDefaults.standard.bool(forKey: "ascendOrDescend")
         let request = NSFetchRequest<Location>(entityName: "Location")
-        request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: ascending)]
         
         do {
             let fetchedLocation = try container.viewContext.fetch(request)

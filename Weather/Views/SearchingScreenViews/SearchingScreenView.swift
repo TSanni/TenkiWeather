@@ -13,7 +13,9 @@ struct SearchingScreenView: View {
     @EnvironmentObject var weatherVM: WeatherViewModel
     @EnvironmentObject var appStateVM: AppStateViewModel
     @EnvironmentObject var locationSearchVM: LocationSearchViewModel
-    
+    @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
+
+    @AppStorage("ascendOrDescend") var toggleAscend = false
     
     //MARK: - Main View
     var body: some View {
@@ -64,11 +66,20 @@ struct SearchingScreenView: View {
                         .minimumScaleFactor(0.5)
                     
                     HStack {
-                        Text("Saved locations")
-                            .font(.headline)
+                        
+                        Group {
+                            Text("Saved locations")
+                                .font(.headline)
+                            
+                            Image(systemName: toggleAscend ? "arrow.up" : "arrow.down")
+                        }
+                        .onTapGesture {
+                            toggleAscend.toggle()
+                            savedLocationPersistenceViewModel.fetchAllLocations(updateNetwork: false)
+                        }
                         
                         Spacer()
-                        
+
                         Button(isEditing ? "Done" : "Edit") {
                             toggleEditMode()
                         }
