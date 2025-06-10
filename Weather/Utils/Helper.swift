@@ -7,7 +7,6 @@
 
 import Foundation
 import WeatherKit
-import SpriteKit
 import SwiftUI
 
 struct Helper {
@@ -148,78 +147,79 @@ struct Helper {
         }
     }
     
-    static func getScene(weatherCondition: WeatherCondition) -> SKScene? {
+    @ViewBuilder
+    static func getScene(weatherCondition: WeatherCondition) -> some View {
         switch weatherCondition {
         case .blizzard:
-            return SnowScene()
+            SnowView(snowBirthRate: 90, snowVelocity: 400)
         case .blowingDust:
-            return nil
+            EmptyView()
         case .blowingSnow:
-            return SnowScene()
+            SnowView(snowBirthRate: 10, snowVelocity: 100)
         case .breezy:
-            return nil
+            EmptyView()
         case .clear:
-            return nil
+            CloudView(cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .cloudy:
-            return nil
+            CloudView(cloudBirthRate: 1 / 5, cloudVelocity: 5)
         case .drizzle:
-            return RainScene()
+            RainView(rainBirthRate: 10, rainVelocity: 500, cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .flurries:
-            return SnowScene()
+            SnowView(snowBirthRate: 10, snowVelocity: 100)
         case .foggy:
-            return nil
+            CloudView(cloudBirthRate: 1, cloudVelocity: 5)
         case .freezingDrizzle:
-            return nil
+            RainView(rainBirthRate: 10, rainVelocity: 500, cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .freezingRain:
-            return nil
+            EmptyView()
         case .frigid:
-            return nil
+            EmptyView()
         case .hail:
-            return nil
+            SnowView(snowBirthRate: 90, snowVelocity: 400)
         case .haze:
-            return nil
+            EmptyView()
         case .heavyRain:
-            return RainScene()
+            RainView(rainBirthRate: 200, rainVelocity: 700, cloudBirthRate: 1.5, cloudVelocity: 10)
         case .heavySnow:
-            return SnowScene()
+            SnowView(snowBirthRate: 90, snowVelocity: 400)
         case .hot:
-            return nil
+            EmptyView()
         case .hurricane:
-            return nil
+            RainView(rainBirthRate: 200, rainVelocity: 700, cloudBirthRate: 1.5, cloudVelocity: 10)
         case .isolatedThunderstorms:
-            return nil
+            RainView(rainBirthRate: 10, rainVelocity: 500, cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .mostlyClear:
-            return nil
+            CloudView(cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .mostlyCloudy:
-            return nil
+            CloudView(cloudBirthRate: 1, cloudVelocity: 5)
         case .partlyCloudy:
-            return nil
+            CloudView(cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .rain:
-            return RainScene()
+            RainView(rainBirthRate: 100, rainVelocity: 500, cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .scatteredThunderstorms:
-            return nil
+            RainView(rainBirthRate: 100, rainVelocity: 500, cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .sleet:
-            return nil
+            EmptyView()
         case .smoky:
-            return nil
+            EmptyView()
         case .snow:
-            return SnowScene()
+            SnowView(snowBirthRate: 10, snowVelocity: 100)
         case .strongStorms:
-            return nil
+            EmptyView()
         case .sunFlurries:
-            return SnowScene()
+            SnowView(snowBirthRate: 10, snowVelocity: 100)
         case .sunShowers:
-            return RainScene()
+            RainView(rainBirthRate: 100, rainVelocity: 500, cloudBirthRate: 1 / 10, cloudVelocity: 5)
         case .thunderstorms:
-            return nil
+            RainView(rainBirthRate: 200, rainVelocity: 700, cloudBirthRate: 1.5, cloudVelocity: 10)
         case .tropicalStorm:
-            return RainScene()
+            RainView(rainBirthRate: 200, rainVelocity: 700, cloudBirthRate: 1.5, cloudVelocity: 10)
         case .windy:
-            return nil
+            EmptyView()
         case .wintryMix:
-            return nil
+            SnowView(snowBirthRate: 10, snowVelocity: 100)
         @unknown default:
-            return nil
+            EmptyView()
         }
     }
     

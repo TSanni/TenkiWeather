@@ -8,7 +8,6 @@
 import Foundation
 import WeatherKit
 import SwiftUI
-import SpriteKit
 
 // MARK: - Main Model
 struct TodayWeatherModel: Identifiable {
@@ -46,8 +45,6 @@ extension TodayWeatherModel {
         } else {
             return false
         }
-        
-        
     }
     
     func forecastSentence1(currentHour: HourlyWeatherModel, comparedHour: HourlyWeatherModel) -> String? {
@@ -74,7 +71,6 @@ extension TodayWeatherModel {
         let comparedDay = Helper.getDayOfWeekAndDate(date: comparedHour.date, timezoneIdentifier: timezoneIdentifier)
         
         if currentDay == comparedDay {
-//            let dayOrNight = comparedHour.isDayLight ? "today" : "tonight"
             return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate)."
         } else {
             return "\(comparedHour.condition.description) conditions expected around \(comparedHour.readableDate) tomorrow."
@@ -247,15 +243,17 @@ extension TodayWeatherModel {
         return temperatureValueOnly
     }
     
-    var backgroundColor: Color {
-        let condition = condition
-        let isDaylight = isDaylight
-        return Helper.backgroundColor(weatherCondition: condition, isDaylight: isDaylight)
-    }
+    var backgroundColor: Color { return Helper.backgroundColor(weatherCondition: condition, isDaylight: isDaylight) }
     
-    var scene: SKScene? {
-        let condition = condition
-        return Helper.getScene(weatherCondition: condition)
+    var scene: some View { return Helper.getScene(weatherCondition: condition) }
+    
+    var isLightning: Bool {
+        switch condition {
+        case .thunderstorms, .isolatedThunderstorms, .scatteredThunderstorms, .strongStorms:
+            return true
+        default:
+            return false
+        }
     }
 }
 

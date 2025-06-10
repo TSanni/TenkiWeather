@@ -8,7 +8,6 @@
 import SwiftUI
 import WeatherKit
 import CoreLocation
-import SpriteKit
 
 //MARK: - View
 struct MainScreen: View {
@@ -26,9 +25,7 @@ struct MainScreen: View {
     @State var tabViews: WeatherTabs = .today
     @State private var savedDate = Date()
     
-    var deviceType: UIUserInterfaceIdiom {
-        UIDevice.current.userInterfaceIdiom
-    }
+    var deviceType: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
 
     
     var body: some View {
@@ -36,6 +33,11 @@ struct MainScreen: View {
             getBackgroundColor.ignoresSafeArea()
             
             weatherEffectSceneView
+                .ignoresSafeArea()
+            
+            if weatherViewModel.currentWeather.isLightning && tabViews == .today {
+                LightningView().ignoresSafeArea()
+            }
             
             VStack(spacing: 0) {
                 
@@ -145,13 +147,9 @@ extension MainScreen {
     private var weatherEffectSceneView: some View {
         switch tabViews {
         case .today:
-            if let scene = weatherViewModel.currentWeather.scene {
-                WeatherParticleEffectView(sceneImport: scene)
-            }
+            weatherViewModel.currentWeather.scene
         case .tomorrow:
-            if let scene = weatherViewModel.tomorrowWeather.scene {
-                WeatherParticleEffectView(sceneImport: scene)
-            }
+            weatherViewModel.tomorrowWeather.scene
         case .multiDay:
             EmptyView()
         }

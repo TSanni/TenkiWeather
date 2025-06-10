@@ -8,7 +8,6 @@
 import Foundation
 import WeatherKit
 import SwiftUI
-import SpriteKit
 
 
 
@@ -56,8 +55,6 @@ struct DailyWeatherModel: Identifiable {
             let reducedNumber = Helper.convertNumberToZeroFloatingPoints(number: value)
             return "\(reducedNumber) \(unit) of \(type) expected."
         }
-        
-        
     }
     
     var dayChanceOfPrecipitation: String {
@@ -110,24 +107,14 @@ struct DailyWeatherModel: Identifiable {
         }
         
     }
-
-    //moon events
     
-    var readableDate: String {
-        return Helper.getDayOfWeekAndDate(date: date, timezoneIdentifier: timezoneIdentifier)
-    }
+    var readableDate: String { return Helper.getDayOfWeekAndDate(date: date, timezoneIdentifier: timezoneIdentifier) }
     
-    var dayWeatherDescription: String {
-        condition.description
-    }
+    var dayWeatherDescription: String { condition.description }
     
-    var uvIndexNumberDescription: String {
-        uvIndexValue.description
-    }
+    var uvIndexNumberDescription: String { uvIndexValue.description }
     
-    var uvIndexCategoryDescription: String {
-        uvIndexCategory.description
-    }
+    var uvIndexCategoryDescription: String { uvIndexCategory.description }
     
     var uvIndexActionRecommendation: String {
         switch uvIndexCategory {
@@ -159,14 +146,17 @@ struct DailyWeatherModel: Identifiable {
         }
     }
         
-    var backgroundColor: Color {
-        let condition = condition
-        return Helper.backgroundColor(weatherCondition: condition)
-    }
+    var backgroundColor: Color { return Helper.backgroundColor(weatherCondition: condition) }
     
-    var scene: SKScene? {
-        let condition = condition
-        return Helper.getScene(weatherCondition: condition)
+    var scene: some View { return Helper.getScene(weatherCondition: condition) }
+    
+    var isLightning: Bool {
+        switch condition {
+        case .thunderstorms, .isolatedThunderstorms, .scatteredThunderstorms, .strongStorms:
+            return true
+        default:
+            return false
+        }
     }
 }
 
