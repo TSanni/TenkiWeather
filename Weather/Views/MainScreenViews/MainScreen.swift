@@ -35,7 +35,7 @@ struct MainScreen: View {
             weatherEffectSceneView
                 .ignoresSafeArea()
             
-            if weatherViewModel.currentWeather.isLightning && tabViews == .today {
+            if (weatherViewModel.currentWeather.isLightning && tabViews == .today) || (weatherViewModel.tomorrowWeather.isLightning && tabViews == .tomorrow) {
                 LightningView().ignoresSafeArea()
             }
             
