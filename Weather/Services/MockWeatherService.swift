@@ -10,7 +10,13 @@ import WeatherKit
 
 class MockWeatherService: WeatherServiceProtocol {
     
+    var shouldFail = false
+    
     func fetchWeatherFromWeatherKit(latitude: Double, longitude: Double, timezoneIdentifier: String) async throws -> Weather {
+        if shouldFail {
+            throw WeatherErrors.failedToGetWeatherKitData
+        }
+        
         do {
             let weather = try await WeatherService.shared.weather(for: .init(latitude: latitude, longitude: longitude))
             return weather

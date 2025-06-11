@@ -9,7 +9,7 @@ import Foundation
 import WeatherKit
 
 
-struct MoonModel {
+struct MoonModel: Equatable {
     let moonrise: Date?
     let moonset: Date?
     let phase: MoonPhase

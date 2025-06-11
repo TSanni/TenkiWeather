@@ -14,7 +14,8 @@ struct SearchingScreenView: View {
     @EnvironmentObject var appStateVM: AppStateViewModel
     @EnvironmentObject var locationSearchVM: LocationSearchViewModel
     @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
-
+    @State private var showErrorAlert = false
+    @State private var error: WeatherErrors? = nil
     @AppStorage("ascendOrDescend") var toggleAscend = false
     
     //MARK: - Main View
@@ -38,8 +39,10 @@ struct SearchingScreenView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         locationSearchVM.fetchCityLocation(for: suggestion) { coordinate, name, error in
-                            if let error = error {
-                                fatalError("Failed at fetchCityLocation function: \(error)")
+                            if error != nil {
+                                self.error = error as? WeatherErrors
+                                showErrorAlert.toggle()
+                                return
                             }
                             
                             guard let coordinate = coordinate, let name = name else { return }
@@ -47,11 +50,13 @@ struct SearchingScreenView: View {
                                 await appStateVM.getWeatherFromLocationSearch(coordinate: coordinate, name: name)
                                 locationSearchVM.query = ""
                             }
-                            
-
                         }
                     }
-
+                    .alert(self.error?.localizedDescription ?? "", isPresented: $showErrorAlert) {
+                        Button("OK", role: .cancel) { }
+                    } message: {
+                        Text(self.error?.recoverySuggestion ?? "")
+                    }
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)

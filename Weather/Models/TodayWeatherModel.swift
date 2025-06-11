@@ -10,7 +10,7 @@ import WeatherKit
 import SwiftUI
 
 // MARK: - Main Model
-struct TodayWeatherModel: Identifiable {
+struct TodayWeatherModel: Identifiable, Equatable {
     let id = UUID()
     let apparentTemperature: Measurement<UnitTemperature>
     let dewPoint: Measurement<UnitTemperature>
@@ -256,4 +256,3 @@ extension TodayWeatherModel {
         }
     }
 }
-

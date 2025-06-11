@@ -14,7 +14,7 @@ extension AppStateViewModel {
         let coreLocationVM = CoreLocationViewModel()
         let vm = AppStateViewModel(
             locationViewModel: coreLocationVM,
-            weatherViewModel: WeatherViewModel(weatherManager: weatherManager),
+            weatherViewModel: WeatherViewModel(weatherService: weatherManager),
             persistence: SavedLocationsPersistenceViewModel(weatherManager: weatherManager, coreLocationModel: coreLocationVM)
         )
         
@@ -25,7 +25,7 @@ extension AppStateViewModel {
 extension WeatherViewModel {
     static var preview: WeatherViewModel {
         let weatherManager = MockWeatherService()
-        let vm = WeatherViewModel(weatherManager: weatherManager)
+        let vm = WeatherViewModel(weatherService: weatherManager)
         
         return vm
     }

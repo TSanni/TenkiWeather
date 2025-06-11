@@ -9,11 +9,14 @@ import Foundation
 
 enum WeatherErrors: Error, LocalizedError {
     case failedToGetWeatherKitData
+    case locationNotAvailable
     
     var errorDescription: String? {
         switch self {
         case .failedToGetWeatherKitData:
             return "Weather request failed"
+        case .locationNotAvailable:
+            return "Location not available"
         }
     }
     
@@ -22,6 +25,8 @@ enum WeatherErrors: Error, LocalizedError {
         switch self {
         case .failedToGetWeatherKitData:
             return "Check your network connection and try again."
+        case .locationNotAvailable:
+            return "Unable to get weather for this location. Please try a different location."
         }
     }
 }

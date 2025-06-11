@@ -61,7 +61,7 @@ class LocationSearchViewModel: NSObject, ObservableObject, MKLocalSearchComplete
                     
                     completionHandler(coordinate, locationName, nil)
                 } else {
-                    completionHandler(nil, nil, NSError(domain: "InvalidLocation", code: 400, userInfo: [NSLocalizedDescriptionKey: "Not a city-like location"]))
+                    completionHandler(nil, nil, WeatherErrors.locationNotAvailable)
                 }
             } else {
                 completionHandler(nil, nil, NSError(domain: "NoResults", code: 404, userInfo: [NSLocalizedDescriptionKey: "No locations found"]))

@@ -24,7 +24,7 @@ struct WeatherApp: App {
     init() {
         
         let weatherManager = ProductionWeatherService()
-        let weatherVM = WeatherViewModel(weatherManager: weatherManager)
+        let weatherVM = WeatherViewModel(weatherService: weatherManager)
         let locationVM = CoreLocationViewModel()
         let persistenceVM = SavedLocationsPersistenceViewModel(weatherManager: weatherManager, coreLocationModel: locationVM)
         let appStateVM = AppStateViewModel(

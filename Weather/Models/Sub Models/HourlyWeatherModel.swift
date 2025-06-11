@@ -9,7 +9,7 @@ import Foundation
 import WeatherKit
 
 /// Consists of temperatures and the dates
-struct HourlyWeatherModel: Identifiable {
+struct HourlyWeatherModel: Identifiable, Equatable {
     let id = UUID()
     let temperature: Measurement<UnitTemperature>
     let wind: WindModel

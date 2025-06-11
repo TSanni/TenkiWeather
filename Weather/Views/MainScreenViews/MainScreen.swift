@@ -80,7 +80,6 @@ struct MainScreen: View {
                 SettingsScreen()
             }
         }
-        
         .alert(isPresented: $weatherViewModel.showErrorAlert, error: weatherViewModel.currentError) { _ in
             Button("OK", role: .cancel) { }
         } message: { error in

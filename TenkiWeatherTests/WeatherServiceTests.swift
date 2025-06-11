@@ -1,5 +1,5 @@
 //
-//  WeatherManagerTests.swift
+//  WeatherServiceTests.swift
 //  TenkiWeatherTests
 //
 //  Created by Tomas Sanni on 5/27/25.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Tenki_Weather
 
-final class WeatherManagerTests: XCTestCase {
+final class WeatherServiceTests: XCTestCase {
     // Naming Structure: test_UnitOfWork_StateUnderTest_ExpectedBehavior
     // Naming Structure: test_[struct or class]_[variable or function]_[expected result]
 

@@ -36,5 +36,20 @@ final class WeatherViewModelTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func test_WeatherViewModel_fetchWeather_success() async  {
+        // Given
+        let weatherService = MockWeatherService()
+        let vm = WeatherViewModel(weatherService: weatherService)
+        // When
+        await vm.fetchWeather(latitude: 35.6895, longitude: 139.6917, timezoneIdentifier: "Asia/Tokyo")
+        //Then
+        XCTAssertEqual(vm.currentWeather, TodayWeatherModelPlaceHolder.holderData)
+        XCTAssertEqual(vm.tomorrowWeather, DailyWeatherModelPlaceHolder.placeholder)
+        XCTAssertEqual(vm.dailyWeather, DailyWeatherModelPlaceHolder.placeholderArray)
+        XCTAssertEqual(vm.weatherAlert, WeatherAlertModelPlaceholder.weatherAlertHolder)
+        XCTAssertEqual(vm.localWeather, TodayWeatherModelPlaceHolder.holderData)
+
+    }
 
 }

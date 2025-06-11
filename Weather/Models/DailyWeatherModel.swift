@@ -12,7 +12,7 @@ import SwiftUI
 
 
 //MARK: - Main Model
-struct DailyWeatherModel: Identifiable {
+struct DailyWeatherModel: Identifiable, Equatable {
     let id = UUID()
     let highTemperature: Measurement<UnitTemperature>
     let lowTemperature: Measurement<UnitTemperature>

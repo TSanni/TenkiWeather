@@ -9,7 +9,7 @@ import Foundation
 import WeatherKit
 import SwiftUI
 
-struct WeatherAlertModel {
+struct WeatherAlertModel: Equatable {
     let detailsURL: URL
     let region: String?
     let severity: WeatherSeverity
