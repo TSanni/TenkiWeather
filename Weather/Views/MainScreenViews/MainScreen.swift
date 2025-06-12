@@ -80,7 +80,7 @@ struct MainScreen: View {
                 SettingsScreen()
             }
         }
-        .alert(isPresented: $weatherViewModel.showErrorAlert, error: weatherViewModel.currentError) { _ in
+        .alert(isPresented: $appStateViewModel.showErrorAlert, error: appStateViewModel.weatherError) { _ in
             Button("OK", role: .cancel) { }
         } message: { error in
             Text(error.recoverySuggestion ?? "Try again later")

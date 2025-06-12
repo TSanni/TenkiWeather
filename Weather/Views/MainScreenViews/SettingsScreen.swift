@@ -46,7 +46,7 @@ struct SettingsScreen: View {
             
             HStack {
                 Spacer()
-                Text("Last weather update: " + weatherViewModel.lastUpdated)
+                Text("Last weather update: " + appStateViewModel.lastUpdated)
                     .foregroundStyle(.secondary)
                 Spacer()
             }

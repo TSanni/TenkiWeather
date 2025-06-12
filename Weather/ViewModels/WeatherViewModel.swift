@@ -15,21 +15,14 @@ class WeatherViewModel: ObservableObject {
     @Published private(set) var dailyWeather: [DailyWeatherModel] = DailyWeatherModelPlaceHolder.placeholderArray
     @Published private(set) var weatherAlert: WeatherAlertModel? = nil
     @Published private(set) var localWeather: TodayWeatherModel = TodayWeatherModelPlaceHolder.holderData
-    @Published var showErrorAlert = false
-    @Published var currentError: WeatherErrors? = nil
-    @Published private(set) var lastUpdated: String = ""
 
     private let weatherService: WeatherServiceProtocol
 
     init(weatherService: WeatherServiceProtocol) {
         self.weatherService = weatherService
     }
-    
-    private func setLastUpdated() {
-        self.lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: TimeZone.current.identifier)
-    }
-    
-    func fetchWeather(latitude: Double, longitude: Double, timezoneIdentifier: String) async {
+
+    func fetchWeather(latitude: Double, longitude: Double, timezoneIdentifier: String) async throws {
         do {
             let weather = try await weatherService.fetchWeatherFromWeatherKit(latitude: latitude, longitude: longitude, timezoneIdentifier: timezoneIdentifier)
             
@@ -46,19 +39,13 @@ class WeatherViewModel: ObservableObject {
                 self.tomorrowWeather = tomorrowWeather
                 self.dailyWeather = dailyWeather
                 self.weatherAlert = weatherAlert
-                setLastUpdated()
             }
-            
-            
-        } catch {
-            await MainActor.run {
-                currentError = .failedToGetWeatherKitData
-                showErrorAlert.toggle()
-            }
+        } catch let error {
+            throw error
         }
     }
     
-    func fetchLocalWeather(latitude: Double, longitude: Double, name: String, timezoneIdentifier: String) async {
+    func fetchLocalWeather(latitude: Double, longitude: Double, name: String, timezoneIdentifier: String) async throws {
         do {
             let weather = try await weatherService.fetchWeatherFromWeatherKit(latitude: latitude, longitude: longitude, timezoneIdentifier: timezoneIdentifier)
             
@@ -71,13 +58,9 @@ class WeatherViewModel: ObservableObject {
             
             await MainActor.run {
                 self.localWeather = localWeather
-                setLastUpdated()
             }
-        } catch {
-            await MainActor.run {
-                currentError = .failedToGetWeatherKitData
-                showErrorAlert.toggle()
-            }
+        } catch let error {
+            throw error
         }
     }
 }

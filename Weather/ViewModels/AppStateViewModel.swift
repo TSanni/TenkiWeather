@@ -16,8 +16,14 @@ import CoreLocation
     @Published private(set) var loading: Bool = false
     @Published private(set) var currentLocationName: String = ""
     @Published private(set) var currentLocationTimezone: String
+    
+    @Published private(set) var lastUpdated: String = ""
+    @Published private(set) var weatherError: WeatherErrors? = nil
+    @Published private(set) var coreDataError: CoreDataErrors? = nil
+    @Published var showErrorAlert = false
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
+
     // This property's only purpose is to add data to CoreData.
     // You can find it's data being saved to CoreData in the SettingScreenTile View
     // This is the only dictionary type in the project
@@ -45,6 +51,10 @@ import CoreLocation
         self.persistence = persistence
         
         currentLocationTimezone = weatherViewModel.currentWeather.timezoneIdentifier
+    }
+    
+    private func setLastUpdated() {
+        self.lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: TimeZone.current.identifier)
     }
     
     func toggleShowSearchScreen() {
@@ -142,33 +152,36 @@ import CoreLocation
         print(#function)
         do {
             toggleShowSearchScreen()
-             dataIsLoading()
-             try await locationViewModel.getLocalLocationName()
-             try await locationViewModel.getSearchedLocationName(lat: item.latitude, lon: item.longitude, name: nil)
-             await weatherViewModel.fetchWeather (latitude: item.latitude, longitude: item.longitude, timezoneIdentifier: locationViewModel.timezoneIdentifier)
-             await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: locationViewModel.localLocationName, timezoneIdentifier: currentLocationTimezone)
-             
-             locationViewModel.searchedLocationName = item.name!
-             
-             setSearchedLocationDictionary(
-                 name: locationViewModel.searchedLocationName,
-                 latitude: item.latitude,
-                 longitude: item.longitude,
-                 timeZoneIdentifier: item.timezoneIdentifier ?? K.defaultTimezoneIdentifier,
-                 temperature: item.temperature ?? "0",
-                 date: item.currentDate ?? Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: K.defaultTimezoneIdentifier),
-                 symbol: item.sfSymbol ?? "sun.max.fill",
-                 weatherCondition: item.weatherCondition ?? "cloudy",
-                 weatherAlert: item.weatherAlert,
-                 timezone: Int(item.timezone)
-             )
-
-             dataCompletedLoading()
-             performViewReset()
-        } catch  {
+            dataIsLoading()
+            try await locationViewModel.getLocalLocationName()
+            try await locationViewModel.getSearchedLocationName(lat: item.latitude, lon: item.longitude, name: nil)
+            try await weatherViewModel.fetchWeather (latitude: item.latitude, longitude: item.longitude, timezoneIdentifier: locationViewModel.timezoneIdentifier)
+            try await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: locationViewModel.localLocationName, timezoneIdentifier: currentLocationTimezone)
+            
+            locationViewModel.searchedLocationName = item.name!
+            
+            setSearchedLocationDictionary(
+                name: locationViewModel.searchedLocationName,
+                latitude: item.latitude,
+                longitude: item.longitude,
+                timeZoneIdentifier: item.timezoneIdentifier ?? K.defaultTimezoneIdentifier,
+                temperature: item.temperature ?? "0",
+                date: item.currentDate ?? Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: K.defaultTimezoneIdentifier),
+                symbol: item.sfSymbol ?? "sun.max.fill",
+                weatherCondition: item.weatherCondition ?? "cloudy",
+                weatherAlert: item.weatherAlert,
+                timezone: Int(item.timezone)
+            )
+            
+            dataCompletedLoading()
+            performViewReset()
+            setLastUpdated()
+        } catch let error as WeatherErrors {
+            weatherError = error
+            showErrorAlert.toggle()
+        } catch {
             print("❌ Failed to getWeatherAndUpdateDictionaryFromSavedLocation")
         }
- 
     }
     
     func getWeatherAndUpdateDictionaryFromLocation() async {
@@ -179,9 +192,9 @@ import CoreLocation
             try await locationViewModel.getLocalLocationName()
             let timezoneIdentifier = locationViewModel.timezoneIdentifier
             let timezoneSecondsFromGMT = locationViewModel.timezoneSecondsFromGMT
-            await weatherViewModel.fetchWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezoneIdentifier: timezoneIdentifier)
+            try await weatherViewModel.fetchWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezoneIdentifier: timezoneIdentifier)
             let userLocationName = locationViewModel.localLocationName
-            await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezoneIdentifier: timezoneIdentifier)
+            try await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezoneIdentifier: timezoneIdentifier)
             locationViewModel.searchedLocationName = userLocationName
             let currentWeather = weatherViewModel.currentWeather
 
@@ -202,10 +215,13 @@ import CoreLocation
             
             dataCompletedLoading()
             performViewReset()
+            setLastUpdated()
+        } catch let error as WeatherErrors {
+            weatherError = error
+            showErrorAlert.toggle()
         } catch {
             print("❌ Failed to getWeatherAndUpdateDictionaryFromLocation")
         }
-
     }
     
     func getWeatherFromLocationSearch(coordinate: CLLocationCoordinate2D, name: String) async {
@@ -217,7 +233,7 @@ import CoreLocation
             let timezoneIdentifier = locationViewModel.timezoneIdentifier
             let timezoneSecondsFromGMT = locationViewModel.timezoneSecondsFromGMT
 
-            await weatherViewModel.fetchWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezoneIdentifier: timezoneIdentifier)
+            try await weatherViewModel.fetchWeather(latitude: coordinates.latitude, longitude:coordinates.longitude, timezoneIdentifier: timezoneIdentifier)
             let currentWeather = weatherViewModel.currentWeather
             setSearchedLocationDictionary(
                 name: name,
@@ -235,10 +251,13 @@ import CoreLocation
             dataCompletedLoading()
             toggleShowSearchScreen()
             performViewReset()
-        } catch  {
+            setLastUpdated()
+        } catch let error as WeatherErrors {
+            weatherError = error
+            showErrorAlert.toggle()
+        } catch {
             print("❌ Failed to getWeatherFromLocationSearch")
         }
-
     }
     
     func getWeather() async {
@@ -249,9 +268,9 @@ import CoreLocation
             locationViewModel.searchedLocationName = locationViewModel.localLocationName
             let timezoneIdentifier = locationViewModel.timezoneIdentifier
             let timezoneSecondsFromGMT = locationViewModel.timezoneSecondsFromGMT
-            await weatherViewModel.fetchWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezoneIdentifier: timezoneIdentifier)
+            try await weatherViewModel.fetchWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, timezoneIdentifier: timezoneIdentifier)
             let userLocationName = locationViewModel.localLocationName
-            await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezoneIdentifier: timezoneIdentifier)
+            try await weatherViewModel.fetchLocalWeather(latitude: locationViewModel.latitude, longitude: locationViewModel.longitude, name: userLocationName, timezoneIdentifier: timezoneIdentifier)
             
             setCurrentLocationName(name: userLocationName)
             setCurrentLocationTimezone(timezone: timezoneIdentifier)
@@ -269,12 +288,13 @@ import CoreLocation
                 weatherAlert: weatherViewModel.weatherAlert != nil ? true : false,
                 timezone: timezoneSecondsFromGMT
             )
-            
             performViewReset()
-        } catch  {
+            setLastUpdated()
+        } catch let error as WeatherErrors {
+            weatherError = error
+            showErrorAlert.toggle()
+        } catch {
             print("❌ Failed to getWeather")
-
         }
- 
     }
 }

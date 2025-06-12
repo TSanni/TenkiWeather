@@ -13,13 +13,17 @@ final class WeatherViewModelTests: XCTestCase {
     // Naming Structure: test_[struct or class]_[variable or function]_[expected result]
 
     // Testing Structure: Given, When, Then
+    
+    var mockWeatherService: MockWeatherService!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        mockWeatherService = MockWeatherService()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        mockWeatherService = nil
     }
 
     func testExample() throws {
@@ -37,19 +41,40 @@ final class WeatherViewModelTests: XCTestCase {
         }
     }
     
-    func test_WeatherViewModel_fetchWeather_success() async  {
+    func test_WeatherViewModel_fetchWeather_success() async {
         // Given
-        let weatherService = MockWeatherService()
-        let vm = WeatherViewModel(weatherService: weatherService)
+//        let mockWeatherService = MockWeatherService()
+        mockWeatherService.shouldFail = false
+        let vm = WeatherViewModel(weatherService: mockWeatherService)
+
         // When
-        await vm.fetchWeather(latitude: 35.6895, longitude: 139.6917, timezoneIdentifier: "Asia/Tokyo")
-        //Then
+        do {
+            try await vm.fetchWeather(latitude: 35.6895, longitude: 139.6917, timezoneIdentifier: "Asia/Tokyo")
+        } catch {
+            XCTFail("Unexpected error thrown: \(error)")
+        }
+
+        // Then
         XCTAssertEqual(vm.currentWeather, TodayWeatherModelPlaceHolder.holderData)
         XCTAssertEqual(vm.tomorrowWeather, DailyWeatherModelPlaceHolder.placeholder)
         XCTAssertEqual(vm.dailyWeather, DailyWeatherModelPlaceHolder.placeholderArray)
         XCTAssertEqual(vm.weatherAlert, WeatherAlertModelPlaceholder.weatherAlertHolder)
         XCTAssertEqual(vm.localWeather, TodayWeatherModelPlaceHolder.holderData)
-
     }
-
+    
+    func test_WeatherViewModel_fetchWeather_shouldFail() async {
+        // Given
+//        let mockWeatherService = MockWeatherService()
+        mockWeatherService.shouldFail = true
+        let vm = WeatherViewModel(weatherService: mockWeatherService)
+        
+        // When
+        do {
+            try await vm.fetchWeather(latitude: 35.6895, longitude: 139.6917, timezoneIdentifier: "Asia/Tokyo")
+            XCTFail("Expected error, but no error was thrown.")
+        } catch {
+            // Then
+            XCTAssertEqual(error as? WeatherErrors, WeatherErrors.failedToGetWeatherKitData)
+        }
+    }
 }
