@@ -52,7 +52,7 @@ enum CoreDataErrors: Error, LocalizedError {
         case .failedToLoad:
             return "Failed to load saved data"
         case .locationSaveLimitReached:
-            return "Unable to save location."
+            return "Unable to save location"
         }
     }
     

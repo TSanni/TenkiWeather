@@ -20,13 +20,14 @@ import CoreLocation
     @Published private(set) var lastUpdated: String = ""
     @Published private(set) var weatherError: WeatherErrors? = nil
     @Published private(set) var coreDataError: CoreDataErrors? = nil
-    @Published var showErrorAlert = false
+    @Published var showCoreDataSuccessAlert = false
+    @Published var showWeatherErrorAlert: Bool = false
+    @Published var showCoreDataErrorAlert: Bool = false
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
 
     // This property's only purpose is to add data to CoreData.
     // You can find it's data being saved to CoreData in the SettingScreenTile View
-    // This is the only dictionary type in the project
     @Published private(set) var searchedLocationDictionary: SearchLocationModel =
         SearchLocationModel(
             name: "",
@@ -57,35 +58,19 @@ import CoreLocation
         self.lastUpdated = Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: TimeZone.current.identifier)
     }
     
-    func toggleShowSearchScreen() {
-        self.showSearchScreen.toggle()
-    }
+    func toggleShowSearchScreen() { self.showSearchScreen.toggle() }
     
-    func toggleShowSettingScreen() {
-        self.showSettingScreen.toggle()
-    }
+    func toggleShowSettingScreen() { self.showSettingScreen.toggle() }
     
-    ///Returns columns and tile size accounting for iPhone and iPad
-    func getGridColumnAndSize(geo: GeometryProxy) -> [GridItem] {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return [GridItem(.adaptive(minimum: geo.size.width * 0.20, maximum: .infinity))]
-            
-        } else {
-            return [GridItem(.adaptive(minimum: geo.size.width * 0.44, maximum: 200))]
-        }
-    }
+    private func performViewReset() { resetViews.toggle() }
     
-    func performViewReset() {
-        resetViews.toggle()
-    }
+    private func setCurrentLocationName(name: String) { currentLocationName = name }
     
-    func setCurrentLocationName(name: String) {
-        currentLocationName = name
-    }
+    private func setCurrentLocationTimezone(timezone: String) { currentLocationTimezone = timezone }
     
-    func setCurrentLocationTimezone(timezone: String) {
-        currentLocationTimezone = timezone
-    }
+    private func dataIsLoading() { self.loading = true }
+    
+    private func dataCompletedLoading() { self.loading = false }
     
     private func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timeZoneIdentifier: String, temperature: String, date: String, symbol: String, weatherCondition: String, weatherAlert: Bool, timezone: Int) {
         
@@ -102,52 +87,25 @@ import CoreLocation
             timezone: timezone
         )
     }
+}
 
-    func dataIsLoading() {
-        self.loading = true
+// MARK: - Handle Core Data
+extension AppStateViewModel {
+    func saveLocation() {
+        do {
+            try persistence.createLocation(locationInfo: searchedLocationDictionary)
+            showCoreDataSuccessAlert.toggle()
+        } catch let error as CoreDataErrors {
+            coreDataError = error
+            showCoreDataErrorAlert.toggle()
+        } catch {
+            print("Failed to save location. Error: \(error)")
+        }
     }
-    
-    func dataCompletedLoading() {
-        self.loading = false
-    }
-        
-    func fortyFivePercentTileSize(geo: GeometryProxy) -> Double {
-        return geo.size.width * 0.45
-    }
-    
-    func mixColorWith70PercentWhite(themeColor: Color) -> Color {
-        let themeColor = UIColor(themeColor)
-        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.7, color2: themeColor, intensity2: 0.3))
-        
-        return blendedColor
-    }
-    
-    func mixColorWith60PercentWhite(themeColor: Color) -> Color {
-        let themeColor = UIColor(themeColor)
-        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.6, color2: themeColor, intensity2: 0.4))
-        
-        return blendedColor
-    }
-    
-    func blendColorWith20PercentWhite(themeColor: Color) -> Color {
-        let themeColor = UIColor(themeColor)
-        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
-        
-        return blendedColor
-    }
-    
-    func blendColorWith20PercentBlack(themeColor: Color) -> Color {
-        let themeColor = UIColor(themeColor)
-        let blendedColor = Color(UIColor.blend(color1: .black, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
-        
-        return blendedColor
-    }
-    
-    func fillImageToPrepareForRendering(symbol: String) -> String {
-        let filledInSymbol = Helper.getImage(imageName: symbol)
-        return filledInSymbol
-    }
-    
+}
+
+// MARK: - Handle WeatherViewModel and LocationViewModel
+extension AppStateViewModel {
     func getWeatherAndUpdateDictionaryFromSavedLocation(item: Location) async {
         print(#function)
         do {
@@ -178,7 +136,7 @@ import CoreLocation
             setLastUpdated()
         } catch let error as WeatherErrors {
             weatherError = error
-            showErrorAlert.toggle()
+            showWeatherErrorAlert.toggle()
         } catch {
             print("❌ Failed to getWeatherAndUpdateDictionaryFromSavedLocation")
         }
@@ -218,7 +176,7 @@ import CoreLocation
             setLastUpdated()
         } catch let error as WeatherErrors {
             weatherError = error
-            showErrorAlert.toggle()
+            showWeatherErrorAlert.toggle()
         } catch {
             print("❌ Failed to getWeatherAndUpdateDictionaryFromLocation")
         }
@@ -254,7 +212,7 @@ import CoreLocation
             setLastUpdated()
         } catch let error as WeatherErrors {
             weatherError = error
-            showErrorAlert.toggle()
+            showWeatherErrorAlert.toggle()
         } catch {
             print("❌ Failed to getWeatherFromLocationSearch")
         }
@@ -292,9 +250,61 @@ import CoreLocation
             setLastUpdated()
         } catch let error as WeatherErrors {
             weatherError = error
-            showErrorAlert.toggle()
+            showWeatherErrorAlert.toggle()
         } catch {
             print("❌ Failed to getWeather")
         }
     }
+}
+
+
+// MARK: - Handle UI
+extension AppStateViewModel {
+    ///Returns columns and tile size accounting for iPhone and iPad
+    func getGridColumnAndSize(geo: GeometryProxy) -> [GridItem] {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return [GridItem(.adaptive(minimum: geo.size.width * 0.20, maximum: .infinity))]
+            
+        } else {
+            return [GridItem(.adaptive(minimum: geo.size.width * 0.44, maximum: 200))]
+        }
+    }
+    
+    func fortyFivePercentTileSize(geo: GeometryProxy) -> Double {
+        return geo.size.width * 0.45
+    }
+    
+    func mixColorWith70PercentWhite(themeColor: Color) -> Color {
+        let themeColor = UIColor(themeColor)
+        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.7, color2: themeColor, intensity2: 0.3))
+        
+        return blendedColor
+    }
+    
+    func mixColorWith60PercentWhite(themeColor: Color) -> Color {
+        let themeColor = UIColor(themeColor)
+        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.6, color2: themeColor, intensity2: 0.4))
+        
+        return blendedColor
+    }
+    
+    func blendColorWith20PercentWhite(themeColor: Color) -> Color {
+        let themeColor = UIColor(themeColor)
+        let blendedColor = Color(UIColor.blend(color1: .white, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
+        
+        return blendedColor
+    }
+    
+    func blendColorWith20PercentBlack(themeColor: Color) -> Color {
+        let themeColor = UIColor(themeColor)
+        let blendedColor = Color(UIColor.blend(color1: .black, intensity1: 0.2, color2: themeColor, intensity2: 0.8))
+        
+        return blendedColor
+    }
+    
+    func fillImageToPrepareForRendering(symbol: String) -> String {
+        let filledInSymbol = Helper.getImage(imageName: symbol)
+        return filledInSymbol
+    }
+    
 }

@@ -11,7 +11,6 @@ import CoreLocation
 
 //MARK: - View
 struct MainScreen: View {
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.scenePhase) var scenePhase
     
     @EnvironmentObject var weatherViewModel: WeatherViewModel
@@ -19,7 +18,6 @@ struct MainScreen: View {
     @EnvironmentObject var networkManager: NetworkMonitor
     @EnvironmentObject var locationViewModel: CoreLocationViewModel
     @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
-    @EnvironmentObject var locationSearchViewModel: LocationSearchViewModel
     
     //Must use @State instead of view model because this is the only way to make animations work
     @State var tabViews: WeatherTabs = .today
@@ -80,7 +78,7 @@ struct MainScreen: View {
                 SettingsScreen()
             }
         }
-        .alert(isPresented: $appStateViewModel.showErrorAlert, error: appStateViewModel.weatherError) { _ in
+        .alert(isPresented: $appStateViewModel.showWeatherErrorAlert, error: appStateViewModel.weatherError) { _ in
             Button("OK", role: .cancel) { }
         } message: { error in
             Text(error.recoverySuggestion ?? "Try again later")
@@ -124,7 +122,6 @@ struct MainScreen: View {
         .environmentObject(locationViewModel)
         .environmentObject(appStateViewModel)
         .environmentObject(networkManager)
-        .environmentObject(locationSearchViewModel)
     }
 }
 

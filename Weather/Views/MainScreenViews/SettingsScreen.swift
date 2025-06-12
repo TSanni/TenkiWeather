@@ -13,14 +13,9 @@ struct SettingsScreen: View {
     @AppStorage(K.UserDefaultKeys.unitPrecipitationKey) var precipitationUnit: PrecipitationUnits = .inches
     @Environment(\.dismiss) var dimiss
     @EnvironmentObject var appStateViewModel: AppStateViewModel
-    @EnvironmentObject var persistence: SavedLocationsPersistenceViewModel
-    @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @State private var locationSaveAlert: Bool = false
     @State private var showPrivacyWebsite = false
     @State private var showTermsAndConditionsWebsite = false
     
-    @State private var alertTitle: Text = Text("")
-    @State private var alertMessage: Text = Text("")
     
     @AppStorage(K.UserDefaultKeys.timePreferenceKey) var toggle24HourTime: Bool = false
     @AppStorage(K.UserDefaultKeys.showTemperatureUnitKey) var showTemperatureUnit: Bool = false
@@ -63,8 +58,15 @@ struct SettingsScreen: View {
                 .tint(.primary)
             }
         }
-        .alert(isPresented: $locationSaveAlert) {
-            Alert(title: alertTitle, message: alertMessage)
+        .alert("Saved", isPresented: $appStateViewModel.showCoreDataSuccessAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Location saved successfully.")
+        }
+        .alert(isPresented: $appStateViewModel.showCoreDataErrorAlert, error: appStateViewModel.coreDataError) { _ in
+            Button("OK", role: .cancel) { }
+        } message: { error in
+            Text(error.recoverySuggestion ?? "Try again later")
         }
         .sheet(isPresented: $showPrivacyWebsite) {
             FullScreenWebView(url: K.privacyPolicyURL)
@@ -79,7 +81,7 @@ struct SettingsScreen: View {
     var saveLocationSection: some View {
         Section("Save Location") {
             Button {
-                saveLocation()
+                appStateViewModel.saveLocation()
             } label: {
                 HStack {
                     Image(systemName: "mappin.and.ellipse")
@@ -184,32 +186,11 @@ struct SettingsScreen: View {
             Text("App Version: \(appVersionString)")
         }
     }
-    
-    
-    
-    //MARK: - Functions
-    private func saveLocation() {
-        
-        do {
-            try persistence.createLocation(locationInfo: appStateViewModel.searchedLocationDictionary)
-            alertTitle = Text("Saved.")
-            alertMessage =  Text("Location saved to favorites.")
-        } catch {
-            if let error = error as? LocalizedError {
-                alertTitle = Text(error.localizedDescription)
-                alertMessage = Text(error.recoverySuggestion ?? "Unknown error occured.")
-            }
-        }
-        
-        locationSaveAlert.toggle()
-    } 
 }
 
 #Preview {
     NavigationStack {
         SettingsScreen()
             .environmentObject(AppStateViewModel.preview)
-            .environmentObject(SavedLocationsPersistenceViewModel.preview)
-            .environmentObject(WeatherViewModel.preview)
     }
 }
