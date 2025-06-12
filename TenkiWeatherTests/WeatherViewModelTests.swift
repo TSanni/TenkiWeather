@@ -43,7 +43,6 @@ final class WeatherViewModelTests: XCTestCase {
     
     func test_WeatherViewModel_fetchWeather_success() async {
         // Given
-//        let mockWeatherService = MockWeatherService()
         mockWeatherService.shouldFail = false
         let vm = WeatherViewModel(weatherService: mockWeatherService)
 
@@ -64,13 +63,43 @@ final class WeatherViewModelTests: XCTestCase {
     
     func test_WeatherViewModel_fetchWeather_shouldFail() async {
         // Given
-//        let mockWeatherService = MockWeatherService()
         mockWeatherService.shouldFail = true
         let vm = WeatherViewModel(weatherService: mockWeatherService)
         
         // When
         do {
             try await vm.fetchWeather(latitude: 35.6895, longitude: 139.6917, timezoneIdentifier: "Asia/Tokyo")
+            XCTFail("Expected error, but no error was thrown.")
+        } catch {
+            // Then
+            XCTAssertEqual(error as? WeatherErrors, WeatherErrors.failedToGetWeatherKitData)
+        }
+    }
+    
+    func test_WeatherViewModel_fetchLocalWeather_success() async {
+        // Given
+        mockWeatherService.shouldFail = false
+        let vm = WeatherViewModel(weatherService: mockWeatherService)
+
+        // When
+        do {
+            try await vm.fetchLocalWeather(latitude: 35.6895, longitude: 139.6917, name: "Tokyo", timezoneIdentifier: "Asia/Tokyo")
+        } catch {
+            XCTFail("Unexpected error thrown: \(error)")
+        }
+
+        // Then
+        XCTAssertEqual(vm.localWeather, TodayWeatherModelPlaceHolder.holderData)
+    }
+    
+    func test_WeatherViewModel_fetchLocalWeather_shouldFail() async {
+        // Given
+        mockWeatherService.shouldFail = true
+        let vm = WeatherViewModel(weatherService: mockWeatherService)
+        
+        // When
+        do {
+            try await vm.fetchLocalWeather(latitude: 35.6895, longitude: 139.6917, name: "Tokyo", timezoneIdentifier: "Asia/Tokyo")
             XCTFail("Expected error, but no error was thrown.")
         } catch {
             // Then
