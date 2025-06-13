@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-
-
-
 struct HourlyForecastTileView: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var weatherViewModel: WeatherViewModel
@@ -33,7 +30,6 @@ struct HourlyForecastTileView: View {
                     CustomDivider()
                 }
                 .padding([.top, .horizontal], 15)
-   
             }
 
             ScrollView(.horizontal, showsIndicators: false) {
@@ -59,8 +55,6 @@ struct HourlyForecastTileView: View {
                                             .font(.caption)
                                     }
                                     
-                                    
-                                    
                                     Image(systemName: imageName)
                                         .renderingMode(.original)
                                         .frame(width: 25, height: 25)
@@ -69,8 +63,6 @@ struct HourlyForecastTileView: View {
                                     Text(item.hourTemperature + "°")
                                         .font(.callout)
                                         .fontWeight(.semibold)
-                                    
-                                    
                                 }
                                 .padding(.top)
                                 .padding(.horizontal, 10)
@@ -103,7 +95,6 @@ struct HourlyForecastTileView: View {
                     }
                 }
             }
-
         }
         .foregroundStyle(.white)
         .background(color)
@@ -117,10 +108,10 @@ struct HourlyForecastTileView: View {
 //MARK: - Preview
 #Preview {
     ZStack {
-        Color.haze.brightness(0.1)
+        Color.hazeDaylightColor.brightness(0.1)
         HourlyForecastTileView(
             hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
-            color: Color.haze, forToday: true
+            color: Color.hazeDaylightColor, forToday: true
         )
         .environmentObject(AppStateViewModel.preview)
         .environmentObject(WeatherViewModel.preview)

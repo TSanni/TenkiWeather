@@ -151,7 +151,7 @@ struct Helper {
     static func getScene(weatherCondition: WeatherCondition) -> some View {
         switch weatherCondition {
         case .blizzard:
-            SnowView(snowBirthRate: 90, snowVelocity: 400)
+            SnowView(snowBirthRate: 90, snowVelocity: 100)
         case .blowingDust:
             EmptyView()
         case .blowingSnow:
@@ -175,13 +175,13 @@ struct Helper {
         case .frigid:
             EmptyView()
         case .hail:
-            SnowView(snowBirthRate: 90, snowVelocity: 400)
+            SnowView(snowBirthRate: 5, snowVelocity: 500)
         case .haze:
             EmptyView()
         case .heavyRain:
             RainView(rainBirthRate: 200, rainVelocity: 700, cloudBirthRate: 1.5, cloudVelocity: 10)
         case .heavySnow:
-            SnowView(snowBirthRate: 90, snowVelocity: 400)
+            SnowView(snowBirthRate: 90, snowVelocity: 100)
         case .hot:
             EmptyView()
         case .hurricane:
@@ -203,7 +203,7 @@ struct Helper {
         case .smoky:
             EmptyView()
         case .snow:
-            SnowView(snowBirthRate: 10, snowVelocity: 100)
+            SnowView(snowBirthRate: 10, snowVelocity: 75)
         case .strongStorms:
             EmptyView()
         case .sunFlurries:
@@ -217,7 +217,7 @@ struct Helper {
         case .windy:
             EmptyView()
         case .wintryMix:
-            SnowView(snowBirthRate: 10, snowVelocity: 100)
+            SnowView(snowBirthRate: 10, snowVelocity: 75)
         @unknown default:
             EmptyView()
         }
@@ -225,31 +225,78 @@ struct Helper {
     
     static func backgroundColor(weatherCondition: WeatherCondition, isDaylight: Bool = true) -> Color {
         switch weatherCondition {
-        case .blizzard, .snow, .flurries, .frigid, .hail, .heavySnow, .sleet, .sunFlurries, .wintryMix, .blowingSnow:
-            return Color.cloudSnow
-        case .blowingDust, .haze, .smoky:
-            return Color.haze
-        case .breezy, .windy:
-            return Color.wind
-        case .clear, .mostlyClear:
-            return isDaylight ? Color.sunMaxColor : Color.moonAndStarsColor
-        case .cloudy, .partlyCloudy, .mostlyCloudy:
-            return isDaylight ? Color.cloudSunColor : Color.cloudMoonColor
-        case .drizzle, .freezingDrizzle, .freezingRain, .heavyRain, .rain:
-            return isDaylight ? Color.cloudSunRainColor : Color.cloudMoonRainColor
+        case .blizzard:
+            return isDaylight ? Color.blizzardDaylightColor : Color.blizzardNightColor
+        case .blowingDust:
+            return isDaylight ? Color.blowingDustDaylightColor : Color.blowingDustNightColor
+        case .blowingSnow:
+            return isDaylight ? Color.blowingSnowDaylightColor : Color.blowingSnowNightColor
+        case .breezy:
+            return isDaylight ? Color.breezyDaylightColor : Color.breezyNightColor
+        case .clear:
+            return isDaylight ? Color.clearWeatherDaylightColor : Color.clearWearherNightColor
+        case .cloudy:
+            return isDaylight ? Color.cloudyDaylightColor : Color.cloudyNightColor
+        case .drizzle:
+            return isDaylight ? Color.drizzleDaylightColor : Color.drizzleNightColor
+        case .flurries:
+            return isDaylight ? Color.flurriesDaylightColor : Color.flurriesNightColor
         case .foggy:
-            return Color.foggy
+            return isDaylight ? Color.foggyDaylightColor : Color.foggyNightColor
+        case .freezingDrizzle:
+            return isDaylight ? Color.freezingDrizzleDaylightColor : Color.freezingDrizzleNightColor
+        case .freezingRain:
+            return isDaylight ? Color.freezingRainDaylightColor : Color.freezingRainNightColor
+        case .frigid:
+            return isDaylight ? Color.frigidDaylightColor : Color.frigidNightColor
+        case .hail:
+            return isDaylight ? Color.hailDaylightColor : Color.hailNightColor
+        case .haze:
+            return isDaylight ? Color.hazeDaylightColor : Color.hazeNightColor
+        case .heavyRain:
+            return isDaylight ? Color.heavyRainDaylightColor : Color.heavyRainNightColor
+        case .heavySnow:
+            return isDaylight ? Color.heavySnowDaylightColor : Color.heavySnowNightColor
         case .hot:
-            return Color.maroon
-        case .hurricane, .scatteredThunderstorms, .strongStorms, .thunderstorms, .tropicalStorm:
-            return Color.cloudBoltRainColor
+            return isDaylight ? Color.hotDaylightColor : Color.hotNightColor
+        case .hurricane:
+            return isDaylight ? Color.hurricaneDaylightColor : Color.hurricaneNightColor
         case .isolatedThunderstorms:
-            return Color.cloudBoltColor
+            return isDaylight ? Color.isolatedThunderstormDaylightColor : Color.isolatedThunderstormNightColor
+        case .mostlyClear:
+            return isDaylight ? Color.mostlyClearDaylightColor : Color.mostlyClearNightColor
+        case .mostlyCloudy:
+            return isDaylight ? Color.mostlyCloudyDaylightColor : Color.mostlyCloudyNightColor
+        case .partlyCloudy:
+            return isDaylight ? Color.partyCloudyDaylightColor : Color.partyCloudyNightColor
+        case .rain:
+            return isDaylight ? Color.rainDaylightColor : Color.rainNightColor
+        case .scatteredThunderstorms:
+            return isDaylight ? Color.scatteredThunderstormsDaylightColor : Color.scatteredThunderstormsNightColor
+        case .sleet:
+            return isDaylight ? Color.sleetDaylightColor : Color.sleetNightColor
+        case .smoky:
+            return isDaylight ? Color.smokyDaylightColor : Color.smokyNightColor
+        case .snow:
+            return isDaylight ? Color.snowDaylightColor : Color.snowNightColor
+        case .strongStorms:
+            return isDaylight ? Color.strongStormsDaylightColor : Color.strongStormsNightColor
+        case .sunFlurries:
+            return isDaylight ? Color.sunFlurriesDaylightColor : Color.sunFlurriesNightColor
         case .sunShowers:
-            return Color.cloudSunRainColor
+            return isDaylight ? Color.sunShowersDaylightColor : Color.sunShowersNightColor
+        case .thunderstorms:
+            return isDaylight ? Color.thunderstormDaylightColor : Color.thunderstormNightColor
+        case .tropicalStorm:
+            return isDaylight ? Color.tropicalStormDaylightColor : Color.tropicalStormNightColor
+        case .windy:
+            return isDaylight ? Color.windyDaylightColor : Color.windyNightColor
+        case .wintryMix:
+            return isDaylight ? Color.wintryMixDaylightColor : Color.wintryMixNightColor    
         @unknown default:
-            return Color.sunMaxColor
+            return Color.clearWeatherDaylightColor
         }
+        
     }
     
     /// Takes a CompassDirection and returns a Double which indicates the angle the current compass direction.

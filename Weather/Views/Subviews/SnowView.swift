@@ -18,6 +18,7 @@ struct SnowView: UIViewRepresentable {
         snow.emitterPosition = CGPoint(x: UIScreen.main.bounds.width / 2, y: -10)
         snow.emitterShape = .line
         snow.emitterSize = CGSize(width: UIScreen.main.bounds.width, height: 1)
+        snow.opacity = 0.5
 
         let snowflake = CAEmitterCell()
         snowflake.contents = UIImage(named: "snowflake")?.cgImage

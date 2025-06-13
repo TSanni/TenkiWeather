@@ -12,7 +12,7 @@ struct HourlyForecastLineGraphView: View {
     let hourlyTemperatures: [HourlyWeatherModel]
     
     var body: some View {
-
+        
         Chart {
             ForEach(hourlyTemperatures) { item in
                 //MARK: - Line Graph
@@ -62,12 +62,8 @@ struct HourlyForecastLineGraphView: View {
 }
 
 #Preview {
-    ScrollView {
+    ZStack {
+        Color.hazeDaylightColor.ignoresSafeArea()
         HourlyForecastLineGraphView(hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray)
-       
-    }     
-    .background {
-        Color.haze.ignoresSafeArea()
     }
-
 }
