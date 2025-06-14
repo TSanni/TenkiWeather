@@ -10,7 +10,7 @@ import CoreData
 
 class SavedLocationsPersistenceViewModel: ObservableObject {
     private let weatherManager: WeatherServiceProtocol
-    private let coreLocationModel: CoreLocationViewModel
+    private let coreLocationModel: CoreLocationViewModelProtocol
     private let container: NSPersistentContainer
     private let timezoneMigrationFlagKey = K.UserDefaultKeys.migrationFlagKey
 
@@ -18,7 +18,7 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
     @Published var showErrorAlert = false
     @Published var currentError: CoreDataErrors? = nil
     
-    init(weatherManager: WeatherServiceProtocol, coreLocationModel: CoreLocationViewModel) {
+    init(weatherManager: WeatherServiceProtocol, coreLocationModel: CoreLocationViewModelProtocol) {
         print(#function)
         self.weatherManager = weatherManager
         self.coreLocationModel = coreLocationModel
@@ -266,6 +266,5 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         } catch {
             throw CoreDataErrors.failedToFetchCurrentWeather
         }
-        
     }
 }

@@ -13,14 +13,17 @@ final class AppStateViewModelTests: XCTestCase {
     // Naming Structure: test_[struct or class]_[variable or function]_[expected result]
 
     // Testing Structure: Given, When, Then
+    var mockWeatherService: MockWeatherService!
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        mockWeatherService = MockWeatherService()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        mockWeatherService = nil
     }
-
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -34,6 +37,41 @@ final class AppStateViewModelTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    
+    @MainActor func test_AppStateViewModel_getWeather_shouldSucced() async {
+        // Given
+        let weatherVM = WeatherViewModel(weatherService: mockWeatherService)
+        let locationVM = CoreLocationViewModel()
+        let persistenceVM = SavedLocationsPersistenceViewModel(weatherManager: mockWeatherService, coreLocationModel: locationVM)
+        
+        let vm = AppStateViewModel(locationViewModel: locationVM, weatherViewModel: weatherVM, persistence: persistenceVM)
+        
+        // When
+        await vm.getWeather()
+        
+        // Then
+        XCTAssertFalse(vm.loading)
+        XCTAssertTrue(vm.resetViews)
+        XCTAssertEqual(vm.lastUpdated, Helper.getReadableMainDate(date: Date.now, timezoneIdentifier: TimeZone.current.identifier))
+    }
+    
+    
+    @MainActor func test_AppStateViewModel_getWeather_retrievingWeatherServiceDataShouldFail() async {
+        // Given
+        mockWeatherService.shouldFail = true
+        let weatherVM = WeatherViewModel(weatherService: mockWeatherService)
+        let locationVM = MockCoreLocationViewModel()
+        let persistenceVM = SavedLocationsPersistenceViewModel(weatherManager: mockWeatherService, coreLocationModel: locationVM)
+        
+        let vm = AppStateViewModel(locationViewModel: locationVM, weatherViewModel: weatherVM, persistence: persistenceVM)
+        
+        // When
+        await vm.getWeather()
+        
+        // Then
+        XCTAssertTrue(vm.showWeatherErrorAlert)
     }
 
 }

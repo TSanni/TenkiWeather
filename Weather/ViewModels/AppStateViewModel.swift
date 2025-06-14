@@ -28,7 +28,7 @@ import CoreLocation
 
     // This property's only purpose is to add data to CoreData.
     // You can find it's data being saved to CoreData in the SettingScreenTile View
-    @Published private(set) var searchedLocationDictionary: SearchLocationModel =
+    @Published private(set) var searchedLocationModel: SearchLocationModel =
         SearchLocationModel(
             name: "",
             latitude: 0,
@@ -42,11 +42,11 @@ import CoreLocation
             timezone: 0
         )
     
-    private let locationViewModel: CoreLocationViewModel
+    private var locationViewModel: CoreLocationViewModelProtocol
     private let weatherViewModel: WeatherViewModel
     private let persistence: SavedLocationsPersistenceViewModel
     
-    init(locationViewModel: CoreLocationViewModel, weatherViewModel: WeatherViewModel, persistence: SavedLocationsPersistenceViewModel) {
+    init(locationViewModel: CoreLocationViewModelProtocol, weatherViewModel: WeatherViewModel, persistence: SavedLocationsPersistenceViewModel) {
         self.locationViewModel = locationViewModel
         self.weatherViewModel = weatherViewModel
         self.persistence = persistence
@@ -74,7 +74,7 @@ import CoreLocation
     
     private func setSearchedLocationDictionary(name: String, latitude: Double, longitude: Double, timeZoneIdentifier: String, temperature: String, date: String, symbol: String, weatherCondition: String, weatherAlert: Bool, timezone: Int) {
         
-        self.searchedLocationDictionary = SearchLocationModel(
+        self.searchedLocationModel = SearchLocationModel(
             name: name,
             latitude: latitude,
             longitude: longitude,
@@ -93,7 +93,7 @@ import CoreLocation
 extension AppStateViewModel {
     func saveLocation() {
         do {
-            try persistence.createLocation(locationInfo: searchedLocationDictionary)
+            try persistence.createLocation(locationInfo: searchedLocationModel)
             showCoreDataSuccessAlert.toggle()
         } catch let error as CoreDataErrors {
             coreDataError = error

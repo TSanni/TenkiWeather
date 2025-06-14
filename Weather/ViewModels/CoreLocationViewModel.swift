@@ -8,7 +8,20 @@
 import Foundation
 import CoreLocation
 
-class CoreLocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+protocol CoreLocationViewModelProtocol {
+    var latitude: CLLocationDegrees { get }
+    var longitude: CLLocationDegrees { get }
+    var timezoneIdentifier: String { get }
+    var timezoneSecondsFromGMT: Int { get }
+    var localLocationName: String { get }
+    var searchedLocationName: String { get set }
+
+    func getLocalLocationName() async throws
+    func getSearchedLocationName(lat: CLLocationDegrees, lon: CLLocationDegrees, name: String?) async throws
+    func getPlaceDataFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) async -> CLPlacemark?
+}
+
+class CoreLocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, CoreLocationViewModelProtocol {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus?
     @Published private(set) var timezoneIdentifier: String = K.defaultTimezoneIdentifier
     @Published private(set) var timezoneSecondsFromGMT: Int = 0

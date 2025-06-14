@@ -91,7 +91,7 @@ struct SettingsScreen: View {
                     
                     VStack {
                     
-                        Text(appStateViewModel.searchedLocationDictionary.name)
+                        Text(appStateViewModel.searchedLocationModel.name)
                             .foregroundStyle(.green)
                         
                         Text("Click to save this location")
