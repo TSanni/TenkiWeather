@@ -77,8 +77,11 @@ struct TodayScreen: View {
                                 )
                                 
                                 PressureTileView(
-                                    pressureDetails: currentWeather,
-                                    backgroundColor: currentWeather.backgroundColor
+                                    pressureString: currentWeather.pressureString,
+                                    pressureValue: currentWeather.pressureValue,
+                                    pressureDescription: currentWeather.pressureDescription,
+                                    backgroundColor: currentWeather.backgroundColor,
+                                    inchesOfMercuryPressureValue: currentWeather.pressure.converted(to: .inchesOfMercury).value
                                 )
                                 
                                 MoonTileView(

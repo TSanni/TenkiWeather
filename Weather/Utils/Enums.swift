@@ -20,7 +20,6 @@ enum WeatherErrors: Error, LocalizedError {
         }
     }
     
-    
     var recoverySuggestion: String? {
         switch self {
         case .failedToGetWeatherKitData:
@@ -87,57 +86,78 @@ enum WeatherTabs: Int, CaseIterable {
             return "Tomorrow"
         case .multiDay:
             return "10 Days"
-
         }
     }
 }
 
 enum TemperatureUnits: String, CaseIterable {
-    case fahrenheit = "Fahrenheit"
-    case celsius = "Celsius"
-    case kelvin = "Kelvin"
+    case fahrenheit
+    case celsius
+    case kelvin
     
     var title: String {
         switch self {
         case .fahrenheit:
-            return self.rawValue
+            return "fahrenheit"
         case .celsius:
-            return self.rawValue
+            return "celsius"
         case .kelvin:
-            return self.rawValue
+            return "kelvin"
         }
     }
     
     var symbol: String {
         switch self {
         case .fahrenheit:
-            return "(°F)"
+            return "°F"
         case .celsius:
-            return "(°C)"
+            return "°C"
         case .kelvin:
-            return "(K)"
+            return "K"
         }
     }
 }
 
 enum DistanceUnits: String, CaseIterable {
     case miles
-    case kilometer
+    case kilometers
     case meters
     
     var title: String {
         switch self {
         case .miles:
-            "Miles"
-        case .kilometer:
-            "Kilometers"
+            "miles"
+        case .kilometers:
+            "kilometers"
         case .meters:
-            "Meters"
+            "meters"
+        }
+    }
+    
+    var distanceSymbol: String {
+        switch self {
+        case .miles:
+            "mi"
+        case .kilometers:
+            "km"
+        case .meters:
+            "m"
+        }
+    }
+    
+    var speedSymbol: String {
+        switch self {
+        case .miles:
+            "mph"
+        case .kilometers:
+            "km/h"
+        case .meters:
+            "m/s"
         }
     }
 }
 
-enum PrecipitationUnits: String, CaseIterable {
+enum LengthUnits: String, CaseIterable {
     case inches
     case millimeters
     case centimeters
@@ -152,4 +172,62 @@ enum PrecipitationUnits: String, CaseIterable {
             "centimeters"
         }
     }
+    
+    var symbol: String {
+        switch self {
+        case .inches:
+            "in"
+        case .millimeters:
+            "mm"
+        case .centimeters:
+            "cm"
+        }
+    }
 }
+
+enum PressureUnits: String, CaseIterable {
+    case inchesOfMercury
+    case bars
+    case millibars
+    case millimetersOfMercury
+    
+    var title : String {
+        switch self {
+        case .inchesOfMercury:
+            "inchesOfMercury"
+        case .bars:
+            "bars"
+        case .millibars:
+            "millibars"
+        case .millimetersOfMercury:
+            "millimetersOfMercury"
+        }
+    }
+    
+    var titleForUI : String {
+        switch self {
+        case .inchesOfMercury:
+            "inches of mercury"
+        case .bars:
+            "bars"
+        case .millibars:
+            "millibars"
+        case .millimetersOfMercury:
+            "millimeters of mercury"
+        }
+    }
+    
+    var symbol: String {
+        switch self {
+        case .inchesOfMercury:
+            "inHg"
+        case .bars:
+            "bar"
+        case .millibars:
+            "mbar"
+        case .millimetersOfMercury:
+            "mmHg"
+        }
+    }
+}
+

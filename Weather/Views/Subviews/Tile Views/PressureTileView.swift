@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct PressureTileView: View {
-    let pressureDetails: TodayWeatherModel
+    let pressureString: String
+    let pressureValue: Double
+    let pressureDescription: String
     let backgroundColor: Color
-    
+    let inchesOfMercuryPressureValue: Double
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,13 +22,11 @@ struct PressureTileView: View {
                 Spacer()
             }
             .foregroundStyle(.secondary)
-
             
             Spacer()
             
             HStack {
-                
-                Text(pressureDetails.pressureString)
+                Text(pressureString)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .lineLimit(2)
@@ -34,27 +34,30 @@ struct PressureTileView: View {
                 
                 Spacer()
                 
-                CircularProgressView(pressure: pressureDetails.pressureValue)
+                CircularProgressView(pressure: inchesOfMercuryPressureValue)
                     .frame(width: 80)
                     .aspectRatio(1, contentMode: .fit)
-                
-                
             }
             
             Spacer()
             
-            Text(pressureDetails.pressureDescription)
+            Text(pressureDescription)
                 .font(.subheadline)
-            
-            
         }
         .cardTileModifier(backgroundColor: backgroundColor)
-
     }
 }
 
 #Preview {
-    PressureTileView(pressureDetails: TodayWeatherModelPlaceHolder.holderData, backgroundColor: Color.brown)
-        .frame(width: 250)
-        .environmentObject(AppStateViewModel.preview)
+    let todayWeatherModelPlaceHolder = TodayWeatherModelPlaceHolder.holderData
+    
+    PressureTileView(
+        pressureString: todayWeatherModelPlaceHolder.pressureString,
+        pressureValue: todayWeatherModelPlaceHolder.pressureValue,
+        pressureDescription: todayWeatherModelPlaceHolder.pressureDescription,
+        backgroundColor: Color.brown,
+        inchesOfMercuryPressureValue: 25
+    )
+    .frame(width: 250)
+    .environmentObject(AppStateViewModel.preview)
 }

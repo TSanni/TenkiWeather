@@ -10,7 +10,8 @@ import SwiftUI
 struct SettingsScreen: View {
     @AppStorage(K.UserDefaultKeys.unitTemperatureKey) var temperatureUnit: TemperatureUnits = .fahrenheit
     @AppStorage(K.UserDefaultKeys.unitDistanceKey) var distanceUnit: DistanceUnits = .miles
-    @AppStorage(K.UserDefaultKeys.unitPrecipitationKey) var precipitationUnit: PrecipitationUnits = .inches
+    @AppStorage(K.UserDefaultKeys.unitLengthKey) var lengthUnit: LengthUnits = .inches
+    @AppStorage(K.UserDefaultKeys.unitPressureKey) var pressureUnit: PressureUnits = .inchesOfMercury
     @Environment(\.dismiss) var dimiss
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @State private var showPrivacyWebsite = false
@@ -32,6 +33,8 @@ struct SettingsScreen: View {
             distanceAndSpeedSection
             
             precipitationSection
+            
+            pressureSection
             
             supportSection
             
@@ -111,7 +114,10 @@ struct SettingsScreen: View {
         Section("Temperature") {
             ForEach(TemperatureUnits.allCases, id: \.title) { unit in
                 HStack {
-                    Text(unit.title + " " + unit.symbol)
+                    Text(unit.title.capitalized)
+                        .foregroundStyle(.primary)
+                    Text("(" + unit.symbol + ")")
+                        .foregroundStyle(.secondary)
                     Spacer()
                     if temperatureUnit == unit {
                         Image(systemName: "checkmark")
@@ -133,7 +139,14 @@ struct SettingsScreen: View {
         Section("Distance and Speed") {
             ForEach(DistanceUnits.allCases, id: \.title) { unit in
                 HStack {
-                    Text(unit.title)
+                    Text(unit.title.capitalized)
+                        .foregroundStyle(.primary)
+                    Group {
+                        Text("(" + unit.distanceSymbol)
+                        Text(unit.speedSymbol + ")")
+                    }
+                    .foregroundStyle(.secondary)
+
                     Spacer()
                     if distanceUnit == unit {
                         Image(systemName: "checkmark")
@@ -149,17 +162,41 @@ struct SettingsScreen: View {
     
     var precipitationSection: some View {
         Section("Precipitation") {
-            ForEach(PrecipitationUnits.allCases, id: \.title) { unit in
+            ForEach(LengthUnits.allCases, id: \.title) { unit in
                 HStack {
-                    Text(unit.title)
+                    Text(unit.title.capitalized)
+                        .foregroundStyle(.primary)
+                    Text("(" + unit.symbol + ")")
+                        .foregroundStyle(.secondary)
                     Spacer()
-                    if precipitationUnit == unit {
+                    if lengthUnit == unit {
                         Image(systemName: "checkmark")
                     }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    precipitationUnit = unit
+                    lengthUnit = unit
+                }
+            }
+        }
+    }
+    
+    var pressureSection: some View {
+        Section("Pressure") {
+            ForEach(PressureUnits.allCases, id: \.title) { unit in
+                HStack {
+                    Text(unit.titleForUI.capitalized)
+                        .foregroundStyle(.primary)
+                    Text("(" + unit.symbol + ")")
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    if pressureUnit == unit {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    pressureUnit = unit
                 }
             }
         }

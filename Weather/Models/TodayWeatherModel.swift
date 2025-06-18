@@ -139,14 +139,14 @@ extension TodayWeatherModel {
     }
     
     var pressureString: String {
-        let pressure = pressure.converted(to: .inchesOfMercury)
+        let pressure = pressure.converted(to: Helper.getUnitPressure())
         let value = Helper.convertNumberToTwoFloatingPoints(number: pressure.value)
         let symbol = pressure.unit.symbol
         return value + "\n" + symbol
     }
     
     var pressureValue: Double {
-        let pressure = pressure.converted(to: .inchesOfMercury)
+        let pressure = pressure.converted(to: Helper.getUnitPressure())
         let value = pressure.value
         return value
     }

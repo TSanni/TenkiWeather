@@ -27,23 +27,11 @@ enum K {
     struct UserDefaultKeys {
         static let unitTemperatureKey: String = "UnitTemperature"
         static let unitDistanceKey: String = "UnitDistance"
-        static let unitPrecipitationKey: String = "UnitPrecipitation"
+        static let unitLengthKey: String = "UnitLength"
+        static let unitPressureKey: String = "UnitPressure"
         static let timePreferenceKey: String = "24HourTime"
         static let showTemperatureUnitKey: String = "showTemperatureUnitKey"
         static let migrationFlagKey: String = "hasMigratedTimezones"
-
-    }
-    
-    struct UserDefaultValue {
-        static let fahrenheit: String = "Fahrenheit"
-        static let celsius: String = "Celsius"
-        static let kelvin: String = "Kelvin"
-        static let mph: String = "miles"
-        static let kiloPerHour: String = "kilometer"
-        static let meterPerSecond: String = "meters"
-        static let inches: String = "inches"
-        static let millimeters: String = "millimeters"
-        static let centimeters: String = "centimeters"
     }
     
     struct TimeConstants {

@@ -15,7 +15,7 @@ struct TodayWeatherModelPlaceHolder {
         dewPoint: Measurement(value: 77, unit: .fahrenheit),
         humidity: 0.5,
         temperature: Measurement(value: 77, unit: .fahrenheit),
-        pressure: Measurement(value: 0, unit: .inchesOfMercury),
+        pressure: Measurement(value: 27, unit: .inchesOfMercury),
         pressureTrend: .steady,
         wind: WindModelPlaceholder.windDataHolder[0],
         condition: .clear,

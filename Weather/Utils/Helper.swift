@@ -33,13 +33,15 @@ struct Helper {
         let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
         
         switch savedUnitTemperature {
-        case K.UserDefaultValue.fahrenheit:
+        case TemperatureUnits.fahrenheit.title:
             return .fahrenheit
-        case K.UserDefaultValue.celsius:
+        case TemperatureUnits.celsius.title:
             return .celsius
-        case K.UserDefaultValue.kelvin:
+        case TemperatureUnits.kelvin.title:
             return .kelvin
         default:
+            print("❌---ERROR: Defaulting to fahrenheit---")
+            print("\n")
             return .fahrenheit
         }
     }
@@ -110,22 +112,45 @@ struct Helper {
            case .metersPerSecond:
                return .meters
            default:
+           print("❌---ERROR: Defaulting to miles---")
                return .miles
        }
-   }
+    }
+    
+    /// Checks UserDefaults and returns a UnitPressure based on stored value
+    static func getUnitPressure() -> UnitPressure {
+        let chosenUnitPressure = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitPressureKey)
+        switch chosenUnitPressure {
+        case PressureUnits.inchesOfMercury.title:
+            return .inchesOfMercury
+        case PressureUnits.bars.title:
+            return .bars
+        case PressureUnits.millibars.title:
+            return .millibars
+        case PressureUnits.millimetersOfMercury.title:
+            return .millimetersOfMercury
+        default:
+            print("❌---ERROR: Defaulting to inchesOfMercury---")
+            print("\n")
+            return .inchesOfMercury
+            
+        }
+    }
     
     /// Checks UserDefaults and returns a UnitSpeed based on stored value
     static func getUnitSpeed() -> UnitSpeed {
         let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
         
         switch chosenUnitDistance {
-        case K.UserDefaultValue.mph:
+        case DistanceUnits.miles.title:
             return .milesPerHour
-        case K.UserDefaultValue.kiloPerHour:
+        case DistanceUnits.kilometers.title:
             return .kilometersPerHour
-        case K.UserDefaultValue.meterPerSecond:
+        case DistanceUnits.meters.title:
             return .metersPerSecond
         default:
+            print("❌---ERROR: Defaulting to milesPerHour---")
+            print("\n")
             return .milesPerHour
         }
     }
@@ -133,16 +158,18 @@ struct Helper {
     
     /// Checks UserDefaults and returns a UnitLength based on stored value
     static func getUnitPrecipitation() -> UnitLength {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitPrecipitationKey)
+        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitLengthKey)
         
         switch chosenUnitDistance {
-        case K.UserDefaultValue.inches:
+        case LengthUnits.inches.title:
             return .inches
-        case K.UserDefaultValue.millimeters:
+        case LengthUnits.millimeters.title:
             return .millimeters
-        case K.UserDefaultValue.centimeters:
+        case LengthUnits.centimeters.title:
             return .centimeters
         default:
+            print("❌---ERROR: Defaulting to inches---")
+            print("\n")
             return .inches
         }
     }
@@ -296,7 +323,6 @@ struct Helper {
         @unknown default:
             return Color.clearWeatherDaylightColor
         }
-        
     }
     
     /// Takes a CompassDirection and returns a Double which indicates the angle the current compass direction.

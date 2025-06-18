@@ -9,10 +9,7 @@ import SwiftUI
 
 struct CircularProgressView: View {
     let pressure: Double
-    
-    
-//    let maxPressure: Double = 31
-    
+   
     var body: some View {
         VStack {
             ZStack {
@@ -41,30 +38,27 @@ struct CircularProgressView: View {
     
     
     func convertPressureToCircleTrim() -> Double {
-//        var circleTrim = (0.8 * pressure) / maxPressure
         var circleTrim: Double = 0
                 
         if pressure < 29.4 {
             circleTrim = 0.1
         }
         
-        if pressure > 29.4 && pressure < 29.8 {
+        if pressure >= 29.4 && pressure < 29.8 {
             circleTrim = 0.3
         }
         
-        if pressure > 29.8 && pressure < 30.2 {
+        if pressure >= 29.8 && pressure < 30.2 {
             circleTrim = 0.4
         }
         
-        if pressure > 30.2 && pressure <= 30.5 {
+        if pressure >= 30.2 && pressure <= 30.5 {
             circleTrim = 0.5
         }
         
         if pressure > 30.5 {
             circleTrim = 0.8
         }
-
-        
 
         return circleTrim
     }
