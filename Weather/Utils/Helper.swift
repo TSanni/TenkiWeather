@@ -11,8 +11,8 @@ import SwiftUI
 
 struct Helper {
     
-    static func getShowTemperatureUnitPreference() -> Bool {
-        let showTemperatureUnit = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.showTemperatureUnitKey)
+    static func getShowTemperatureUnitPreference(from defaults: UserDefaults = .standard) -> Bool {
+        let showTemperatureUnit = defaults.bool(forKey: K.UserDefaultKeys.showTemperatureUnitKey)
         return showTemperatureUnit
     }
     
@@ -29,8 +29,8 @@ struct Helper {
     }
     
     /// Checks UserDefaults for UnitTemperature selection. Returns the saved Unit Temperature.
-    static func getUnitTemperature() -> UnitTemperature {
-        let savedUnitTemperature = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
+    static func getUnitTemperature(from defaults: UserDefaults = .standard) -> UnitTemperature {
+        let savedUnitTemperature = defaults.string(forKey: K.UserDefaultKeys.unitTemperatureKey)
         
         switch savedUnitTemperature {
         case TemperatureUnits.fahrenheit.title:
@@ -46,8 +46,8 @@ struct Helper {
         }
     }
     
-    static func isMilitaryTime() -> Bool {
-        UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
+    static func isMilitaryTime(from defaults: UserDefaults = .standard) -> Bool {
+        defaults.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
     }
     
     /// This function accepts a date and returns a string of that date in a readable format
@@ -118,8 +118,8 @@ struct Helper {
     }
     
     /// Checks UserDefaults and returns a UnitPressure based on stored value
-    static func getUnitPressure() -> UnitPressure {
-        let chosenUnitPressure = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitPressureKey)
+    static func getUnitPressure(from defaults: UserDefaults = .standard) -> UnitPressure {
+        let chosenUnitPressure = defaults.string(forKey: K.UserDefaultKeys.unitPressureKey)
         switch chosenUnitPressure {
         case PressureUnits.inchesOfMercury.title:
             return .inchesOfMercury
@@ -138,8 +138,8 @@ struct Helper {
     }
     
     /// Checks UserDefaults and returns a UnitSpeed based on stored value
-    static func getUnitSpeed() -> UnitSpeed {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitDistanceKey)
+    static func getUnitSpeed(from defaults: UserDefaults = .standard) -> UnitSpeed {
+        let chosenUnitDistance = defaults.string(forKey: K.UserDefaultKeys.unitDistanceKey)
         
         switch chosenUnitDistance {
         case DistanceUnits.miles.title:
@@ -157,8 +157,8 @@ struct Helper {
     
     
     /// Checks UserDefaults and returns a UnitLength based on stored value
-    static func getUnitPrecipitation() -> UnitLength {
-        let chosenUnitDistance = UserDefaults.standard.string(forKey: K.UserDefaultKeys.unitLengthKey)
+    static func getUnitPrecipitation(from defaults: UserDefaults = .standard) -> UnitLength {
+        let chosenUnitDistance = defaults.string(forKey: K.UserDefaultKeys.unitLengthKey)
         
         switch chosenUnitDistance {
         case LengthUnits.inches.title:
