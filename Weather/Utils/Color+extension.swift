@@ -8,8 +8,6 @@
 import Foundation
 import SwiftUI
 
-//TODO: - Start deleleting the old colors
-
 extension Color {
     static let goodLightTheme = Color(uiColor: #colorLiteral(red: 0.9607837796, green: 0.9607847333, blue: 0.9822904468, alpha: 1))
     static let properBlack = Color(uiColor: #colorLiteral(red: 0.149019599, green: 0.149019599, blue: 0.149019599, alpha: 1))

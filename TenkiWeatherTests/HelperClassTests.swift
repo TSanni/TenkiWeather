@@ -5,10 +5,10 @@
 //  Created by Tomas Sanni on 6/20/25.
 //
 
-//TODO: Finish adding tests
 
 import XCTest
 @testable import Tenki_Weather
+import WeatherKit
 
 final class HelperClassTests: XCTestCase {
     // Naming Structure: test_UnitOfWork_StateUnderTest_ExpectedBehavior
@@ -46,46 +46,34 @@ final class HelperClassTests: XCTestCase {
     }
     
     func test_Helper_getShowTemperatureUnitPreference_shouldBeFalse() {
-        // Given
         defaults.set(false, forKey: K.UserDefaultKeys.showTemperatureUnitKey)
         
-        // When
         let result = Helper.getShowTemperatureUnitPreference(from: defaults)
         
-        // Then
         XCTAssertEqual(result, false)
     }
     
     func test_Helper_getShowTemperatureUnitPreference_shouldBeTrue() {
-        // Given
         defaults.set(true, forKey: K.UserDefaultKeys.showTemperatureUnitKey)
         
-        // When
         let result = Helper.getShowTemperatureUnitPreference(from: defaults)
         
-        // Then
         XCTAssertEqual(result, true)
     }
     
     func test_Helper_convertNumberToZeroFloatingPoints_shouldPrintNoFloatingPoints() {
-        // Given
         let number: Double = 123456789.123456789
         
-        //When
         let result = Helper.convertNumberToZeroFloatingPoints(number: number)
         
-        // Then
         XCTAssertEqual(result, "123456789")
     }
     
     func test_Helper_convertNumberToZeroFloatingPoints_shouldPrintTwoFloatingPoints() {
-        // Given
         let number: Double = 123456789.123456789
         
-        //When
         let result = Helper.convertNumberToTwoFloatingPoints(number: number)
         
-        // Then
         XCTAssertEqual(result, "123456789.12")
     }
     
@@ -130,11 +118,12 @@ final class HelperClassTests: XCTestCase {
     }
     
     func test_Helper_getReadableMainDate_shouldReturnDateInStandardFormat() {
-        defaults.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
+        UserDefaults.standard.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
         let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
         let result = Helper.getReadableMainDate(date: date, timezoneIdentifier: "America/Chicago")
         
         XCTAssertEqual(result, "Jul 10, 1:00 PM")
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
     }
     
     func test_Helper_getReadableMainDate_shouldReturnDateInMilitary() {
@@ -144,7 +133,176 @@ final class HelperClassTests: XCTestCase {
         
         XCTAssertEqual(result, "10 Jul, 13:00")
         UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
-
     }
-
+    
+    func test_Helper_getReadableHourOnly_shouldReturnDateInStandardFormat() {
+        UserDefaults.standard.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
+        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
+        let result = Helper.getReadableHourOnly(date: date, timezoneIdentifier: "America/Chicago")
+        
+        XCTAssertEqual(result, "1 PM")
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
+    }
+    
+    func test_Helper_getReadableHourOnly_shouldReturnDateInMilitaryFormat() {
+        UserDefaults.standard.set(true, forKey: K.UserDefaultKeys.timePreferenceKey)
+        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
+        let result = Helper.getReadableHourOnly(date: date, timezoneIdentifier: "America/Chicago")
+        
+        XCTAssertEqual(result, "13:00")
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
+    }
+    
+    func test_Helper_getDayOfWeekAndDate_shouldReturnDateInStandardFormat() {
+        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
+        let result = Helper.getDayOfWeekAndDate(date: date, timezoneIdentifier: "America/Chicago")
+        
+        XCTAssertEqual(result, "Thursday, Jul 10")
+    }
+    
+    func test_Helper_getReadableHourAndMinute_shouldReturnDateInStandardFormat() {
+        UserDefaults.standard.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
+        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
+        let result = Helper.getReadableHourAndMinute(date: date, timezoneIdentifier: "America/Chicago")
+        
+        XCTAssertEqual(result, "1:00 PM")
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
+    }
+    
+    func test_Helper_getReadableHourAndMinute_shouldReturnDateInMilitaryFormat() {
+        UserDefaults.standard.set(true, forKey: K.UserDefaultKeys.timePreferenceKey)
+        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
+        let result = Helper.getReadableHourAndMinute(date: date, timezoneIdentifier: "America/Chicago")
+        
+        XCTAssertEqual(result, "13:00")
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
+    }
+    
+    func test_Helper_getUnitLength_shouldReturnMiles() {
+        UserDefaults.standard.set("miles", forKey: K.UserDefaultKeys.unitDistanceKey)
+        let result = Helper.getUnitLength()
+        
+        XCTAssertEqual(result, .miles)
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.unitDistanceKey)
+    }
+    
+    func test_Helper_getUnitLength_shouldReturnKilometers() {
+        UserDefaults.standard.set("kilometers", forKey: K.UserDefaultKeys.unitDistanceKey)
+        let result = Helper.getUnitLength()
+        
+        XCTAssertEqual(result, .kilometers)
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.unitDistanceKey)
+    }
+    
+    func test_Helper_getUnitLength_shouldReturnMeters() {
+        UserDefaults.standard.set("meters", forKey: K.UserDefaultKeys.unitDistanceKey)
+        let result = Helper.getUnitLength()
+        
+        XCTAssertEqual(result, .meters)
+        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.unitDistanceKey)
+    }
+    
+    func test_Helper_getUnitSpeed_shouldReturnMilesPerHour() {
+        defaults.set("miles", forKey: K.UserDefaultKeys.unitDistanceKey)
+        
+        let result = Helper.getUnitSpeed(from: defaults)
+        
+        XCTAssertEqual(result, .milesPerHour)
+    }
+    
+    func test_Helper_getUnitSpeed_shouldReturnKilometersPerHour() {
+        defaults.set("kilometers", forKey: K.UserDefaultKeys.unitDistanceKey)
+        
+        let result = Helper.getUnitSpeed(from: defaults)
+        
+        XCTAssertEqual(result, .kilometersPerHour)
+    }
+    
+    func test_Helper_getUnitSpeed_shouldReturnMetersPerSecond() {
+        defaults.set("meters", forKey: K.UserDefaultKeys.unitDistanceKey)
+        
+        let result = Helper.getUnitSpeed(from: defaults)
+        
+        XCTAssertEqual(result, .metersPerSecond)
+    }
+    
+    
+    func test_Helper_getUnitPressure_shouldReturnInchesOfMercury() {
+        defaults.set("inchesOfMercury", forKey: K.UserDefaultKeys.unitPressureKey)
+        
+        let result = Helper.getUnitPressure(from: defaults)
+        
+        XCTAssertEqual(result, .inchesOfMercury)
+    }
+    
+    func test_Helper_getUnitPressure_shouldReturnBars() {
+        defaults.set("bars", forKey: K.UserDefaultKeys.unitPressureKey)
+        
+        let result = Helper.getUnitPressure(from: defaults)
+        
+        XCTAssertEqual(result, .bars)
+    }
+    
+    func test_Helper_getUnitPressure_shouldReturnMillibars() {
+        defaults.set("millibars", forKey: K.UserDefaultKeys.unitPressureKey)
+        
+        let result = Helper.getUnitPressure(from: defaults)
+        
+        XCTAssertEqual(result, .millibars)
+    }
+    
+    func test_Helper_getUnitPressure_shouldReturnmillimetersOfMercury() {
+        defaults.set("millimetersOfMercury", forKey: K.UserDefaultKeys.unitPressureKey)
+        
+        let result = Helper.getUnitPressure(from: defaults)
+        
+        XCTAssertEqual(result, .millimetersOfMercury)
+    }
+    
+    func test_Helper_getUnitPrecipitation_shouldReturnInches() {
+        defaults.set("inches", forKey: K.UserDefaultKeys.unitLengthKey)
+        
+        let result = Helper.getUnitPrecipitation(from: defaults)
+        
+        XCTAssertEqual(result, .inches)
+    }
+    
+    func test_Helper_getUnitPrecipitation_shouldReturnMillimeters() {
+        defaults.set("millimeters", forKey: K.UserDefaultKeys.unitLengthKey)
+        
+        let result = Helper.getUnitPrecipitation(from: defaults)
+        
+        XCTAssertEqual(result, .millimeters)
+    }
+    
+    func test_Helper_getUnitPrecipitation_shouldReturnCentimeters() {
+        defaults.set("centimeters", forKey: K.UserDefaultKeys.unitLengthKey)
+        
+        let result = Helper.getUnitPrecipitation(from: defaults)
+        
+        XCTAssertEqual(result, .centimeters)
+    }
+    
+    func test_Helper_getRotation_shouldReturnDegreesForNorthDirection() {
+        let direction = Wind.CompassDirection.north
+        let zero: Double = 45
+        let result = Helper.getRotation(direction: direction)
+        
+        XCTAssertEqual(result, zero - 90)
+    }
+    
+    
+    func test_Helper_getImage_shouldReturnNoFillSFImageString() {
+        let imageName = "wind"
+        let result = Helper.getImage(imageName: imageName)
+        
+        XCTAssertEqual(result, imageName)
+    }
+    
+    func test_Helper_getImage_shouldReturnFillSFImageString() {
+        let imageName = "sun.max"
+        let result = Helper.getImage(imageName: imageName)
+        
+        XCTAssertEqual(result, imageName + ".fill")
+    }
 }

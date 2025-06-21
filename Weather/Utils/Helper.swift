@@ -64,7 +64,7 @@ struct Helper {
     }
     
     /// This function takes a date and returns a string with readable date data.
-    /// Ex: 7 AM or 07 for military
+    /// Ex: 7 AM or 07:00 for military
     static func getReadableHourOnly(date: Date, timezoneIdentifier: String) -> String {
         let format = isMilitaryTime() ? K.TimeConstants.hourAndMinuteMilitary : K.TimeConstants.hourOnly
         
@@ -77,7 +77,7 @@ struct Helper {
     }
     
     /// This functions accepts a date and returns a string of that date in a readable format
-    /// Ex: Tuesday, July 7
+    /// Ex: Tuesday, Jul 7
     static func getDayOfWeekAndDate(date: Date, timezoneIdentifier: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = K.TimeConstants.dayOfWeekAndDate
