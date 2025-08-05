@@ -23,6 +23,10 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         self.weatherManager = weatherManager
         self.coreLocationModel = coreLocationModel
         container = NSPersistentContainer(name: "Locations")
+        container.persistentStoreDescriptions.forEach {
+            $0.shouldMigrateStoreAutomatically = true
+            $0.shouldInferMappingModelAutomatically = true
+        }
         container.loadPersistentStores { description, error in
             if let error = error {
                 DispatchQueue.main.async {
@@ -117,6 +121,31 @@ class SavedLocationsPersistenceViewModel: ObservableObject {
         }
         
         entity.name = newName
+        saveData()
+        fetchAllLocations(updateNetwork: false)
+    }
+    
+    
+    /// This method will mark one location as a favorite
+    /// - Parameter entity: The saved location that will be manipulated
+    func toggleFavoriteLocation(entity: Location) {
+        
+        // if the selected location is already favorited, then unfavorite it
+        if entity.isFavorite {
+            entity.isFavorite = false
+            saveData()
+            fetchAllLocations(updateNetwork: false)
+            return
+        }
+        
+        // However, if user if favoriting a new location, then unfavorite all locations
+        for location in savedLocations {
+            location.isFavorite = false
+        }
+        
+        // then set selected location as favorite
+        entity.isFavorite = true
+        
         saveData()
         fetchAllLocations(updateNetwork: false)
     }

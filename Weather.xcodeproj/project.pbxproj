@@ -111,6 +111,7 @@
 
 /* Begin PBXFileReference section */
 		830279E12A9A5CE100E3487D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		83070FC32E428C0F00112189 /* Locations6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations6.xcdatamodel; sourceTree = "<group>"; };
 		8313DE852B61A20D0031C5E7 /* PressureTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureTileView.swift; sourceTree = "<group>"; };
 		8313DE872B61B69C0031C5E7 /* TomorrowImmediateWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowImmediateWeatherView.swift; sourceTree = "<group>"; };
 		8313DE892B62699A0031C5E7 /* PrecipitationTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipitationTileView.swift; sourceTree = "<group>"; };
@@ -1018,13 +1019,14 @@
 		83749C5C2BA2B74900480F5F /* Locations.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83070FC32E428C0F00112189 /* Locations6.xcdatamodel */,
 				8325B3AB2DF086E500EBD840 /* Locations5.xcdatamodel */,
 				8375865E2CED6BE3000E2EF9 /* Locations4.xcdatamodel */,
 				838F7A382CAAD54B00607451 /* Locations3.xcdatamodel */,
 				8345EA402BA5631F00E8EFBD /* Locations2.xcdatamodel */,
 				83749C5D2BA2B74900480F5F /* Locations.xcdatamodel */,
 			);
-			currentVersion = 8325B3AB2DF086E500EBD840 /* Locations5.xcdatamodel */;
+			currentVersion = 83070FC32E428C0F00112189 /* Locations6.xcdatamodel */;
 			path = Locations.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

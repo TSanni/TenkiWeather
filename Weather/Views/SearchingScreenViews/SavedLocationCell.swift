@@ -22,6 +22,14 @@ struct SavedLocationCell: View {
             SavedLocationImageView(imageName: location.sfSymbol ?? "snowflake")
             
             VStack(alignment: .leading) {
+                if location.isFavorite {
+                    HStack {
+                        Image(systemName: "pin.fill")
+                            .foregroundStyle(.yellow)
+                        Text("Preferred Location")
+                        Spacer()
+                    }
+                }
                 HStack {
                     Text(location.name ?? "no name")
                         .font(.headline)
@@ -62,6 +70,15 @@ struct SavedLocationCell: View {
                 Label("More Info", systemImage: "info.circle.fill")
             }
             .tint(.orange)
+
+        }
+        .swipeActions(edge: .leading) {
+            Button {
+                persistence.toggleFavoriteLocation(entity: location)
+            } label: {
+                Label("Pin", systemImage: location.isFavorite ? "pin.slash.fill" : "pin.fill")
+            }
+            .tint(.yellow)
 
         }
         .contextMenu {

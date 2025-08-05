@@ -95,7 +95,7 @@ struct MainScreen: View {
             switch newValue {
             case .authorizedWhenInUse:
                 Task {
-                    await appStateViewModel.getWeather()
+                    await appStateViewModel.determineWeatherUpdateMethod()
                 }
             default: break
             }
@@ -107,7 +107,7 @@ struct MainScreen: View {
                 Task {
                     if -savedDate.timeIntervalSinceNow > Double(K.TimeConstants.tenMinutesInSeconds) {
                         // 10 minutes have passed, refresh the data
-                        await appStateViewModel.getWeather()
+                        await appStateViewModel.determineWeatherUpdateMethod()
                         await savedLocationPersistenceViewModel.callFetchWeatherPlacesWithTaskGroup()
                         savedDate = Date()
                     }

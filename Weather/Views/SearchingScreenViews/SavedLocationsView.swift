@@ -26,6 +26,7 @@ struct SavedLocationsView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         Task {
+                            appStateViewModel.showSearchScreen.toggle()
                             await appStateViewModel.getWeatherAndUpdateDictionaryFromSavedLocation(item: item)
                         }
                     }

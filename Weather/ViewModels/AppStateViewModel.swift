@@ -109,7 +109,6 @@ extension AppStateViewModel {
     func getWeatherAndUpdateDictionaryFromSavedLocation(item: Location) async {
         print(#function)
         do {
-            toggleShowSearchScreen()
             dataIsLoading()
             try await locationViewModel.getLocalLocationName()
             try await locationViewModel.getSearchedLocationName(lat: item.latitude, lon: item.longitude, name: nil)
@@ -254,6 +253,20 @@ extension AppStateViewModel {
         } catch {
             print("❌ Failed to getWeather")
         }
+    }
+    
+    
+    /// This method determines if a user has marked a location as favorite.
+    /// If true, the default weather updates will come from that location.
+    func determineWeatherUpdateMethod() async {
+        for savedLocation in persistence.savedLocations {
+            if savedLocation.isFavorite {
+                await getWeatherAndUpdateDictionaryFromSavedLocation(item: savedLocation)
+                return
+            }
+        }
+        
+        await getWeather()
     }
 }
 
