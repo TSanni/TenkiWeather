@@ -32,7 +32,6 @@ struct SavedLocationsView: View {
                     }
             }
             .onMove(perform: persistence.moveItem(from:to:))
-            .onDelete(perform: persistence.deleteLocationBySwipe(indexSet:))
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)

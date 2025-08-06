@@ -42,25 +42,8 @@ struct PlaceDetails: View {
                         HStack {
                             Text(country)
                             
-                            if let countryCode = placeInfo?.isoCountryCode, let url = URL(string: "https://flagsapi.com/\(countryCode)/flat/64.png") {
-                                
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                            .frame(width: 25, height: 25)
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 25, height: 25)
-                                    case .failure:
-                                        ProgressView()
-                                    @unknown default:
-                                        ProgressView()
-                                            .frame(width: 25, height: 25)
-                                    }
-                                }
+                            if let countryCode = placeInfo?.isoCountryCode {
+                                CachedAsyncImageView(url: "https://flagsapi.com/\(countryCode)/flat/64.png")
                             }
                         }
                     }

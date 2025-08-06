@@ -50,6 +50,8 @@
 		838FAE0D2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE0C2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift */; };
 		8390BF962A9356CE00E0B865 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */; };
 		8390BF9F2A9656F800E0B865 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */; };
+		839BE0AA2E43DA7D00E4B7D9 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BE0A92E43DA7D00E4B7D9 /* ImageCacheService.swift */; };
+		839BE0AC2E43DAA200E4B7D9 /* CachedAsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BE0AB2E43DAA200E4B7D9 /* CachedAsyncImageView.swift */; };
 		839F32EB2A39186C0048EF05 /* WindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32EA2A39186C0048EF05 /* WindModel.swift */; };
 		839F32EE2A3919510048EF05 /* SunModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32ED2A3919510048EF05 /* SunModel.swift */; };
 		839F32F02A39198C0048EF05 /* HourlyWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F32EF2A39198C0048EF05 /* HourlyWeatherModel.swift */; };
@@ -159,6 +161,8 @@
 		838FAE0C2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateWeatherDetails.swift; sourceTree = "<group>"; };
 		8390BF952A9356CE00E0B865 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		8390BF9E2A9656F800E0B865 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		839BE0A92E43DA7D00E4B7D9 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
+		839BE0AB2E43DAA200E4B7D9 /* CachedAsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImageView.swift; sourceTree = "<group>"; };
 		839F32EA2A39186C0048EF05 /* WindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindModel.swift; sourceTree = "<group>"; };
 		839F32ED2A3919510048EF05 /* SunModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunModel.swift; sourceTree = "<group>"; };
 		839F32EF2A39198C0048EF05 /* HourlyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherModel.swift; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 			children = (
 				83DA72E72A419C7C00C50C86 /* WeatherService.swift */,
 				8359F4F22BB5E1B6005F8911 /* BackgroundTasksManager.swift */,
+				839BE0A92E43DA7D00E4B7D9 /* ImageCacheService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 				83FD52002B87BA71008F875B /* CustomNavBackButton+ViewModifier.swift */,
 				8325B39D2DEE091A00EBD840 /* ViewModels+Preview.swift */,
 				8325B3A92DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift */,
+				839BE0AB2E43DAA200E4B7D9 /* CachedAsyncImageView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -641,6 +647,7 @@
 				83EB28352B976A5500CFC390 /* VisibilityTileView.swift in Sources */,
 				8313DE8A2B62699A0031C5E7 /* PrecipitationTileView.swift in Sources */,
 				83DA72EA2A419F9400C50C86 /* WeatherViewModel.swift in Sources */,
+				839BE0AA2E43DA7D00E4B7D9 /* ImageCacheService.swift in Sources */,
 				83FD52052B87BAD1008F875B /* View+extension.swift in Sources */,
 				83E04FD42A2B2892009720AB /* WindTileView.swift in Sources */,
 				83CC40D22CD2939F00CF58D2 /* MoonModel+Placeholder.swift in Sources */,
@@ -665,6 +672,7 @@
 				83AFCA282C5F84F200B0F373 /* DailyWeatherModel+Placeholder.swift in Sources */,
 				837D7DB62B713D230031B296 /* RainScene.swift in Sources */,
 				83CC40D42CD294BA00CF58D2 /* MoonTileView.swift in Sources */,
+				839BE0AC2E43DAA200E4B7D9 /* CachedAsyncImageView.swift in Sources */,
 				833D7CCB2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift in Sources */,
 				8325B3AA2DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift in Sources */,
 				83731A6D2A2FD97F00D481CA /* CustomDivider.swift in Sources */,
