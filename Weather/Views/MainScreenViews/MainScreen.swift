@@ -12,7 +12,6 @@ import CoreLocation
 //MARK: - View
 struct MainScreen: View {
     @Environment(\.scenePhase) var scenePhase
-    
     @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var networkManager: NetworkMonitor
@@ -21,10 +20,8 @@ struct MainScreen: View {
     
     //Must use @State instead of view model because this is the only way to make animations work
     @State var tabViews: WeatherTabs = .today
-    @State private var savedDate = Date()
     
     var deviceType: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-
     
     var body: some View {
         ZStack {
@@ -94,8 +91,10 @@ struct MainScreen: View {
         .onChange(of: locationViewModel.authorizationStatus) { oldValue, newValue in
             switch newValue {
             case .authorizedWhenInUse:
-                Task {
-                    await appStateViewModel.determineWeatherUpdateMethod()
+                if oldValue != newValue && oldValue != nil {
+                    Task {
+                        await appStateViewModel.determineWeatherUpdateMethod()
+                    }
                 }
             default: break
             }
@@ -105,12 +104,7 @@ struct MainScreen: View {
             switch newValue {
             case .active:
                 Task {
-                    if -savedDate.timeIntervalSinceNow > Double(K.TimeConstants.tenMinutesInSeconds) {
-                        // 10 minutes have passed, refresh the data
-                        await appStateViewModel.determineWeatherUpdateMethod()
-                        await savedLocationPersistenceViewModel.callFetchWeatherPlacesWithTaskGroup()
-                        savedDate = Date()
-                    }
+                    await appStateViewModel.handleForegroundEntry()
                 }
                 
             default:

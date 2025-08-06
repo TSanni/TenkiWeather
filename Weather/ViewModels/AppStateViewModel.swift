@@ -26,6 +26,8 @@ import CoreLocation
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
 
+    @Published var lastFetchTime: Date?
+    
     // This property's only purpose is to add data to CoreData.
     // You can find it's data being saved to CoreData in the SettingScreenTile View
     @Published private(set) var searchedLocationModel: SearchLocationModel =
@@ -46,12 +48,28 @@ import CoreLocation
     private let weatherViewModel: WeatherViewModel
     private let persistence: SavedLocationsPersistenceViewModel
     
+    private let lastFetchKey = "LastWeatherFetchTime"
+
+    private var coldStart: Bool
+    
     init(locationViewModel: CoreLocationViewModelProtocol, weatherViewModel: WeatherViewModel, persistence: SavedLocationsPersistenceViewModel) {
         self.locationViewModel = locationViewModel
         self.weatherViewModel = weatherViewModel
         self.persistence = persistence
-        
+        self.coldStart = true
         currentLocationTimezone = weatherViewModel.currentWeather.timezoneIdentifier
+        
+        // On cold launch, load last fetch time
+        if let saved = UserDefaults.standard.object(forKey: lastFetchKey) as? Date {
+            lastFetchTime = saved
+        }
+
+        // Always fetch on cold start
+        Task {
+            await determineWeatherUpdateMethod()
+            self.coldStart = false
+        }
+        
     }
     
     private func setLastUpdated() {
@@ -255,21 +273,40 @@ extension AppStateViewModel {
         }
     }
     
-    
     /// This method determines if a user has marked a location as favorite.
     /// If true, the default weather updates will come from that location.
+    /// Otherwise, weather will be updated based on user location.
     func determineWeatherUpdateMethod() async {
-        for savedLocation in persistence.savedLocations {
-            if savedLocation.isFavorite {
-                await getWeatherAndUpdateDictionaryFromSavedLocation(item: savedLocation)
-                return
-            }
+        print(#function)
+        if let favoritedLocation = persistence.savedLocations.first(where: { $0.isFavorite }) {
+            await getWeatherAndUpdateDictionaryFromSavedLocation(item: favoritedLocation)
+        } else {
+            await getWeather()
         }
         
-        await getWeather()
+        lastFetchTime = Date()
+        UserDefaults.standard.set(lastFetchTime, forKey: lastFetchKey)
+    }
+    
+    func handleForegroundEntry() async {
+        print(#function)
+        
+        if self.coldStart {
+            return
+        }
+        
+        if let lastFetchTime = lastFetchTime {
+            if -lastFetchTime.timeIntervalSinceNow > Double(K.TimeConstants.tenMinutesInSeconds) {
+                print("10 minutes have passed since last fetch")
+                await determineWeatherUpdateMethod()
+            } else {
+                print("⚠️ 10 minutes have NOT passed since last fetch")
+            }
+        } else {
+            await determineWeatherUpdateMethod()
+        }
     }
 }
-
 
 // MARK: - Handle UI
 extension AppStateViewModel {
