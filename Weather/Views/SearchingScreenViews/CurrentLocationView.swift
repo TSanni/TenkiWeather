@@ -45,7 +45,7 @@ struct CurrentLocationView: View {
                         if coreLocationVM.authorizationStatus == .denied {
                             showSettingsAlert = true
                         } else {
-                            await appStateVM.getWeatherAndUpdateDictionaryFromLocation()
+                            await appStateVM.getWeatherAndUpdateDictionaryFromCurrentLocation()
                         }
                     }
                 }

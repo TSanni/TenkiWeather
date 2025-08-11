@@ -159,7 +159,7 @@ extension AppStateViewModel {
         }
     }
     
-    func getWeatherAndUpdateDictionaryFromLocation() async {
+    func getWeatherAndUpdateDictionaryFromCurrentLocation() async {
         print(#function)
         do {
             toggleShowSearchScreen()
@@ -283,7 +283,7 @@ extension AppStateViewModel {
         } else {
             await getWeather()
         }
-        
+        persistence.fetchAllLocations(updateNetwork: true)
         lastFetchTime = Date()
         UserDefaults.standard.set(lastFetchTime, forKey: lastFetchKey)
     }
@@ -292,12 +292,13 @@ extension AppStateViewModel {
         print(#function)
         
         if self.coldStart {
+            print("🥶 Cold launch")
             return
         }
         
         if let lastFetchTime = lastFetchTime {
             if -lastFetchTime.timeIntervalSinceNow > Double(K.TimeConstants.tenMinutesInSeconds) {
-                print("10 minutes have passed since last fetch")
+                print("✅ 10 minutes have passed since last fetch")
                 await determineWeatherUpdateMethod()
             } else {
                 print("⚠️ 10 minutes have NOT passed since last fetch")
