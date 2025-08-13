@@ -23,7 +23,6 @@ struct SearchBar: View {
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
                         Spacer()
-                        
                     }
                     .padding()
                     .contentShape(Rectangle())
@@ -45,7 +44,6 @@ struct SearchBar: View {
             .padding(.horizontal)
             .shadow(color: .black, radius: 0, y: 0.5)
             .shadow(radius: 3)
-
     }
 }
 

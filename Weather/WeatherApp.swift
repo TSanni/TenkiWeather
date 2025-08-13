@@ -5,7 +5,7 @@
 //  Created by Tomas Sanni on 5/27/23.
 //
 
-//MARK: Version 4.12.2 published to App Store
+//MARK: Version 4.13.0 published to App Store
 
 //TODO: Fix .renderingMode in files. This is the cause of the CoreSVG: Error: NULL ref passed to getObjectCoreSVG
 
@@ -22,7 +22,6 @@ struct WeatherApp: App {
     @StateObject private var appStateVM: AppStateViewModel
     
     init() {
-        
         let weatherManager = ProductionWeatherService()
         let weatherVM = WeatherViewModel(weatherService: weatherManager)
         let locationVM = CoreLocationViewModel()

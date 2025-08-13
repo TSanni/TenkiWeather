@@ -16,13 +16,10 @@ struct SettingsScreen: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @State private var showPrivacyWebsite = false
     @State private var showTermsAndConditionsWebsite = false
-    
-    
     @AppStorage(K.UserDefaultKeys.timePreferenceKey) var toggle24HourTime: Bool = false
     @AppStorage(K.UserDefaultKeys.showTemperatureUnitKey) var showTemperatureUnit: Bool = false
     
     let appVersionString: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-
  
     var body: some View {
         List {

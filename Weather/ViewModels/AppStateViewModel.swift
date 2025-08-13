@@ -357,5 +357,4 @@ extension AppStateViewModel {
         let filledInSymbol = Helper.getImage(imageName: symbol)
         return filledInSymbol
     }
-    
 }

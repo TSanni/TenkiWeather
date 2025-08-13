@@ -8,7 +8,6 @@
 import Foundation
 import WeatherKit
 
-
 class WeatherViewModel: ObservableObject {
     @Published private(set) var currentWeather: TodayWeatherModel = TodayWeatherModelPlaceHolder.holderData
     @Published private(set) var tomorrowWeather: DailyWeatherModel = DailyWeatherModelPlaceHolder.placeholder

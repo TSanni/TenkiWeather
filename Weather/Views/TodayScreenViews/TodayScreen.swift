@@ -140,10 +140,6 @@ struct TodayScreen: View {
     }
 }
 
-
-
-
-
 //MARK: - TodayScreen Preview
 #Preview {
     NavigationStack {

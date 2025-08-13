@@ -19,7 +19,6 @@ struct PlaceDetails: View {
     let longitude: Double
     @ObservedObject var location: Location
     
-    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {

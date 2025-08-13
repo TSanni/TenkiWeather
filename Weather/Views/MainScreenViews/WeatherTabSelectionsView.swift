@@ -43,7 +43,6 @@ struct WeatherTabSelectionsView: View {
                 }
             }
         }
-        
     }
 }
 

@@ -9,19 +9,14 @@ import SwiftUI
 
 struct ImmediateWeatherDetails: View {
     @EnvironmentObject var appStateViewModel: AppStateViewModel
-    
     let currentWeather: TodayWeatherModel
-
     
     var body: some View {
         let imageSymbol = appStateViewModel.fillImageToPrepareForRendering(symbol: currentWeather.symbolName)
         let blendColor1 = appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor)
         let blendColor2 = appStateViewModel.mixColorWith60PercentWhite(themeColor: currentWeather.backgroundColor)
-
-        
         
         VStack(alignment: .leading) {
-            
             Text("Now")
                 .fontWeight(.semibold)
             
@@ -56,7 +51,6 @@ struct ImmediateWeatherDetails: View {
         }
         .foregroundStyle(blendColor1)
         .padding()
-        
     }
 }
 
@@ -67,7 +61,3 @@ struct ImmediateWeatherDetails: View {
             .environmentObject(AppStateViewModel.preview)
     }
 }
-
-
-
-

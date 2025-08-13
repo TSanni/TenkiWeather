@@ -163,6 +163,5 @@ extension MainScreen {
             .environmentObject(SavedLocationsPersistenceViewModel.preview)
             .environmentObject(LocationSearchViewModel.preview)
             .environmentObject(AppStateViewModel.preview)
-            
     }
 }
