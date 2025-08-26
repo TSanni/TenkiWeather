@@ -303,7 +303,7 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		83731A6B2A2FD91E00D481CA /* Subviews */ = {
+		83731A6B2A2FD91E00D481CA /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				838FAE162B6084A200AAC0C1 /* Tile Views */,
@@ -320,7 +320,7 @@
 				83C8472E2DF7A9070099F083 /* SnowView.swift */,
 				83C847302DF7A9C10099F083 /* LightningEffectViews.swift */,
 			);
-			path = Subviews;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		83731A6F2A2FD9F300D481CA /* Views */ = {
@@ -331,7 +331,7 @@
 				83E04FC62A25A920009720AB /* TodayScreenViews */,
 				83E04FC72A25A944009720AB /* TomorrowScreenViews */,
 				83E04FC82A25A957009720AB /* MultiDayScreenViews */,
-				83731A6B2A2FD91E00D481CA /* Subviews */,
+				83731A6B2A2FD91E00D481CA /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -426,21 +426,12 @@
 		83DA72DB2A3FC13500C50C86 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				83E6749F2E5E4FE000CC470B /* Extensions */,
+				83E6749E2E5E4FCA00CC470B /* ViewModifiers */,
 				83FD52062B87E464008F875B /* Helper.swift */,
 				83C4FFF82A352E9B00DEF7F3 /* Constants.swift */,
 				837D7DBB2B72B0210031B296 /* Enums.swift */,
-				83FD52042B87BAD1008F875B /* View+extension.swift */,
-				83FD51F62B87B56B008F875B /* UIColor+extension.swift */,
-				8362F0B12DF49C5D00F51805 /* Color+extension.swift */,
-				83FD52022B87BAA3008F875B /* CardViewModifier+ViewModifier.swift */,
-				833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */,
-				83FD51FC2B87B6C4008F875B /* HeaderViewModifier+ViewModifier.swift */,
-				83FD51FA2B87B66D008F875B /* SettingsListBackgroundViewModifier+ViewModifier.swift */,
-				83FD51F82B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift */,
-				83FD51FE2B87BA3E008F875B /* SubHeaderViewModifier+ViewModifier.swift */,
-				83FD52002B87BA71008F875B /* CustomNavBackButton+ViewModifier.swift */,
 				8325B39D2DEE091A00EBD840 /* ViewModels+Preview.swift */,
-				8325B3A92DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift */,
 				839BE0AB2E43DAA200E4B7D9 /* CachedAsyncImageView.swift */,
 			);
 			path = Utils;
@@ -517,6 +508,31 @@
 				83731A692A2FC2E400D481CA /* DailyWeatherCell.swift */,
 			);
 			path = MultiDayScreenViews;
+			sourceTree = "<group>";
+		};
+		83E6749E2E5E4FCA00CC470B /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				83FD52022B87BAA3008F875B /* CardViewModifier+ViewModifier.swift */,
+				833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */,
+				83FD51FC2B87B6C4008F875B /* HeaderViewModifier+ViewModifier.swift */,
+				83FD51FA2B87B66D008F875B /* SettingsListBackgroundViewModifier+ViewModifier.swift */,
+				83FD51F82B87B5EF008F875B /* SettingsViewFrameViewModifier+ViewModifier.swift */,
+				83FD51FE2B87BA3E008F875B /* SubHeaderViewModifier+ViewModifier.swift */,
+				83FD52002B87BA71008F875B /* CustomNavBackButton+ViewModifier.swift */,
+				8325B3A92DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		83E6749F2E5E4FE000CC470B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				83FD52042B87BAD1008F875B /* View+extension.swift */,
+				83FD51F62B87B56B008F875B /* UIColor+extension.swift */,
+				8362F0B12DF49C5D00F51805 /* Color+extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

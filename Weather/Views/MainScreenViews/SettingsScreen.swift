@@ -106,7 +106,7 @@ struct SettingsScreen: View {
             .tint(.primary)
         }
     }
-    
+        
     var temperatureSection: some View {
         Section("Temperature") {
             ForEach(TemperatureUnits.allCases, id: \.title) { unit in
