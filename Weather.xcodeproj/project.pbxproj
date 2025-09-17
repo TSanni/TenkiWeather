@@ -279,7 +279,6 @@
 				8313DE932B63DB890031C5E7 /* TabViews.swift */,
 				8336164C2B9D554A0045F639 /* SearchBar.swift */,
 				83E04FBF2A2555DE009720AB /* WeatherTabSelectionsView.swift */,
-				8336164E2B9D9B220045F639 /* SettingsScreen.swift */,
 			);
 			path = MainScreenViews;
 			sourceTree = "<group>";
@@ -326,6 +325,7 @@
 		83731A6F2A2FD9F300D481CA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83E674A02E60D89300CC470B /* SettingsScreen */,
 				8313DE922B63DB250031C5E7 /* MainScreenViews */,
 				83731A722A2FFC5F00D481CA /* SearchingScreenViews */,
 				83E04FC62A25A920009720AB /* TodayScreenViews */,
@@ -533,6 +533,14 @@
 				8362F0B12DF49C5D00F51805 /* Color+extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		83E674A02E60D89300CC470B /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8336164E2B9D9B220045F639 /* SettingsScreen.swift */,
+			);
+			path = SettingsScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
