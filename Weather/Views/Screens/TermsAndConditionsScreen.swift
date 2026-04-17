@@ -1,5 +1,5 @@
 //
-//  TermsAndConditionsView.swift
+//  TermsAndConditionsScreen.swift
 //  Tenki Weather
 //
 //  Created by Tomas Sanni on 8/21/23.
@@ -9,7 +9,7 @@ import SwiftUI
 
 
 
-struct TermsAndConditionsView: View {
+struct TermsAndConditionsScreen: View {
     @Environment(\.dismiss) var dismiss
     @State private var show = false
     let boldedDefinitionTerms: [String] = ["Application", "Application Store", "Affiliate", "Country", "Company", "Device", "Service", "Terms and Conditions", "Third-party Social Media Service", "You"]
@@ -230,7 +230,7 @@ struct TermsAndConditionsView: View {
 
                     }
                     .fullScreenCover(isPresented: $show) {
-                        FullScreenWebView(url: "http://www.google.com/intl/en/policies/terms")
+                        FullScreenWebview(url: "http://www.google.com/intl/en/policies/terms")
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -240,5 +240,5 @@ struct TermsAndConditionsView: View {
 }
 
 #Preview {
-    TermsAndConditionsView()
+    TermsAndConditionsScreen()
 }

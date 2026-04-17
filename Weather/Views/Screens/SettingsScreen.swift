@@ -54,7 +54,7 @@ struct SettingsScreen: View {
                 Button("Dismiss") {
                     dimiss()
                 }
-                .padding([.vertical, .leading])
+                .padding(.vertical)
                 .tint(.primary)
             }
         }
@@ -69,10 +69,10 @@ struct SettingsScreen: View {
             Text(error.recoverySuggestion ?? "Try again later")
         }
         .sheet(isPresented: $showPrivacyWebsite) {
-            FullScreenWebView(url: K.privacyPolicyURL)
+            FullScreenWebview(url: K.privacyPolicyURL)
         }
         .sheet(isPresented: $showTermsAndConditionsWebsite) {
-            TermsAndConditionsView()
+            TermsAndConditionsScreen()
         }
     }
      

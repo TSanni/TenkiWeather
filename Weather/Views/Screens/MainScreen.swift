@@ -20,57 +20,28 @@ struct MainScreen: View {
     
     //Must use @State instead of view model because this is the only way to make animations work
     @State var tabViews: WeatherTabs = .today
-    
-    var deviceType: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-    
+        
     var body: some View {
         ZStack {
-            getBackgroundColor.ignoresSafeArea()
-            
-            weatherEffectSceneView
-                .ignoresSafeArea()
-            
-            if (weatherViewModel.currentWeather.isLightning && tabViews == .today) || (weatherViewModel.tomorrowWeather.isLightning && tabViews == .tomorrow) {
-                LightningView().ignoresSafeArea()
-            }
-            
             VStack(spacing: 0) {
+                TabScreens(tabViews: $tabViews)
+                    .redacted(reason: appStateViewModel.loading ? .placeholder : [])
+                    .tint(.primary)
                 
-                SearchBar(backgroundColor: getBackgroundColor)
-                    .padding(.vertical)
-                
-                WeatherTabSelectionsView(tabViews: $tabViews)
-                
-                TabViews(tabViews: $tabViews)
-                    .tint(.white)
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                    .ignoresSafeArea()
-                
-                
-                if !networkManager.isConnected {
-                    HStack {
-                        Image(systemName: "wifi.slash")
-                        Text("No Internet Connection")
-                    }
-                    .foregroundStyle(.white)
-                }
+                NoInternetView()
             }
-            .zIndex(0)
-            .disabled(appStateViewModel.showSettingScreen ? true : false)
-            .animation(deviceType == .pad ? nil : .default, value: tabViews)
             
             progressView
-            
         }
         .lineLimit(1)
         .minimumScaleFactor(0.5)
-        .redacted(reason: appStateViewModel.loading ? .placeholder : [])
+        .toolbarModifier()
         .fullScreenCover(isPresented: $appStateViewModel.showSearchScreen) {
             NavigationStack {
                 SearchingScreenView()
             }
         }
-        .sheet(isPresented: $appStateViewModel.showSettingScreen) {
+        .fullScreenCover(isPresented: $appStateViewModel.showSettingScreen) {
             NavigationStack {
                 SettingsScreen()
             }
@@ -111,11 +82,6 @@ struct MainScreen: View {
                 break
             }
         }
-        .environmentObject(weatherViewModel)
-        .environmentObject(savedLocationPersistenceViewModel)
-        .environmentObject(locationViewModel)
-        .environmentObject(appStateViewModel)
-        .environmentObject(networkManager)
     }
 }
 

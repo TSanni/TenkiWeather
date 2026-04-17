@@ -1,5 +1,5 @@
 //
-//  FullScreenWebView.swift
+//  FullScreenWebview.swift
 //  Tenki Weather
 //
 //  Created by Tomas Sanni on 7/18/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FullScreenWebView: View {
+struct FullScreenWebview: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
 
@@ -34,5 +34,5 @@ struct FullScreenWebView: View {
 }
 
 #Preview {
-    FullScreenWebView(url: "https://www.google.com")
+    FullScreenWebview(url: "https://www.google.com")
 }

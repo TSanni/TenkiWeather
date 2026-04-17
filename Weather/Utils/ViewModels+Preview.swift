@@ -53,6 +53,7 @@ extension SavedLocationsPersistenceViewModel {
 extension NetworkMonitor {
     static var preview: NetworkMonitor {
         let vm = NetworkMonitor()
+        vm.isConnected = false
         
         return vm
     }

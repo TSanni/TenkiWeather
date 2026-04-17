@@ -62,7 +62,7 @@ struct ImageProgressView: View {
 
 #Preview {
     ZStack {
-        Color.brown
-        ImageProgressView(height: 25, value: 50, sfSymbol: "drop.fill", color: Color.orange)
+        Color.goodDarkTheme.ignoresSafeArea()
+        ImageProgressView(height: 25, value: 50, sfSymbol: "drop.fill", color: Color.precipitationBlue)
     }
 }

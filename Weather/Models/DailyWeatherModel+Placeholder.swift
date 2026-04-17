@@ -18,7 +18,7 @@ struct DailyWeatherModelPlaceHolder {
         sun: SunModelPlaceholder.sunDataHolder,
         wind: WindModelPlaceholder.windDataHolder[0],
         date: Date.distantFuture,
-        condition: .rain,
+        condition: .thunderstorms,
         uvIndexValue: 0,
         uvIndexCategory: .extreme,
         symbolName: "cloud.rain",

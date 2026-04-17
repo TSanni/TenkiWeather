@@ -45,7 +45,7 @@ struct WeatherAlertTileView: View {
             showWeatherAlertURL = true
         }
         .sheet(isPresented: $showWeatherAlertURL) {
-            FullScreenWebView(url: weatherAlert.detailsURL.absoluteString)
+            FullScreenWebview(url: weatherAlert.detailsURL.absoluteString)
                 .edgesIgnoringSafeArea(.bottom)
         }      
     }

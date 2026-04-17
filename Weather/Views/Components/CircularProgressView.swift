@@ -66,7 +66,10 @@ struct CircularProgressView: View {
 }
 
 #Preview {
-    CircularProgressView(pressure: 30)
-        .padding()
-        .background(Color.indigo)
+    ZStack {
+        Color.tenDayBarColor.ignoresSafeArea()
+        CircularProgressView(pressure: 30)
+            .padding()
+    }
+
 }

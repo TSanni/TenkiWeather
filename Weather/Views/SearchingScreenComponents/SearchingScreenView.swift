@@ -95,7 +95,7 @@ struct SearchingScreenView: View {
                     SavedLocationsView()
                         .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive)) // Manage edit mode
                 }
-                .padding()
+                .padding([.horizontal, .top])
             }
         }
         .foregroundStyle(.primary)

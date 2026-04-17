@@ -17,6 +17,13 @@ struct TomorrowScreen: View {
     var body: some View {
         GeometryReader { geo in
             
+            dailyWeather.backgroundColor.ignoresSafeArea()
+            dailyWeather.scene.ignoresSafeArea()
+            
+            if (dailyWeather.isLightning) {
+                LightningView().ignoresSafeArea()
+            }
+            
             ScrollView(.vertical, showsIndicators: false) {
                 ScrollViewReader { proxy in
                     ZStack {
@@ -27,7 +34,6 @@ struct TomorrowScreen: View {
                                 TomorrowImmediateWeatherView(tomorrowWeather: dailyWeather)
                                     .padding(.bottom)
                                     .id(0)
-
                                 
                                 Text("Hourly forecast")
                                     .padding(.horizontal)
@@ -39,7 +45,6 @@ struct TomorrowScreen: View {
                                     color: dailyWeather.backgroundColor,
                                     forToday: false
                                 )
-                                
                                 
                                 Text("Tomorrow's Conditions")
                                     .padding(.horizontal)
@@ -94,11 +99,9 @@ struct TomorrowScreen: View {
                         proxy.scrollTo(0)
                     }
                 }
-                
             }
         }
     }
-    
 }
 
 
