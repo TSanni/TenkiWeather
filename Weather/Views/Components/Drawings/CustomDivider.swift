@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct CustomDivider: View {
+    let color: Color
     var body: some View {
         Rectangle()
-            .fill(Color.primary)
+            .fill(color)
             .frame(height: 0.5)
     }
 }
 
 #Preview {
-    CustomDivider()
+    CustomDivider(color: Color.primary)
 }

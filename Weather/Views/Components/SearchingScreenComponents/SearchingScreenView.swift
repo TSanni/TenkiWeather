@@ -23,7 +23,7 @@ struct SearchingScreenView: View {
         VStack {
             textFieldAndBackButton
             
-            CustomDivider()
+            CustomDivider(color: .primary)
             
             if !locationSearchVM.query.isEmpty {
                 List(locationSearchVM.suggestions, id: \.self) { suggestion in
@@ -90,7 +90,7 @@ struct SearchingScreenView: View {
                         }
                     }
                     
-                    CustomDivider()
+                    CustomDivider(color: .primary)
                     
                     SavedLocationsView()
                         .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive)) // Manage edit mode

@@ -27,7 +27,7 @@ struct HourlyForecastTileView: View {
                         .font(.subheadline)
                         .lineLimit(3)
                         .minimumScaleFactor(1)
-                    CustomDivider()
+                    CustomDivider(color: .white)
                 }
                 .padding([.top, .horizontal], 15)
             }
@@ -108,10 +108,10 @@ struct HourlyForecastTileView: View {
 //MARK: - Preview
 #Preview {
     ZStack {
-        Color.hazeDaylightColor.brightness(0.1)
+        Color.tenDayBarColor.brightness(0.1)
         HourlyForecastTileView(
             hourlyTemperatures: HourlyWeatherModelPlaceholder.hourlyTempHolderDataArray,
-            color: Color.hazeDaylightColor, forToday: true
+            color: Color.tenDayBarColor, forToday: true
         )
         .environmentObject(AppStateViewModel.preview)
         .environmentObject(WeatherViewModel.preview)

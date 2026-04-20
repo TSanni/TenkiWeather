@@ -88,29 +88,6 @@ struct MainScreen: View {
 //MARK: - Main View Extension
 extension MainScreen {
     
-    private var getBackgroundColor: Color {
-        switch tabViews {
-        case .today:
-            return weatherViewModel.currentWeather.backgroundColor
-        case .tomorrow:
-            return weatherViewModel.tomorrowWeather.backgroundColor
-        case .multiDay:
-            return Color.tenDayBarColor
-        }
-    }
-    
-    @ViewBuilder
-    private var weatherEffectSceneView: some View {
-        switch tabViews {
-        case .today:
-            weatherViewModel.currentWeather.scene
-        case .tomorrow:
-            weatherViewModel.tomorrowWeather.scene
-        case .multiDay:
-            EmptyView()
-        }
-    }
-    
     @ViewBuilder
     private var progressView: some View {
         if appStateViewModel.loading {

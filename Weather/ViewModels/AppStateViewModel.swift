@@ -25,6 +25,9 @@ import CoreLocation
     @Published var showCoreDataErrorAlert: Bool = false
     @Published var showSearchScreen: Bool = false
     @Published var showSettingScreen: Bool = false
+    
+    @Published var showPrivacyWebsite = false
+    @Published var showTermsAndConditionsWebsite = false
 
     @Published var lastFetchTime: Date?
     

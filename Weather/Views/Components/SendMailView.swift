@@ -7,8 +7,6 @@
 
 import SwiftUI
 import MessageUI
-//import SwiftUIMailView
-
 
 struct SendMailView: View {
     

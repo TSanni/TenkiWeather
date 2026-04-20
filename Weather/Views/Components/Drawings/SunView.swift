@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  SunView.swift
 //  Tenki Weather
 //
 //  Created by Tomas Sanni on 4/16/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
+struct SunView: View {
     let frame: CGFloat
     var body: some View {
             ZStack {
@@ -33,6 +33,6 @@ struct SwiftUIView: View {
 #Preview {
     ZStack {
         Color.tenDayBarColor.ignoresSafeArea()
-        SwiftUIView(frame: 100)
+        SunView(frame: 100)
     }
 }

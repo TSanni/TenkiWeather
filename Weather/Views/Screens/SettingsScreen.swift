@@ -8,36 +8,26 @@
 import SwiftUI
 
 struct SettingsScreen: View {
-    @AppStorage(K.UserDefaultKeys.unitTemperatureKey) var temperatureUnit: TemperatureUnits = .fahrenheit
-    @AppStorage(K.UserDefaultKeys.unitDistanceKey) var distanceUnit: DistanceUnits = .miles
-    @AppStorage(K.UserDefaultKeys.unitLengthKey) var lengthUnit: LengthUnits = .inches
-    @AppStorage(K.UserDefaultKeys.unitPressureKey) var pressureUnit: PressureUnits = .inchesOfMercury
     @Environment(\.dismiss) var dimiss
     @EnvironmentObject var appStateViewModel: AppStateViewModel
-    @State private var showPrivacyWebsite = false
-    @State private var showTermsAndConditionsWebsite = false
-    @AppStorage(K.UserDefaultKeys.timePreferenceKey) var toggle24HourTime: Bool = false
-    @AppStorage(K.UserDefaultKeys.showTemperatureUnitKey) var showTemperatureUnit: Bool = false
-    
-    let appVersionString: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
  
     var body: some View {
         List {
-            saveLocationSection
+            SaveLocationSection()
             
-            temperatureSection
+            TemperatureSection()
             
-            distanceAndSpeedSection
+            DistanceAndSpeedSection()
             
-            precipitationSection
+            PrecipitationSection()
             
-            pressureSection
+            PressureSection()
             
-            supportSection
+            SupportSection()
             
-            timeSection
+            TimeSection()
             
-            extraSection
+            ExtraSection()
             
             HStack {
                 Spacer()
@@ -68,156 +58,11 @@ struct SettingsScreen: View {
         } message: { error in
             Text(error.recoverySuggestion ?? "Try again later")
         }
-        .sheet(isPresented: $showPrivacyWebsite) {
+        .sheet(isPresented: $appStateViewModel.showPrivacyWebsite) {
             FullScreenWebview(url: K.privacyPolicyURL)
         }
-        .sheet(isPresented: $showTermsAndConditionsWebsite) {
+        .sheet(isPresented: $appStateViewModel.showTermsAndConditionsWebsite) {
             TermsAndConditionsScreen()
-        }
-    }
-     
-    
-    //MARK: - sub views
-    var saveLocationSection: some View {
-        Section("Save Location") {
-            Button {
-                appStateViewModel.saveLocation()
-            } label: {
-                HStack {
-                    Image(systemName: "mappin.and.ellipse")
-                        .font(.title)
-                    
-                    Spacer()
-                    
-                    VStack {
-                    
-                        Text(appStateViewModel.searchedLocationModel.name)
-                            .foregroundStyle(.green)
-                        
-                        Text("Click to save this location")
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.2)
-                    }
-                    
-                    Spacer()
-                }
-            }
-            .tint(.primary)
-        }
-    }
-        
-    var temperatureSection: some View {
-        Section("Temperature") {
-            ForEach(TemperatureUnits.allCases, id: \.title) { unit in
-                HStack {
-                    Text(unit.title.capitalized)
-                        .foregroundStyle(.primary)
-                    Text("(" + unit.symbol + ")")
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    if temperatureUnit == unit {
-                        Image(systemName: "checkmark")
-                    }
-                }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    temperatureUnit = unit
-                }
-            }
-            
-            Toggle(isOn: $showTemperatureUnit) {
-                Text("Show unit")
-            }
-        }
-    }
-    
-    var distanceAndSpeedSection: some View {
-        Section("Distance and Speed") {
-            ForEach(DistanceUnits.allCases, id: \.title) { unit in
-                HStack {
-                    Text(unit.title.capitalized)
-                        .foregroundStyle(.primary)
-                    Group {
-                        Text("(" + unit.distanceSymbol)
-                        Text(unit.speedSymbol + ")")
-                    }
-                    .foregroundStyle(.secondary)
-
-                    Spacer()
-                    if distanceUnit == unit {
-                        Image(systemName: "checkmark")
-                    }
-                }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    distanceUnit = unit
-                }
-            }
-        }
-    }
-    
-    var precipitationSection: some View {
-        Section("Precipitation") {
-            ForEach(LengthUnits.allCases, id: \.title) { unit in
-                HStack {
-                    Text(unit.title.capitalized)
-                        .foregroundStyle(.primary)
-                    Text("(" + unit.symbol + ")")
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    if lengthUnit == unit {
-                        Image(systemName: "checkmark")
-                    }
-                }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    lengthUnit = unit
-                }
-            }
-        }
-    }
-    
-    var pressureSection: some View {
-        Section("Pressure") {
-            ForEach(PressureUnits.allCases, id: \.title) { unit in
-                HStack {
-                    Text(unit.titleForUI.capitalized)
-                        .foregroundStyle(.primary)
-                    Text("(" + unit.symbol + ")")
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    if pressureUnit == unit {
-                        Image(systemName: "checkmark")
-                    }
-                }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    pressureUnit = unit
-                }
-            }
-        }
-    }
-    
-    var supportSection: some View {
-        Section("Support") {
-            SendMailView()
-        }
-    }
-    
-    var timeSection: some View {
-        Section("Time") {
-            Toggle(isOn: $toggle24HourTime) {
-                Text("Use 24-hour format")
-            }
-        }
-    }
-    
-    var extraSection: some View {
-        Section {
-            Text("Privacy Policy").onTapGesture { showPrivacyWebsite = true }
-            Text("Terms and Conditions").onTapGesture { showTermsAndConditionsWebsite = true }
-            Text("App Version: \(appVersionString)")
         }
     }
 }
