@@ -15,7 +15,7 @@ struct HourlyWeatherModelPlaceholder {
         for i in 0..<12 {
             arr.append(
                 HourlyWeatherModel(
-                    temperature: Measurement(value: 0, unit: .fahrenheit),
+                    temperature: Measurement(value: Double.random(in: 0...100), unit: .fahrenheit),
                     wind: WindModelPlaceholder.windDataHolder[i],
                     date: Date(timeIntervalSince1970: TimeInterval(startingTime)),
                     precipitationChance: 0,

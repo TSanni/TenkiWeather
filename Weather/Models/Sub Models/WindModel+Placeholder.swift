@@ -11,18 +11,14 @@ import WeatherKit
 
 struct WindModelPlaceholder {
     /// Holder data for wind details
-    static let windDataHolder: [WindModel] = [
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 50, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-        WindModel(speed: Measurement(value: 20, unit: .milesPerHour), compassDirection: Wind.CompassDirection(rawValue: "-") ?? Wind.CompassDirection.north),
-    ]
+    
+    static var windDataHolder: [WindModel] {
+        var arr: [WindModel] = []
+
+        for _ in 0..<12 {
+            arr.append(WindModel(speed: Measurement(value: Double.random(in: 1..<50), unit: .milesPerHour), compassDirection: .north))
+        }
+        
+        return arr
+    }
 }
