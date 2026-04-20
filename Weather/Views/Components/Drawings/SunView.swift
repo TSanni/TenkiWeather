@@ -11,15 +11,15 @@ struct SunView: View {
     let frame: CGFloat
     var body: some View {
             ZStack {
-//                Rectangle()
-//                    .fill(Gradient(colors: [.yellow, .orange]))
-//                    .frame(width: frame / 1.2, height: frame / 1.2)
-//                    .rotationEffect(Angle(degrees: 45))
-//                
-//                Rectangle()
-//                    .fill(Gradient(colors: [.yellow, .orange]))
-//                    .frame(width: frame / 1.2, height: frame / 1.2)
-//                    .rotationEffect(Angle(degrees: 90))
+                Rectangle()
+                    .fill(Gradient(colors: [.yellow, .orange]))
+                    .frame(width: frame / 1.2, height: frame / 1.2)
+                    .rotationEffect(Angle(degrees: 45))
+                
+                Rectangle()
+                    .fill(Gradient(colors: [.yellow, .orange]))
+                    .frame(width: frame / 1.2, height: frame / 1.2)
+                    .rotationEffect(Angle(degrees: 90))
                 
                 Circle()
                     .fill(Gradient(colors: [.yellow, .orange]))

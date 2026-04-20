@@ -16,8 +16,6 @@ struct ImageProgressView: View {
      
      @State private var secondRectangleWidth: CGFloat = 0
      var body: some View {
-         
-         
          ZStack(alignment: .bottom) {
              Rectangle()
                  .fill(color.opacity(0.4))
@@ -44,7 +42,6 @@ struct ImageProgressView: View {
                          }
                      }
                  }
-             
          }
          .mask {
              Image(systemName: sfSymbol)
