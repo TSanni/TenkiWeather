@@ -12,9 +12,7 @@ import CoreLocation
 //MARK: - View
 struct MainScreen: View {
     @Environment(\.scenePhase) var scenePhase
-    @EnvironmentObject var weatherViewModel: WeatherViewModel
     @EnvironmentObject var appStateViewModel: AppStateViewModel
-    @EnvironmentObject var networkManager: NetworkMonitor
     @EnvironmentObject var locationViewModel: CoreLocationViewModel
     @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
     

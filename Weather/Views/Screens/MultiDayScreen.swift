@@ -9,8 +9,6 @@ import SwiftUI
 
 //MARK: - MultiDayScreen View
 struct MultiDayScreen: View {
-    @Environment(\.colorScheme) var colorScheme
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var appStateViewModel: AppStateViewModel
 
     @State private var showWebView = false

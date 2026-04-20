@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TabScreens: View {
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @EnvironmentObject var appStateViewModel: AppStateViewModel
     @Binding var tabViews: WeatherTabs
 
     var body: some View {
