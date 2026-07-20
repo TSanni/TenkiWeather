@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 # Tenki Weather 🌤️
 
 [Tenki Weather](https://apps.apple.com/us/app/tenki-weather/id6451055649) is an iOS project that was inspired by Google and Samsung's applications for Android Devices. Using that inspiration, I have created a full-fledged weather application for iOS devices. Version 4 is available for download now in the App Store. 
@@ -19,15 +27,14 @@ This app has gone through a major redesign since it's inception and first public
 - Async/Await with completion handler fallback support 
 - Task groups
 - Charts API
-- Google Places API
+- Google Places API (Older version)
 - WebKit API
-- CocoaPods
+- CocoaPods (Older version)
 - Swift Package Manager
 - Launch Screen
 
 
 ## Demo of Latest version
 
+https://github.com/user-attachments/assets/e32d4a2e-0ded-4723-9c9d-a8527abdaedf
 
-
-https://github.com/user-attachments/assets/4f07f531-45d5-4bf2-999b-196849b7a4cf
