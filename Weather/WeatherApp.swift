@@ -13,13 +13,14 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
-    
     @StateObject private var weatherVM: WeatherViewModel
     @StateObject private var locationVM: CoreLocationViewModel
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var persistenceVM: SavedLocationsPersistenceViewModel
     @StateObject private var searchVM = LocationSearchViewModel()
     @StateObject private var appStateVM: AppStateViewModel
+    
+    @Environment(\.scenePhase) var scenePhase
     
     init() {
         let weatherManager = ProductionWeatherService()
@@ -42,6 +43,29 @@ struct WeatherApp: App {
         WindowGroup {
             NavigationStack {
                 MainScreen()
+                    .onChange(of: locationVM.authorizationStatus) { oldValue, newValue in
+                        switch newValue {
+                        case .authorizedWhenInUse:
+                            if oldValue != newValue && oldValue != nil {
+                                Task { await appStateVM.determineWeatherUpdateMethod() }
+                            }
+                        default: break
+                        }
+                    }
+                    .onChange(of: scenePhase) { oldValue, newValue in
+                        //use this modifier to periodically update the weather data
+                        switch newValue {
+                        case .active:
+                            Task { await appStateVM.handleForegroundEntry() }
+                        default:
+                            break
+                        }
+                    }
+                    .onChange(of: networkMonitor.isConnected) { oldValue, newValue in
+                        if oldValue == false && newValue == true {
+                            Task { await appStateVM.handleForegroundEntry() }
+                        }
+                    }
                     .environmentObject(weatherVM)
                     .environmentObject(locationVM)
                     .environmentObject(networkMonitor)

@@ -18,7 +18,6 @@ extension Color {
     static let alertPink = Color(uiColor: #colorLiteral(red: 1, green: 0.7621075511, blue: 0.7261560559, alpha: 1))
     static let alertMaroon = Color(uiColor: #colorLiteral(red: 0.4117647059, green: 0.003921568627, blue: 0.01960784314, alpha: 1))
     static let prussianBlue = Color(uiColor: #colorLiteral(red: 0.003921568627, green: 0.2, blue: 0.3294117647, alpha: 1))
-    
 
     // MARK: Weather condition colors
     static let blowingDustDaylightColor  = Color(uiColor: #colorLiteral(red: 0.5176470588, green: 0.337254902, blue: 0.2352941176, alpha: 1))
@@ -122,7 +121,4 @@ extension Color {
 
     static let tropicalStormDaylightColor = Color(uiColor: #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1))
     static let tropicalStormNightColor = Color(uiColor: #colorLiteral(red: 0.64490062, green: 0.3235638738, blue: 0.5183041692, alpha: 1))
-    
-    
-
 }

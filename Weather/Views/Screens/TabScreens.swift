@@ -9,7 +9,9 @@ import SwiftUI
 
 struct TabScreens: View {
     @EnvironmentObject var weatherViewModel: WeatherViewModel
-    @Binding var tabViews: WeatherTabs
+    @EnvironmentObject var appStateViewModel: AppStateViewModel
+
+    @State var tabViews: WeatherTabs = .today
 
     var body: some View {
         TabView(selection: $tabViews) {
@@ -25,6 +27,9 @@ struct TabScreens: View {
                 MultiDayScreen(daily: weatherViewModel.dailyWeather)
             }
         }
+        .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
+            tabViews = .today
+        }
     }
 }
 
@@ -32,7 +37,7 @@ struct TabScreens: View {
     @Previewable @State var selectedTab: WeatherTabs = .today
 
     NavigationStack {
-        TabScreens( tabViews: $selectedTab)
+        TabScreens()
             .environmentObject(WeatherViewModel.preview)
             .environmentObject(AppStateViewModel.preview)
     }

@@ -3,7 +3,6 @@
 //  Weather
 //
 //  Created by Tomas Sanni on 5/29/23.
-//
 
 import SwiftUI
 import WeatherKit
@@ -11,18 +10,15 @@ import CoreLocation
 
 //MARK: - View
 struct MainScreen: View {
-    @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var appStateViewModel: AppStateViewModel
     @EnvironmentObject var locationViewModel: CoreLocationViewModel
     @EnvironmentObject var savedLocationPersistenceViewModel: SavedLocationsPersistenceViewModel
-    
-    //Must use @State instead of view model because this is the only way to make animations work
-    @State var tabViews: WeatherTabs = .today
+    @EnvironmentObject var networkManager: NetworkMonitor
         
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                TabScreens(tabViews: $tabViews)
+                TabScreens()
                     .redacted(reason: appStateViewModel.loading ? .placeholder : [])
                     .tint(.primary)
                 
@@ -53,32 +49,6 @@ struct MainScreen: View {
             Button("OK", role: .cancel) { }
         } message: { error in
             Text(error.recoverySuggestion ?? "Try again later")
-        }
-        .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
-            tabViews = .today
-        }
-        .onChange(of: locationViewModel.authorizationStatus) { oldValue, newValue in
-            switch newValue {
-            case .authorizedWhenInUse:
-                if oldValue != newValue && oldValue != nil {
-                    Task {
-                        await appStateViewModel.determineWeatherUpdateMethod()
-                    }
-                }
-            default: break
-            }
-        }
-        .onChange(of: scenePhase) { oldValue, newValue in
-            //use this modifier to periodically update the weather data
-            switch newValue {
-            case .active:
-                Task {
-                    await appStateViewModel.handleForegroundEntry()
-                }
-                
-            default:
-                break
-            }
         }
     }
 }
