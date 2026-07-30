@@ -18,7 +18,7 @@ struct DailyWeatherModel: Identifiable, Equatable {
     let lowTemperature: Measurement<UnitTemperature>
     let precipitation: Precipitation
     let precipitationChance: Double
-    let sun: SunModel
+    let sunData: SunModel
     let wind: WindModel
     let date: Date
     let condition: WeatherCondition

@@ -118,23 +118,8 @@ struct TodayScreen: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
                         
-                        LazyVGrid(columns: appStateViewModel.getGridColumnAndSize(geo: geo)) {
-                            SunDataTile(
-                                sunTime: currentWeather.sunData.sunriseTime,
-                                description: currentWeather.sunData.dawnDescription,
-                                backgroundColor: currentWeather.backgroundColor,
-                                isSunrise: true
-                            )
-                            
-                            SunDataTile(
-                                sunTime: currentWeather.sunData.sunsetTime,
-                                description: currentWeather.sunData.duskDescription,
-                                backgroundColor: currentWeather.backgroundColor,
-                                isSunrise: false
-                            )
-                        }
-                        .padding()
-                        .padding(.bottom)
+                        SunriseSunsetView(times: currentWeather.sunData, backgroundColor: currentWeather.backgroundColor)
+
                     }
                     .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
                         proxy.scrollTo(0)

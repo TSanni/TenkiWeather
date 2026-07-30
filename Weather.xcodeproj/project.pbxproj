@@ -21,6 +21,7 @@
 		8325B3AA2DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325B3A92DEF481800EBD840 /* NavigationBarModifier+ViewModifier.swift */; };
 		8336164F2B9D9B220045F639 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8336164E2B9D9B220045F639 /* SettingsScreen.swift */; };
 		833D7CCB2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */; };
+		8342EBCC30187B39005FE357 /* SunriseSunsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8342EBCB30187B39005FE357 /* SunriseSunsetView.swift */; };
 		8345EA422BA6F21600E8EFBD /* ImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8345EA412BA6F21600E8EFBD /* ImageProgressView.swift */; };
 		834811602A58EAFB008EB616 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8348115F2A58EAFB008EB616 /* WebView.swift */; };
 		834E1F782A98C51800DB4DE5 /* WeatherAlertTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834E1F772A98C51800DB4DE5 /* WeatherAlertTileView.swift */; };
@@ -137,6 +138,7 @@
 		8325B3AB2DF086E500EBD840 /* Locations5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations5.xcdatamodel; sourceTree = "<group>"; };
 		8336164E2B9D9B220045F639 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		833D7CCA2CCFE77C00072715 /* BigCardViewModifier+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigCardViewModifier+ViewModifier.swift"; sourceTree = "<group>"; };
+		8342EBCB30187B39005FE357 /* SunriseSunsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunriseSunsetView.swift; sourceTree = "<group>"; };
 		8345EA402BA5631F00E8EFBD /* Locations2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations2.xcdatamodel; sourceTree = "<group>"; };
 		8345EA412BA6F21600E8EFBD /* ImageProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProgressView.swift; sourceTree = "<group>"; };
 		8348115F2A58EAFB008EB616 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				83EB28342B976A5500CFC390 /* VisibilityTileView.swift */,
 				83EB28362B976A6000CFC390 /* SunDataTile.swift */,
 				83CC40D32CD294BA00CF58D2 /* MoonTileView.swift */,
+				8342EBCB30187B39005FE357 /* SunriseSunsetView.swift */,
 			);
 			path = "Tile Components";
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				83CC448D2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift */,
 				83C4FFF02A34005F00DEF7F3 /* DailyWeatherModel.swift */,
 				83AFCA272C5F84F200B0F373 /* DailyWeatherModel+Placeholder.swift */,
+				83DA72E52A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift */,
 				83749C5C2BA2B74900480F5F /* Locations.xcdatamodeld */,
 				839F32F32A3919D70048EF05 /* Sub Models */,
 			);
@@ -450,7 +454,6 @@
 				838461822A508E13000B8E86 /* AppStateViewModel.swift */,
 				83DA72E92A419F9400C50C86 /* WeatherViewModel.swift */,
 				83E228512A42C52E00C4ED34 /* CoreLocationViewModel.swift */,
-				83DA72E52A41655400C50C86 /* SavedLocationsPersistenceViewModel.swift */,
 				830279E12A9A5CE100E3487D /* NetworkMonitor.swift */,
 				831AA2812D49557900FAF5B5 /* LocationSearchViewModel.swift */,
 			);
@@ -757,6 +760,7 @@
 				838C0D422F946F8C007A12E7 /* TimeSection.swift in Sources */,
 				8362F0B22DF49C5D00F51805 /* Color+extension.swift in Sources */,
 				838C0D3A2F946EC8007A12E7 /* DistanceAndSpeedSection.swift in Sources */,
+				8342EBCC30187B39005FE357 /* SunriseSunsetView.swift in Sources */,
 				837D7DB02B7139150031B296 /* SnowScene.swift in Sources */,
 				83FD51FB2B87B66E008F875B /* SettingsListBackgroundViewModifier+ViewModifier.swift in Sources */,
 				830279E22A9A5CE100E3487D /* NetworkMonitor.swift in Sources */,

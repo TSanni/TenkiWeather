@@ -70,15 +70,15 @@ struct TomorrowScreen: View {
                                     )
                                     
                                     SunDataTile(
-                                        sunTime: dailyWeather.sun.sunriseTime,
-                                        description: dailyWeather.sun.dawnDescription,
+                                        sunTime: dailyWeather.sunData.sunriseTime,
+                                        description: dailyWeather.sunData.dawnDescription,
                                         backgroundColor: dailyWeather.backgroundColor,
                                         isSunrise: true
                                     )
                                     
                                     SunDataTile(
-                                        sunTime: dailyWeather.sun.sunsetTime,
-                                        description: dailyWeather.sun.duskDescription,
+                                        sunTime: dailyWeather.sunData.sunsetTime,
+                                        description: dailyWeather.sunData.duskDescription,
                                         backgroundColor: dailyWeather.backgroundColor,
                                         isSunrise: false
                                     )

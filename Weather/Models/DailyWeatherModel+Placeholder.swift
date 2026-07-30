@@ -15,7 +15,7 @@ struct DailyWeatherModelPlaceHolder {
         lowTemperature: Measurement(value: 0, unit: .fahrenheit),
         precipitation: Precipitation.rain,
         precipitationChance: 0.8,
-        sun: SunModelPlaceholder.sunDataHolder,
+        sunData: SunModelPlaceholder.sunDataHolder,
         wind: WindModelPlaceholder.windDataHolder[0],
         date: Date.distantFuture,
         condition: .thunderstorms,

@@ -56,7 +56,8 @@ class ProductionWeatherService: WeatherServiceProtocol {
             civilDawn: dailyWeather[0].sun.civilDawn,
             solarNoon: dailyWeather[0].sun.solarNoon,
             civilDusk: dailyWeather[0].sun.civilDusk,
-            timezoneIdentifier: timezoneIdentifier
+            timezoneIdentifier: timezoneIdentifier,
+            isDaylight: current.isDaylight
         )
         
         let moonData = MoonModel(
@@ -129,7 +130,8 @@ class ProductionWeatherService: WeatherServiceProtocol {
             civilDawn: tomorrowWeather.sun.civilDawn,
             solarNoon: tomorrowWeather.sun.solarNoon,
             civilDusk: tomorrowWeather.sun.civilDusk,
-            timezoneIdentifier: timezoneIdentifier
+            timezoneIdentifier: timezoneIdentifier,
+            isDaylight: nil
         )
         
         let tomorrowsWindData = WindModel(
@@ -142,7 +144,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
             lowTemperature: tomorrowWeather.lowTemperature,
             precipitation: tomorrowWeather.precipitation,
             precipitationChance: tomorrowWeather.precipitationChance,
-            sun: sunDetails,
+            sunData: sunDetails,
             wind: tomorrowsWindData,
             date: tomorrowWeather.date,
             condition: tomorrowWeather.condition,
@@ -170,7 +172,8 @@ class ProductionWeatherService: WeatherServiceProtocol {
                 civilDawn: dailyWeather[day].sun.civilDawn,
                 solarNoon: dailyWeather[day].sun.solarNoon,
                 civilDusk: dailyWeather[day].sun.civilDusk,
-                timezoneIdentifier: timezoneIdentifier
+                timezoneIdentifier: timezoneIdentifier,
+                isDaylight: nil
             )
             
             let windDetails = WindModel(
@@ -186,7 +189,7 @@ class ProductionWeatherService: WeatherServiceProtocol {
                     lowTemperature: dailyWeather[day].lowTemperature,
                     precipitation: dailyWeather[day].precipitation,
                     precipitationChance: dailyWeather[day].precipitationChance,
-                    sun: sunData,
+                    sunData: sunData,
                     wind: windDetails,
                     date: dailyWeather[day].date,
                     condition: dailyWeather[day].condition,

@@ -73,7 +73,7 @@ struct DailyWeatherCell: View {
             HStack {
                 Text("Sunrise/sunset")
                 Spacer()
-                Text("\(daily.sun.sunriseTime), \(daily.sun.sunsetTime)")
+                Text("\(daily.sunData.sunriseTime), \(daily.sunData.sunsetTime)")
             }
             .padding(.bottom)
             

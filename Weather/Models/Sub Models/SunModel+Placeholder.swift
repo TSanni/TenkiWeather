@@ -10,11 +10,12 @@ import Foundation
 struct SunModelPlaceholder {
     /// Holder data for Sun data
     static let sunDataHolder = SunModel(
-        sunrise: Date.now,
-        sunset: Date.now,
+        sunrise: nil,
+        sunset: nil,
         civilDawn: Date.now,
         solarNoon: Date.now,
         civilDusk: Date.now,
-        timezoneIdentifier: K.defaultTimezoneIdentifier
+        timezoneIdentifier: K.defaultTimezoneIdentifier,
+        isDaylight: false
     )
 }
