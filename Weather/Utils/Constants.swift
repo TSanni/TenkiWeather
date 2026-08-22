@@ -29,7 +29,6 @@ enum K {
         static let unitDistanceKey: String = "UnitDistance"
         static let unitLengthKey: String = "UnitLength"
         static let unitPressureKey: String = "UnitPressure"
-        static let timePreferenceKey: String = "24HourTime"
         static let showTemperatureUnitKey: String = "showTemperatureUnitKey"
         static let migrationFlagKey: String = "hasMigratedTimezones"
     }

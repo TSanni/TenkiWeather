@@ -24,9 +24,7 @@ struct SettingsScreen: View {
             PressureSection()
             
             SupportSection()
-            
-            TimeSection()
-            
+                        
             ExtraSection()
             
             HStack {

@@ -101,81 +101,11 @@ final class HelperClassTests: XCTestCase {
         XCTAssertEqual(result, UnitTemperature.kelvin)
     }
     
-    func test_Helper_isMilitaryTime_shouldReturnTrue() {
-        defaults.set(true, forKey: K.UserDefaultKeys.timePreferenceKey)
-        
-        let result = Helper.isMilitaryTime(from: defaults)
-        
-        XCTAssertEqual(result, true)
-    }
-    
-    func test_Helper_isMilitaryTime_shouldReturnFalse() {
-        defaults.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
-        
-        let result = Helper.isMilitaryTime(from: defaults)
-        
-        XCTAssertEqual(result, false)
-    }
-    
-    func test_Helper_getReadableMainDate_shouldReturnDateInStandardFormat() {
-        UserDefaults.standard.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
-        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
-        let result = Helper.getReadableMainDate(date: date, timezoneIdentifier: "America/Chicago")
-        
-        XCTAssertEqual(result, "Jul 10, 1:00 PM")
-        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
-    }
-    
-    func test_Helper_getReadableMainDate_shouldReturnDateInMilitary() {
-        UserDefaults.standard.set(true, forKey: K.UserDefaultKeys.timePreferenceKey)
-        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
-        let result = Helper.getReadableMainDate(date: date, timezoneIdentifier: "America/Chicago")
-        
-        XCTAssertEqual(result, "10 Jul, 13:00")
-        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
-    }
-    
-    func test_Helper_getReadableHourOnly_shouldReturnDateInStandardFormat() {
-        UserDefaults.standard.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
-        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
-        let result = Helper.getReadableHourOnly(date: date, timezoneIdentifier: "America/Chicago")
-        
-        XCTAssertEqual(result, "1 PM")
-        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
-    }
-    
-    func test_Helper_getReadableHourOnly_shouldReturnDateInMilitaryFormat() {
-        UserDefaults.standard.set(true, forKey: K.UserDefaultKeys.timePreferenceKey)
-        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
-        let result = Helper.getReadableHourOnly(date: date, timezoneIdentifier: "America/Chicago")
-        
-        XCTAssertEqual(result, "13:00")
-        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
-    }
-    
     func test_Helper_getDayOfWeekAndDate_shouldReturnDateInStandardFormat() {
         let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
         let result = Helper.getDayOfWeekAndDate(date: date, timezoneIdentifier: "America/Chicago")
         
         XCTAssertEqual(result, "Thursday, Jul 10")
-    }
-    
-    func test_Helper_getReadableHourAndMinute_shouldReturnDateInStandardFormat() {
-        UserDefaults.standard.set(false, forKey: K.UserDefaultKeys.timePreferenceKey)
-        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
-        let result = Helper.getReadableHourAndMinute(date: date, timezoneIdentifier: "America/Chicago")
-        
-        XCTAssertEqual(result, "1:00 PM")
-        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
-    }
-    
-    func test_Helper_getReadableHourAndMinute_shouldReturnDateInMilitaryFormat() {
-        UserDefaults.standard.set(true, forKey: K.UserDefaultKeys.timePreferenceKey)
-        let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
-        let result = Helper.getReadableHourAndMinute(date: date, timezoneIdentifier: "America/Chicago")
-        
-        XCTAssertEqual(result, "13:00")
-        UserDefaults.standard.removeObject(forKey: K.UserDefaultKeys.timePreferenceKey)
     }
     
     func test_Helper_getUnitLength_shouldReturnMiles() {

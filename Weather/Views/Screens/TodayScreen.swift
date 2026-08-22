@@ -119,7 +119,6 @@ struct TodayScreen: View {
                             .foregroundStyle(appStateViewModel.mixColorWith70PercentWhite(themeColor: currentWeather.backgroundColor))
                         
                         SunriseSunsetView(times: currentWeather.sunData, backgroundColor: currentWeather.backgroundColor)
-
                     }
                     .onChange(of: appStateViewModel.resetViews) { oldValue, newValue in
                         proxy.scrollTo(0)

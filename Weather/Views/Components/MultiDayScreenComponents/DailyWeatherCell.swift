@@ -12,7 +12,6 @@ struct DailyWeatherCell: View {
     @State private var showRest: Bool = false
     let daily: DailyWeatherModel
     let title: String?
-    let militaryTime = UserDefaults.standard.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
 
     var body: some View {
         VStack {
@@ -90,17 +89,9 @@ struct DailyWeatherCell: View {
                                 .frame(width: 40, height: 40)
                                 .shadow(color: .black.opacity(0.5), radius: 1, y: 1.7)
                             
-                            if militaryTime {
-                                let time = hour.readableDate
-                                let newTime = time.dropLast(3)
-                                Text(newTime)
-                                    .font(.callout)
-                                    .foregroundColor(.gray)
-                            } else {
-                                Text(hour.readableDate)
-                                    .font(.callout)
-                                    .foregroundColor(.gray)
-                            }
+                            Text(hour.readableDate)
+                                .font(.callout)
+                                .foregroundColor(.gray)
                         }
                     }
                 }

@@ -46,34 +46,33 @@ struct Helper {
         }
     }
     
-    static func isMilitaryTime(from defaults: UserDefaults = .standard) -> Bool {
-        defaults.bool(forKey: K.UserDefaultKeys.timePreferenceKey)
-    }
-    
     /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: Jul 7, 10:08 PM
+    /// Ex: Jul 7, 10:08 PM (Standard) or 7 Jul, 22:08 (Military / Locale specific)
     static func getReadableMainDate(date: Date, timezoneIdentifier: String) -> String {
-        let format = isMilitaryTime() ? K.TimeConstants.monthDayHourMinuteMilitary : K.TimeConstants.monthDayHourMinute
-        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
         
-        let readableDate = dateFormatter.string(from: date)
-        return readableDate
+        // 1. Get the date part (e.g., "Aug 22")
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
+        let datePart = dateFormatter.string(from: date)
+        
+        // 2. Get the time part (e.g., "17:49" or "5:49 PM")
+        dateFormatter.setLocalizedDateFormatFromTemplate("jmm")
+        let timePart = dateFormatter.string(from: date)
+        
+        // 3. Combine them with your preferred comma separator
+        return "\(datePart), \(timePart)"
     }
     
-    /// This function takes a date and returns a string with readable date data.
-    /// Ex: 7 AM or 07:00 for military
+    /// Ex: 7 AM (Standard) or 07:00 / 07 (Military / Locale specific)
     static func getReadableHourOnly(date: Date, timezoneIdentifier: String) -> String {
-        let format = isMilitaryTime() ? K.TimeConstants.hourAndMinuteMilitary : K.TimeConstants.hourOnly
-        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
-
-        let readableHour = dateFormatter.string(from: date)
-        return readableHour
+        
+        // "j" tells the system: "Give me just the hour field using the user's preferred 12/24 cycle."
+        dateFormatter.setLocalizedDateFormatFromTemplate("j")
+        
+        return dateFormatter.string(from: date)
     }
     
     /// This functions accepts a date and returns a string of that date in a readable format
@@ -88,15 +87,17 @@ struct Helper {
     }
     
     /// This function accepts a date and returns a string of that date in a readable format
-    ///  Ex: 1:07 PM or 13:07 for military
+    /// Ex: 1:07 PM or 13:07 for military
     static func getReadableHourAndMinute(date: Date?, timezoneIdentifier: String) -> String {
-        let format = isMilitaryTime() ? K.TimeConstants.hourAndMinuteMilitary : K.TimeConstants.hourAndMinute
+        guard let date = date else { return "-" }
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
         
-        guard let date = date else { return "-" }
+        // "jmm" tells the system: "I want the hour and minute."
+        // 'j' automatically adapts to 12-hour or 24-hour mode based on device settings.
+        dateFormatter.setLocalizedDateFormatFromTemplate("jmm")
+        
         return dateFormatter.string(from: date)
     }
     

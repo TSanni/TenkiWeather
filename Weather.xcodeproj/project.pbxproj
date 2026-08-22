@@ -55,7 +55,6 @@
 		838C0D3C2F946F4A007A12E7 /* PrecipitationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838C0D3B2F946F44007A12E7 /* PrecipitationSection.swift */; };
 		838C0D3E2F946F65007A12E7 /* PressureSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838C0D3D2F946F61007A12E7 /* PressureSection.swift */; };
 		838C0D402F946F7A007A12E7 /* SupportSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838C0D3F2F946F7A007A12E7 /* SupportSection.swift */; };
-		838C0D422F946F8C007A12E7 /* TimeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838C0D412F946F8C007A12E7 /* TimeSection.swift */; };
 		838C0D442F946F9A007A12E7 /* ExtraSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838C0D432F946F9A007A12E7 /* ExtraSection.swift */; };
 		838FAE0B2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */; };
 		838FAE0D2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838FAE0C2B5E753D00AAC0C1 /* ImmediateWeatherDetails.swift */; };
@@ -174,7 +173,6 @@
 		838C0D3B2F946F44007A12E7 /* PrecipitationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipitationSection.swift; sourceTree = "<group>"; };
 		838C0D3D2F946F61007A12E7 /* PressureSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureSection.swift; sourceTree = "<group>"; };
 		838C0D3F2F946F7A007A12E7 /* SupportSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportSection.swift; sourceTree = "<group>"; };
-		838C0D412F946F8C007A12E7 /* TimeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSection.swift; sourceTree = "<group>"; };
 		838C0D432F946F9A007A12E7 /* ExtraSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraSection.swift; sourceTree = "<group>"; };
 		838F7A382CAAD54B00607451 /* Locations3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Locations3.xcdatamodel; sourceTree = "<group>"; };
 		838FAE0A2B5E4ECC00AAC0C1 /* HourlyForecastTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastTileView.swift; sourceTree = "<group>"; };
@@ -392,7 +390,6 @@
 				838C0D3B2F946F44007A12E7 /* PrecipitationSection.swift */,
 				838C0D3D2F946F61007A12E7 /* PressureSection.swift */,
 				838C0D3F2F946F7A007A12E7 /* SupportSection.swift */,
-				838C0D412F946F8C007A12E7 /* TimeSection.swift */,
 				838C0D432F946F9A007A12E7 /* ExtraSection.swift */,
 			);
 			path = SettingsScreenComponents;
@@ -757,7 +754,6 @@
 				83CC448E2C5E8425003BC3D9 /* TodayWeatherModel+placeholder.swift in Sources */,
 				83FD51F72B87B56B008F875B /* UIColor+extension.swift in Sources */,
 				83C8472B2DF7A8F60099F083 /* RainView.swift in Sources */,
-				838C0D422F946F8C007A12E7 /* TimeSection.swift in Sources */,
 				8362F0B22DF49C5D00F51805 /* Color+extension.swift in Sources */,
 				838C0D3A2F946EC8007A12E7 /* DistanceAndSpeedSection.swift in Sources */,
 				8342EBCC30187B39005FE357 /* SunriseSunsetView.swift in Sources */,
@@ -969,7 +965,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Tenki Weather.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_ASSET_PATHS = "\"Weather/Preview Content\"";
 				DEVELOPMENT_TEAM = QNXV57SQKM;
 				ENABLE_PREVIEWS = YES;
@@ -991,7 +987,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.14.0;
+				MARKETING_VERSION = 4.15.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
@@ -1014,7 +1010,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Tenki Weather.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_ASSET_PATHS = "\"Weather/Preview Content\"";
 				DEVELOPMENT_TEAM = QNXV57SQKM;
 				ENABLE_PREVIEWS = YES;
@@ -1036,7 +1032,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.14.0;
+				MARKETING_VERSION = 4.15.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sannideveloper.tenkiweather;
 				PRODUCT_NAME = "Tenki Weather";
