@@ -965,7 +965,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Tenki Weather.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_ASSET_PATHS = "\"Weather/Preview Content\"";
 				DEVELOPMENT_TEAM = QNXV57SQKM;
 				ENABLE_PREVIEWS = YES;
@@ -1010,7 +1010,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Tenki Weather.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_ASSET_PATHS = "\"Weather/Preview Content\"";
 				DEVELOPMENT_TEAM = QNXV57SQKM;
 				ENABLE_PREVIEWS = YES;

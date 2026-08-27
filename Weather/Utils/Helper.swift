@@ -18,13 +18,13 @@ struct Helper {
     
     /// Takes a Double, removes floating point numbers, then converts to and returns a String
     static func convertNumberToZeroFloatingPoints(number: Double) -> String {
-        let convertedStringNumber = String(format: "%.0f", number)
+        let convertedStringNumber = String(format: K.FloatingPrecision.zeroFloatingPoints, number)
         return convertedStringNumber
     }
     
     /// Takes a Double, removes floating point numbers, then converts to and returns a String
     static func convertNumberToTwoFloatingPoints(number: Double) -> String {
-        let convertedStringNumber = String(format: "%.2f", number)
+        let convertedStringNumber = String(format: K.FloatingPrecision.twoFloatingPoints, number)
         return convertedStringNumber
     }
     
@@ -47,22 +47,34 @@ struct Helper {
     }
     
     /// This function accepts a date and returns a string of that date in a readable format
-    /// Ex: Jul 7, 10:08 PM (Standard) or 7 Jul, 22:08 (Military / Locale specific)
-    static func getReadableMainDate(date: Date, timezoneIdentifier: String) -> String {
+    /// Ex: Jul 7, 10:08 PM (Standard) or 07 Jul, 22:08 (Military / Locale specific)
+    static func getReadableMainDate(date: Date, timezoneIdentifier: String, locale: Locale = .current) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
+        dateFormatter.locale = locale // Explicitly assign the locale to the formatter
         
-        // 1. Get the date part (e.g., "Aug 22")
-        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
+        // Check if the user's device is currently set to 24-hour time
+        let localeFormat = DateFormatter.dateFormat(fromTemplate: K.TimeConstants.hourOnly, options: 0, locale: locale) ?? ""
+        let is24Hour = !localeFormat.contains("a")
+        
+        // 1. Get the date part based on the clock setting using explicit formats
+        if is24Hour {
+            // Forces Day-first with leading zero (e.g., "22 Aug")
+            dateFormatter.dateFormat = K.TimeConstants.dayAndMonth
+        } else {
+            // Forces Month-first (e.g., "Aug 22")
+            dateFormatter.dateFormat = K.TimeConstants.monthAndDay
+        }
         let datePart = dateFormatter.string(from: date)
         
-        // 2. Get the time part (e.g., "17:49" or "5:49 PM")
-        dateFormatter.setLocalizedDateFormatFromTemplate("jmm")
+        // 2. Get the time part (automatically respects 12/24 hour settings)
+        dateFormatter.setLocalizedDateFormatFromTemplate(K.TimeConstants.timeOnly)
         let timePart = dateFormatter.string(from: date)
         
-        // 3. Combine them with your preferred comma separator
+        // 3. Combine them with comma separator
         return "\(datePart), \(timePart)"
     }
+
     
     /// Ex: 7 AM (Standard) or 07:00 / 07 (Military / Locale specific)
     static func getReadableHourOnly(date: Date, timezoneIdentifier: String) -> String {
@@ -70,7 +82,7 @@ struct Helper {
         dateFormatter.timeZone = TimeZone(identifier: timezoneIdentifier)
         
         // "j" tells the system: "Give me just the hour field using the user's preferred 12/24 cycle."
-        dateFormatter.setLocalizedDateFormatFromTemplate("j")
+        dateFormatter.setLocalizedDateFormatFromTemplate(K.TimeConstants.hourOnly)
         
         return dateFormatter.string(from: date)
     }
@@ -96,7 +108,7 @@ struct Helper {
         
         // "jmm" tells the system: "I want the hour and minute."
         // 'j' automatically adapts to 12-hour or 24-hour mode based on device settings.
-        dateFormatter.setLocalizedDateFormatFromTemplate("jmm")
+        dateFormatter.setLocalizedDateFormatFromTemplate(K.TimeConstants.timeOnly)
         
         return dateFormatter.string(from: date)
     }

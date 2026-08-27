@@ -101,6 +101,56 @@ final class HelperClassTests: XCTestCase {
         XCTAssertEqual(result, UnitTemperature.kelvin)
     }
     
+    func test_Helper_getReadableMainDate_showsStandardTime() {
+        // Given
+        var components = DateComponents()
+        components.year = 2025
+        components.month = 7
+        components.day = 17
+        components.hour = 7
+        components.minute = 15
+        
+        // Force a 12-hour standard locale
+        let standardLocale = Locale(identifier: "en_US")
+        
+        guard let particularDate = Calendar.current.date(from: components) else {
+            XCTFail("Could not create date from components")
+            return
+        }
+        
+        // When
+        let result = Helper.getReadableMainDate(date: particularDate, timezoneIdentifier: "America/Chicago", locale: standardLocale)
+        
+        // Then
+        // Tip: Copy/paste the exact console output if the hidden Unicode space causes a mismatch
+        XCTAssertEqual(result, "Jul 17, 7:15 AM")
+    }
+
+    func test_Helper_getReadableMainDate_showsMilitaryTime() {
+        // Given
+        var components = DateComponents()
+        components.year = 2025
+        components.month = 7
+        components.day = 17
+        components.hour = 22 // 10 PM
+        components.minute = 8
+        
+        // Force a 24-hour standard locale (Great Britain)
+        let militaryLocale = Locale(identifier: "en_GB")
+        
+        guard let particularDate = Calendar.current.date(from: components) else {
+            XCTFail("Could not create date from components")
+            return
+        }
+        
+        // When
+        let result = Helper.getReadableMainDate(date: particularDate, timezoneIdentifier: "America/Chicago", locale: militaryLocale)
+        
+        // Then
+        XCTAssertEqual(result, "17 Jul, 22:08")
+    }
+
+    
     func test_Helper_getDayOfWeekAndDate_shouldReturnDateInStandardFormat() {
         let date = ISO8601DateFormatter().date(from: "2025-07-10T18:00:00Z")!
         let result = Helper.getDayOfWeekAndDate(date: date, timezoneIdentifier: "America/Chicago")

@@ -40,12 +40,15 @@ enum K {
         static let tenMinutesInSeconds = 60 * 10
         static let fifteenHours: Int = 15
         static let twentyFourHours: Int = 24
-        static let hourOnly = "h a" // Ex) 7 AM
-        static let hourOnlyMilitary = "HH" // Ex) 13
-        static let monthDayHourMinute = "MMM dd, h:mm a" // Ex: Jul 7, 10:08 PM
-        static let monthDayHourMinuteMilitary = "dd MMM, HH:mm" // Ex: 10 Jul, 13:08
-        static let dayOfWeekAndDate = "EEEE, MMM d" // Ex: Tuesday, Jul 7
-        static let hourAndMinute = "h:mm a" // Ex: 12:07 PM
-        static let hourAndMinuteMilitary = "HH:mm" // Ex: 12:07 
+        static let monthAndDay = "MMM d"              // (e.g., "Aug 22")
+        static let dayAndMonth = "dd MMM"             // (e.g., "22 Aug")
+        static let dayOfWeekAndDate = "EEEE, MMM dd" // (e.g., "Tuesday, Jul 7")
+        static let timeOnly = "jmm"                  // (e.g., "17:49" or "5:49 PM")
+        static let hourOnly = "j"                    // "j" translates to "h a" or "H" depending on user clock settings
+    }
+    
+    struct FloatingPrecision {
+        static let zeroFloatingPoints = "%.0f"
+        static let twoFloatingPoints = "%.2f"
     }
 }
